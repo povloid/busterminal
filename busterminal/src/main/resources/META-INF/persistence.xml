@@ -4,6 +4,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="voyager" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>pk.home.busterminal.domain.security.UserAccount</class>
+		<class>pk.home.busterminal.domain.security.UserAuthority</class>
+		<class>pk.home.busterminal.domain.security.UserGroup</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/busterminal" />
 			<property name="javax.persistence.jdbc.user" value="busterminal" />
