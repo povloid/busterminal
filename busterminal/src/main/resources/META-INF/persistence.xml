@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="voyager" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/busterminal" />
+			<property name="javax.persistence.jdbc.user" value="busterminal" />
+			<property name="javax.persistence.jdbc.password" value="paradox" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="hibernate.show_sql" value="true" />
+<!-- 			<property name="hibernate.format_sql" value="true" /> -->
+<!-- 			<property name="hibernate.use_sql_comments" value="true" /> -->
+			
+
+
+<!-- 			<property name="hibernate.max_fetch_depth" value="4" /> -->
+			<property name="hibernate.generate_statistics" value="true" />
+			<property name="hibernate.bytecode.use_reflection_optimizer"
+				value="true" />
+<!-- 			<property name="hibernate.default_batch_fetch_size" value="16" /> -->
+			<property name="hibernate.jdbc.use_streams_for_binary"
+				value="true" />
+<!-- 			<property name="hibernate.jdbc.batch_size" value="2000" /> -->
+
+			<property name="hibernate.cache.use_structured_entries"
+				value="true" />
+<!-- 			<property name="hibernate.cache.use_second_level_cache" -->
+<!-- 				value="true" /> -->
+<!-- 			<property name="hibernate.cache.use_query_cache" value="true" /> -->
+
+
+
+			<!-- Hibernate search -->
+			<property name="hibernate.search.default.directory_provider"
+				value="org.hibernate.search.store.FSDirectoryProvider" />
+			<property name="hibernate.search.default.indexBase" value="/opt/vta-data/lucene/indexes" />
+			<property name="hibernate.search.default.batch.merge_factor"
+				value="10" />
+			<property name="hibernate.search.default.batch.max_buffered_docs"
+				value="10" />
+
+
+
+
+		</properties>
+	</persistence-unit>
+</persistence>
