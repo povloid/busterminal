@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,12 +29,12 @@ public class Seat implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Bus bus;
 	
-	@NotNull
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Schema schema;
 	
 	@NotNull

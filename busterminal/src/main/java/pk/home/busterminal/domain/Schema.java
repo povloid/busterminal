@@ -3,6 +3,7 @@ package pk.home.busterminal.domain;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.JoinColumn;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +32,8 @@ public class Schema implements Serializable {
 	 */
 	private static final long serialVersionUID = 4574079630536468670L;
 
-	@ManyToOne()
+	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Bus bus;
 
 	@OneToMany(mappedBy = "schema")
