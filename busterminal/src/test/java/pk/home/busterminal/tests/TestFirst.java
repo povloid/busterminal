@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,6 +24,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
 public class TestFirst {
 	
+	
+	
 	/**
 	 * The Spring application context.
 	 * 
@@ -39,6 +42,8 @@ public class TestFirst {
 		setupRequestContext();
 	}
 
+	
+	
 	/**
 	 * Sets Up the Request context
 	 * 
@@ -53,8 +58,14 @@ public class TestFirst {
 	
 	
 	@Test
+	@Rollback(true)
 	public void test0()  throws Exception{
 		System.out.println("Run test 0");
 	}
+	
+	
+	
+	
+	
 	
 }
