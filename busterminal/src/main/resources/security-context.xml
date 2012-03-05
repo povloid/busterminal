@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- <security:global-method-security secured-annotations="enabled" /> -->
+
+
+	<!-- <security:http auto-config="true"> -->
+	<!-- Restrict URLs based on role -->
+	<!-- <security:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" 
+		/> -->
+	<!-- <security:intercept-url pattern="/logoutSuccess*" access="IS_AUTHENTICATED_ANONYMOUSLY" 
+		/> -->
+
+	<!-- <security:intercept-url pattern="/css/main.css" access="IS_AUTHENTICATED_ANONYMOUSLY" 
+		/> -->
+	<!-- <security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY" 
+		/> -->
+
+	<!-- <security:intercept-url pattern="/**" access="ROLE_USER" /> -->
+
+	<!-- Override default login and logout pages -->
+	<!-- <security:form-login login-page="/login.html" -->
+	<!-- login-processing-url="/loginProcess" -->
+	<!-- default-target-url="/index.jsp" -->
+	<!-- authentication-failure-url="/login.html?login_error=1" /> -->
+	<!-- <security:logout logout-url="/logout" logout-success-url="/logoutSuccess.html" 
+		/> -->
+	<!-- </security:http> -->
+
+	<!-- <security:authentication-provider> -->
+	<!-- <security:jdbc-user-service data-source-ref="dataSource" /> -->
+	<!-- </security:authentication-provider> -->
+
+
+	<!-- SPRING SECURITY **************************************************************************************** -->
+	<security:global-method-security
+		access-decision-manager-ref="accessDecisionManager"
+		secured-annotations="enabled" />
+
+
+
+	<security:http auto-config='true'
+		access-decision-manager-ref="accessDecisionManager">
+		<security:remember-me key="busterminal"
+			user-service-ref="busTerminalUserDetailsService" />
+
+		<security:intercept-url pattern="/faces/jsf/control/**"
+			access="ROLE_VIEWER" requires-channel="https" />
+
+		<security:anonymous username="guest"
+			granted-authority="ROLE_ANONYMOUS" />
+		<security:intercept-url pattern="/**"
+			access="ROLE_ANONYMOUS" requires-channel="any" />
+
+		<security:form-login login-processing-url="/j_spring_security_check"
+			login-page="/faces/jsf/login.xhtml" default-target-url="/faces/jsf/control/index.xhtml"
+			authentication-failure-url="/faces/jsf/login.xhtml" />
+
+		<security:logout invalidate-session="true"
+			logout-success-url="/faces/jsf/login.xhtml" logout-url="/j_spring_security_logout" />
+
+		<!-- Uncomment to limit the number of sessions a user can have -->
+		<security:session-management
+			session-fixation-protection="migrateSession">
+			<security:concurrency-control
+				max-sessions="1" error-if-maximum-exceeded="false" />
+			<!-- error-if-maximum-exceeded="true" не даст совершить второй вход в 
+				систему -->
+		</security:session-management>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:password-encoder hash="sha" />
+			<security:user-service>
+				<security:user name="superuser"
+					password="460555704309b621576728cab442c5df8233ddbd" authorities="ROLE_SUPERUSER" />
+			</security:user-service>
+		</security:authentication-provider>
+		<security:authentication-provider
+			user-service-ref="busTerminalUserDetailsService">
+			<security:password-encoder ref="passwordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"
+		id="passwordEncoder" />
+
+	<bean id="loggerListener"
+		class="org.springframework.security.authentication.event.LoggerListener" />
+
+
+
+	<bean id="roleVoter"
+		class="org.springframework.security.access.vote.RoleHierarchyVoter">
+		<constructor-arg ref="roleHierarchy" />
+	</bean>
+
+	<bean id="roleHierarchy"
+		class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+		<property name="hierarchy">
+			<value>
+				ROLE_SUPERUSER > ROLE_ADMIN
+				ROLE_ADMIN > ROLE_USER
+				ROLE_USER >
+				ROLE_USER_META_EDITOR
+				ROLE_USER_META_EDITOR > ROLE_VIEWER
+				ROLE_VIEWER
+				> ROLE_ANONYMOUS
+			</value>
+		</property>
+	</bean>
+
+
+
+	<bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+			</list>
+		</property>
+	</bean>
+
+
+
+</beans>

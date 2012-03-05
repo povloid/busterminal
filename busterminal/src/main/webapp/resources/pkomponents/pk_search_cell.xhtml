@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+<cc:interface>
+
+	<cc:attribute name="row" />
+	<cc:attribute name="show_meta_hg" default="false"
+		type="java.lang.Boolean" />
+</cc:interface>
+<cc:implementation>
+
+
+	<h:panelGroup rendered="#{row.e == 'Location'}">
+		<font color="black"><b>Местоположение:</b></font>
+		<h:outputLink
+			value="#{request.contextPath}/faces/jsf/vta/search/countries.xhtml">
+			<f:param name="lId" value="#{cc.attrs.row.entity.id}" />
+			<b><h:outputText
+					value="#{cc.attrs.row.entity.ltype.keyName}: #{cc.attrs.row.entity.keyName}" /></b>
+			<br />
+		</h:outputLink>
+		<b><h:outputText value="Адрес: " /></b>
+		<h:outputText
+			value="#{cc.attrs.row.entity.titlesPath}  #{cc.attrs.row.entity.ltype.keyName}: #{cc.attrs.row.entity.keyName}" />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+
+
+	<h:panelGroup rendered="#{row.e == 'Hotel'}">
+		<font color="black"><b><h:outputText value="Отель: " /></b></font>
+
+		<h:outputLink
+			value="#{request.contextPath}/faces/jsf/vta/search/hotel.xhtml">
+			<f:param name="id" value="#{cc.attrs.row.entity.id}" />
+			<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /> </b>
+		</h:outputLink>
+		<font color="#ff6600" style="font-size: large">Звезд: <b><h:outputText
+					value="#{cc.attrs.row.entity.rating}" /></b></font>
+		<br />
+		<b><h:outputText value="Адрес: " /></b>
+		<h:outputText
+			value="#{cc.attrs.row.entity.location.titlesPath}  #{cc.attrs.row.entity.location.ltype.keyName}: #{cc.attrs.row.entity.location.keyName}" />
+		<br />
+
+		<b><h:outputText value="Типы отдыха: " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.resortTypesAsText}" />
+		<br />
+		<b><h:outputText value="Береговая линия: " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.beachline}" />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{row.e == 'Visa'}">
+		<font color="black"><b>Виза:</b></font>
+		<h:outputLink
+			value="#{request.contextPath}/faces/jsf/vta/search/visa.xhtml">
+			<f:param name="id" value="#{cc.attrs.row.entity.id}" />
+			<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+			<br />
+		</h:outputLink>
+
+		<b><h:outputText value="Страна: " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.location.title}" />
+		<br />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+
+	<h:panelGroup rendered="#{row.e == 'ResortType'}">
+		<font color="black"><b>Тип отдыха:</b></font>
+		<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+		<br />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{row.e == 'LType'}">
+		<font color="black"><b>Тип местоположения:</b></font>
+		<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+		<br />
+
+		<b>Супертип:</b>
+		<h:outputText value="#{cc.attrs.row.entity.lSType}" />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+
+	<h:panelGroup rendered="#{row.e == 'News'}">
+		<font color="black"><b>Новость:</b></font>
+		<h:outputLink
+			value="#{request.contextPath}/faces/jsf/vta/news/new.xhtml">
+			<f:param name="sKey" value="#{cc.attrs.row.entity.id}" />
+			<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+			<br />
+		</h:outputLink>
+
+		<b><h:outputText value="Дата : " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.cdate}" />
+		<br />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+
+	<h:panelGroup rendered="#{row.e == 'Announce'}">
+		<font color="black"><b>Объявление:</b></font>
+		<h:outputLink
+			value="#{request.contextPath}/faces/jsf/vta/news/announce.xhtml">
+			<f:param name="sKey" value="#{cc.attrs.row.entity.id}" />
+			<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+			<br />
+		</h:outputLink>
+
+		<b><h:outputText value="Дата создания: " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.cdate}" />
+		<b><h:outputText value=" - публиковать с " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.showBdate}" />
+		<b><h:outputText value=" до " /></b>
+		<h:outputText value="#{cc.attrs.row.entity.showEdate}" />
+		<br />
+
+
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+
+
+	<h:panelGroup rendered="#{row.e == 'AnyText'}">
+		<font color="black"><b>Статический текст:</b></font>
+		<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+		<br />
+
+		<p:separator rendered="#{cc.attrs.row.haveHW}" />
+		<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+			rendered="#{cc.attrs.row.haveHW}" />
+
+		<p:separator
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+			rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+	</h:panelGroup>
+
+
+	<h:panelGrid rendered="#{row.e == 'PublicImage'}" columns="2"
+		styleClass="actions">
+		<p:graphicImage
+			value="/mvc/image/#{cc.attrs.row.entity.image.filename}"
+			title="Title" alt="Image Description" width="80px" />
+
+		<h:panelGroup>
+			<font color="black"><b>Картинка: </b></font>
+			<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+			<br />
+			<pk:pk_table_image_cell
+				filename="#{cc.attrs.row.entity.image.filename}" />
+
+
+			<p:separator rendered="#{cc.attrs.row.haveHW}" />
+			<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+				rendered="#{cc.attrs.row.haveHW}" />
+
+			<p:separator
+				rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+			<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+				rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		</h:panelGroup>
+
+	</h:panelGrid>
+	
+	<h:panelGrid rendered="#{row.e == 'FileResourse'}" columns="2"
+		styleClass="actions">
+
+		<h:panelGroup>
+			<font color="black"><b>Фаил: </b></font>
+			<b><h:outputText value="#{cc.attrs.row.entity.keyName}" /></b>
+			<br />
+			<pk:pk_table_file_cell
+				filename="#{cc.attrs.row.entity.filename}" />
+
+
+			<p:separator rendered="#{cc.attrs.row.haveHW}" />
+			<h:outputText value="#{cc.attrs.row.highlightText}" escape="false"
+				rendered="#{cc.attrs.row.haveHW}" />
+
+			<p:separator
+				rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+			<h:outputText value="#{cc.attrs.row.metatexts}" escape="false"
+				rendered="#{cc.attrs.show_meta_hg and cc.attrs.row.haveMeta}" />
+		</h:panelGroup>
+
+	</h:panelGrid>
+
+
+
+
+</cc:implementation>
+</html>

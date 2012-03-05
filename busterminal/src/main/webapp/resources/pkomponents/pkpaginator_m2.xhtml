@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+	<cc:attribute name="label1" default="label1"></cc:attribute>
+	<cc:attribute name="page" required="true"></cc:attribute>
+	<cc:attribute name="buttons" required="true"></cc:attribute>
+	<cc:attribute name="pages" required="true"></cc:attribute>
+	<cc:attribute name="rows" required="true"></cc:attribute>
+	<cc:attribute name="count" required="true"></cc:attribute>
+
+</cc:interface>
+<cc:implementation>
+
+	<h:panelGrid columns="2" style="text-align: left;">
+		<h:panelGroup>
+
+			<p:commandButton title="first" ajax="false" icon="ui-icon rewnd16"
+				disabled="#{cc.attrs.page == 1}">
+				<f:param name="ppage" value="#{1}" />
+			</p:commandButton>
+			<p:commandButton title="prev page" ajax="false"
+				icon="ui-icon skipb16" disabled="#{cc.attrs.page == 1}">
+				<f:param name="ppage" value="#{cc.attrs.page - 1}" />
+			</p:commandButton>
+
+
+			<ui:repeat var="button" value="#{cc.attrs.buttons}">
+
+				<p:commandButton title="Goto page #{button.caption}"
+					value="#{button.caption}" ajax="false"
+					disabled="#{cc.attrs.page == button.ppage}">
+					<f:param name="ppage" value="#{button.ppage}" />
+				</p:commandButton>
+			</ui:repeat>
+
+			<p:commandButton title="next page" ajax="false"
+				icon="ui-icon skipf16"
+				disabled="#{cc.attrs.page == cc.attrs.pages}">
+				<f:param name="ppage" value="#{cc.attrs.page + 1}" />
+			</p:commandButton>
+			<p:commandButton title="last" ajax="false" icon="ui-icon fastf16"
+				disabled="#{cc.attrs.page == cc.attrs.pages}">
+				<f:param name="ppage" value="#{cc.attrs.pages}" />
+			</p:commandButton>   
+			<br/>
+			<div style="width: 90%" align="center" >
+			<font size="2">
+					Страница <h:outputText value="#{cc.attrs.page}" /> из <h:outputText value="#{cc.attrs.pages}" />
+				    / Всего: <h:outputText value="#{cc.attrs.count}" />
+				    </font>
+				    </div>
+		</h:panelGroup>
+
+	</h:panelGrid>
+
+
+</cc:implementation>
+</html>

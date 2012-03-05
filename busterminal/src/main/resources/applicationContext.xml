@@ -71,6 +71,6 @@
 <!-- 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
 
 
-<!-- 	<import resource="classpath:security-context.xml" /> -->
+	<import resource="classpath:security-context.xml" />
 
 </beans>

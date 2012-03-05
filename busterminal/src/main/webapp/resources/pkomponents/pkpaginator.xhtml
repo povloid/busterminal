@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+	<cc:attribute name="label1" default="label1"></cc:attribute>
+
+	<cc:attribute name="page" required="true"></cc:attribute>
+
+	<cc:attribute name="buttons" required="true"></cc:attribute>
+
+
+	<cc:attribute name="pages" required="true"></cc:attribute>
+	<cc:attribute name="rows" required="true"></cc:attribute>
+	<cc:attribute name="count" required="true"></cc:attribute>
+
+
+	<!-- 	<cc:attribute name="rowsperpage" required="true"></cc:attribute> -->
+
+</cc:interface>
+<cc:implementation>
+
+
+
+	<script type="text/javascript">
+		function setprows(sprows) {
+			window.location.search = '?prows='+sprows.value;
+		}
+	</script>
+
+
+	<h:panelGrid columns="2" style="text-align: left;">
+
+
+		<p:selectOneMenu id="sprows" value="#{cc.attrs.rows}"
+			onchange="setprows(this);" style="margin-top: 5px">
+			<f:selectItem itemLabel="#{cc.attrs.rows}"
+				itemValue="#{cc.attrs.rows}" />
+			<f:selectItem itemLabel="5" itemValue="5" />
+			<f:selectItem itemLabel="10" itemValue="10" />
+			<f:selectItem itemLabel="15" itemValue="15" />
+			<f:selectItem itemLabel="20" itemValue="20" />
+			<f:selectItem itemLabel="30" itemValue="30" />
+			<f:selectItem itemLabel="50" itemValue="50" />
+		</p:selectOneMenu>
+
+		<h:panelGroup>
+
+			<p:commandButton title="first" ajax="false" icon="ui-icon rewnd16"
+				disabled="#{cc.attrs.page == 1}">
+				<f:param name="ppage" value="#{1}" />
+			</p:commandButton>
+			<p:commandButton title="prev page" ajax="false"
+				icon="ui-icon skipb16" disabled="#{cc.attrs.page == 1}">
+				<f:param name="ppage" value="#{cc.attrs.page - 1}" />
+			</p:commandButton>
+
+
+			<ui:repeat var="button" value="#{cc.attrs.buttons}">
+
+				<p:commandButton title="Goto page #{button.caption}"
+					value="#{button.caption}" ajax="false"
+					disabled="#{cc.attrs.page == button.ppage}">
+					<f:param name="ppage" value="#{button.ppage}" />
+				</p:commandButton>
+			</ui:repeat>
+
+			<p:commandButton title="next page" ajax="false"
+				icon="ui-icon skipf16"
+				disabled="#{cc.attrs.page == cc.attrs.pages}">
+				<f:param name="ppage" value="#{cc.attrs.page + 1}" />
+			</p:commandButton>
+			<p:commandButton title="last" ajax="false" icon="ui-icon fastf16"
+				disabled="#{cc.attrs.page == cc.attrs.pages}">
+				<f:param name="ppage" value="#{cc.attrs.pages}" />
+			</p:commandButton>   
+					Page <h:outputText value="#{cc.attrs.page}" /> of Pages <h:outputText value="#{cc.attrs.pages}" />
+				    /Rows: <h:outputText value="#{cc.attrs.count}" />
+		</h:panelGroup>
+
+	</h:panelGrid>
+
+
+</cc:implementation>
+</html>

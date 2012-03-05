@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+
+	<cc:attribute name="add_action"
+		method-signature="java.lang.String action()" />
+		
+	<cc:attribute name="edit_action"
+		method-signature="java.lang.String action()" />
+	<cc:attribute name="edit_action_and_close"
+		method-signature="java.lang.String action()" />	
+		
+	<cc:attribute name="del_action"
+		method-signature="java.lang.String action()" />
+
+	<cc:attribute name="add_view" type="java.lang.Boolean" />
+	<cc:attribute name="edit_view" type="java.lang.Boolean" />
+	<cc:attribute name="del_view" type="java.lang.Boolean" />
+
+
+</cc:interface>
+<cc:implementation>
+	<p:commandButton icon="ui-icon add" ajax="false" value="Добавить"
+		rendered="#{cc.attrs.add_view}" action="#{cc.attrs.add_action}"
+		title="Добавить запись в базу данных" />
+
+	<p:commandButton icon="ui-icon edit" ajax="false" value="Обновить и закрыть"
+		id="editButton" rendered="#{cc.attrs.edit_view}"
+		action="#{cc.attrs.edit_action_and_close}" title="Обновить запись в базе данных и закрыть диалог" />
+
+	<p:commandButton icon="ui-icon edit" ajax="false" value="Обновить"
+		id="editButtonAndClose" rendered="#{cc.attrs.edit_view}"
+		action="#{cc.attrs.edit_action}" title="Обновить запись в базе данных" />
+
+	<p:commandButton icon="ui-icon del" ajax="false" value="Удалить"
+		rendered="#{cc.attrs.del_view}" action="#{cc.attrs.del_action}"
+		title="Удалить запись из базы данных" />
+</cc:implementation>
+</html>

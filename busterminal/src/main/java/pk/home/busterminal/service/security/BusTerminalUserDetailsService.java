@@ -19,7 +19,8 @@ public class BusTerminalUserDetailsService implements UserDetailsService{
 	
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        UserDetails userDetails = userAccountDAO.executeQueryByNameSingleResult("UserAccount.findByUsername",username);
+		
+        UserDetails userDetails = userAccountDAO.executeQueryByNameSingleResult("UserAccount.findByUsername",username);        
         return userDetails;
     }
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+<cc:interface>
+
+	<cc:attribute name="row" />
+
+</cc:interface>
+<cc:implementation>
+
+
+	<h:panelGroup rendered="#{row.e == 'Location'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/location?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/location?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{row.e == 'Hotel'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/hotel?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/hotel?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{row.e == 'Visa'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/visa?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/visa?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{row.e == 'LType'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/ltype?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/ltype?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{row.e == 'ResortType'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/resortType?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/resortType?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+
+
+	<h:panelGroup rendered="#{row.e == 'News'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/news?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/news?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{row.e == 'Announce'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/announce?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/announce?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+	
+	
+	<h:panelGroup rendered="#{row.e == 'AnyText'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/anyText?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/anyText?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{row.e == 'PublicImage'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/publicImage?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/publicImage?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{row.e == 'FileResourse'}">
+		<pk:pktable_crud_column_buttons
+			edit_url="#{request.contextPath}/mvc/fileResourse?id=#{cc.attrs.row.entity.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/index.xhtml"
+			del_url="#{request.contextPath}/mvc/fileResourse?id=#{cc.attrs.row.entity.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/index.xhtml"
+			show_view_button="false" row="#{cc.attrs.row.entity}" />
+	</h:panelGroup>
+
+
+
+</cc:implementation>
+</html>

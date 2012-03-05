@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  User: Dmitry Leontyev
+  Date: 12.12.10
+  Time: 15:09
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Вход в систему</title>
+</h:head>
+<h:body style="background-color: #3366CC;">
+
+	<h:form prependId="false">
+
+		<div
+			style='position: absolute; left: 25%; top: 25%; border: 1px solid #ccc;'>
+			<!-- 			<h:messages /> -->
+
+			<p:panel header="Вход в систему управления VTA-CONTROL"
+				style="width: 400px; display: table-cell; vertical-align: middle;">
+				<p:messages showDetail="true" autoUpdate="true" />
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/images/icons/user_login.png"></h:graphicImage>
+
+					<h:panelGrid columns="2">
+						<f:validateBean>
+							<h:outputLabel value="Пользователь:" />
+							<p:inputText id="j_username" required="true"
+								requiredMessage="Необходимо ввести имя пользователя"
+								value="#{authController.user}">
+							</p:inputText>
+
+							<h:outputLabel value="Пароль:" />
+							<p:inputText type="password" id="j_password" required="true"
+								value="#{authController.password}"
+								requiredMessage="Необходимо ввести пароль">
+							</p:inputText>
+
+							<h:outputLabel value="Запомнить" />
+							<p:selectBooleanCheckbox id="_spring_security_remember_me0"
+								onchange="toggle(this)" />
+
+						</f:validateBean>
+
+						<h:outputLabel value="" />
+
+
+						<h:panelGroup style="width: 100%; text-align: right ; botder: 4px">
+							<div style="width: 100%; text-align: right; botder: 4px">
+								<br /> <br /> <br /> <br />
+								<p:commandButton type="submit"
+									action="#{authController.doLogin}" value="Войти" ajax="false"
+									id="login">
+
+								</p:commandButton>
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+
+			<script type="text/javascript">
+				function toggle(chkbox) {
+					val = chkbox.checked;
+					
+					if(val == true){
+						document.getElementById('_spring_security_remember_me').value = 'on';
+					} else {
+						document.getElementById('_spring_security_remember_me').value = 'off';
+					}
+					
+				}
+			</script>
+
+			<input type="hidden" id="_spring_security_remember_me" name="_spring_security_remember_me" />
+
+		</div>
+
+	</h:form>
+</h:body>
+</html>
