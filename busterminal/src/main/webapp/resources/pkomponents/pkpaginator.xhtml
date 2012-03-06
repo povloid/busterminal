@@ -8,36 +8,18 @@
 	xmlns:p="http://primefaces.org/ui">
 <cc:interface>
 	<cc:attribute name="label1" default="label1"></cc:attribute>
-
 	<cc:attribute name="page" required="true"></cc:attribute>
-
 	<cc:attribute name="buttons" required="true"></cc:attribute>
-
-
 	<cc:attribute name="pages" required="true"></cc:attribute>
 	<cc:attribute name="rows" required="true"></cc:attribute>
 	<cc:attribute name="count" required="true"></cc:attribute>
-
-
-	<!-- 	<cc:attribute name="rowsperpage" required="true"></cc:attribute> -->
-
 </cc:interface>
 <cc:implementation>
 
 
+	<h:panelGrid columns="2" >
 
-	<script type="text/javascript">
-		function setprows(sprows) {
-			window.location.search = '?prows='+sprows.value;
-		}
-	</script>
-
-
-	<h:panelGrid columns="2" style="text-align: left;">
-
-
-		<p:selectOneMenu id="sprows" value="#{cc.attrs.rows}"
-			onchange="setprows(this);" style="margin-top: 5px">
+		<p:selectOneMenu id="sprows" value="#{cc.attrs.rows}">
 			<f:selectItem itemLabel="#{cc.attrs.rows}"
 				itemValue="#{cc.attrs.rows}" />
 			<f:selectItem itemLabel="5" itemValue="5" />
@@ -46,7 +28,11 @@
 			<f:selectItem itemLabel="20" itemValue="20" />
 			<f:selectItem itemLabel="30" itemValue="30" />
 			<f:selectItem itemLabel="50" itemValue="50" />
+			
+			<p:ajax event="change" update="@form"/>
 		</p:selectOneMenu>
+
+
 
 		<h:panelGroup>
 
@@ -70,15 +56,15 @@
 			</ui:repeat>
 
 			<p:commandButton title="next page" ajax="false"
-				icon="ui-icon skipf16"
-				disabled="#{cc.attrs.page == cc.attrs.pages}">
+				icon="ui-icon skipf16" disabled="#{cc.attrs.page == cc.attrs.pages}">
 				<f:param name="ppage" value="#{cc.attrs.page + 1}" />
 			</p:commandButton>
 			<p:commandButton title="last" ajax="false" icon="ui-icon fastf16"
 				disabled="#{cc.attrs.page == cc.attrs.pages}">
 				<f:param name="ppage" value="#{cc.attrs.pages}" />
 			</p:commandButton>   
-					Page <h:outputText value="#{cc.attrs.page}" /> of Pages <h:outputText value="#{cc.attrs.pages}" />
+					Page <h:outputText value="#{cc.attrs.page}" /> of Pages <h:outputText
+				value="#{cc.attrs.pages}" />
 				    /Rows: <h:outputText value="#{cc.attrs.count}" />
 		</h:panelGroup>
 
