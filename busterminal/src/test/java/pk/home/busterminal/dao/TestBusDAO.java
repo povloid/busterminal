@@ -408,5 +408,30 @@ public class TestBusDAO {
 		assertTrue(bus3 == null);
 
 	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------
+	
+	@Test
+	@Rollback(true)
+	public void insertEntities() throws Exception {
+
+		long index = dataStore.count();
+		for (int i = 200; i < 210; i++) {
+			Bus bus1 = new Bus();
+			bus1.setKeyName("key " + i);
+			bus1.setGosNum("H" + i + "TRZ");
+			dataStore.persist(bus1);
+			index++;
+		}
+
+		List<Bus> list = dataStore.getAllEntities();
+
+		assertTrue(list != null);
+		assertTrue(list.size() > 0);
+		assertTrue(list.size() == index);
+	}
+	
 
 }
