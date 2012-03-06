@@ -41,4 +41,16 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 	}
 	
 	
+	public String add(){
+		return "add";
+	}
+	
+	public String edit(){
+		return "edit";
+	}
+	
+	public String del(){
+		return "del";
+	}
+	
 }

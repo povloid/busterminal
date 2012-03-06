@@ -1,0 +1,75 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+
+<ui:composition template="/WEB-INF/templites/templite.xhtml">
+	<ui:define name="title">
+		<pk:pk_dialog_caption_text add_view="#{add}" edit_view="#{edit}"
+			del_view="#{del}" caption="пользователя" />
+	</ui:define>
+
+	<ui:define name="header_icon">
+		<pk:pk_dialog_caption_icon add_view="#{add}" edit_view="#{edit}"
+			del_view="#{del}" />
+	</ui:define>
+
+	<ui:define name="header">
+		<pk:pk_dialog_caption_text add_view="#{add}" edit_view="#{edit}"
+			del_view="#{del}" caption="пользователя" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:panel header="Детали:" style="margin-top:10px">
+				<p:messages showDetail="true" autoUpdate="true" />
+
+				<h:panelGrid id="detail" columns="2" styleClass="grid">
+
+					<h:outputText value="№:"
+						rendered="#{busEditWFControl.edited.id != null}" />
+					<h:outputText value="#{busEditWFControl.edited.id}"
+						rendered="#{busEditWFControl.edited.id != null}" />
+
+					<h:outputLabel value="KeyName:" />
+					<p:inputText value="#{busEditWFControl.edited.keyName}"
+						title="Username" readonly="#{del}" required="true"
+						requiredMessage="The username field is required." />
+						
+					<h:outputLabel value="gosNum:" />
+					<p:inputText value="#{busEditWFControl.edited.gosNum}"
+						title="Username" readonly="#{del}" required="true" maxlength="10"
+						requiredMessage="The gosNum field is required." />
+
+					<h:outputLabel value="Description:" />
+					<p:inputTextarea readonly="#{del}"
+						value="#{busEditWFControl.edited.description}"
+						style="width:300px;height:100px;" title="Description" />
+						
+			
+				</h:panelGrid>
+
+				<br />
+
+				<pk:pk_close_button action="end" />
+				<pk:pkdialog_crud_buttons
+					add_action="#{busEditWFControl.confirmAdd}"
+					edit_action_and_close="#{busEditWFControl.confirmEditAndClose}"
+					edit_action="#{busEditWFControl.confirmEdit}"
+					del_action="#{busEditWFControl.confirmDel}" add_view="#{add}"
+					edit_view="#{edit}" del_view="#{del}" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+	<ui:define name="footer">
+		<h:outputText
+			value="Параметры: id - #{id}; mode - #{mode}; add - #{add}; edit - #{edit}; del - #{del}; retUrl - #{retUrl}" />
+	</ui:define>
+</ui:composition>
+</html>

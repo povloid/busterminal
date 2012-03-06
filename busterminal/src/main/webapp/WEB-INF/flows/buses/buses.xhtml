@@ -38,10 +38,7 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-			<pk:pk_add_button
-				add_url="#{request.contextPath}/mvc/resortType?mode=add&amp;retUrl=/faces/jsf/control/resortType/resortTypeListView.xhtml"></pk:pk_add_button>
-
-
+			<pk:pk_add_button_wf add_action="#{busViewControl.add}"/>
 
 			<p:dataTable id="table1" var="row"
 				value="#{flowScope.busViewControl.dataModel}" widgetVar="dataTable1"
@@ -82,9 +79,9 @@
 				</p:column>
 
 				<p:column headerText="Действие">
-					<pk:pktable_crud_column_buttons
-						edit_url="#{request.contextPath}/mvc/resortType?id=#{row.id}&amp;mode=edit&amp;retUrl=/faces/jsf/control/resortType/resortTypeListView.xhtml"
-						del_url="#{request.contextPath}/mvc/resortType?id=#{row.id}&amp;mode=del&amp;retUrl=/faces/jsf/control/resortType/resortTypeListView.xhtml"
+					<pk:pktable_crud_column_buttons_wf
+						edit_action="#{busViewControl.edit}"
+						del_action="#{busViewControl.del}"
 						show_view_button="true"
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{flowScope.busViewControl.selected}" row="#{row}" />

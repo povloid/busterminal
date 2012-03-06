@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+
+	<cc:attribute name="edit_action" method-signature="java.lang.String action()"/>
+	<cc:attribute name="del_action" method-signature="java.lang.String action()"/>
+
+	<cc:attribute name="show_view_button"></cc:attribute>
+	<cc:attribute name="view_button_oncomplete" default=""></cc:attribute>
+	
+	<cc:attribute name="selected" type="java.lang.Object"></cc:attribute>
+	<cc:attribute name="row" type="java.lang.Object"></cc:attribute>
+
+</cc:interface>
+<cc:implementation>
+
+	<h:panelGrid
+		columns="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true' ? 3 : 2}"
+		style="width: 10% !important; border: 0px none !important; padding: 1px !important; text-align:right; "
+		cellpadding="2" styleClass="actions">
+		<p:commandButton update=":form:display"
+			rendered="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true'}"
+			oncomplete="#{cc.attrs.view_button_oncomplete}"
+			icon="ui-icon ui-icon-search" title="View row">
+			<f:setPropertyActionListener value="#{cc.attrs.row}" target="#{cc.attrs.selected}" />
+		</p:commandButton>
+
+		<p:commandButton icon="ui-icon edit" ajax="false"
+			action="#{cc.attrs.edit_action}"
+			title="Edit row">
+			<f:setPropertyActionListener value="#{cc.attrs.row}" target="#{cc.attrs.selected}" />
+		</p:commandButton>
+		<p:commandButton icon="ui-icon del" ajax="false"
+			action="#{cc.attrs.del_action}"
+			title="Del row">
+			<f:setPropertyActionListener value="#{cc.attrs.row}" target="#{cc.attrs.selected}" />
+		</p:commandButton>
+	</h:panelGrid>
+
+</cc:implementation>
+</html>

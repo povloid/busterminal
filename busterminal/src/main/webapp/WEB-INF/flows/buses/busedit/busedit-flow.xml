@@ -5,9 +5,9 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
 	
-	<secured attributes="ROLE_ADMIN" />
+	<secured attributes="ROLE_USER" />
 
-	<var name="userAccountWFControl" class="pk.home.busterminal.web.jsf.webflow.security.UserAccountWFControl" />
+	<var name="busEditWFControl" class="pk.home.busterminal.web.jsf.webflow.BusEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
@@ -17,13 +17,6 @@
 		<set name="flowScope.add" type="boolean" value="false" />
 		<set name="flowScope.edit" type="boolean" value="false" />
 		<set name="flowScope.del" type="boolean" value="false" />
-
-		<!-- <evaluate expression="mode == 'add'" result="flowScope.add" -->
-		<!-- result-type="java.lang.Boolean" /> -->
-		<!-- <evaluate expression="mode == 'edit'" result="flowScope.edit" -->
-		<!-- result-type="java.lang.Boolean" /> -->
-		<!-- <evaluate expression="mode == 'del'" result="flowScope.del" -->
-		<!-- result-type="java.lang.Boolean" /> -->
 	</on-start>
 
 
@@ -32,14 +25,14 @@
 	</decision-state>
 
 	<action-state id="newEdited">
-		<evaluate expression="userAccountWFControl.newEdited()"
-			result="userAccountWFControl.edited" />
+		<evaluate expression="busEditWFControl.newEdited()"
+			result="busEditWFControl.edited" />
 		<transition to="addEditDel"></transition>
 	</action-state>
 
 	<action-state id="findEdited">
-		<evaluate expression="userAccountWFControl.findEdited(id)"
-			result="userAccountWFControl.edited" />
+		<evaluate expression="busEditWFControl.findEdited(id)"
+			result="busEditWFControl.edited" />
 
 		<transition to="addEditDel"></transition>
 	</action-state>
@@ -54,32 +47,40 @@
 			<evaluate expression="mode eq 'del'" result="flowScope.del"
 				result-type="java.lang.Boolean" />
 		</on-entry>
-		<set name="id" value="userAccountWFControl.edited.id" type="java.lang.Long" />
-		<transition to="userAccountForm" />
+		<set name="id" value="busEditWFControl.edited.id" type="java.lang.Long" />
+		<transition to="busedit" />
 	</action-state>
 
 
-
-	<view-state id="userAccountForm">
+	<view-state id="busedit">
 		<on-entry>
-			<evaluate expression="userAccountWFControl.init()"/>
+			<evaluate expression="busEditWFControl.init()"/>
 		</on-entry>
 	
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
 			<set name="mode" value="'edit'" type="java.lang.String" />
-			<set name="id" value="userAccountWFControl.edited.id" type="java.lang.Long" />
+			<set name="id" value="busEditWFControl.edited.id" type="java.lang.Long" />
 		</transition>
-		<transition on="editComplite" to="userAccountForm" />
+		<transition on="editComplite" to="busedit" />
 		<transition on="editCompliteAndClose" to="end" />
 		<transition on="delComplite" to="end"></transition>
 
-		<transition on="error" to="userAccountForm"></transition>
-		<!-- <transition on-exception="java.lang.Exception" to="userAccountForm"/> -->
+		<transition on="error" to="busedit"></transition>
+		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
 	</view-state>
 
 
-	<end-state id="end" view='externalRedirect:contextRelative:#{retUrl}'>
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+	
+	
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
 </flow>
