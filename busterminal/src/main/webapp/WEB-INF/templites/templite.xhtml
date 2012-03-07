@@ -100,6 +100,11 @@
 		!important;
 }
 
+.group_16 {
+	background-image: url(#{request.contextPath}/images/icons/group_16.png)
+		!important;
+}
+
 .up16 {
 	background-image: url(#{request.contextPath}/images/icons/up_16.png)
 		!important;
@@ -168,31 +173,23 @@
 				<table border="0" width="100%">
 					<tbody>
 						<tr>
-							<td><img
-								src="#{request.contextPath}/images/icons/web_64.png"></img></td>
-							<td align="left">
-								<h1>VTA-CONTROL</h1>
+							<td rowspan="2"><img
+								src="#{request.contextPath}/images/transport_icons/Travel_Bus_128.png"></img></td>
+							<td rowspan="2" align="left">
+								<em style="font-size: xx-large;">BUS TERMINAL</em>
 							</td>
-							<td width="100%" align="right">
-								<table border="0" width="80%">
+							<td width="100%" align="left" valign="top">
+								<table border="0" style="width: 100%; height: 100%">
 									<tbody>
 										<tr>
-											<!-- 											<td><img -->
-											<!-- 												src="#{request.contextPath}/images/icons/apps_16.png"></img> -->
-											<!-- 												Сервер: dlibrary</td> -->
-											<td align="right"><h:form>
-													<img src="#{request.contextPath}/images/icons/hist_16.png"></img>
+											<td valign="top"><img
+												src="#{request.contextPath}/images/icons/user_16.png" /> Вы
+												зашли как пользователь: #{app.authentication.name}</td>
+											<td align="right" valign="top"><img
+												src="#{request.contextPath}/images/icons/hist_16.png"></img>
 												Время: <h:outputText value="#{app.date}">
-														<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-													</h:outputText>
-
-<br/>
-							You're currently logged in as '#{app.authentication.name}'  <br/>
-<!-- 														<p:commandButton value="Выход" action="#{authController.doLogout}" ajax="false"/> -->
-															<p:button value="Выход" href="#{request.contextPath}/j_spring_security_logout"/>
-											
-												</h:form>
-											</td>
+													<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+												</h:outputText></td>
 										</tr>
 									</tbody>
 								</table>
@@ -204,24 +201,25 @@
 									</tbody>
 								</table>
 							</td>
-							<td></td>
+						</tr>
+						<tr>
+							<td valign="bottom"><ui:include src="mega-menu.xhtml" /></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 
-		<table border="0" width="97%">
+		<table border="0" width="100%">
 			<tbody>
 				<tr>
-					<td valign="top">
+					<!-- 					<td valign="top"> -->
 
-						<div>
-							<ui:include src="left.xhtml" />
-						</div>
-					</td>
+					<!-- 						<div> -->
+					<!-- 							<ui:include src="left.xhtml" /> -->
+					<!-- 						</div> -->
+					<!-- 					</td> -->
 					<td width="100%" valign="top">
-
 						<table border="0" width="100%">
 							<tbody>
 								<tr>

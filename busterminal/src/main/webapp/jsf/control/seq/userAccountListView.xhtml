@@ -10,15 +10,15 @@
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
-        Справочник типов отдыха
+        Пользователи
     </ui:define>
 
 	<ui:define name="header_icon">
-		<img src="#{request.contextPath}/images/icons/addbk_24.png"></img>
+		<img src="#{request.contextPath}/images/icons/group_24.png"></img>
 	</ui:define>
 
 	<ui:define name="header">
-         Справочник типов отдыха
+         Пользователи
     </ui:define>
 
 	<ui:define name="content">
@@ -74,6 +74,7 @@
 							csortOrder="#{userAccountViewControl.csortOrder}"
 							csortField="#{userAccountViewControl.csortField}" />
 					</f:facet>
+					<h:graphicImage  value="/images/icons/user_24.png" />
 					<h:outputText value="#{row.username}" />
 				</p:column>
 
