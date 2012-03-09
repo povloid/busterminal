@@ -10,6 +10,7 @@
 		<class>pk.home.busterminal.domain.Seat</class>
 		<class>pk.home.busterminal.domain.Bus</class>
 		<class>pk.home.busterminal.domain.Schema</class>
+		<class>pk.home.busterminal.domain.SeatType</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/busterminal" />
 			<property name="javax.persistence.jdbc.user" value="busterminal" />
