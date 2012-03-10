@@ -33,6 +33,8 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema> implem
 			orderByAttribute = Schema_.id;
 		} else if (csortField != null && csortField.equals("keyName")) {
 			orderByAttribute = Schema_.keyName;
+		} else if (csortField != null && csortField.equals("Bus")) {
+			orderByAttribute = Schema_.bus;
 		}
 
 		dataModel = getSchemaService().getAllEntities((page - 1) * rows, rows,

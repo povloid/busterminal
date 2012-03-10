@@ -45,7 +45,7 @@ public class Schema implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String keyName;
 
 	@Length(max = 1000)

@@ -67,6 +67,16 @@
 
 				<p:column>
 					<f:facet name="header">
+						<pk:pktsortorder field="Bus" caption="Автобус"
+							csortOrder="#{schemaViewControl.csortOrder}"
+							csortField="#{schemaViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.bus.keyName} - #{row.bus.gosNum}" />
+				</p:column>
+
+
+				<p:column>
+					<f:facet name="header">
 						<pk:pktsortorder field="keyName"
 							csortOrder="#{schemaViewControl.csortOrder}"
 							csortField="#{schemaViewControl.csortField}" />
