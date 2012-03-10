@@ -17,7 +17,7 @@
 <cc:implementation>
 
 
-	<h:panelGrid columns="2" >
+	<h:panelGrid columns="2">
 
 		<p:selectOneMenu id="sprows" value="#{cc.attrs.rows}">
 			<f:selectItem itemLabel="#{cc.attrs.rows}"
@@ -28,8 +28,8 @@
 			<f:selectItem itemLabel="20" itemValue="20" />
 			<f:selectItem itemLabel="30" itemValue="30" />
 			<f:selectItem itemLabel="50" itemValue="50" />
-			
-			<p:ajax event="change" update="@form"/>
+
+			<p:ajax event="change" update="@form" />
 		</p:selectOneMenu>
 
 
@@ -37,11 +37,11 @@
 		<h:panelGroup>
 
 			<p:commandButton title="first" ajax="false" icon="ui-icon rewnd16"
-				disabled="#{cc.attrs.page == 1}">
+				disabled="#{cc.attrs.page le 1}">
 				<f:param name="ppage" value="#{1}" />
 			</p:commandButton>
 			<p:commandButton title="prev page" ajax="false"
-				icon="ui-icon skipb16" disabled="#{cc.attrs.page == 1}">
+				icon="ui-icon skipb16" disabled="#{cc.attrs.page le 1}">
 				<f:param name="ppage" value="#{cc.attrs.page - 1}" />
 			</p:commandButton>
 
