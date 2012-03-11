@@ -13,15 +13,21 @@
 		<transition on="add" to="op">
 			<set name="flashScope.modes" value="'add'" type="java.lang.String" />
 			<set name="flashScope.ids" value="null" type="long" />
+			<set name="flashScope.schemaId" value="seatViewControl.selectedSchemaId"
+				type="long" />
 		</transition>
 		<transition on="edit" to="op">
 			<set name="flashScope.modes" value="'edit'" type="java.lang.String" />
 			<set name="flashScope.ids" value="seatViewControl.selected.id"
 				type="long" />
+			<set name="flashScope.schemaId" value="seatViewControl.selectedSchemaId"
+				type="long" />
 		</transition>
 		<transition on="del" to="op">
 			<set name="flashScope.modes" value="'del'" type="java.lang.String" />
 			<set name="flashScope.ids" value="seatViewControl.selected.id"
+				type="long" />
+			<set name="flashScope.schemaId" value="seatViewControl.selectedSchemaId"
 				type="long" />
 		</transition>
 	</view-state>
@@ -30,6 +36,7 @@
 	<subflow-state id="op" subflow="seat/edit">
 		<input name="mode" value="modes" />
 		<input name="id" value="ids" />
+		<input name="schemaId" value="schemaId" />
 
 		<transition to="seatList" />
 	</subflow-state>

@@ -10,6 +10,7 @@
 	<var name="seatEditWFControl" class="pk.home.busterminal.web.jsf.webflow.SeatEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
+	<input name="schemaId" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
 	<input name="retUrl" type="java.lang.String" />
 
@@ -17,6 +18,7 @@
 		<set name="flowScope.add" type="boolean" value="false" />
 		<set name="flowScope.edit" type="boolean" value="false" />
 		<set name="flowScope.del" type="boolean" value="false" />
+		<set name="seatEditWFControl.schemaId" type="long" value="schemaId" />
 	</on-start>
 
 

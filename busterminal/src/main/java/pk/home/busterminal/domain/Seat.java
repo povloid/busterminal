@@ -18,10 +18,19 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(schema = "public", name = "seats", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"bus_id", "num" , "schema_id"}))
+		"num" , "schema_id"}))
 @NamedQueries({
 		@NamedQuery(name = "Seat.findAll", query = "select a from Seat a order by a.id"),
-		@NamedQuery(name = "Seat.findByPrimaryKey", query = "select a from Seat a where a.id = ?1") })
+		@NamedQuery(name = "Seat.findByPrimaryKey", query = "select a from Seat a where a.id = ?1"),
+		
+		@NamedQuery(name = "Seat.findByBusAndSchema.id.asc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.id asc"),
+		@NamedQuery(name = "Seat.findByBusAndSchema.id.desc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.id desc"),
+		
+		@NamedQuery(name = "Seat.findByBusAndSchema.num.asc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.num asc"),
+		@NamedQuery(name = "Seat.findByBusAndSchema.num.desc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.num desc"),
+		
+		@NamedQuery(name = "Seat.findByBusAndSchema.count", query = "select count(a) from Seat a where a.schema.bus = ?1 and a.schema = ?2")		
+})
 public class Seat implements Serializable {
 
 	/**
@@ -29,9 +38,6 @@ public class Seat implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Bus bus;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -69,14 +75,6 @@ public class Seat implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Bus getBus() {
-		return bus;
-	}
-
-	public void setBus(Bus bus) {
-		this.bus = bus;
 	}
 
 	public Short getNum() {

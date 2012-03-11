@@ -119,7 +119,6 @@ public class TestSeatDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
-			seat1.setBus(bus);
 			seat1.setSchema(schema);
 			seat1.setNum((short) i);
 			dataStore.persist(seat1);
@@ -160,7 +159,6 @@ public class TestSeatDAO {
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
-			seat1.setBus(bus);
 			seat1.setSchema(schema);
 			dataStore.persist(seat1);
 			index++;
@@ -203,7 +201,6 @@ public class TestSeatDAO {
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
-			seat1.setBus(bus);
 			seat1.setSchema(schema);
 			dataStore.persist(seat1);
 			// index++;
@@ -241,7 +238,6 @@ public class TestSeatDAO {
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
-			seat1.setBus(bus);
 			seat1.setSchema(schema);
 			dataStore.persist(seat1);
 			// index++;
@@ -286,7 +282,6 @@ public class TestSeatDAO {
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
-			seat1.setBus(bus);
 			seat1.setSchema(schema);
 			dataStore.persist(seat1);
 			index++;
@@ -343,7 +338,6 @@ public class TestSeatDAO {
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
-		seat1.setBus(bus);
 		seat1.setSchema(schema);
 		seat1 = dataStore.persist(seat1);
 
@@ -379,7 +373,6 @@ public class TestSeatDAO {
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
-			seat1.setBus(bus);
 			seat1.setSchema(schema);
 			dataStore.persist(seat1);
 			index++;
@@ -411,7 +404,6 @@ public class TestSeatDAO {
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
-		seat1.setBus(bus);
 		seat1.setSchema(schema);
 		seat1 = dataStore.persist(seat1);
 
@@ -447,7 +439,6 @@ public class TestSeatDAO {
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
-		seat1.setBus(bus);
 		seat1.setSchema(schema);
 		seat1 = dataStore.persist(seat1);
 
@@ -491,7 +482,6 @@ public class TestSeatDAO {
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
-		seat1.setBus(bus);
 		seat1.setSchema(schema);
 		seat1 = dataStore.persist(seat1);
 
@@ -535,7 +525,6 @@ public class TestSeatDAO {
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
-		seat1.setBus(bus);
 		seat1.setSchema(schema);
 		seat1 = dataStore.persist(seat1);
 

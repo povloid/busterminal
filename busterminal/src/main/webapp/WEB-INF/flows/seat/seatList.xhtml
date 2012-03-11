@@ -24,8 +24,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{seatViewControl.init}" />
+			<f:event type="preRenderView" listener="#{seatViewControl.init}" />
 			<f:viewParam name="ppage" value="#{seatViewControl.page}" />
 			<f:viewParam name="prows" value="#{seatViewControl.prows}" />
 			<f:viewParam name="pcsortField"
@@ -38,9 +37,31 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-			<pk:pk_add_button_wf add_action="#{seatViewControl.add}"/>
+			<h:panelGrid columns="7">
+		
+				<h:outputLabel value="Bus:" />
+				<p:selectOneMenu value="#{seatViewControl.selectedBusId}"
+					rendered="true">
+					<f:selectItem itemLabel="Выбрать автобус" itemValue="" />  
+					<f:selectItems value="#{seatViewControl.buses}" var="row"
+						itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" />
+					<p:ajax event="change" update="@form" />
+				</p:selectOneMenu>
+				
+				<h:outputLabel value="Schema:" />
+				<p:selectOneMenu id="schemes" value="#{seatViewControl.selectedSchemaId}"
+					rendered="true">
+					<f:selectItem itemLabel="Выбрать схему" itemValue="" />  
+					<f:selectItems value="#{seatViewControl.selectedBus.schemas}"
+						var="row" itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					<p:ajax event="change" update="@form" />
+				</p:selectOneMenu>
+				
+				<pk:pk_add_button_wf add_action="#{seatViewControl.add}" rendered="#{seatViewControl.selectedSchema != null}"/>
+				
+			</h:panelGrid>
 
-			<p:dataTable id="table1" var="row" 
+			<p:dataTable id="table1" var="row"
 				value="#{seatViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
 
@@ -74,15 +95,15 @@
 					<h:outputText value="#{row.num}" />
 				</p:column>
 
-				<p:column headerText="Описание" >
+				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />
 				</p:column>
 
-				<p:column headerText="Действие" style="width: 100px; text-align: center;">
+				<p:column headerText="Действие"
+					style="width: 100px; text-align: center;">
 					<pk:pktable_crud_column_buttons_wf
 						edit_action="#{seatViewControl.edit}"
-						del_action="#{seatViewControl.del}"
-						show_view_button="true"
+						del_action="#{seatViewControl.del}" show_view_button="true"
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{seatViewControl.selected}" row="#{row}" />
 				</p:column>
@@ -115,15 +136,14 @@
 					<h:outputText value="#{seatViewControl.selected.id}"
 						style="font-weight:bold" />
 
-					<h:outputText value="KeyName:" />
-					<h:outputText value="#{seatViewControl.selected.keyName}"
+					<h:outputText value="№:" />
+					<h:outputText value="#{seatViewControl.selected.num}"
 						style="font-weight:bold" />
 
 
 					<h:outputText value="Description:" />
 					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText
-							value="#{seatViewControl.selected.description}"
+						<h:outputText value="#{seatViewControl.selected.description}"
 							escape="false" />
 					</p:scrollPanel>
 

@@ -10,10 +10,11 @@
 
 	<cc:attribute name="add_action"
 		method-signature="java.lang.String action()" />
+	<cc:attribute name="rendered" type="java.lang.Boolean" />
 
 </cc:interface>
 <cc:implementation>
-	<p:commandButton icon="ui-icon add" ajax="false"
+	<p:commandButton icon="ui-icon add" ajax="false" rendered="#{cc.attrs.rendered}"
 		action="#{cc.attrs.add_action}" title="Добавить запись в базу данных"
 		value="Добавить" />
 </cc:implementation>

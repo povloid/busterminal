@@ -47,9 +47,6 @@ public class Bus implements Serializable {
 	private String description;
 
 	@OneToMany(mappedBy = "bus")
-	private Set<Seat> seats;
-
-	@OneToMany(mappedBy = "bus")
 	private Set<Schema> schemas;
 
 	public Long getId() {
@@ -74,14 +71,6 @@ public class Bus implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Set<Seat> getSeats() {
-		return seats;
-	}
-
-	public void setSeats(Set<Seat> seats) {
-		this.seats = seats;
 	}
 
 	public Set<Schema> getSchemas() {

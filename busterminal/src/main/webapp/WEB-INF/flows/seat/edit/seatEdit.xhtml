@@ -30,6 +30,12 @@
 				<p:messages showDetail="true" autoUpdate="true" />
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
+				
+					<h:outputText value="Bus:"/>
+					<h:outputText value="#{seatEditWFControl.schema.bus.keyName} - #{seatEditWFControl.schema.bus.gosNum}" />
+				
+					<h:outputText value="Schema:"/>
+					<h:outputText value="#{seatEditWFControl.schemaId}" />
 
 					<h:outputText value="№:"
 						rendered="#{seatEditWFControl.edited.id != null}" />
