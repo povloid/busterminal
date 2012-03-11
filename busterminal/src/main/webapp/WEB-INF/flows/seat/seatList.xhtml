@@ -42,7 +42,7 @@
 				<h:outputLabel value="Bus:" />
 				<p:selectOneMenu value="#{seatViewControl.selectedBusId}"
 					rendered="true">
-					<f:selectItem itemLabel="Выбрать автобус" itemValue="" />  
+					<f:selectItem itemLabel="Выбрать автобус" itemValue="0" />  
 					<f:selectItems value="#{seatViewControl.buses}" var="row"
 						itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" />
 					<p:ajax event="change" update="@form" />
@@ -51,13 +51,13 @@
 				<h:outputLabel value="Schema:" />
 				<p:selectOneMenu id="schemes" value="#{seatViewControl.selectedSchemaId}"
 					rendered="true">
-					<f:selectItem itemLabel="Выбрать схему" itemValue="" />  
+					<f:selectItem itemLabel="Выбрать схему" itemValue="0" />  
 					<f:selectItems value="#{seatViewControl.selectedBus.schemas}"
 						var="row" itemLabel="#{row.keyName}" itemValue="#{row.id}" />
 					<p:ajax event="change" update="@form" />
 				</p:selectOneMenu>
 				
-				<pk:pk_add_button_wf add_action="#{seatViewControl.add}" rendered="#{seatViewControl.selectedSchema != null}"/>
+				<pk:pk_add_button_wf add_action="#{seatViewControl.add}" rendered="#{seatViewControl.selectedSchemaId != 0 and seatViewControl.selectedSchema != null}"/>
 				
 			</h:panelGrid>
 

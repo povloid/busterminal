@@ -86,11 +86,28 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 
 		if (buses == null)
 			return;
+		
+		if(selectedBusId == 0l){
+			selectedBus = null;
+			selectedBusId = null;
+			
+			selectedSchema = null;
+			selectedSchemaId = null;
+			return;
+		}
+			
 
 		for (Bus bus : buses) {
 			if (bus.getId().equals(selectedBusId)) {
 				try {
+					if(selectedBus == null || !selectedBus.equals(bus)){
+						selectedSchema = null;
+						selectedSchemaId = null;
+					}
+					
 					selectedBus = getBusService().findWithLazy(bus.getId());
+					
+					
 				} catch (Exception e) {
 					selectedBus = null;
 					selectedBusId = null;
