@@ -6,7 +6,9 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
@@ -24,6 +26,9 @@ import pk.home.busterminal.domain.Seat_;
 @Transactional
 public class SeatService extends ABaseService<Seat> {
 
+	@Autowired
+	private BusService busService;
+	
 	@Autowired
 	private SeatDAO seatDAO;
 
@@ -54,6 +59,35 @@ public class SeatService extends ABaseService<Seat> {
 		return (Long) seatDAO.executeQueryByNameSingleResultO("Seat.findByBusAndSchema.count", bus, schema);
 	}
 
+	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Seat persist(Seat o) throws Exception {
+		check(o);
+		return super.persist(o);
+	}
+
+	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Seat merge(Seat o) throws Exception {
+		check(o);
+		return super.merge(o);
+	}
+
+	@Transactional
+	public void check(Seat o) throws Exception {
+		Bus b = busService.findWithLazy(o.getSchema().getBus().getId());
+		
+		for(Schema sh: b.getSchemas()){
+			for(Seat st: sh.getSeats()){
+				if(!o.equals(st) && o.getNum().equals(st.getNum())){
+					throw new Exception("Номера мест в пределах одного автобуса должны бвть уникальными!");
+				}
+			}
+		}
+	}
+	
 	
 	
 	

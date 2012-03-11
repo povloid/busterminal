@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -38,6 +40,14 @@ public class Seat implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	@PrePersist
+	@PreUpdate
+	public void check() throws Exception {
+		
+	}
+	
+	
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
