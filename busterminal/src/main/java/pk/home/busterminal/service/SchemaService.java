@@ -25,4 +25,15 @@ public class SchemaService extends ABaseService<Schema> {
 		return schemaDAO;
 	}
 
+	@Transactional(readOnly = true)
+	public Schema findAllLazy(Object key) throws Exception {
+		Schema s = super.find(key);
+		s.getSeats().size();
+		return s;
+	}
+	
+	
+	
+	
+
 }

@@ -34,8 +34,8 @@
 					<h:outputLabel value="Bus:" />
 					<p:selectOneMenu value="#{schemaEditWFControl.busId}"
 						rendered="true">
-						<f:selectItems value="#{schemaEditWFControl.buses}"
-							var="row" itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" />
+						<f:selectItems value="#{schemaEditWFControl.buses}" var="row"
+							itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" />
 					</p:selectOneMenu>
 
 
@@ -53,8 +53,14 @@
 					<p:inputTextarea readonly="#{del}"
 						value="#{schemaEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
+					<h:outputLabel value="Размер сетки по горизонтали:" />
+					<p:spinner value="#{schemaEditWFControl.edited.xSize}" min="0"/>
+
+					<h:outputLabel value="Размер сетки по вертикали:" />
+					<p:spinner value="#{schemaEditWFControl.edited.ySize}" min="0"/>
+
+
 				</h:panelGrid>
 
 				<br />

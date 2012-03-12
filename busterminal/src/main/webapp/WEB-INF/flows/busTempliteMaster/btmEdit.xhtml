@@ -15,7 +15,7 @@
 	</ui:define>
 
 	<ui:define name="header_icon">
-		<h:graphicImage value="/images/icons/wiz_32.png"/>
+		<h:graphicImage value="/images/icons/wiz_32.png" />
 	</ui:define>
 
 	<ui:define name="header">
@@ -24,20 +24,80 @@
 
 	<ui:define name="content">
 		<h:form>
-		<pk:pk_close_button action="end" />
+			<p:messages showDetail="true" autoUpdate="true" />
 
-		<pk:pkdialog_crud_buttons
-					add_action="#{btmWFControl.confirmAdd}"
-					edit_action_and_close="#{btmWFControl.confirmEditAndClose}"
-					edit_action="#{btmWFControl.confirmEdit}"
-					del_action="#{btmWFControl.confirmDel}" add_view="#{false}"
-					edit_view="#{true}" del_view="#{false}" />
+			<pk:pk_close_button action="end" />
+
+			<pk:pkdialog_crud_buttons add_action="#{btmWFControl.confirmAdd}"
+				edit_action_and_close="#{btmWFControl.confirmEditAndClose}"
+				edit_action="#{btmWFControl.confirmEdit}"
+				del_action="#{btmWFControl.confirmDel}" add_view="#{false}"
+				edit_view="#{true}" del_view="#{false}" />
+
+			<br />
+			<br />
+
+			<p:fieldset
+				legend="Автобус: #{btmWFControl.edited.keyName} - #{btmWFControl.edited.gosNum}"
+				toggleable="true" toggleSpeed="500" collapsed="true">
+				<h:panelGrid id="detail" columns="2">
+
+					<h:outputText value="№:" />
+					<h:outputText value="#{btmWFControl.edited.id}" />
+
+					<h:outputLabel value="KeyName:" />
+					<h:outputText value="#{btmWFControl.edited.keyName}" />
+
+					<h:outputLabel value="gosNum:" />
+					<h:outputText value="#{btmWFControl.edited.gosNum}" />
+
+					<h:outputLabel value="Description:" />
+					<h:outputText value="#{btmWFControl.edited.description}" />
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
+
+				<h:outputText value="Схема: " />
+				<p:selectOneButton value="#{btmWFControl.selectedSchemeId}">
+					<f:selectItems value="#{btmWFControl.edited.schemas}" var="row"
+						itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					<p:ajax event="change" update="@form"
+						listener="#{btmWFControl.handleSchemaChange}" />
+				</p:selectOneButton>
+
+				<h:panelGroup>
+					<h:outputText
+						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />
+				</h:panelGroup>
+
+			</h:panelGrid>
+
+			<p:separator />
+
+
+			<h:panelGroup
+				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
+				<table border="1">
+				<ui:repeat var="y" value="#{btmWFControl.cells}">
 					
-				<br/>	
-		<h:outputText value="#{btmWFControl.edited}"></h:outputText>
-		<br/>
-		
-			
+						<tr>
+							<ui:repeat var="x" value="#{y}">
+								<td>#{x.index}
+								
+								</td>
+							</ui:repeat>
+						</tr>
+					
+				</ui:repeat>
+				</table>
+			</h:panelGroup>
+
+
+
+
+
 		</h:form>
 	</ui:define>
 	<ui:define name="footer">

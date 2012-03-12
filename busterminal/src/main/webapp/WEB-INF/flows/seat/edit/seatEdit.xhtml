@@ -43,9 +43,7 @@
 						rendered="#{seatEditWFControl.edited.id != null}" />
 
 					<h:outputLabel value="num:" />
-					<p:inputText value="#{seatEditWFControl.edited.num}"
-						title="Username" readonly="#{del}" required="true"
-						requiredMessage="The num field is required." />
+					<p:spinner value="#{seatEditWFControl.edited.num}" required="true" min="0"/>
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"

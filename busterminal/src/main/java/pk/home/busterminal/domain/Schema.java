@@ -52,6 +52,26 @@ public class Schema implements Serializable {
 	@Column(length = 1000)
 	private String description;
 
+	private Short xSize;
+	private Short ySize;
+	
+
+	public Short getxSize() {
+		return xSize;
+	}
+
+	public void setxSize(Short xSize) {
+		this.xSize = xSize;
+	}
+
+	public Short getySize() {
+		return ySize;
+	}
+
+	public void setySize(Short ySize) {
+		this.ySize = ySize;
+	}
+
 	public Bus getBus() {
 		return bus;
 	}
