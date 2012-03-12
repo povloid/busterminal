@@ -49,7 +49,7 @@ public class SeatTypeEditWFControl extends AWFControl<SeatType, Long> implements
 
 	// init
 	// ----------------------------------------------------------------------------------------------
-	public void init() throws Exception {
+	protected void init0() throws Exception {
 	}
 
 	// gets and sets

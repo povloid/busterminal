@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+
+	<cc:attribute name="edit_action"
+		method-signature="java.lang.String action()" />
+	<cc:attribute name="rendered" type="java.lang.Boolean" />
+
+</cc:interface>
+<cc:implementation>
+	<p:commandButton icon="ui-icon edit" ajax="false" rendered="#{cc.attrs.rendered}"
+		action="#{cc.attrs.edit_action}" title="Редактировать элемент"
+		value="Редактировать" />
+</cc:implementation>
+</html>

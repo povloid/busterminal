@@ -45,7 +45,7 @@ public class BusEditWFControl extends AWFControl<Bus, Long> implements
 
 	// init
 	// ----------------------------------------------------------------------------------------------
-	public void init() throws Exception {
+	protected void init0() throws Exception {
 	}
 
 	// gets and sets

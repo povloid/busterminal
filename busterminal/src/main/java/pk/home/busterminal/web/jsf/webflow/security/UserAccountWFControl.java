@@ -87,7 +87,7 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 	
 	// init
 	// ----------------------------------------------------------------------------------------------
-	public void init() throws Exception {
+	protected void init0() throws Exception {
 		populateResortTypes();
 	}
 

@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-	start-state="btmEdit">
+	start-state="init">
 
 	<secured attributes="ROLE_USER" />
 
@@ -13,16 +13,35 @@
 	<input name="id" type="java.lang.Long" required="true" />
 	<input name="retUrl" type="java.lang.String" />
 
-	<on-start>
+
+	<action-state id="init">
 		<evaluate expression="btmWFControl.findEdited(id)" result="btmWFControl.edited" />
-	</on-start>
+		<transition to="btmEdit">
+			<evaluate expression="btmWFControl.init()" />
+		</transition>
+	</action-state>
 
 
 	<view-state id="btmEdit">
-		<transition on="end" to="end"/>
-		<transition on="editComplite" to="btmEdit"/>
+		<transition on="end" to="end" />
+		<transition on="editComplite" to="btmEdit" />
 		<transition on="editCompliteAndClose" to="end" />
+
+		<transition on="editSelectedSchema" to="editSelectedSchema">
+			<set name="flashScope.modes" value="'edit'" type="java.lang.String" />
+			<set name="flashScope.selectedSchemeIds" value="btmWFControl.selectedScheme.id"
+				type="long" />
+		</transition>
 	</view-state>
+
+
+	<subflow-state id="editSelectedSchema" subflow="schema/edit">
+		<input name="mode" value="modes" />
+		<input name="id" value="flashScope.selectedSchemeIds" />
+
+		<transition to="init" />
+	</subflow-state>
+
 
 
 	<decision-state id="end">

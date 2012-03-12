@@ -67,9 +67,11 @@
 						listener="#{btmWFControl.handleSchemaChange}" />
 				</p:selectOneButton>
 
-				<h:panelGroup>
+				<h:panelGroup rendered="#{btmWFControl.selectedScheme != null}">
 					<h:outputText
 						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />
+						
+					<pk:pk_edit_button_wf edit_action="#{btmWFControl.editSelectedSchema}"/>
 				</h:panelGroup>
 
 			</h:panelGrid>

@@ -20,7 +20,7 @@ public class Cell implements Serializable{
 	private Seat seat;
 
 	public Cell(Cell previusCell, Seat seat, short x, short y) {
-		this.index = (short) (previusCell == null ? 0 : previusCell.index + 1);
+		this.index = (short) (previusCell == null ? index : previusCell.index + 1);
 		this.seat = seat;
 		this.x = x;
 		this.y = y;

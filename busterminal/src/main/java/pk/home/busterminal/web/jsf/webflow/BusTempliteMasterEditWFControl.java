@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang.NotImplementedException;
 
 import pk.home.busterminal.domain.Bus;
@@ -49,6 +52,12 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		throw new NotImplementedException();
 	}
 
+	@Override
+	protected void init0() throws Exception {
+		System.out.println("1111111");
+		handleSchemaChange();
+	}
+
 	private Long selectedSchemeId;
 	private Schema selectedScheme;
 
@@ -56,12 +65,22 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 * Выбор схемы
 	 */
 	public void handleSchemaChange() {
-		for (Schema s : edited.getSchemas()) {
-			if (s.getId().equals(selectedSchemeId)) {
-				selectedScheme = s;
-				break;
+		if (selectedSchemeId != null)
+			for (Schema s : edited.getSchemas()) {
+				if (s.getId().equals(selectedSchemeId)) {
+					selectedScheme = s;
+					break;
+				}
 			}
-		}
+	}
+
+	/**
+	 * Редактировать текущую схему
+	 * 
+	 * @return
+	 */
+	public String editSelectedSchema() {
+		return "editSelectedSchema";
 	}
 
 	/**
@@ -105,7 +124,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 
 		return ylist;
 	}
