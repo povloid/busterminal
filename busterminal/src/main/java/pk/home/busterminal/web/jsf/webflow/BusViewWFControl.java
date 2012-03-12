@@ -53,4 +53,8 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 		return "del";
 	}
 	
+	public String busTempliteMaster(){
+		return "busTempliteMaster";
+	}
+	
 }

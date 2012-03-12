@@ -10,6 +10,10 @@
 	<var name="busViewControl" class="pk.home.busterminal.web.jsf.webflow.BusViewWFControl" />
 
 	<view-state id="buses">
+		<transition on="busTempliteMaster" to="busTempliteMaster">
+			<set name="flashScope.ids" value="busViewControl.selected.id"
+				type="long" />
+		</transition>
 		<transition on="add" to="op">
 			<set name="flashScope.modes" value="'add'" type="java.lang.String" />
 			<set name="flashScope.ids" value="null" type="long" />
@@ -33,5 +37,13 @@
 
 		<transition to="buses" />
 	</subflow-state>
+	
+	
+	<subflow-state id="busTempliteMaster" subflow="busTempliteMaster">
+		<input name="id" value="ids" />
+		
+		<transition to="buses" />
+	</subflow-state>
+	
 
 </flow>
