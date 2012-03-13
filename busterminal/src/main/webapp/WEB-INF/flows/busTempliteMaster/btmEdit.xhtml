@@ -7,7 +7,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
@@ -70,29 +71,27 @@
 				<h:panelGroup rendered="#{btmWFControl.selectedScheme != null}">
 					<h:outputText
 						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />
-						
-					<pk:pk_edit_button_wf edit_action="#{btmWFControl.editSelectedSchema}"/>
+
+					<pk:pk_edit_button_wf
+						edit_action="#{btmWFControl.editSelectedSchema}" />
 				</h:panelGroup>
 
 			</h:panelGrid>
 
 			<p:separator />
 
-
 			<h:panelGroup
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
 				<table border="1">
-				<ui:repeat var="y" value="#{btmWFControl.cells}">
-					
+					<ui:repeat var="y" value="#{btmWFControl.cells}">
 						<tr>
 							<ui:repeat var="x" value="#{y}">
-								<td>#{x.index}
-								
+								<td>
+									<bt:cell cell="#{x}"/>
 								</td>
 							</ui:repeat>
 						</tr>
-					
-				</ui:repeat>
+					</ui:repeat>
 				</table>
 			</h:panelGroup>
 

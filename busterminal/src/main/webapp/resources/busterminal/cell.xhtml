@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+
+	<cc:attribute name="cell" type="java.lang.Object" required="true" />
+
+	<cc:attribute name="add_seat_action"
+		method-signature="java.lang.String action()" />
+
+</cc:interface>
+<cc:implementation>
+
+	<table style="width: 150px; height: 150px" border="0">
+		<tr>
+			<td valign="top" height="10%">
+				<b><h:outputText value="#{cc.attrs.cell.index}"/></b>
+				<h:outputText value=" - x=#{cc.attrs.cell.x} y=#{cc.attrs.cell.y}" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="left"><p:commandButton icon="ui-icon add"
+					ajax="false" action="#{cc.attrs.add_action}"
+					title="Добавить посадочное место в ячейку"/></td>
+		</tr>
+	</table>
+
+
+
+</cc:implementation>
+</html>
