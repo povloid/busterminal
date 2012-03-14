@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
-	
+
 	<secured attributes="ROLE_USER" />
 
 	<var name="seatEditWFControl" class="pk.home.busterminal.web.jsf.webflow.SeatEditWFControl" />
@@ -13,6 +13,10 @@
 	<input name="schemaId" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
 	<input name="retUrl" type="java.lang.String" />
+
+	<input name="blockXY" type="boolean" />
+	<input name="sx" type="short" />
+	<input name="sy" type="short" />
 
 	<on-start>
 		<set name="flowScope.add" type="boolean" value="false" />
@@ -27,16 +31,32 @@
 	</decision-state>
 
 	<action-state id="newEdited">
-		<evaluate expression="seatEditWFControl.newEdited()"
-			result="seatEditWFControl.edited" />
-		<transition to="addEditDel"></transition>
+		<evaluate expression="seatEditWFControl.newEdited()" result="seatEditWFControl.edited" />
+		<transition to="blockXYAnalize"></transition>
 	</action-state>
 
 	<action-state id="findEdited">
 		<evaluate expression="seatEditWFControl.findEdited(id)"
 			result="seatEditWFControl.edited" />
 
-		<transition to="addEditDel"></transition>
+		<transition to="blockXYAnalize">
+
+		</transition>
+	</action-state>
+
+	<decision-state id="blockXYAnalize">
+		<if test="blockXY" then="initXY" else="addEditDel" />
+	</decision-state>
+
+	<action-state id="initXY">
+		<on-entry>
+			<set name="seatEditWFControl.edited.sx" type="short" value="sx" />
+			<set name="seatEditWFControl.edited.sy" type="short" value="sy" />
+		</on-entry>
+		<set name="seatEditWFControl.blockXY" type="boolean" value="blockXY" />
+		<transition to="addEditDel">
+
+		</transition>
 	</action-state>
 
 
@@ -56,9 +76,9 @@
 
 	<view-state id="seatEdit">
 		<on-entry>
-			<evaluate expression="seatEditWFControl.init()"/>
+			<evaluate expression="seatEditWFControl.init()" />
 		</on-entry>
-	
+
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
@@ -81,8 +101,8 @@
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
 	</end-state>
-	
-	
+
+
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
 </flow>

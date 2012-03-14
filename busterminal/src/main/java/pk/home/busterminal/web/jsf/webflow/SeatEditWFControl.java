@@ -16,6 +16,8 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	private Long schemaId;
 	private Schema schema;
+	
+	private boolean blockXY;
 
 	/**
 	 * 
@@ -84,6 +86,14 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	public void setSchema(Schema schema) {
 		this.schema = schema;
+	}
+
+	public boolean isBlockXY() {
+		return blockXY;
+	}
+
+	public void setBlockXY(boolean blockXY) {
+		this.blockXY = blockXY;
 	}
 	
 	

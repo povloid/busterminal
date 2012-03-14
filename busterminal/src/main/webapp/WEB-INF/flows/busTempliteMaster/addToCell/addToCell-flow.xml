@@ -21,10 +21,27 @@
 
 	<view-state id="addToCell">
 		<transition on="close" to="end" />
-		<transition on="next" to="end" />
+		<transition on="next" to="variantAnalize" />
 
 		<transition on="error" to="addToCell" />
 	</view-state>
+	
+	
+	
+	<decision-state id="variantAnalize">
+		<if test="wizWFControl.select eq 1" then="addNewSeat" else="end" />
+	</decision-state>
+	
+	
+	<subflow-state id="addNewSeat" subflow="seat/edit">
+		<input name="mode" value="'add'" type="java.lang.String" />
+		<input name="schemaId" value="schemaId" />
+		<input name="blockXY" type="boolean" value="true" />
+		<input name="sx" type="short" value="sX"/>
+		<input name="sy" type="short" value="sY"/>
+
+		<transition to="end" />
+	</subflow-state>
 
 
 	<!-- END -->
