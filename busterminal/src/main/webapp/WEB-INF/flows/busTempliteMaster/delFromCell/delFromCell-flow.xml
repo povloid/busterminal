@@ -1,0 +1,71 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="delFromCell">
+
+
+
+	<var name="wizWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.DelFromCellWFWizControl" />
+
+	<input name="id" type="long" required="true" />
+	<input name="retUrl" type="java.lang.String" />
+	
+	<on-start>
+		<set name="wizWFControl.selectedSeatId" value="id" />
+	</on-start>
+	
+
+	<view-state id="delFromCell">
+		<transition on="close" to="end" />
+		<transition on="next" to="variantAnalize" />
+
+		<transition on="error" to="delFromCell" />
+	</view-state>
+	
+	
+	<decision-state id="variantAnalize">
+		<if test="wizWFControl.select eq 1" then="setNotMarked" else="delFromBase" />
+	</decision-state>
+	
+
+	<!-- DELETE FROM DATABASE -->
+	
+	<subflow-state id="delFromBase" subflow="seat/edit">
+		<input name="mode" value="'del'" />
+		<input name="id" value="id" />
+
+		<transition to="end" />
+	</subflow-state>
+
+	<!-- SET NOT MARCKED IN PLAN SCHEME-->
+	
+	<action-state id="setNotMarked">
+		<evaluate expression="wizWFControl.setNotMarked()" />
+		<transition to="end"/>
+		<transition on-exception="java.lang.Exception" to="delFromCell" />
+	</action-state>
+
+
+	<!-- END -->
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+	</end-state>
+
+	<global-transitions>
+		<transition on-exception="java.lang.Exception" to="delFromCell" />
+	</global-transitions>
+
+
+
+
+</flow>

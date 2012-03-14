@@ -25,6 +25,7 @@
 
 	<ui:define name="content">
 		<h:form>
+			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<pk:pk_close_button action="end" />
@@ -33,7 +34,7 @@
 				edit_action_and_close="#{btmWFControl.confirmEditAndClose}"
 				edit_action="#{btmWFControl.confirmEdit}"
 				del_action="#{btmWFControl.confirmDel}" add_view="#{false}"
-				edit_view="#{true}" del_view="#{false}" />
+				edit_view="#{false}" del_view="#{false}" />
 
 			<br />
 			<br />
@@ -83,7 +84,7 @@
 
 			<h:panelGroup
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
-				<table border="1">
+				<table border="1" cellspacing="15px" style="border-radius: 20px">
 					<ui:repeat var="y" value="#{btmWFControl.cells}">
 						<tr>
 							<ui:repeat var="x" value="#{y}">
@@ -101,41 +102,8 @@
 			</h:panelGroup>
 
 
-			<p:dialog header="Row Detail" widgetVar="rowDitailDialog"
-				resizable="false" id="rowDitailDialog" showEffect="fade"
-				hideEffect="explode" modal="true">
-
-				<h:panelGrid id="display" columns="2" cellpadding="4"
-					style="margin:0 auto;">
-
-					<f:facet name="header">
-
-					</f:facet>
-
-					<h:outputText value="id:" />
-					<h:outputText value="#{btmWFControl.selectedCell.seat.id}"
-						style="font-weight:bold" />
-
-					<h:outputText value="№:" />
-					<h:outputText value="#{btmWFControl.selectedCell.seat.num}"
-						style="font-weight:bold" />
-
-
-					<h:outputText value="Description:" />
-					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText value="#{btmWFControl.selectedCell.seat.description}"
-							escape="false" />
-					</p:scrollPanel>
-
-					<f:facet name="footer">
-						<p:outputPanel layout="block" style="text-align:right">
-							<p:commandButton value="Close" onclick="rowDitailDialog.hide()"
-								type="button" icon="ui-icon ui-icon-close" />
-						</p:outputPanel>
-					</f:facet>
-				</h:panelGrid>
-			</p:dialog>
-
+			<bt:seat_info_dialog id="rowDitailDialog"
+				cell="#{btmWFControl.selectedCell}" />
 
 		</h:form>
 	</ui:define>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+
+	<cc:attribute name="cell" type="java.lang.Object" required="true" />
+	<cc:attribute name="id" required="true"/>
+	<cc:attribute name="widgetVar" default="rowDitailDialog"/>
+
+</cc:interface>
+<cc:implementation>
+
+		<p:dialog header="Информация..." widgetVar="#{cc.attrs.widgetVar}"
+				resizable="false" id="#{cc.attrs.id}" showEffect="fade"
+				hideEffect="explode" modal="true">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4"
+					style="margin:0 auto;">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<h:outputText value="id:" />
+					<h:outputText value="#{cc.attrs.cell.seat.id}"
+						style="font-weight:bold" />
+
+					<h:outputText value="№:" />
+					<h:outputText value="#{cc.attrs.cell.seat.num}"
+						style="font-weight:bold" />
+
+
+					<h:outputText value="Description:" />
+					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
+						<h:outputText value="#{cc.attrs.cell.seat.description}"
+							escape="false" />
+					</p:scrollPanel>
+
+					<f:facet name="footer">
+						<p:outputPanel layout="block" style="text-align:right">
+							<p:commandButton value="Close" onclick="#{cc.attrs.widgetVar}.hide()"
+								type="button" icon="ui-icon ui-icon-close" />
+						</p:outputPanel>
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
+	
+
+
+</cc:implementation>
+</html>

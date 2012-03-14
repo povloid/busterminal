@@ -76,10 +76,8 @@
 	</subflow-state>
 	
 	
-	<subflow-state id="delFromCell" subflow="seat/edit">
-		<input name="mode" value="'del'" />
+	<subflow-state id="delFromCell" subflow="busTempliteMaster/delFromCell">
 		<input name="id" value="btmWFControl.selectedCell.seat.id" />
-
 		<transition to="init" />
 	</subflow-state>
 
