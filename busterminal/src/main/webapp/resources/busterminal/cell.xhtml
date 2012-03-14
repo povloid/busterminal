@@ -9,8 +9,13 @@
 <cc:interface>
 
 	<cc:attribute name="cell" type="java.lang.Object" required="true" />
+	<cc:attribute name="selectedCell" type="java.lang.Object" required="true" />
 
-	<cc:attribute name="add_seat_action"
+	<cc:attribute name="add_to_cell_action"
+		method-signature="java.lang.String action()" />
+	<cc:attribute name="edit_in_cell_action"
+		method-signature="java.lang.String action()" />
+	<cc:attribute name="del_from_cell_action"
 		method-signature="java.lang.String action()" />
 
 </cc:interface>
@@ -18,15 +23,31 @@
 
 	<table style="width: 150px; height: 150px" border="0">
 		<tr>
-			<td valign="top" height="10%">
-				<b><h:outputText value="#{cc.attrs.cell.index}"/></b>
-				<h:outputText value=" - x=#{cc.attrs.cell.x} y=#{cc.attrs.cell.y}" />
-			</td>
+			<td valign="top" height="10%"><b><h:outputText
+						value="#{cc.attrs.cell.index}" /></b> <h:outputText
+					value=" - x=#{cc.attrs.cell.x} y=#{cc.attrs.cell.y}" /></td>
 		</tr>
 		<tr>
-			<td valign="top" align="left"><p:commandButton icon="ui-icon add"
-					ajax="false" action="#{cc.attrs.add_action}"
-					title="Добавить посадочное место в ячейку"/></td>
+			<td valign="top" align="left"><p:commandButton
+					rendered="#{cc.attrs.cell.seat == null}" icon="ui-icon add"
+					ajax="false" action="#{cc.attrs.add_to_cell_action}"
+					title="Добавить посадочное место в ячейку">
+
+					<f:setPropertyActionListener value="#{cc.attrs.cell}"
+						target="#{cc.attrs.selectedCell}" />
+				</p:commandButton> <p:commandButton rendered="#{cc.attrs.cell.seat != null}"
+					icon="ui-icon edit" ajax="false"
+					action="#{cc.attrs.edit_in_cell_action}"
+					title="Редактировать посадочное место в ячейку">
+					<f:setPropertyActionListener value="#{cc.attrs.cell}"
+						target="#{cc.attrs.selectedCell}" />
+				</p:commandButton> <p:commandButton rendered="#{cc.attrs.cell.seat != null}"
+					icon="ui-icon del" ajax="false"
+					action="#{cc.attrs.del_from_cell_action}"
+					title="Удалить посадочное место в ячейку">
+					<f:setPropertyActionListener value="#{cc.attrs.cell}"
+						target="#{cc.attrs.selectedCell}" />
+				</p:commandButton></td>
 		</tr>
 	</table>
 

@@ -80,15 +80,17 @@
 
 			<p:separator />
 
+
+		111
 			<h:panelGroup
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
 				<table border="1">
 					<ui:repeat var="y" value="#{btmWFControl.cells}">
 						<tr>
 							<ui:repeat var="x" value="#{y}">
-								<td>
-									<bt:cell cell="#{x}"/>
-								</td>
+								<td><bt:cell cell="#{x}"
+										selectedCell="#{btmWFControl.selectedCell}"
+										add_to_cell_action="#{btmWFControl.addToCell}" /></td>
 							</ui:repeat>
 						</tr>
 					</ui:repeat>

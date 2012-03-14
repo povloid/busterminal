@@ -32,6 +32,15 @@
 			<set name="flashScope.selectedSchemeIds" value="btmWFControl.selectedScheme.id"
 				type="long" />
 		</transition>
+
+		<transition on="addToCell" to="addToCell">
+			<set name="flashScope.selectedSchemeIds" value="btmWFControl.selectedScheme.id"
+				type="long" />
+			<set name="flashScope.sX" value="btmWFControl.selectedCell.x" />
+			<set name="flashScope.sY" value="btmWFControl.selectedCell.y" />
+		</transition>
+
+
 	</view-state>
 
 
@@ -44,6 +53,20 @@
 
 
 
+	<!-- CELL OPERATIONS -->
+
+	<subflow-state id="addToCell" subflow="busTempliteMaster/addToCell">
+		<input name="schemaId" value="flashScope.selectedSchemeIds" />
+		<input name="sX" value="flashScope.sX" />
+		<input name="sY" value="flashScope.sY" />
+
+		<transition to="init" />
+	</subflow-state>
+
+
+
+
+	<!-- END -->
 	<decision-state id="end">
 		<if test="retUrl == null" then="end0" else="end1" />
 	</decision-state>

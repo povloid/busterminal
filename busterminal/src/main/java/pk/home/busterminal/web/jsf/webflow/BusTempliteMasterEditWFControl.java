@@ -129,6 +129,20 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return ylist;
 	}
 
+	// CELL OPERATIONS ---------------------------------------------------------------------------------
+	
+	
+	private Cell selectedCell;
+	
+	/**
+	 * Добавить в ячейку
+	 * @return
+	 */
+	public String addToCell() {
+		return "addToCell";
+	}
+	
+	
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
 	public Long getSelectedSchemeId() {
@@ -147,4 +161,14 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		this.selectedScheme = selectedScheme;
 	}
 
+	public Cell getSelectedCell() {
+		return selectedCell;
+	}
+
+	public void setSelectedCell(Cell selectedCell) {
+		this.selectedCell = selectedCell;
+	}
+
+	
+	
 }

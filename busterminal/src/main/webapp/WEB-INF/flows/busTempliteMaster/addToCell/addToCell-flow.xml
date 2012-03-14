@@ -1,0 +1,40 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="addToCell">
+
+
+	<secured attributes="ROLE_USER" />
+
+
+	<input name="schemaId" type="java.lang.Long" required="true" />
+	<input name="sX" type="short" required="true" />
+	<input name="sY" type="short" required="true" />
+
+	<input name="retUrl" type="java.lang.String" />
+
+
+
+	<view-state id="addToCell">
+		<transition on="end" to="end" />
+	</view-state>
+
+
+	<!-- END -->
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+	</end-state>
+
+
+
+
+</flow>
