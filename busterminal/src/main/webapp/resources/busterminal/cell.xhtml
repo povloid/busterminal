@@ -9,7 +9,8 @@
 <cc:interface>
 
 	<cc:attribute name="cell" type="java.lang.Object" required="true" />
-	<cc:attribute name="selectedCell" type="java.lang.Object" required="true" />
+	<cc:attribute name="selectedCell" type="java.lang.Object"
+		required="true" />
 
 	<cc:attribute name="add_to_cell_action"
 		method-signature="java.lang.String action()" />
@@ -17,6 +18,10 @@
 		method-signature="java.lang.String action()" />
 	<cc:attribute name="del_from_cell_action"
 		method-signature="java.lang.String action()" />
+
+
+	<cc:attribute name="show_view_button"></cc:attribute>
+	<cc:attribute name="view_button_oncomplete" default=""></cc:attribute>
 
 </cc:interface>
 <cc:implementation>
@@ -45,6 +50,12 @@
 					icon="ui-icon del" ajax="false"
 					action="#{cc.attrs.del_from_cell_action}"
 					title="Удалить посадочное место в ячейку">
+					<f:setPropertyActionListener value="#{cc.attrs.cell}"
+						target="#{cc.attrs.selectedCell}" />
+				</p:commandButton> <p:commandButton update="@form"
+					rendered="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true' and cc.attrs.cell.seat != null}"
+					oncomplete="#{cc.attrs.view_button_oncomplete}"
+					icon="ui-icon ui-icon-search" title="View row">
 					<f:setPropertyActionListener value="#{cc.attrs.cell}"
 						target="#{cc.attrs.selectedCell}" />
 				</p:commandButton></td>

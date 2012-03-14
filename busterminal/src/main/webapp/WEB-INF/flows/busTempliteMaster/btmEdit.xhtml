@@ -89,9 +89,11 @@
 							<ui:repeat var="x" value="#{y}">
 								<td><bt:cell cell="#{x}"
 										selectedCell="#{btmWFControl.selectedCell}"
-										add_to_cell_action="#{btmWFControl.addToCell}" 
+										add_to_cell_action="#{btmWFControl.addToCell}"
 										del_from_cell_action="#{btmWFControl.delFromCell}"
-										edit_in_cell_action="#{btmWFControl.editInCell}"/></td>
+										edit_in_cell_action="#{btmWFControl.editInCell}"
+										view_button_oncomplete="rowDitailDialog.show()"
+										show_view_button="true" selected="#{btmWFControl.selected}" /></td>
 							</ui:repeat>
 						</tr>
 					</ui:repeat>
@@ -99,7 +101,40 @@
 			</h:panelGroup>
 
 
+			<p:dialog header="Row Detail" widgetVar="rowDitailDialog"
+				resizable="false" id="rowDitailDialog" showEffect="fade"
+				hideEffect="explode" modal="true">
 
+				<h:panelGrid id="display" columns="2" cellpadding="4"
+					style="margin:0 auto;">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<h:outputText value="id:" />
+					<h:outputText value="#{btmWFControl.selectedCell.seat.id}"
+						style="font-weight:bold" />
+
+					<h:outputText value="№:" />
+					<h:outputText value="#{btmWFControl.selectedCell.seat.num}"
+						style="font-weight:bold" />
+
+
+					<h:outputText value="Description:" />
+					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
+						<h:outputText value="#{btmWFControl.selectedCell.seat.description}"
+							escape="false" />
+					</p:scrollPanel>
+
+					<f:facet name="footer">
+						<p:outputPanel layout="block" style="text-align:right">
+							<p:commandButton value="Close" onclick="rowDitailDialog.hide()"
+								type="button" icon="ui-icon ui-icon-close" />
+						</p:outputPanel>
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
 
 
 		</h:form>
