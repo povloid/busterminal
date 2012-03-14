@@ -66,7 +66,11 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	// init
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
-		schema = getSchemaService().find(schemaId);
+		if(schemaId != null)
+			schema = getSchemaService().find(schemaId);
+		else if(edited != null && edited.getSchema() != null) {
+			schema = edited.getSchema();
+		}
 	}
 
 	// gets and sets

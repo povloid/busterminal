@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.metamodel.SingularAttribute;
 
-import pk.home.busterminal.dao.BusDAO;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
