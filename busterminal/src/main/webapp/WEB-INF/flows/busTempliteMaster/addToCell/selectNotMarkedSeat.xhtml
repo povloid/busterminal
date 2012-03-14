@@ -34,21 +34,39 @@
 
 
 			<p:panel
-				header="Быбор варианта добавления в ячейку с координатами x = #{sX} и y = #{sY}">
+				header="Быбор необозначенного в схеме места в ячейку с координатами x = #{sX} и y = #{sY}">
+				<br />
 
-				<h:panelGrid columns="2">
-					<p:selectOneRadio value="#{wizWFControl.select}">
-						<f:selectItem itemLabel="Создать новое место" itemValue="1" />
-						<f:selectItem itemLabel="Выбрать из списка не установленных"
-							itemValue="2" />
-						<p:ajax event="change" update="@form"/>
-					</p:selectOneRadio>
-				</h:panelGrid>
+				<p:dataTable id="table1" var="row" selection="#{wizWFControl.selectedSeat}"
+					value="#{wizWFControl.noMarkedSeats}" widgetVar="dataTable1"
+					emptyMessage="Таблица пустая">
+
+					<f:facet name="header">
+						Необозначенные места
+					</f:facet>
+					
+					<p:column selectionMode="single" style="width:18px" />  
+
+					<p:column headerText="id">
+						<h:outputText value="#{row.id}" />
+					</p:column>
+
+					<p:column headerText="num">
+						<h:outputText value="#{row.num}" />
+					</p:column>
+
+					<p:column headerText="Описание">
+						<h:outputText value="#{row.description}" />
+					</p:column>
+
+				</p:dataTable>
+
 
 				<br />
 				<br />
 				<pk:pk_wiz_buttons_wf close_action="#{wizWFControl.close}"
-					next_action="#{wizWFControl.next}" step="1" lstep="2" />
+					back_action="#{wizWFControl.back}"
+					next_action="#{wizWFControl.next}" step="2" lstep="2" />
 			</p:panel>
 
 

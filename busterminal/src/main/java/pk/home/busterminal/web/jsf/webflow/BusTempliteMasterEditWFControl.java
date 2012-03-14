@@ -130,8 +130,6 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	}
 
 	// CELL OPERATIONS ---------------------------------------------------------------------------------
-	
-	
 	private Cell selectedCell;
 	
 	/**

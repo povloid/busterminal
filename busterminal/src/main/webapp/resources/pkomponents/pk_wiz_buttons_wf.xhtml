@@ -44,7 +44,7 @@
 
 	<p:commandButton id="backButton" 
 		icon="ui-icon back16" ajax="false"
-		rendered="#{cc.attrs.step gt 0}"
+		rendered="#{cc.attrs.step gt 1}"
 		action="#{cc.attrs.back_action}" title="#{cc.attrs.back_button_title}"
 		value="#{cc.attrs.back_button_value}" />
 
@@ -54,7 +54,7 @@
 		action="#{cc.attrs.next_action}" title="#{cc.attrs.next_button_title}" value="#{cc.attrs.next_button_value}" />
 		
 	<p:commandButton id="finishButton" 
-		rendered="#{cc.attrs.step eq lstep or cc.attrs.step eq 0}"
+		rendered="#{cc.attrs.step eq cc.attrs.lstep }"
 		icon="ui-icon go16" ajax="false"
 		action="#{cc.attrs.next_action}" title="Завершить" value="Завершить" />
 </cc:implementation>

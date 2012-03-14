@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-	start-state="addToCell">
+	start-state="init">
 
 
 	<secured attributes="ROLE_USER" />
@@ -11,11 +11,29 @@
 	<var name="wizWFControl"
 		class="pk.home.busterminal.web.jsf.webflow.AddToCellWFWizControl" />
 
-	<input name="schemaId" type="java.lang.Long" required="true" />
+	<input name="schemaId" type="long" required="true" />
 	<input name="sX" type="short" required="true" />
 	<input name="sY" type="short" required="true" />
 
 	<input name="retUrl" type="java.lang.String" />
+
+	<on-start>
+		<set name="wizWFControl.selectedSchemaId" value="schemaId" />
+		<set name="wizWFControl.x" value="sX" />
+		<set name="wizWFControl.y" value="sY" />
+	</on-start>
+
+
+	<action-state id="init">
+		<evaluate expression="wizWFControl.init()" />
+		<transition to="addToCell">
+		</transition>
+	</action-state>
+
+
+
+
+
 
 
 
@@ -25,23 +43,41 @@
 
 		<transition on="error" to="addToCell" />
 	</view-state>
-	
-	
-	
+
+
+
+
 	<decision-state id="variantAnalize">
-		<if test="wizWFControl.select eq 1" then="addNewSeat" else="end" />
+		<if test="wizWFControl.select eq 1" then="addNewSeat" else="selectNotMarkedSeat" />
 	</decision-state>
-	
-	
+
+
+	<!-- ADD NEW SEAT -->
 	<subflow-state id="addNewSeat" subflow="seat/edit">
 		<input name="mode" value="'add'" type="java.lang.String" />
 		<input name="schemaId" value="schemaId" />
 		<input name="blockXY" type="boolean" value="true" />
-		<input name="sx" type="short" value="sX"/>
-		<input name="sy" type="short" value="sY"/>
+		<input name="sx" type="short" value="sX" />
+		<input name="sy" type="short" value="sY" />
 
 		<transition to="end" />
 	</subflow-state>
+
+	<!-- SELECT NOT MARCKET SEAT -->
+
+	<view-state id="selectNotMarkedSeat">
+		<transition on="close" to="end" />
+		<transition on="next" to="end">
+			<evaluate expression="wizWFControl.addSelectNotMarkedSeatToCell()" />
+		</transition>
+		<transition on="back" to="addToCell" />
+
+		<transition on="error" to="selectNotMarkedSeat" />
+		<transition on-exception="java.lang.Exception" to="selectNotMarkedSeat" />
+	</view-state>
+
+
+
 
 
 	<!-- END -->

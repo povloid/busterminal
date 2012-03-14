@@ -90,6 +90,29 @@ public class SeatService extends ABaseService<Seat> {
 	
 	
 	
+	/**
+	 * Find not marked seats list by scheme
+	 * @param schema
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Seat> findNotMarkedSeats(Schema schema) throws Exception{
+		return seatDAO.executeQueryByName("Seat.findNoMarkedBySchema", schema);
+	}
+	
+	
+	/**
+	 * Find not marked seats count by scheme
+	 * @param schema
+	 * @return
+	 * @throws Exception
+	 */
+	public int findNotMarkedSeatsCount(Schema schema) throws Exception{
+		return (Integer) seatDAO.executeQueryByNameSingleResultO("Seat.findNoMarkedBySchema.count", schema);
+	}
+	
+	
+	
 	
 	
 }

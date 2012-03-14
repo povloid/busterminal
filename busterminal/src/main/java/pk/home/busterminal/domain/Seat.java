@@ -20,18 +20,22 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(schema = "public", name = "seats", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"num" , "schema_id"}))
+		"num", "schema_id" }))
 @NamedQueries({
 		@NamedQuery(name = "Seat.findAll", query = "select a from Seat a order by a.id"),
 		@NamedQuery(name = "Seat.findByPrimaryKey", query = "select a from Seat a where a.id = ?1"),
-		
+
 		@NamedQuery(name = "Seat.findByBusAndSchema.id.asc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.id asc"),
 		@NamedQuery(name = "Seat.findByBusAndSchema.id.desc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.id desc"),
-		
+
 		@NamedQuery(name = "Seat.findByBusAndSchema.num.asc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.num asc"),
 		@NamedQuery(name = "Seat.findByBusAndSchema.num.desc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.num desc"),
+
+		@NamedQuery(name = "Seat.findByBusAndSchema.count", query = "select count(a) from Seat a where a.schema.bus = ?1 and a.schema = ?2"),
 		
-		@NamedQuery(name = "Seat.findByBusAndSchema.count", query = "select count(a) from Seat a where a.schema.bus = ?1 and a.schema = ?2")		
+		@NamedQuery(name = "Seat.findNoMarkedBySchema", query = "select a from Seat a join a.schema s  where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) "),
+		@NamedQuery(name = "Seat.findNoMarkedBySchema.count", query = "select count(a) from Seat a join a.schema s where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) ")
+
 })
 public class Seat implements Serializable {
 
@@ -40,23 +44,19 @@ public class Seat implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
-		
+
 	}
-	
-	
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Schema schema;
-	
+
 	@NotNull
 	@Column(nullable = false)
 	private Short num;
-	
 
 	@Column(nullable = false)
 	@Id
@@ -66,7 +66,6 @@ public class Seat implements Serializable {
 	@Length(max = 1000)
 	@Column(length = 1000)
 	private String description;
-
 
 	private Short sx;
 	private Short sy;
@@ -110,7 +109,7 @@ public class Seat implements Serializable {
 	public void setSy(Short sy) {
 		this.sy = sy;
 	}
-	
+
 	public Schema getSchema() {
 		return schema;
 	}
