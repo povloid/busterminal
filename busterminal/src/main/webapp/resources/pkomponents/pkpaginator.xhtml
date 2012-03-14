@@ -41,7 +41,7 @@
 				<f:param name="ppage" value="#{1}" />
 			</p:commandButton>
 			<p:commandButton title="prev page" ajax="false"
-				icon="ui-icon skipb16" disabled="#{cc.attrs.page le 1}">
+				icon="ui-icon back16" disabled="#{cc.attrs.page le 1}">
 				<f:param name="ppage" value="#{cc.attrs.page - 1}" />
 			</p:commandButton>
 
@@ -56,7 +56,7 @@
 			</ui:repeat>
 
 			<p:commandButton title="next page" ajax="false"
-				icon="ui-icon skipf16" disabled="#{cc.attrs.page == cc.attrs.pages}">
+				icon="ui-icon forwd16" disabled="#{cc.attrs.page == cc.attrs.pages}">
 				<f:param name="ppage" value="#{cc.attrs.page + 1}" />
 			</p:commandButton>
 			<p:commandButton title="last" ajax="false" icon="ui-icon fastf16"

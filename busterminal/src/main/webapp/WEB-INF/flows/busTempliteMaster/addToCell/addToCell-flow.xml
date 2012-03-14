@@ -8,6 +8,9 @@
 	<secured attributes="ROLE_USER" />
 
 
+	<var name="wizWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.AddToCellWFWizControl" />
+
 	<input name="schemaId" type="java.lang.Long" required="true" />
 	<input name="sX" type="short" required="true" />
 	<input name="sY" type="short" required="true" />
@@ -17,7 +20,7 @@
 
 
 	<view-state id="addToCell">
-		<transition on="end" to="end" />
+		<transition on="close" to="end" />
 	</view-state>
 
 
