@@ -40,7 +40,7 @@
 			<set name="flashScope.sY" value="btmWFControl.selectedCell.y" />
 		</transition>
 
-
+		<transition on="error" to="btmEdit"/>
 	</view-state>
 
 

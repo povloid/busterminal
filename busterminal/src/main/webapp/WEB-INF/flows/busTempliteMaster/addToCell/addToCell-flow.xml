@@ -21,6 +21,9 @@
 
 	<view-state id="addToCell">
 		<transition on="close" to="end" />
+		<transition on="next" to="end" />
+
+		<transition on="error" to="addToCell" />
 	</view-state>
 
 
@@ -36,6 +39,10 @@
 
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
+
+	<global-transitions>
+		<transition on-exception="java.lang.Exception" to="addToCell" />
+	</global-transitions>
 
 
 

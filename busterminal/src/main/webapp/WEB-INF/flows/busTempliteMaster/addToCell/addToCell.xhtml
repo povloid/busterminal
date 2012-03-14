@@ -14,7 +14,7 @@
     </ui:define>
 
 	<ui:define name="header_icon">
-		<h:graphicImage value="/images/icons/wiz_32.png"/>
+		<h:graphicImage value="/images/icons/wiz_32.png" />
 	</ui:define>
 
 	<ui:define name="header">
@@ -27,20 +27,31 @@
 
 
 		<h:form id="form">
-			
+
 			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
-			
-			
-			
-			<p:panel header="Быбор варианта добавления в ячейку с координатами x = #{sX} и y = #{sY}">
-			
-			
-<!-- 			<pk:pk_close_button action="end" /> -->
-			<pk:pk_wiz_buttons_wf close_action="#{wizWFControl.close}" step = "0" lstep="0"/>
+
+
+
+			<p:panel
+				header="Быбор варианта добавления в ячейку с координатами x = #{sX} и y = #{sY}">
+
+				<h:panelGrid columns="2">
+					<p:selectOneRadio value="#{wizWFControl.select}">
+						<f:selectItem itemLabel="Создать новое место" itemValue="1" />
+						<f:selectItem itemLabel="Выбрать из списка не установленных"
+							itemValue="2" />
+						<p:ajax event="change" update="@form"/>
+					</p:selectOneRadio>
+				</h:panelGrid>
+
+				<br />
+				<br />
+				<pk:pk_wiz_buttons_wf close_action="#{wizWFControl.close}"
+					next_action="#{wizWFControl.next}" step="0" lstep="0" />
 			</p:panel>
-			
-			
+
+
 
 		</h:form>
 
