@@ -73,6 +73,10 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 				}
 			}
 	}
+	
+	
+	
+	
 
 	/**
 	 * Редактировать текущую схему
@@ -140,9 +144,26 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return "addToCell";
 	}
 	
+	/**
+	 * Редактировать в ячейке
+	 * @return
+	 */
+	public String editInCell() {
+		return "editInCell";
+	}
+	
+	/**
+	 * Удалить в ячейке
+	 * @return
+	 */
+	public String delFromCell() {
+		return "delFromCell";
+	}
+	
 	
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
+	
 	public Long getSelectedSchemeId() {
 		return selectedSchemeId;
 	}

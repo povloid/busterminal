@@ -89,7 +89,9 @@
 							<ui:repeat var="x" value="#{y}">
 								<td><bt:cell cell="#{x}"
 										selectedCell="#{btmWFControl.selectedCell}"
-										add_to_cell_action="#{btmWFControl.addToCell}" /></td>
+										add_to_cell_action="#{btmWFControl.addToCell}" 
+										del_from_cell_action="#{btmWFControl.delFromCell}"
+										edit_in_cell_action="#{btmWFControl.editInCell}"/></td>
 							</ui:repeat>
 						</tr>
 					</ui:repeat>
