@@ -58,13 +58,16 @@
 
 				</h:panelGrid>
 			</p:fieldset>
+		</h:form>
+
+		<h:form id="setkaForm">
 
 			<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
 
 				<pk:pk_add_button_wf add_action="#{btmWFControl.addNewSchema}" />
 
 
-				<h:panelGrid columns="2" >
+				<h:panelGrid columns="2">
 					<h:outputText value="Схема: " />
 					<p:selectOneButton value="#{btmWFControl.selectedSchemeId}">
 						<f:selectItems value="#{btmWFControl.edited.schemas}" var="row"
@@ -75,8 +78,11 @@
 				</h:panelGrid>
 
 
-				<h:panelGrid columns="2"
+				<h:panelGrid columns="3"
 					rendered="#{btmWFControl.selectedScheme != null}">
+					
+					<h:outputText id="setkaTable" value="btmWFControl.selectedScheme" />
+					
 					<h:outputText
 						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />
 
@@ -96,12 +102,11 @@
 
 			</h:panelGrid>
 
-			<br/>
+			<br />
 
-
-			<h:panelGroup id="setka"
+			<h:panelGroup 
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
-				<table border="1" cellspacing="15px" style="border-radius: 20px">
+				<table  border="1" cellspacing="15px" style="border-radius: 20px">
 					<ui:repeat var="y" value="#{btmWFControl.cells}">
 						<tr>
 							<ui:repeat var="x" value="#{y}">
@@ -121,8 +126,9 @@
 
 			<bt:seat_info_dialog id="rowDitailDialog"
 				cell="#{btmWFControl.selectedCell}" />
-
 		</h:form>
+
+
 	</ui:define>
 	<ui:define name="footer">
 

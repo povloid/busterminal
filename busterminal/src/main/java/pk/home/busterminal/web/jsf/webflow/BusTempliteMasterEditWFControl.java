@@ -15,6 +15,7 @@ import pk.home.libs.combine.web.jsf.flow.AWFControl;
 public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		implements Serializable {
 
+
 	/**
 	 * 
 	 */
@@ -215,5 +216,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	public void setSelectedCell(Cell selectedCell) {
 		this.selectedCell = selectedCell;
 	}
-
+	
+	
+	
 }
