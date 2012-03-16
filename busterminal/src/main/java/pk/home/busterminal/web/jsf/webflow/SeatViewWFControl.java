@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.metamodel.SingularAttribute;
 
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
@@ -69,6 +70,14 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 
 	// -----------------------------------------------------------------------------------------------------------------
 
+	private BssType bssType = BssType.TEMPLITE;
+
+	public void setBssType(String s) throws Exception {
+		if (s != null && s.trim().length() > 0) {
+			bssType = BssType.valueOf(s);
+		}
+	}
+
 	private List<Bus> buses;
 	private Bus selectedBus;
 	private Schema selectedSchema;
@@ -77,7 +86,8 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	private Long selectedSchemaId;
 
 	private void initBuses() throws Exception {
-		buses = getBusService().getAllEntities();
+		buses = getBusService().getAllEntities(bssType);
+
 	}
 
 	public void setSelectedBusId(Long selectedBusId) {
@@ -85,28 +95,26 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 
 		if (buses == null)
 			return;
-		
-		if(selectedBusId == 0l){
+
+		if (selectedBusId == 0l) {
 			selectedBus = null;
 			selectedBusId = null;
-			
+
 			selectedSchema = null;
 			selectedSchemaId = null;
 			return;
 		}
-			
 
 		for (Bus bus : buses) {
 			if (bus.getId().equals(selectedBusId)) {
 				try {
-					if(selectedBus == null || !selectedBus.equals(bus)){
+					if (selectedBus == null || !selectedBus.equals(bus)) {
 						selectedSchema = null;
 						selectedSchemaId = null;
 					}
-					
+
 					selectedBus = getBusService().findWithLazy(bus.getId());
-					
-					
+
 				} catch (Exception e) {
 					selectedBus = null;
 					selectedBusId = null;
@@ -166,5 +174,15 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	public void setSelectedSchema(Schema selectedSchema) {
 		this.selectedSchema = selectedSchema;
 	}
+
+	public BssType getBssType() {
+		return bssType;
+	}
+
+	public void setBssType(BssType bssType) {
+		this.bssType = bssType;
+	}
+	
+	
 
 }

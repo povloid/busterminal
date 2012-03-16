@@ -57,6 +57,22 @@ public class BusService extends ABaseService<Bus> {
 		return busDAO.getAllEntities(firstResult, maxResults, orderByAttribute,
 				sortOrder, cb, cq, t);
 	}
+	
+	
+	public List<Bus> getAllEntities(BssType bssType) throws Exception {
+
+		CriteriaBuilder cb = busDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Bus> cq = cb.createQuery(Bus.class);
+		Root<Bus> t = cq.from(Bus.class);
+
+		// parent param ---------------------------------------
+		cq.where(cb.equal(t.get(Bus_.bssType), bssType));
+
+		return busDAO.getAllEntities(Bus_.keyName,
+				SortOrderType.ASC, cb, cq, t);
+	}
+	
 
 	public long count(BssType bssType) throws Exception {
 

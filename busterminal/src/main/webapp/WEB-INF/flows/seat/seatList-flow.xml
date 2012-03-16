@@ -9,6 +9,12 @@
 
 	<var name="seatViewControl" class="pk.home.busterminal.web.jsf.webflow.SeatViewWFControl" />
 
+	<input name="bsstype" type="java.lang.String" />
+
+	<on-start>
+		<evaluate expression="seatViewControl.setBssType(bsstype)" />
+	</on-start>
+
 	<view-state id="seatList">
 		<transition on="add" to="op">
 			<set name="flashScope.modes" value="'add'" type="java.lang.String" />
