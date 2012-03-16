@@ -24,8 +24,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{schemaViewControl.init}" />
+			<f:event type="preRenderView" listener="#{schemaViewControl.init}" />
 			<f:viewParam name="ppage" value="#{schemaViewControl.page}" />
 			<f:viewParam name="prows" value="#{schemaViewControl.prows}" />
 			<f:viewParam name="pcsortField"
@@ -39,9 +38,25 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
 
-			<pk:pk_add_button_wf add_action="#{schemaViewControl.add}"/>
 
-			<p:dataTable id="table1" var="row" 
+
+			<h:panelGrid columns="7">
+
+				<h:outputLabel value="Bus:" />
+				<p:selectOneMenu value="#{schemaViewControl.selectedBusId}"
+					rendered="true">
+					<f:selectItem itemLabel="Выбрать автобус" itemValue="0" />
+					<f:selectItems value="#{schemaViewControl.buses}" var="row"
+						itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" />
+					<p:ajax event="change" update="@form" />
+				</p:selectOneMenu>
+
+				<pk:pk_add_button_wf add_action="#{schemaViewControl.add}"
+					rendered="#{schemaViewControl.selectedBusId != null and schemaViewControl.selectedBusId gt 0}" />
+			</h:panelGrid>
+
+
+			<p:dataTable id="table1" var="row"
 				value="#{schemaViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
 
@@ -85,15 +100,15 @@
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 
-				<p:column headerText="Описание" >
+				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />
 				</p:column>
 
-				<p:column headerText="Действие" style="width: 100px; text-align: center;">
+				<p:column headerText="Действие"
+					style="width: 100px; text-align: center;">
 					<pk:pktable_crud_column_buttons_wf
 						edit_action="#{schemaViewControl.edit}"
-						del_action="#{schemaViewControl.del}"
-						show_view_button="true"
+						del_action="#{schemaViewControl.del}" show_view_button="true"
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{schemaViewControl.selected}" row="#{row}" />
 				</p:column>
@@ -133,8 +148,7 @@
 
 					<h:outputText value="Description:" />
 					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText
-							value="#{schemaViewControl.selected.description}"
+						<h:outputText value="#{schemaViewControl.selected.description}"
 							escape="false" />
 					</p:scrollPanel>
 

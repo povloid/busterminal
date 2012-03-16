@@ -1,7 +1,6 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
-import java.util.List;
 
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
@@ -41,6 +40,7 @@ public class SchemaEditWFControl extends AWFControl<Schema, Long> implements
 
 	@Override
 	protected void confirmAddImpl() throws Exception {
+		edited.setBus(bus);
 		edited = getSchemaService().persist(edited);
 	}
 
@@ -57,46 +57,60 @@ public class SchemaEditWFControl extends AWFControl<Schema, Long> implements
 	// init
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
-		initBuses();
+		// initBuses();
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------
 
-	private List<Bus> buses;
+	// private List<Bus> buses;
+	//
+	// private void initBuses() {
+	// try {
+	// buses = getBusService().getAllEntities();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// public long getBusId() {
+	//
+	// if (this.edited != null && this.edited.getBus() != null)
+	// return this.edited.getBus().getId();
+	// else
+	// return 0;
+	// }
+	//
+	// public void setBusId(long id) {
+	// try {
+	// this.edited.setBus(getBusService().find(id));
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 
-	private void initBuses() {
-		try {
-			buses = getBusService().getAllEntities();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private Bus bus;
 
-	public long getBusId() {
-
-		if (this.edited != null && this.edited.getBus() != null)
-			return this.edited.getBus().getId();
-		else
-			return 0;
-	}
-
-	public void setBusId(long id) {
-		try {
-			this.edited.setBus(getBusService().find(id));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void setSelectedBus(Long busId) throws Exception {
+		bus = getBusService().find(busId);
 	}
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
 
-	public List<Bus> getBuses() {
-		return buses;
+	// public List<Bus> getBuses() {
+	// return buses;
+	// }
+	//
+	// public void setBuses(List<Bus> buses) {
+	// this.buses = buses;
+	// }
+
+	public Bus getBus() {
+		return bus;
 	}
 
-	public void setBuses(List<Bus> buses) {
-		this.buses = buses;
+	public void setBus(Bus bus) {
+		this.bus = bus;
 	}
 
 }

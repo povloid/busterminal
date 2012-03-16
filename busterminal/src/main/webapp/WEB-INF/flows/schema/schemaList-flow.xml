@@ -9,6 +9,12 @@
 
 	<var name="schemaViewControl" class="pk.home.busterminal.web.jsf.webflow.SchemaViewWFControl" />
 
+	<input name="bsstype" type="java.lang.String" />
+
+	<on-start>
+		<evaluate expression="schemaViewControl.setBssType(bsstype)" />
+	</on-start>
+
 	<view-state id="schemaList">
 		<transition on="add" to="op">
 			<set name="flashScope.modes" value="'add'" type="java.lang.String" />
@@ -30,6 +36,7 @@
 	<subflow-state id="op" subflow="schema/edit">
 		<input name="mode" value="modes" />
 		<input name="id" value="ids" />
+		<input name="busId" value="schemaViewControl.selectedBusId" />
 
 		<transition to="schemaList" />
 	</subflow-state>
