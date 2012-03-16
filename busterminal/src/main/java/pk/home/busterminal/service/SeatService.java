@@ -28,7 +28,10 @@ public class SeatService extends ABaseService<Seat> {
 
 	@Autowired
 	private BusService busService;
-	
+
+	@Autowired
+	private SchemaService schemaService;
+
 	@Autowired
 	private SeatDAO seatDAO;
 
@@ -42,13 +45,23 @@ public class SeatService extends ABaseService<Seat> {
 			SortOrderType sortOrder, Bus bus, Schema schema) throws Exception {
 
 		if (orderByAttribute == Seat_.id && sortOrder == SortOrderType.ASC) {
-			return seatDAO.executeQueryByName("Seat.findByBusAndSchema.id.asc", firstResult, maxResults, bus, schema);
-		} else if (orderByAttribute == Seat_.id && sortOrder == SortOrderType.DESC) {
-			return seatDAO.executeQueryByName("Seat.findByBusAndSchema.id.desc", firstResult, maxResults, bus, schema);
-		} else if (orderByAttribute == Seat_.num && sortOrder == SortOrderType.ASC) {
-			return seatDAO.executeQueryByName("Seat.findByBusAndSchema.num.asc", firstResult, maxResults, bus, schema);
-		} else if (orderByAttribute == Seat_.num && sortOrder == SortOrderType.DESC) {
-			return seatDAO.executeQueryByName("Seat.findByBusAndSchema.num.desc", firstResult, maxResults, bus, schema);
+			return seatDAO.executeQueryByName("Seat.findByBusAndSchema.id.asc",
+					firstResult, maxResults, bus, schema);
+		} else if (orderByAttribute == Seat_.id
+				&& sortOrder == SortOrderType.DESC) {
+			return seatDAO.executeQueryByName(
+					"Seat.findByBusAndSchema.id.desc", firstResult, maxResults,
+					bus, schema);
+		} else if (orderByAttribute == Seat_.num
+				&& sortOrder == SortOrderType.ASC) {
+			return seatDAO.executeQueryByName(
+					"Seat.findByBusAndSchema.num.asc", firstResult, maxResults,
+					bus, schema);
+		} else if (orderByAttribute == Seat_.num
+				&& sortOrder == SortOrderType.DESC) {
+			return seatDAO.executeQueryByName(
+					"Seat.findByBusAndSchema.num.desc", firstResult,
+					maxResults, bus, schema);
 		} else {
 			return super.getAllEntities(firstResult, maxResults,
 					orderByAttribute, sortOrder);
@@ -56,7 +69,8 @@ public class SeatService extends ABaseService<Seat> {
 	}
 
 	public long count(Bus bus, Schema schema) throws Exception {
-		return (Long) seatDAO.executeQueryByNameSingleResultO("Seat.findByBusAndSchema.count", bus, schema);
+		return (Long) seatDAO.executeQueryByNameSingleResultO(
+				"Seat.findByBusAndSchema.count", bus, schema);
 	}
 
 	@Override
@@ -75,44 +89,65 @@ public class SeatService extends ABaseService<Seat> {
 		return super.merge(o);
 	}
 
+	/**
+	 * Проверка логической уникальности сохраняемого места
+	 * @param o
+	 * @throws Exception
+	 */
 	@Transactional
 	public void check(Seat o) throws Exception {
-		Bus b = busService.findWithLazy(o.getSchema().getBus().getId());
-		
-		for(Schema sh: b.getSchemas()){
-			for(Seat st: sh.getSeats()){
-				if(!o.equals(st) && o.getNum().equals(st.getNum())){
-					throw new Exception("Номера мест в пределах одного автобуса должны бвть уникальными!");
+
+		Bus b = busService.find(o.getSchema().getBus().getId());
+		busService.refresh(b);
+
+		for (Schema sh : b.getSchemas()) {
+			schemaService.refresh(sh);
+
+			for (Seat st : sh.getSeats()) {
+
+				if (!o.equals(st)) {
+					if (o.getNum().equals(st.getNum())) {
+						throw new Exception(
+								"Номера мест в пределах одного автобуса должны бвть уникальными!");
+					}
+
+					if (o.getSx() != null && o.getSx() > 0
+							&& o.getSy() != null && o.getSy() > 0
+							&& o.getSchema().equals(st.getSchema())
+							&& o.getSx().equals(st.getSx())
+							&& o.getSy().equals(st.getSy())) {
+						throw new Exception("Координаты места в схеме x="
+								+ o.getSx() + " и y=" + o.getSy()
+								+ " уже заняты местом №" + st.getNum());
+					}
+
 				}
+
 			}
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Find not marked seats list by scheme
+	 * 
 	 * @param schema
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Seat> findNotMarkedSeats(Schema schema) throws Exception{
+	public List<Seat> findNotMarkedSeats(Schema schema) throws Exception {
 		return seatDAO.executeQueryByName("Seat.findNoMarkedBySchema", schema);
 	}
-	
-	
+
 	/**
 	 * Find not marked seats count by scheme
+	 * 
 	 * @param schema
 	 * @return
 	 * @throws Exception
 	 */
-	public int findNotMarkedSeatsCount(Schema schema) throws Exception{
-		return (Integer) seatDAO.executeQueryByNameSingleResultO("Seat.findNoMarkedBySchema.count", schema);
+	public int findNotMarkedSeatsCount(Schema schema) throws Exception {
+		return (Integer) seatDAO.executeQueryByNameSingleResultO(
+				"Seat.findNoMarkedBySchema.count", schema);
 	}
-	
-	
-	
-	
-	
+
 }

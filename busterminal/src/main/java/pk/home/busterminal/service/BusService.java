@@ -24,7 +24,11 @@ public class BusService extends ABaseService<Bus> {
 	@Transactional(readOnly = true)
 	public Bus findWithLazy(Object key) throws Exception {
 		Bus bus = super.find(key);
-		bus.getSchemas().size();
+
+		if (bus.getSchemas() != null) {
+			bus.getSchemas().size();
+		}
+
 		return bus;
 	}
 

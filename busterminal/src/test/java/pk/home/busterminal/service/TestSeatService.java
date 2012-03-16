@@ -115,6 +115,8 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		System.out.println(">>>" + bus.getSchemas());
 
 		long index = seatService.count();
 		for (int i = 0; i < 100; i++) {
