@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.metamodel.SingularAttribute;
 
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
 import pk.home.busterminal.service.BusService;
@@ -23,7 +24,7 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 
 	@Override
 	protected void aInit() throws Exception {
-		
+
 		SingularAttribute<Bus, ?> orderByAttribute = Bus_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Bus_.id;
@@ -31,30 +32,29 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 			orderByAttribute = Bus_.keyName;
 		}
 
-		dataModel = getBusService().getAllEntities((page - 1) * rows, rows,
-				orderByAttribute, getSortOrderType());
+		dataModel = getBusService().getAllEntities(BssType.TEMPLITE,
+				(page - 1) * rows, rows, orderByAttribute, getSortOrderType());
 	}
 
 	@Override
-	protected long initAllRowsCount() throws Exception {		
-		return getBusService().count();
+	protected long initAllRowsCount() throws Exception {
+		return getBusService().count(BssType.TEMPLITE);
 	}
-	
-	
-	public String add(){
+
+	public String add() {
 		return "add";
 	}
-	
-	public String edit(){
+
+	public String edit() {
 		return "edit";
 	}
-	
-	public String del(){
+
+	public String del() {
 		return "del";
 	}
-	
-	public String busTempliteMaster(){
+
+	public String busTempliteMaster() {
 		return "busTempliteMaster";
 	}
-	
+
 }

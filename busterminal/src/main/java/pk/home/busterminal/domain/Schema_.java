@@ -10,8 +10,11 @@ public abstract class Schema_ {
 	public static volatile SingularAttribute<Schema, Long> id;
 	public static volatile SingularAttribute<Schema, String> keyName;
 	public static volatile SingularAttribute<Schema, Bus> bus;
+	public static volatile SingularAttribute<Schema, Short> xSize;
 	public static volatile SingularAttribute<Schema, String> description;
 	public static volatile SetAttribute<Schema, Seat> seats;
+	public static volatile SingularAttribute<Schema, Short> ySize;
+	public static volatile SingularAttribute<Schema, Integer> version;
 
 }
 
