@@ -61,28 +61,45 @@
 
 			<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
 
-				<h:outputText value="Схема: " />
-				<p:selectOneButton value="#{btmWFControl.selectedSchemeId}">
-					<f:selectItems value="#{btmWFControl.edited.schemas}" var="row"
-						itemLabel="#{row.keyName}" itemValue="#{row.id}" />
-					<p:ajax event="change" update="@form"
-						listener="#{btmWFControl.handleSchemaChange}" />
-				</p:selectOneButton>
+				<pk:pk_add_button_wf add_action="#{btmWFControl.addNewSchema}" />
 
-				<h:panelGroup rendered="#{btmWFControl.selectedScheme != null}">
+
+				<h:panelGrid columns="2" >
+					<h:outputText value="Схема: " />
+					<p:selectOneButton value="#{btmWFControl.selectedSchemeId}">
+						<f:selectItems value="#{btmWFControl.edited.schemas}" var="row"
+							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+						<p:ajax event="change" update="@form"
+							listener="#{btmWFControl.handleSchemaChange}" />
+					</p:selectOneButton>
+				</h:panelGrid>
+
+
+				<h:panelGrid columns="2"
+					rendered="#{btmWFControl.selectedScheme != null}">
 					<h:outputText
 						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />
 
-					<pk:pk_edit_button_wf
-						edit_action="#{btmWFControl.editSelectedSchema}" />
-				</h:panelGroup>
+
+
+					<pk:pktable_crud_column_buttons_wf
+						edit_action="#{btmWFControl.editSelectedSchema}"
+						del_action="#{btmWFControl.delSelectedSchema}"
+						show_view_button="false"
+						view_button_oncomplete="rowDitailDialog.show()"
+						selected="#{btmWFControl.selectedScheme}"
+						row="#{btmWFControl.selectedScheme}" />
+
+
+
+				</h:panelGrid>
 
 			</h:panelGrid>
 
-			<p:separator />
+			<br/>
 
 
-			<h:panelGroup
+			<h:panelGroup id="setka"
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
 				<table border="1" cellspacing="15px" style="border-radius: 20px">
 					<ui:repeat var="y" value="#{btmWFControl.cells}">

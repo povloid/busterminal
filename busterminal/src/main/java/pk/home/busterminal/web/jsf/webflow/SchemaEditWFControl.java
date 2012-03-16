@@ -27,7 +27,9 @@ public class SchemaEditWFControl extends AWFControl<Schema, Long> implements
 
 	@Override
 	public Schema newEdited() throws Exception {
-		return new Schema();
+		Schema schema = new Schema();
+		schema.setBus(bus);
+		return schema;
 	}
 
 	public BusService getBusService() {
@@ -40,7 +42,6 @@ public class SchemaEditWFControl extends AWFControl<Schema, Long> implements
 
 	@Override
 	protected void confirmAddImpl() throws Exception {
-		edited.setBus(bus);
 		edited = getSchemaService().persist(edited);
 	}
 

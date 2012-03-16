@@ -32,13 +32,18 @@
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
 
-					<h:outputLabel value="Bus:" />
-					
-<!-- 					<p:selectOneMenu value="#{schemaEditWFControl.busId}" -->
-<!-- 						rendered="true"> -->
-<!-- 						<f:selectItems value="#{schemaEditWFControl.buses}" var="row" -->
-<!-- 							itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" /> -->
-<!-- 					</p:selectOneMenu> -->
+
+					<h:outputText value="Bus:" />
+					<h:outputText
+						value="#{schemaEditWFControl.edited.bus.keyName} - #{schemaEditWFControl.edited.bus.gosNum}" />
+
+					<!-- 					<h:outputLabel value="Bus:" /> -->
+
+					<!-- 					<p:selectOneMenu value="#{schemaEditWFControl.busId}" -->
+					<!-- 						rendered="true"> -->
+					<!-- 						<f:selectItems value="#{schemaEditWFControl.buses}" var="row" -->
+					<!-- 							itemLabel="#{row.keyName} - #{row.gosNum}" itemValue="#{row.id}" /> -->
+					<!-- 					</p:selectOneMenu> -->
 
 
 					<h:outputText value="№:"

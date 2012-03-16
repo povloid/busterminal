@@ -52,6 +52,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	@Override
 	protected void init0() throws Exception {
 		System.out.println("1111111");
+
 		handleSchemaChange();
 	}
 
@@ -60,20 +61,38 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 
 	/**
 	 * Выбор схемы
+	 * 
+	 * @throws Exception
 	 */
-	public void handleSchemaChange() {
-		if (selectedSchemeId != null)
+	public void handleSchemaChange() throws Exception {
+		if (selectedSchemeId != null) {
+
+			boolean selected = false;
 			for (Schema s : edited.getSchemas()) {
 				if (s.getId().equals(selectedSchemeId)) {
 					selectedScheme = s;
+					selected = true;
 					break;
 				}
 			}
+
+			if (!selected) {
+				selectedScheme = null;
+				selectedSchemeId = null;
+				edited = service().getBusService().findWithLazy(edited.getId());
+			}
+		}
 	}
-	
-	
-	
-	
+
+	/**
+	 * Добавить новую схему
+	 * 
+	 * @return
+	 */
+	public String addNewSchema() {
+		System.out.println("*****");
+		return "addNewSchema";
+	}
 
 	/**
 	 * Редактировать текущую схему
@@ -82,6 +101,15 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 */
 	public String editSelectedSchema() {
 		return "editSelectedSchema";
+	}
+
+	/**
+	 * Удалить текущую схему
+	 * 
+	 * @return
+	 */
+	public String delSelectedSchema() {
+		return "delSelectedSchema";
 	}
 
 	/**
@@ -130,37 +158,40 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return ylist;
 	}
 
-	// CELL OPERATIONS ---------------------------------------------------------------------------------
+	// CELL OPERATIONS
+	// ---------------------------------------------------------------------------------
 	private Cell selectedCell;
-	
+
 	/**
 	 * Добавить в ячейку
+	 * 
 	 * @return
 	 */
 	public String addToCell() {
 		return "addToCell";
 	}
-	
+
 	/**
 	 * Редактировать в ячейке
+	 * 
 	 * @return
 	 */
 	public String editInCell() {
 		return "editInCell";
 	}
-	
+
 	/**
 	 * Удалить в ячейке
+	 * 
 	 * @return
 	 */
 	public String delFromCell() {
 		return "delFromCell";
 	}
-	
-	
+
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
-	
+
 	public Long getSelectedSchemeId() {
 		return selectedSchemeId;
 	}
@@ -185,6 +216,4 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		this.selectedCell = selectedCell;
 	}
 
-	
-	
 }

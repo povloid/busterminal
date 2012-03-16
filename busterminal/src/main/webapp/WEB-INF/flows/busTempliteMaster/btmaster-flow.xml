@@ -27,6 +27,12 @@
 		<transition on="editComplite" to="btmEdit" />
 		<transition on="editCompliteAndClose" to="end" />
 
+		<transition on="addNewSchema" to="addNewSchema">
+		</transition>
+		
+		<transition on="delSelectedSchema" to="delSelectedSchema">
+		</transition>
+
 		<transition on="editSelectedSchema" to="editSelectedSchema">
 			<set name="flashScope.modes" value="'edit'" type="java.lang.String" />
 			<set name="flashScope.selectedSchemeIds" value="btmWFControl.selectedScheme.id"
@@ -47,6 +53,23 @@
 		<transition on="error" to="btmEdit"/>
 	</view-state>
 
+
+	<!-- SCHEMA OPERATIONS -->
+	<subflow-state id="addNewSchema" subflow="schema/edit">
+		<input name="mode" value="'add'" />
+		<input name="busId" value="btmWFControl.edited.id" />
+
+		<transition to="init" />
+	</subflow-state>
+	
+	<subflow-state id="delSelectedSchema" subflow="schema/edit">
+		<input name="mode" value="'del'" />
+		<input name="id" value="btmWFControl.selectedScheme.id" />
+
+		<transition to="init" />
+	</subflow-state>
+	
+	
 
 	<subflow-state id="editSelectedSchema" subflow="schema/edit">
 		<input name="mode" value="modes" />
