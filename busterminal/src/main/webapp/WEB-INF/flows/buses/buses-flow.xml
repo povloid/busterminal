@@ -8,7 +8,13 @@
 	<secured attributes="ROLE_USER" />
 
 	<var name="busViewControl" class="pk.home.busterminal.web.jsf.webflow.BusViewWFControl" />
-
+	
+	<input name="bsstype" type="java.lang.String"/>
+	
+	<on-start>
+		<evaluate expression="busViewControl.setBssType(bsstype)" />
+	</on-start>
+	
 	<view-state id="buses">
 		<transition on="busTempliteMaster" to="busTempliteMaster">
 			<set name="flashScope.ids" value="busViewControl.selected.id"
@@ -34,6 +40,7 @@
 	<subflow-state id="op" subflow="buses/busedit">
 		<input name="mode" value="modes" />
 		<input name="id" value="ids" />
+		<input name="bsstype" value="bsstype"/>
 
 		<transition to="buses" />
 	</subflow-state>

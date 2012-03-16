@@ -2,6 +2,7 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.service.BusService;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
@@ -13,6 +14,16 @@ public class BusEditWFControl extends AWFControl<Bus, Long> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 4157216820946820481L;
+
+	private BssType bssType = BssType.TEMPLITE;
+
+	public void setBssType(String s) throws Exception {
+		if (s != null && s.trim().length() > 0) {
+			bssType = BssType.valueOf(s);
+		}
+	}
+
+	// ---------------------------------------------------------------------------------------------
 
 	@Override
 	public Bus findEdited(Long id) throws Exception {
@@ -30,6 +41,7 @@ public class BusEditWFControl extends AWFControl<Bus, Long> implements
 
 	@Override
 	protected void confirmAddImpl() throws Exception {
+		edited.setBssType(bssType);
 		edited = getBusService().persist(edited);
 	}
 
@@ -48,7 +60,18 @@ public class BusEditWFControl extends AWFControl<Bus, Long> implements
 	protected void init0() throws Exception {
 	}
 
+
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
 
+	public BssType getBssType() {
+		return bssType;
+	}
+	
+	public void setBssType(BssType bssType) {
+		this.bssType = bssType;
+	}
+	
+	
+	
 }

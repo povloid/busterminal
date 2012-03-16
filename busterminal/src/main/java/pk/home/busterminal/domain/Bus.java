@@ -10,22 +10,27 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(schema = "public", name = "buses")
+// , uniqueConstraints = {
+// @UniqueConstraint(columnNames = { "bsstype", "keyName" }),
+// @UniqueConstraint(columnNames = { "bsstype", "keyName" }) })
 @NamedQueries({
 		@NamedQuery(name = "Bus.findAll", query = "select a from Bus a order by a.id"),
 		@NamedQuery(name = "Bus.findByPrimaryKey", query = "select a from Bus a where a.id = ?1") })
+
 public class Bus implements Serializable {
 
 	/**
@@ -38,7 +43,11 @@ public class Bus implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	@Index(name="buses_bsstype_idx")
 	private BssType bssType;
+
+	@ManyToOne
+	private Bus templite;
 
 	@Column(nullable = false)
 	@Id
@@ -46,10 +55,11 @@ public class Bus implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String keyName;
 
-	@Column(unique = true, nullable = false, length = 10)
+	@NotNull
+	@Column(nullable = false, length = 10)
 	@Size(max = 10)
 	private String gosNum;
 
@@ -66,6 +76,14 @@ public class Bus implements Serializable {
 
 	public void setBssType(BssType bssType) {
 		this.bssType = bssType;
+	}
+
+	public Bus getTemplite() {
+		return templite;
+	}
+
+	public void setTemplite(Bus templite) {
+		this.templite = templite;
 	}
 
 	public Long getId() {

@@ -22,6 +22,17 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 		return (BusService) findBean("busService");
 	}
 
+	private BssType bssType = BssType.TEMPLITE;
+	
+	public void setBssType(String s) throws Exception
+	{
+		if(s != null && s.trim().length() > 0){
+			bssType = BssType.valueOf(s);
+		}
+	}
+	
+	
+	
 	@Override
 	protected void aInit() throws Exception {
 
@@ -32,13 +43,13 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 			orderByAttribute = Bus_.keyName;
 		}
 
-		dataModel = getBusService().getAllEntities(BssType.TEMPLITE,
-				(page - 1) * rows, rows, orderByAttribute, getSortOrderType());
+		dataModel = getBusService().getAllEntities(bssType, (page - 1) * rows,
+				rows, orderByAttribute, getSortOrderType());
 	}
 
 	@Override
 	protected long initAllRowsCount() throws Exception {
-		return getBusService().count(BssType.TEMPLITE);
+		return getBusService().count(bssType);
 	}
 
 	public String add() {
@@ -55,6 +66,17 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 
 	public String busTempliteMaster() {
 		return "busTempliteMaster";
+	}
+
+	// get's and set's
+	// -------------------------------------------------------------------------------------------------
+
+	public BssType getBssType() {
+		return bssType;
+	}
+
+	public void setBssType(BssType bssType) {
+		this.bssType = bssType;
 	}
 
 }

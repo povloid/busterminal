@@ -12,11 +12,13 @@
 	<input name="id" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
 	<input name="retUrl" type="java.lang.String" />
+	<input name="bsstype" type="java.lang.String"/>
 
 	<on-start>
 		<set name="flowScope.add" type="boolean" value="false" />
 		<set name="flowScope.edit" type="boolean" value="false" />
 		<set name="flowScope.del" type="boolean" value="false" />
+		<evaluate expression="busEditWFControl.setBssType(bsstype)" />
 	</on-start>
 
 
