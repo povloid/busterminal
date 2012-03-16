@@ -21,6 +21,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Schema_;
@@ -101,6 +102,7 @@ public class TestSchemaDAO {
 	public void testGetAllEntities() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -135,6 +137,7 @@ public class TestSchemaDAO {
 			throws Exception {
 		
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -173,6 +176,7 @@ public class TestSchemaDAO {
 	public void testGetAllEntitiesIntInt() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -205,6 +209,7 @@ public class TestSchemaDAO {
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -244,6 +249,7 @@ public class TestSchemaDAO {
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -298,6 +304,7 @@ public class TestSchemaDAO {
 	public void testFind() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -326,6 +333,7 @@ public class TestSchemaDAO {
 	@Rollback(true)
 	public void testCount() throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -354,6 +362,7 @@ public class TestSchemaDAO {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -384,6 +393,7 @@ public class TestSchemaDAO {
 	public void testRefresh() throws Exception {
 		
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -421,6 +431,7 @@ public class TestSchemaDAO {
 	public void testMerge() throws Exception {
 		
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
@@ -458,6 +469,7 @@ public class TestSchemaDAO {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);

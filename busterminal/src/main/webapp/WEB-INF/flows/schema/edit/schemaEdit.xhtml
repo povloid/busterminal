@@ -27,6 +27,7 @@
 	<ui:define name="content">
 		<h:form>
 			<p:panel header="Детали:" style="margin-top:10px">
+				<p:growl id="msgs" showDetail="true" />
 				<p:messages showDetail="true" autoUpdate="true" />
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
@@ -55,10 +56,10 @@
 						style="width:300px;height:100px;" title="Description" />
 
 					<h:outputLabel value="Размер сетки по горизонтали:" />
-					<p:spinner value="#{schemaEditWFControl.edited.xSize}" min="0"/>
+					<p:spinner value="#{schemaEditWFControl.edited.xSize}" min="0" />
 
 					<h:outputLabel value="Размер сетки по вертикали:" />
-					<p:spinner value="#{schemaEditWFControl.edited.ySize}" min="0"/>
+					<p:spinner value="#{schemaEditWFControl.edited.ySize}" min="0" />
 
 
 				</h:panelGrid>

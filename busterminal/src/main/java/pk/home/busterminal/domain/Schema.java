@@ -2,7 +2,6 @@ package pk.home.busterminal.domain;
 
 import java.io.Serializable;
 import java.util.Set;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Column;
@@ -27,14 +26,13 @@ import org.hibernate.validator.constraints.Length;
 		@NamedQuery(name = "Schema.findAll", query = "select a from Schema a order by a.id"),
 		@NamedQuery(name = "Schema.findByPrimaryKey", query = "select a from Schema a where a.id = ?1") })
 public class Schema implements Serializable {
-
-	@Version
-	private int version;
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4574079630536468670L;
+
+	@Version
+	private int version;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -58,7 +56,6 @@ public class Schema implements Serializable {
 
 	private Short xSize;
 	private Short ySize;
-	
 
 	public Short getxSize() {
 		return xSize;

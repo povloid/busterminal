@@ -33,20 +33,20 @@ import org.hibernate.validator.constraints.Length;
 		@NamedQuery(name = "Seat.findByBusAndSchema.num.desc", query = "select a from Seat a where a.schema.bus = ?1 and a.schema = ?2 order by a.num desc"),
 
 		@NamedQuery(name = "Seat.findByBusAndSchema.count", query = "select count(a) from Seat a where a.schema.bus = ?1 and a.schema = ?2"),
-		
+
 		@NamedQuery(name = "Seat.findNoMarkedBySchema", query = "select a from Seat a join a.schema s  where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) "),
 		@NamedQuery(name = "Seat.findNoMarkedBySchema.count", query = "select count(a) from Seat a join a.schema s where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) ")
 
 })
 public class Seat implements Serializable {
 
-	@Version
-	private int version;
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Version
+	private int version;
 
 	@PrePersist
 	@PreUpdate
@@ -73,6 +73,7 @@ public class Seat implements Serializable {
 
 	private Short sx;
 	private Short sy;
+
 
 	public Long getId() {
 		return id;
@@ -121,7 +122,7 @@ public class Seat implements Serializable {
 	public void setSchema(Schema schema) {
 		this.schema = schema;
 	}
-	
+
 	public int getVersion() {
 		return version;
 	}

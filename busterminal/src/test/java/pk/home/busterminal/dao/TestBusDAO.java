@@ -20,6 +20,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
@@ -92,6 +94,7 @@ public class TestBusDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);
@@ -119,6 +122,7 @@ public class TestBusDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);
@@ -151,6 +155,7 @@ public class TestBusDAO {
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);
@@ -178,6 +183,7 @@ public class TestBusDAO {
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);
@@ -212,6 +218,7 @@ public class TestBusDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);
@@ -258,6 +265,7 @@ public class TestBusDAO {
 	public void testFind() throws Exception {
 
 		Bus bus1 = new Bus();
+		bus1.setBssType(BssType.TEMPLITE);
 		bus1.setKeyName("key " + 999);
 		bus1.setGosNum("H 999 TRZ");
 		bus1 = dataStore.persist(bus1);
@@ -283,6 +291,7 @@ public class TestBusDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);
@@ -304,6 +313,7 @@ public class TestBusDAO {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Bus bus1 = new Bus();
+		bus1.setBssType(BssType.TEMPLITE);
 		bus1.setKeyName("key " + 999);
 		bus1.setGosNum("H 999 TRZ");
 		bus1 = dataStore.persist(bus1);
@@ -327,6 +337,7 @@ public class TestBusDAO {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		Bus bus1 = new Bus();
+		bus1.setBssType(BssType.TEMPLITE);
 		bus1.setKeyName("key " + 999);
 		bus1.setGosNum("H 999 TRZ");
 		bus1 = dataStore.persist(bus1);
@@ -358,6 +369,7 @@ public class TestBusDAO {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		Bus bus1 = new Bus();
+		bus1.setBssType(BssType.TEMPLITE);
 		bus1.setKeyName("key " + 999);
 		bus1.setGosNum("H 999 TRZ");
 		bus1 = dataStore.persist(bus1);
@@ -390,6 +402,7 @@ public class TestBusDAO {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Bus bus1 = new Bus();
+		bus1.setBssType(BssType.TEMPLITE);
 		bus1.setKeyName("key " + 999);
 		bus1.setGosNum("H 999 TRZ");
 		bus1 = dataStore.persist(bus1);
@@ -420,6 +433,7 @@ public class TestBusDAO {
 		long index = dataStore.count();
 		for (int i = 200; i < 210; i++) {
 			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
 			bus1.setKeyName("key " + i);
 			bus1.setGosNum("H" + i + "TRZ");
 			dataStore.persist(bus1);

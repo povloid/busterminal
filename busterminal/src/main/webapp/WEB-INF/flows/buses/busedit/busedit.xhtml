@@ -27,10 +27,11 @@
 
 	<ui:define name="content">
 		<h:form>
+
+			<p:growl id="msgs" showDetail="true" />
+			<p:messages showDetail="true" autoUpdate="true" />
+			
 			<p:panel header="Детали:" style="margin-top:10px">
-				
-
-
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
 
 					<h:outputText value="№:"
@@ -42,7 +43,7 @@
 					<p:inputText value="#{busEditWFControl.edited.keyName}"
 						title="Username" readonly="#{del}" required="true"
 						requiredMessage="The username field is required." />
-						
+
 					<h:outputLabel value="gosNum:" />
 					<p:inputText value="#{busEditWFControl.edited.gosNum}"
 						title="Username" readonly="#{del}" required="true" maxlength="10"
@@ -52,8 +53,8 @@
 					<p:inputTextarea readonly="#{del}"
 						value="#{busEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
+
 				</h:panelGrid>
 
 				<br />

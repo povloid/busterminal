@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,13 +28,17 @@ import org.hibernate.validator.constraints.Length;
 		@NamedQuery(name = "Bus.findByPrimaryKey", query = "select a from Bus a where a.id = ?1") })
 public class Bus implements Serializable {
 
-	@Version
-	private int version;
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -865838226573198527L;
+
+	@Version
+	private int version;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private BssType bssType;
 
 	@Column(nullable = false)
 	@Id
@@ -52,6 +59,14 @@ public class Bus implements Serializable {
 
 	@OneToMany(mappedBy = "bus")
 	private Set<Schema> schemas;
+
+	public BssType getBssType() {
+		return bssType;
+	}
+
+	public void setBssType(BssType bssType) {
+		this.bssType = bssType;
+	}
 
 	public Long getId() {
 		return id;

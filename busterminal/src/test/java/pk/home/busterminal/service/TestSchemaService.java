@@ -21,6 +21,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Schema_;
@@ -99,6 +100,7 @@ public class TestSchemaService {
 	public void testGetAllEntities() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -132,6 +134,7 @@ public class TestSchemaService {
 			throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -170,6 +173,7 @@ public class TestSchemaService {
 	public void testGetAllEntitiesIntInt() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -202,6 +206,7 @@ public class TestSchemaService {
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -241,6 +246,7 @@ public class TestSchemaService {
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -294,6 +300,7 @@ public class TestSchemaService {
 	public void testFind() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -322,6 +329,7 @@ public class TestSchemaService {
 	@Rollback(true)
 	public void testCount() throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -350,6 +358,7 @@ public class TestSchemaService {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -379,6 +388,7 @@ public class TestSchemaService {
 	public void testRefresh() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -416,6 +426,7 @@ public class TestSchemaService {
 	public void testMerge() throws Exception {
 
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
@@ -453,6 +464,7 @@ public class TestSchemaService {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
