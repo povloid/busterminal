@@ -15,6 +15,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -39,6 +40,9 @@ import org.hibernate.validator.constraints.Length;
 })
 public class Seat implements Serializable {
 
+	@Version
+	private int version;
+	
 	/**
 	 * 
 	 */
@@ -117,12 +121,13 @@ public class Seat implements Serializable {
 	public void setSchema(Schema schema) {
 		this.schema = schema;
 	}
+	
+	public int getVersion() {
+		return version;
+	}
 
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

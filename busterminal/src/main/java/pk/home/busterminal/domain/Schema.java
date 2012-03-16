@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -27,6 +28,9 @@ import org.hibernate.validator.constraints.Length;
 		@NamedQuery(name = "Schema.findByPrimaryKey", query = "select a from Schema a where a.id = ?1") })
 public class Schema implements Serializable {
 
+	@Version
+	private int version;
+	
 	/**
 	 * 
 	 */
@@ -110,6 +114,14 @@ public class Schema implements Serializable {
 
 	public void setSeats(Set<Seat> seats) {
 		this.seats = seats;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

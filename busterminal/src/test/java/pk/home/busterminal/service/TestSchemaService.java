@@ -39,9 +39,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 public class TestSchemaService {
 
 	private BusService busService;
-	
-	
-	
+
 	@Autowired
 	public void setBusDAO(BusService busService) {
 		this.busService = busService;
@@ -104,8 +102,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
-		
+
 		long index = schemaService.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -133,13 +130,12 @@ public class TestSchemaService {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		
+
 		Bus bus = new Bus();
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
-		
+
 		long index = schemaService.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -149,7 +145,8 @@ public class TestSchemaService {
 			index++;
 		}
 
-		List<Schema> list = schemaService.getAllEntities(Schema_.id, SortOrderType.ASC);
+		List<Schema> list = schemaService.getAllEntities(Schema_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -176,7 +173,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -208,7 +205,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -247,8 +244,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
-		
+
 		long index = schemaService.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -259,8 +255,8 @@ public class TestSchemaService {
 		}
 
 		// all - FALSE
-		List<Schema> list = schemaService.getAllEntities(false, 10, 10, Schema_.id,
-				SortOrderType.ASC);
+		List<Schema> list = schemaService.getAllEntities(false, 10, 10,
+				Schema_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -301,7 +297,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -329,7 +325,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		long index = schemaService.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -357,8 +353,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -382,12 +377,12 @@ public class TestSchemaService {
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
-		
+
 		Bus bus = new Bus();
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -419,12 +414,12 @@ public class TestSchemaService {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
-		
+
 		Bus bus = new Bus();
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -461,8 +456,7 @@ public class TestSchemaService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
