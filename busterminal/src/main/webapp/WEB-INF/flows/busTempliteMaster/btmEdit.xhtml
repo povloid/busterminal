@@ -67,8 +67,8 @@
 				<pk:pk_add_button_wf add_action="#{btmWFControl.addNewSchema}" />
 
 
-				<h:panelGrid columns="2">
-					<h:outputText value="Схема: " />
+				<h:panelGrid columns="3">
+					<h:outputText value="Схема: " rendered="#{!empty btmWFControl.edited.schemas}"/>
 					<p:selectOneButton value="#{btmWFControl.selectedSchemeId}">
 						<f:selectItems value="#{btmWFControl.edited.schemas}" var="row"
 							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
@@ -79,7 +79,7 @@
 
 
 				<h:panelGrid columns="3"
-					rendered="#{btmWFControl.selectedScheme != null}">
+					rendered="#{!empty btmWFControl.selectedScheme}">
 					
 					<h:outputText
 						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />

@@ -421,11 +421,211 @@ public class TestBusService {
 		assertTrue(bus3 == null);
 
 	}
-	
-	
+
+	// bus logical tests
+	// -----------------------------------------------------------------------------------------------
+	@Test
+	@Rollback(true)
+	public void insertBssTypeNull() {
+		try {
+			Bus bus1 = new Bus();
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			assertTrue(
+					"Проверка не прошла, допущено сохранение без указания типа",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+	}
+
+	@Test
+	@Rollback(true)
+	public void insertTempliteEntities() {
+		try {
+			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			Bus bus2 = new Bus();
+			bus2.setBssType(BssType.TEMPLITE);
+			bus2.setKeyName("key 5");
+			bus2.setGosNum("H 5555 TRZ");
+			bus2.setTemplite(bus1);
+
+			busService.persist(bus2);
+
+			assertTrue(
+					"Проверка не прошла, допущено сохранение шаблона с родительским элементом",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+	}
+
+	@Test
+	@Rollback(true)
+	public void insertTempliteCheckUniqueKeyNme() {
+		try {
+			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			Bus bus2 = new Bus();
+			bus2.setBssType(BssType.TEMPLITE);
+			bus2.setKeyName("key 4");
+			bus2.setGosNum("H 5555 TRZ");
+
+			busService.persist(bus2);
+
+			assertTrue(
+					"Проверка не прошла, допущено нарушение уникальности шаблона по полю keyName",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+		try {
+			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			Bus bus2 = new Bus();
+			bus2.setBssType(BssType.TEMPLITE);
+			bus2.setKeyName("key 5");
+			bus2.setGosNum("H 5555 TRZ");
+
+			busService.persist(bus2);
+
+			assertTrue(true);
+
+			bus2.setKeyName("key 3");
+			busService.merge(bus2);
+
+			assertTrue(true);
+
+			bus2.setKeyName("key 4");
+			busService.merge(bus2);
+
+			assertTrue(
+					"Проверка не прошла, допущено нарушение уникальности шаблона по полю keyName",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+	}
+
+	@Test
+	@Rollback(true)
+	public void insertTempliteCheckUniquegGosNum() {
+		try {
+			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			Bus bus2 = new Bus();
+			bus2.setBssType(BssType.TEMPLITE);
+			bus2.setKeyName("key 5");
+			bus2.setGosNum("H 4444 TRZ");
+
+			busService.persist(bus2);
+
+			assertTrue(
+					"Проверка не прошла, допущено нарушение уникальности шаблона по полю gosNum",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+		try {
+			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.TEMPLITE);
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			Bus bus2 = new Bus();
+			bus2.setBssType(BssType.TEMPLITE);
+			bus2.setKeyName("key 5");
+			bus2.setGosNum("H 5555 TRZ");
+
+			busService.persist(bus2);
+
+			assertTrue(true);
+
+			bus2.setGosNum("H 2222 TRZ");
+			busService.merge(bus2);
+
+			assertTrue(true);
+
+			bus2.setGosNum("H 4444 TRZ");
+			busService.merge(bus2);
+
+			assertTrue(
+					"Проверка не прошла, допущено нарушение уникальности шаблона по полю gosNum",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+	}
 	
 	// -----------------------------------------------------------------------------------------------------------------
-	
+	@Test
+	@Rollback(true)
+	public void insertWorkEntities() {
+		try {
+			Bus bus1 = new Bus();
+			bus1.setBssType(BssType.WORK);
+			bus1.setKeyName("key 4");
+			bus1.setGosNum("H 4444 TRZ");
+			busService.persist(bus1);
+
+			assertTrue(
+					"Проверка не прошла, допущено сохранение рабочей версии без родительского элемента",
+					false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			assertTrue("Проверка сработала правильно", true);
+		}
+
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
@@ -446,6 +646,5 @@ public class TestBusService {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }
