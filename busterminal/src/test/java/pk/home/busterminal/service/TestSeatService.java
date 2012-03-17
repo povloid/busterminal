@@ -117,7 +117,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		System.out.println(">>>" + bus.getSchemas());
 
 		long index = seatService.count();
@@ -153,12 +153,11 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
 
 		long index = seatService.count();
 		for (int i = 0; i < 100; i++) {
@@ -169,7 +168,8 @@ public class TestSeatService {
 			index++;
 		}
 
-		List<Seat> list = seatService.getAllEntities(Seat_.id, SortOrderType.ASC);
+		List<Seat> list = seatService.getAllEntities(Seat_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -197,7 +197,7 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -235,7 +235,7 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -280,7 +280,7 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -339,7 +339,7 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -373,7 +373,7 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -407,7 +407,7 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -442,12 +442,11 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
@@ -486,12 +485,11 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
@@ -530,12 +528,11 @@ public class TestSeatService {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
@@ -554,6 +551,110 @@ public class TestSeatService {
 
 		Seat seat3 = seatService.find(id);
 		assertTrue(seat3 == null);
+
+	}
+
+	// LOGICAL CHECK
+	// ---------------------------------------------------------------------------------------------------
+
+	@Test
+	@Rollback(true)
+	public void testPersistCheck() throws Exception {
+		Bus bus = new Bus();
+		bus.setBssType(BssType.TEMPLITE);
+		bus.setKeyName("#Test Bus");
+		bus.setGosNum("#Test num");
+		bus = busService.persist(bus);
+
+		Schema schema = new Schema();
+		schema.setKeyName("key " + 999);
+		schema.setBus(bus);
+		schema = schemaService.persist(schema);
+
+		Schema schema2 = new Schema();
+		schema2.setKeyName("key " + 1000);
+		schema2.setBus(bus);
+		schema2 = schemaService.persist(schema2);
+
+		Seat seat1 = new Seat();
+		seat1.setNum((short) 100);
+		seat1.setSchema(schema);
+		seat1.setSx((short) 1);
+		seat1.setSy((short) 1);
+		seat1 = seatService.persist(seat1);
+
+		long id = seat1.getId();
+
+		Seat seat2 = seatService.find(id);
+
+		assertEquals(seat1, seat2);
+		assertTrue(seat1.getId() == seat2.getId());
+		assertEquals(seat1.getNum(), seat2.getNum());
+
+		// Уникальность при текущей схеме
+		try {
+			Seat seat3 = new Seat();
+			seat3.setNum((short) 100);
+			seat3.setSchema(schema);
+			seat3 = seatService.persist(seat3);
+
+			assertTrue(
+					"Допущено нарушение уникальности нумерации мест в пределах автобуса",
+					false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+
+		// Уникальность при текущей схеме
+		try {
+			Seat seat3 = new Seat();
+			seat3.setNum((short) 100);
+			seat3.setSchema(schema2);
+			seat3 = seatService.persist(seat3);
+
+			assertTrue(
+					"Допущено нарушение уникальности нумерации мест в пределах автобуса",
+					false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+
+		// Уникальность координат при текущей схеме
+		try {
+			Seat seat3 = new Seat();
+			seat3.setNum((short) 101); // !
+			seat3.setSchema(schema);
+			seat3.setSx((short) 1);
+			seat3.setSy((short) 1);
+
+			seat3 = seatService.persist(seat3);
+
+			assertTrue(
+					"Допущено нарушение уникальности координат мест в пределах схемы",
+					false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+
+		// Уникальность координат при текущей схеме
+		try {
+			Seat seat3 = new Seat();
+			seat3.setNum((short) 101); // !
+			seat3.setSchema(schema2);
+			seat3.setSx((short) 1);
+			seat3.setSy((short) 1);
+
+			seat3 = seatService.persist(seat3);
+
+			assertTrue(
+					true);
+
+		} catch (Exception e) {
+			assertTrue("Допускаются одниаковые x y в пределах автобуса, так как они надодятся в разных схемах",false);
+		}
 
 	}
 

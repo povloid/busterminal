@@ -113,7 +113,9 @@ public class SeatService extends ABaseService<Seat> {
 
 					if (o.getSx() != null && o.getSx() > 0
 							&& o.getSy() != null && o.getSy() > 0
+							
 							&& o.getSchema().equals(st.getSchema())
+							
 							&& o.getSx().equals(st.getSx())
 							&& o.getSy().equals(st.getSy())) {
 						throw new Exception("Координаты места в схеме x="
@@ -122,7 +124,6 @@ public class SeatService extends ABaseService<Seat> {
 					}
 
 				}
-
 			}
 		}
 	}
