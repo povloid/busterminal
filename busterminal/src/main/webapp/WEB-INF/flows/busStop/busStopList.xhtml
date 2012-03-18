@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+
+<ui:composition template="/WEB-INF/templites/templite.xhtml">
+	<ui:define name="title">
+        Справочник остановок
+    </ui:define>
+
+	<ui:define name="header_icon">
+		<img src="#{request.contextPath}/images/icons/addbk_24.png"></img>
+	</ui:define>
+
+	<ui:define name="header">
+         Справочник остановок
+    </ui:define>
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{busStopViewControl.init}" />
+			<f:viewParam name="ppage" value="#{busStopViewControl.page}" />
+			<f:viewParam name="prows" value="#{busStopViewControl.prows}" />
+			<f:viewParam name="pcsortField"
+				value="#{busStopViewControl.pcsortField}" />
+			<f:viewParam name="pcsortOrder"
+				value="#{busStopViewControl.pcsortOrder}" />
+		</f:metadata>
+
+		<h:form id="form">
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<pk:pk_add_button_wf add_action="#{busStopViewControl.add}"/>
+
+			<p:dataTable id="table1" var="row" 
+				value="#{busStopViewControl.dataModel}" widgetVar="dataTable1"
+				emptyMessage="Таблица пустая">
+
+
+				<f:facet name="header">
+					<pk:pkpaginator pages="#{busStopViewControl.allPagesCount}"
+						count="#{busStopViewControl.allRowsCount}"
+						page="#{busStopViewControl.page}"
+						buttons="#{busStopViewControl.oPButtons}"
+						rows="#{busStopViewControl.rows}" />
+
+				</f:facet>
+
+
+
+				<p:column>
+					<f:facet name="header">
+						<pk:pktsortorder field="id"
+							csortOrder="#{busStopViewControl.csortOrder}"
+							csortField="#{busStopViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.id}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<pk:pktsortorder field="keyName"
+							csortOrder="#{busStopViewControl.csortOrder}"
+							csortField="#{busStopViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.keyName}" />
+				</p:column>
+
+				<p:column headerText="Описание" >
+					<h:outputText value="#{row.description}" />
+				</p:column>
+
+				<p:column headerText="Действие" style="width: 100px; text-align: center;">
+					<pk:pktable_crud_column_buttons_wf
+						edit_action="#{busStopViewControl.edit}"
+						del_action="#{busStopViewControl.del}"
+						show_view_button="true"
+						view_button_oncomplete="rowDitailDialog.show()"
+						selected="#{busStopViewControl.selected}" row="#{row}" />
+				</p:column>
+
+
+				<f:facet name="footer">
+					<pk:pkpaginator pages="#{busStopViewControl.allPagesCount}"
+						count="#{busStopViewControl.allRowsCount}"
+						page="#{busStopViewControl.page}"
+						buttons="#{busStopViewControl.oPButtons}"
+						rows="#{busStopViewControl.rows}" />
+				</f:facet>
+
+
+			</p:dataTable>
+
+
+			<p:dialog header="Row Detail" widgetVar="rowDitailDialog"
+				resizable="false" id="rowDitailDialog" showEffect="fade"
+				hideEffect="explode" modal="true">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4"
+					style="margin:0 auto;">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<h:outputText value="id:" />
+					<h:outputText value="#{busStopViewControl.selected.id}"
+						style="font-weight:bold" />
+
+					<h:outputText value="KeyName:" />
+					<h:outputText value="#{busStopViewControl.selected.keyName}"
+						style="font-weight:bold" />
+
+
+					<h:outputText value="Description:" />
+					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
+						<h:outputText
+							value="#{busStopViewControl.selected.description}"
+							escape="false" />
+					</p:scrollPanel>
+
+					<f:facet name="footer">
+						<p:outputPanel layout="block" style="text-align:right">
+							<p:commandButton value="Close" onclick="rowDitailDialog.hide()"
+								type="button" icon="ui-icon ui-icon-close" />
+						</p:outputPanel>
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
+        footer
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="idAnalize">
+	
+	<secured attributes="ROLE_USER" />
+
+	<var name="busStopEditWFControl" class="pk.home.busterminal.web.jsf.webflow.BusStopEditWFControl" />
+
+	<input name="id" type="java.lang.Long" />
+	<input name="mode" required="true" type="java.lang.String" />
+	<input name="retUrl" type="java.lang.String" />
+
+	<on-start>
+		<set name="flowScope.add" type="boolean" value="false" />
+		<set name="flowScope.edit" type="boolean" value="false" />
+		<set name="flowScope.del" type="boolean" value="false" />
+	</on-start>
+
+
+	<decision-state id="idAnalize">
+		<if test="id == null and mode eq 'add'" then="newEdited" else="findEdited" />
+	</decision-state>
+
+	<action-state id="newEdited">
+		<evaluate expression="busStopEditWFControl.newEdited()"
+			result="busStopEditWFControl.edited" />
+		<transition to="addEditDel"></transition>
+	</action-state>
+
+	<action-state id="findEdited">
+		<evaluate expression="busStopEditWFControl.findEdited(id)"
+			result="busStopEditWFControl.edited" />
+
+		<transition to="addEditDel"></transition>
+	</action-state>
+
+
+	<action-state id="addEditDel">
+		<on-entry>
+			<evaluate expression="mode eq 'add'" result="flowScope.add"
+				result-type="java.lang.Boolean" />
+			<evaluate expression="mode eq 'edit'" result="flowScope.edit"
+				result-type="java.lang.Boolean" />
+			<evaluate expression="mode eq 'del'" result="flowScope.del"
+				result-type="java.lang.Boolean" />
+		</on-entry>
+		<set name="id" value="busStopEditWFControl.edited.id" type="java.lang.Long" />
+		<transition to="busStopEdit" />
+	</action-state>
+
+
+	<view-state id="busStopEdit">
+		<on-entry>
+			<evaluate expression="busStopEditWFControl.init()"/>
+		</on-entry>
+	
+		<transition on="end" to="end"></transition>
+
+		<transition on="addComplite" to="findEdited">
+			<set name="mode" value="'edit'" type="java.lang.String" />
+			<set name="id" value="busStopEditWFControl.edited.id" type="java.lang.Long" />
+		</transition>
+		<transition on="editComplite" to="busStopEdit" />
+		<transition on="editCompliteAndClose" to="end" />
+		<transition on="delComplite" to="end"></transition>
+
+		<transition on="error" to="busStopEdit"></transition>
+		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
+	</view-state>
+
+
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+	
+	
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+	</end-state>
+</flow>
