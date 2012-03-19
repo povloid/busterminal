@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(schema = "public", name = "BusStop")
+@Table(schema = "public", name = "BusStops")
 @NamedQueries({
 	@NamedQuery(name = "BusStop.findAll", query = "select a from BusStop a order by a.id"),
 	@NamedQuery(name = "BusStop.findByPrimaryKey", query = "select a from BusStop a where a.id = ?1")})

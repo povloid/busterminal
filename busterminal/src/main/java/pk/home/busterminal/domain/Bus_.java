@@ -11,6 +11,7 @@ public abstract class Bus_ {
 	public static volatile SetAttribute<Bus, Schema> schemas;
 	public static volatile SingularAttribute<Bus, String> keyName;
 	public static volatile SingularAttribute<Bus, String> description;
+	public static volatile SingularAttribute<Bus, Bus> templite;
 	public static volatile SingularAttribute<Bus, String> gosNum;
 	public static volatile SingularAttribute<Bus, BssType> bssType;
 	public static volatile SingularAttribute<Bus, Integer> version;
