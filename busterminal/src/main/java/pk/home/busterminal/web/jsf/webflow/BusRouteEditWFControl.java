@@ -20,7 +20,7 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 
 	@Override
 	public BusRoute findEdited(Long id) throws Exception {
-		return getBusRouteService().find(id);
+		return getBusRouteService().findWithLazy(id);
 	}
 
 	@Override
@@ -52,6 +52,10 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 	protected void init0() throws Exception {
 	}
 
+	// bus route stops -------------------------------------------------------------------------------
+	
+	
+	
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
 

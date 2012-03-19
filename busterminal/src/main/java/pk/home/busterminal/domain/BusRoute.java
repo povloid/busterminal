@@ -3,8 +3,7 @@ package pk.home.busterminal.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -36,7 +35,8 @@ public class BusRoute implements Serializable {
 	private String description;
 
 	@OneToMany(mappedBy = "busRoute", fetch = FetchType.LAZY)
-	private Set<BusRouteStop> busRouteStops;
+	@OrderColumn(name="orId")
+	private List<BusRouteStop> busRouteStops;
 
 	public BusRoute() {
 		super();
@@ -70,11 +70,11 @@ public class BusRoute implements Serializable {
 		this.description = description;
 	}
 
-	public Set<BusRouteStop> getBusRouteStops() {
+	public List<BusRouteStop> getBusRouteStops() {
 		return busRouteStops;
 	}
 
-	public void setBusRouteStops(Set<BusRouteStop> busRouteStops) {
+	public void setBusRouteStops(List<BusRouteStop> busRouteStops) {
 		this.busRouteStops = busRouteStops;
 	}
 

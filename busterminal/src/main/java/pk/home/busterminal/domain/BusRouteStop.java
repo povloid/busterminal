@@ -38,6 +38,9 @@ public class BusRouteStop implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name="or_id")
+	private int orId;
 
 	private String description;
 
@@ -71,6 +74,14 @@ public class BusRouteStop implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getOrId() {
+		return orId;
+	}
+
+	public void setOrId(int orId) {
+		this.orId = orId;
 	}
 
 	@Override

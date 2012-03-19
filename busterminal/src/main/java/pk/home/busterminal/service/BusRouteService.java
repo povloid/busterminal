@@ -24,5 +24,23 @@ public class BusRouteService extends ABaseService<BusRoute> {
 	public ABaseDAO<BusRoute> getAbstractBasicDAO() {
 		return busRouteDAO;
 	}
+	
+	/**
+	 * Загрузка вместе с коллесциями
+	 * 
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public BusRoute findWithLazy(Object key) throws Exception {
+		BusRoute busRoute = super.find(key);
+
+		if (busRoute.getBusRouteStops() != null) {
+			busRoute.getBusRouteStops().size();
+		}
+
+		return busRoute;
+	}
 
 }

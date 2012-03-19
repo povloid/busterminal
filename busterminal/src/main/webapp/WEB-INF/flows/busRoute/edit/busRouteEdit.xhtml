@@ -45,10 +45,34 @@
 					<p:inputTextarea readonly="#{del}"
 						value="#{busRouteEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
+
 				</h:panelGrid>
 
+				<br />
+
+
+				<p:fieldset legend="Остановки">
+					<p:dataTable var="row"
+						value="#{busRouteEditWFControl.edited.busRouteStops}">
+
+						<p:column headerText="id">
+							<h:outputText value="#{row.id}" />
+						</p:column>
+
+						<p:column headerText="Остановка">
+							<h:outputText value="#{row.busStop.keyName}" />
+						</p:column>
+
+						<p:column headerText="Description">
+							<h:outputText value="#{row.busStop.description}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:fieldset>
+
+
+				<br />
 				<br />
 
 				<pk:pk_close_button action="end" />
