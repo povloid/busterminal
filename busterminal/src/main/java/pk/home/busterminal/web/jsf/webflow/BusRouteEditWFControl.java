@@ -76,8 +76,11 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 		return "selectBusStop";
 	}
 
+	private BusRouteStop selectedBusRouteStop;
+
 	/**
-	 * Добавить остановку в список
+	 * Добавить остановку в список остановок маршрута
+	 * 
 	 * @param id
 	 */
 	public void addBusStop(Long id) {
@@ -101,7 +104,32 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 		}
 	}
 
+	/**
+	 * Удалить остановку из маршрута
+	 */
+	public void delBusStop() {
+		try {
+			getBusRouteStopService().remove(selectedBusRouteStop);
+
+			edited = getBusRouteService().findAndRefresh(edited.getId());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+		}
+	}
+
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
+	public BusRouteStop getSelectedBusRouteStop() {
+		return selectedBusRouteStop;
+	}
+
+	public void setSelectedBusRouteStop(BusRouteStop selectedBusRouteStop) {
+		this.selectedBusRouteStop = selectedBusRouteStop;
+	}
 
 }

@@ -11,6 +11,10 @@
 	<cc:attribute name="edit_action" method-signature="java.lang.String action()"/>
 	<cc:attribute name="del_action" method-signature="java.lang.String action()"/>
 
+	<cc:attribute name="show_edit_button" default="true"/>
+	<cc:attribute name="show_del_button" default="true"/>
+	
+
 	<cc:attribute name="show_view_button"></cc:attribute>
 	<cc:attribute name="view_button_oncomplete" default=""></cc:attribute>
 	
@@ -32,11 +36,13 @@
 		</p:commandButton>
 
 		<p:commandButton icon="ui-icon edit" ajax="false"
+			rendered="#{!empty cc.attrs.show_edit_button and cc.attrs.show_edit_button == 'true'}"
 			action="#{cc.attrs.edit_action}"
 			title="Edit row">
 			<f:setPropertyActionListener value="#{cc.attrs.row}" target="#{cc.attrs.selected}" />
 		</p:commandButton>
 		<p:commandButton icon="ui-icon del" ajax="false"
+			rendered="#{!empty cc.attrs.show_del_button and cc.attrs.show_del_button == 'true'}"
 			action="#{cc.attrs.del_action}"
 			title="Del row">
 			<f:setPropertyActionListener value="#{cc.attrs.row}" target="#{cc.attrs.selected}" />

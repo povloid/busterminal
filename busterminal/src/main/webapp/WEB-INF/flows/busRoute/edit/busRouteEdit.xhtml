@@ -25,7 +25,7 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form>
+		<h:form id="form">
 			<p:panel header="Детали:" style="margin-top:10px">
 				<p:messages showDetail="true" autoUpdate="true" />
 
@@ -68,9 +68,18 @@
 							<h:outputText value="#{row.busStop.description}" />
 						</p:column>
 
+						<p:column headerText="Действие"
+							style="width: 100px; text-align: center;">
+							<pk:pktable_crud_column_buttons_wf show_edit_button="false"
+								del_action="#{busRouteEditWFControl.delBusStop}" show_view_button="true"
+								view_button_oncomplete="rowDitailDialog.show()"
+								selected="#{busRouteEditWFControl.selectedBusRouteStop}" row="#{row}" />
+						</p:column>
+
 					</p:dataTable>
-					<br/>
-					<pk:pk_add_button_wf add_action="#{busRouteEditWFControl.selectBusStop}" />
+					<br />
+					<pk:pk_add_button_wf
+						add_action="#{busRouteEditWFControl.selectBusStop}" />
 				</p:fieldset>
 
 
@@ -85,6 +94,35 @@
 					del_action="#{busRouteEditWFControl.confirmDel}" add_view="#{add}"
 					edit_view="#{edit}" del_view="#{del}" />
 			</p:panel>
+			
+			
+			<p:dialog header="Row Detail" widgetVar="rowDitailDialog"
+				resizable="false" id="rowDitailDialog" showEffect="fade"
+				hideEffect="explode" modal="true">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4"
+					style="margin:0 auto;">
+
+					<f:facet name="header">
+
+					</f:facet>
+
+					<h:outputText value="id:" />
+					<h:outputText value="#{busRouteEditWFControl.selectedBusRouteStop.id}"
+						style="font-weight:bold" />
+
+
+
+					<f:facet name="footer">
+						<p:outputPanel layout="block" style="text-align:right">
+							<p:commandButton value="Close" onclick="rowDitailDialog.hide()"
+								type="button" icon="ui-icon ui-icon-close" />
+						</p:outputPanel>
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
+			
+			
 		</h:form>
 	</ui:define>
 	<ui:define name="footer">
