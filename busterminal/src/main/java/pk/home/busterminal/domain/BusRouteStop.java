@@ -24,6 +24,8 @@ public class BusRouteStop implements Serializable {
 	 */
 	private static final long serialVersionUID = -2201675064555128789L;
 	
+
+	
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "busroute_id")
 	@Index(name = "bus_routes_stops_idx1")
@@ -39,7 +41,7 @@ public class BusRouteStop implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="or_id")
+	@Column(name="orId")
 	private int orId;
 
 	private String description;

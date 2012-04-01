@@ -4,10 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
-	
+
 	<secured attributes="ROLE_USER" />
 
-	<var name="busRouteEditWFControl" class="pk.home.busterminal.web.jsf.webflow.BusRouteEditWFControl" />
+	<var name="busRouteEditWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.BusRouteEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
@@ -54,9 +55,9 @@
 
 	<view-state id="busRouteEdit">
 		<on-entry>
-			<evaluate expression="busRouteEditWFControl.init()"/>
+			<evaluate expression="busRouteEditWFControl.init()" />
 		</on-entry>
-	
+
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
@@ -66,10 +67,24 @@
 		<transition on="editComplite" to="busRouteEdit" />
 		<transition on="editCompliteAndClose" to="end" />
 		<transition on="delComplite" to="end"></transition>
+		<transition on="selectBusStop" to="selectBusStop" />
 
 		<transition on="error" to="busRouteEdit"></transition>
 		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
 	</view-state>
+
+	<!-- SELECT BUS STOP -->
+
+
+	<subflow-state id="selectBusStop" subflow="busStop/selectOne">
+		<transition to="busRouteEdit">
+			<evaluate
+				expression="busRouteEditWFControl.addBusStop(currentEvent.attributes.selectedId)" />
+		</transition>
+	</subflow-state>
+
+
+	<!-- END -->
 
 
 	<decision-state id="end">
@@ -79,8 +94,8 @@
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
 	</end-state>
-	
-	
+
+
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
 </flow>

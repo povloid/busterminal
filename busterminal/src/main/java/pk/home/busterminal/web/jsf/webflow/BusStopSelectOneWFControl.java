@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.primefaces.model.SortOrder;
 
 import pk.home.busterminal.domain.BusStop;
@@ -59,6 +62,28 @@ public class BusStopSelectOneWFControl extends AWFBasicControl implements
 		}
 	};
 
+	// actions
+	// -----------------------------------------------------------------------------------------
+
+	/**
+	 * Выбор остановки
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String select() throws Exception {
+
+		if (selected == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ",
+							"Остановка не выбрана"));
+			throw new Exception("Остановка не выбрана");
+		}
+
+		return "select";
+	}
+
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
 
@@ -76,6 +101,13 @@ public class BusStopSelectOneWFControl extends AWFBasicControl implements
 
 	public void setModel(WFLazyDataModel<BusStop> model) {
 		this.model = model;
+	}
+
+	public Long getSelectedId() {
+		if (selected != null)
+			return selected.getId();
+		else
+			return null;
 	}
 
 }

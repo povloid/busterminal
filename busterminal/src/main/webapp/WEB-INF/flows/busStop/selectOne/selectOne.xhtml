@@ -29,17 +29,16 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-
-
+			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:dataTable var="row" value="#{busStopSelectOneWFControl.model}"
 				paginator="true" rows="10"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15"
 				selection="#{busStopSelectOneWFControl.selected}" id="table1">
-				
-				<p:column selectionMode="single" style="width:18px" />  
-				
+
+				<p:column selectionMode="single" style="width:18px" />
+
 				<p:column headerText="id">
 					<h:outputText value="#{row.id}" />
 				</p:column>
@@ -48,14 +47,17 @@
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 
-				<p:column headerText="Описание" >
+				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />
 				</p:column>
 
-
-
-
 			</p:dataTable>
+
+			<br />
+			<pk:pk_cancel_button
+				cancel_action="#{busStopSelectOneWFControl.cancel}" />
+			<p:commandButton ajax="false"
+				action="#{busStopSelectOneWFControl.select}" value="Выбрать" />
 
 		</h:form>
 	</ui:define>

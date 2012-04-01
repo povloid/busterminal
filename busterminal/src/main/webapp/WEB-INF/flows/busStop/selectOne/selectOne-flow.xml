@@ -10,8 +10,29 @@
 	<var name="busStopSelectOneWFControl"
 		class="pk.home.busterminal.web.jsf.webflow.BusStopSelectOneWFControl" />
 
+	<input name="retUrl" type="java.lang.String" />
+
 	<view-state id="selectOne">
-	
+		<transition on="select" to="end" />
+		<transition on="cancel" to="end" />
+		<transition on-exception="java.lang.Exception" to="selectOne" />
 	</view-state>
+
+
+	<!-- END -->
+
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+		<output name="selectedId" value="busStopSelectOneWFControl.selectedId"/>
+	</end-state>
+
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+		<output name="selectedId" value="busStopSelectOneWFControl.selectedId"/>
+	</end-state>
 
 </flow>

@@ -65,12 +65,21 @@
 		</transition>
 		<transition on="editComplite" to="busStopEdit" />
 		<transition on="editCompliteAndClose" to="end" />
-		<transition on="delComplite" to="end"></transition>
+		<transition on="delComplite" to="end"/>
+		<transition on="selectBusStop" to="selectBusStop"/>
+		
 
-		<transition on="error" to="busStopEdit"></transition>
+		<transition on="error" to="busStopEdit"/>
 		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
 	</view-state>
 
+
+
+	
+	
+
+
+	<!-- END -->
 
 	<decision-state id="end">
 		<if test="retUrl == null" then="end0" else="end1" />

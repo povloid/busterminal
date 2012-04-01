@@ -10,8 +10,7 @@ import pk.home.busterminal.dao.BusRouteDAO;
 import pk.home.busterminal.domain.BusRoute;
 
 /**
- * Service class for entity class: BusRoute
- * BusRoute - Маршрут
+ * Service class for entity class: BusRoute BusRoute - Маршрут
  */
 @Service
 @Transactional
@@ -24,7 +23,7 @@ public class BusRouteService extends ABaseService<BusRoute> {
 	public ABaseDAO<BusRoute> getAbstractBasicDAO() {
 		return busRouteDAO;
 	}
-	
+
 	/**
 	 * Загрузка вместе с коллесциями
 	 * 
@@ -41,6 +40,24 @@ public class BusRouteService extends ABaseService<BusRoute> {
 		}
 
 		return busRoute;
+	}
+
+	/**
+	 * Найти и обновить
+	 * 
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
+	public BusRoute findAndRefresh(Object key) throws Exception {
+		BusRoute busRoute = super.find(key);
+		busRoute = super.refresh(busRoute);
+		if (busRoute.getBusRouteStops() != null) {
+			busRoute.getBusRouteStops().size();
+		}
+
+		return busRoute;
+
 	}
 
 }

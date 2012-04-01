@@ -52,6 +52,9 @@ public class BusStopEditWFControl extends AWFControl<BusStop, Long> implements
 	protected void init0() throws Exception {
 	}
 
+	
+	
+	
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
 
