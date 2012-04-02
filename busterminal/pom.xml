@@ -287,7 +287,7 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- JSF -->
+		<!-- JSF  -->
 		<!-- Sun Mojarra JSF 2 runtime -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -320,22 +320,22 @@
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
 			<artifactId>spring-webflow</artifactId>
-			<version>2.3.1.RELEASE</version>
+			<version>2.2.1.RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-js</artifactId>
-			<version>2.3.1.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-js-resources</artifactId>
-			<version>2.3.1.RELEASE</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.webflow</groupId> -->
+		<!-- <artifactId>spring-js</artifactId> -->
+		<!-- <version>2.3.0.RELEASE</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.webflow</groupId> -->
+		<!-- <artifactId>spring-js-resources</artifactId> -->
+		<!-- <version>2.3.0.RELEASE</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
 			<artifactId>spring-faces</artifactId>
-			<version>2.3.1.RELEASE</version>
+			<version>2.2.1.RELEASE</version>
 		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>org.springframework.webflow</groupId> -->
@@ -378,12 +378,6 @@
 			<id>org.springframework.maven.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
-		</repository>
-
-		<repository>
-			<id>springsource-repository</id>
-			<name>Spring Maven Releases, Milestones, and Snapshots</name>
-			<url>http://repo.springsource.org/snapshot</url>
 		</repository>
 	</repositories>
 

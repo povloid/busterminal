@@ -91,6 +91,15 @@
 		<!-- 			</p:column> -->
 		<!-- 		</p:submenu> -->
 
+		<p:submenu label="Операции" icon="ui-icon-pencil">
+			<p:column>
+				<p:submenu label="План">
+					<p:menuitem value="Рейсы" icon="ui-icon addbk" url="/mvc/race" />
+				</p:submenu>
+			</p:column>
+
+		</p:submenu>
+
 		<p:submenu label="Справочники" icon="ui-icon-pencil">
 			<p:column>
 				<p:submenu label="Транспорт">
@@ -99,20 +108,21 @@
 					<p:menuitem value="Места" icon="ui-icon addbk" url="/mvc/seat" />
 				</p:submenu>
 				<p:submenu label="Маршрут">
-					<p:menuitem value="Остановки" icon="ui-icon addbk" url="/mvc/busStop" />
-					<p:menuitem value="Маршрут" icon="ui-icon addbk" url="/mvc/busRoute" />
+					<p:menuitem value="Остановки" icon="ui-icon addbk"
+						url="/mvc/busStop" />
+					<p:menuitem value="Маршрут" icon="ui-icon addbk"
+						url="/mvc/busRoute" />
 				</p:submenu>
 			</p:column>
 			<p:column>
 				<p:submenu label="Справочники">
-					<p:menuitem value="Типы мест" icon="ui-icon addbk" url="/mvc/seatType" />
+					<p:menuitem value="Типы мест" icon="ui-icon addbk"
+						url="/mvc/seatType" />
 				</p:submenu>
 			</p:column>
 			<p:column>
 				<strong>Справочные данные</strong>
-				<p:graphicImage
-					value="/images/books/book_library.png"
-					width="200" />
+				<p:graphicImage value="/images/books/book_library.png" width="200" />
 			</p:column>
 
 		</p:submenu>
@@ -126,9 +136,7 @@
 			</p:column>
 			<p:column>
 				<strong>Управление приложением</strong>
-				<p:graphicImage
-					value="/images/Settings.png"
-					width="200" />
+				<p:graphicImage value="/images/Settings.png" width="200" />
 			</p:column>
 		</p:submenu>
 
