@@ -52,6 +52,19 @@ public class Race implements Serializable {
 	@JoinColumn(nullable = false)
 	private Bus bus;
 
+	/**
+	 * Проверка
+	 * @throws Exception
+	 */
+	@PrePersist
+	@PreUpdate
+	public void check() throws Exception{
+		if(bus.getBssType() != BssType.WORK){
+			throw new Exception("В рейсе должен быть рабочий вариант шаблона");
+		}
+	}
+	
+	
 	public Race() {
 		super();
 	}
