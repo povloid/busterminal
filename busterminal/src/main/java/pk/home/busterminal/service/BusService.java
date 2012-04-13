@@ -9,7 +9,9 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import pk.home.busterminal.dao.BusDAO;
 import pk.home.busterminal.domain.BssType;
@@ -40,6 +42,8 @@ public class BusService extends ABaseService<Bus> {
 	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
 	 */
 	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Bus persist(Bus o) throws Exception {
 		check(o, DML.PERSIST);
 		return super.persist(o);
@@ -51,6 +55,8 @@ public class BusService extends ABaseService<Bus> {
 	 * @see pk.home.libs.combine.service.ABaseService#merge(java.lang.Object)
 	 */
 	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Bus merge(Bus o) throws Exception {
 		check(o, DML.MERGE);
 		return super.merge(o);
@@ -66,7 +72,8 @@ public class BusService extends ABaseService<Bus> {
 	 * @param o
 	 * @throws Exception
 	 */
-	private void check(Bus o, DML dml) throws Exception {
+	@Transactional(readOnly = true)
+	public void check(Bus o, DML dml) throws Exception {
 
 
 
@@ -131,6 +138,7 @@ public class BusService extends ABaseService<Bus> {
 	 * @return
 	 * @throws Exception
 	 */
+	@Transactional(readOnly = true)
 	public List<Bus> getAllEntities(BssType bssType, int firstResult,
 			int maxResults, SingularAttribute<Bus, ?> orderByAttribute,
 			SortOrderType sortOrder) throws Exception {
@@ -154,6 +162,7 @@ public class BusService extends ABaseService<Bus> {
 	 * @return
 	 * @throws Exception
 	 */
+	@Transactional(readOnly = true)
 	public List<Bus> getAllEntities(BssType bssType) throws Exception {
 
 		CriteriaBuilder cb = busDAO.getEntityManager().getCriteriaBuilder();
@@ -175,6 +184,7 @@ public class BusService extends ABaseService<Bus> {
 	 * @return
 	 * @throws Exception
 	 */
+	@Transactional(readOnly = true)
 	public long count(BssType bssType) throws Exception {
 
 		CriteriaBuilder cb = busDAO.getEntityManager().getCriteriaBuilder();

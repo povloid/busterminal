@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -23,9 +25,7 @@ public class BusRouteStop implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2201675064555128789L;
-	
 
-	
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "busroute_id")
 	@Index(name = "bus_routes_stops_idx1")
@@ -40,11 +40,44 @@ public class BusRouteStop implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="orId")
-	private int orId;
 
 	private String description;
+
+	// logic
+
+	@Column(name = "orId")
+	private int orId;
+
+	@ManyToOne
+	private BusRouteStop pBRStop;
+
+	@ManyToOne
+	private BusRouteStop nBRStop;
+
+	public boolean isProtectionFieldUpdated(BusRouteStop busRouteStop)
+			throws Exception {
+		boolean res = false;
+
+		res = ((this.pBRStop == null && busRouteStop.pBRStop == null) || (this.pBRStop
+				.equals(busRouteStop.pBRStop))
+				&& ((this.nBRStop == null && busRouteStop.nBRStop == null) || (this.nBRStop
+						.equals(busRouteStop.nBRStop))));
+
+		return !res;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void check() throws Exception {
+		if ((pBRStop != null && pBRStop.orId < orId)
+				&& (nBRStop != null && nBRStop.orId > orId)
+				&& (pBRStop != null && nBRStop != null && !pBRStop
+						.equals(nBRStop))) {
+
+		} else {
+			throw new Exception("Нарушение упорядоченности");
+		}
+	}
 
 	public Long getId() {
 		return id;
