@@ -17,11 +17,13 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Index;
 
 @Entity
-@Table(schema = "public", name = "bus_routes_stops", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"busroute_id", "busstop_id" }))
+@Table(schema = "public", name = "bus_routes_stops", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "busroute_id", "busstop_id" }),
+		@UniqueConstraint(columnNames = { "busroute_id", "orId" }) })
 public class BusRouteStop implements Serializable {
 
 	/**
+	 * 
 	 * 
 	 */
 	private static final long serialVersionUID = -2201675064555128789L;
@@ -54,6 +56,13 @@ public class BusRouteStop implements Serializable {
 	@ManyToOne
 	private BusRouteStop nBRStop;
 
+	/**
+	 * Проверка были ли изменения в защищенных полях
+	 * 
+	 * @param busRouteStop
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean isProtectionFieldUpdated(BusRouteStop busRouteStop)
 			throws Exception {
 		boolean res = false;
@@ -69,8 +78,11 @@ public class BusRouteStop implements Serializable {
 	@PreUpdate
 	@PrePersist
 	public void check() throws Exception {
-		if ((pBRStop != null && pBRStop.orId < orId)
-				&& (nBRStop != null && nBRStop.orId > orId)
+
+		if ((pBRStop == null && pBRStop == null)
+				||
+				(pBRStop == null || pBRStop.orId < orId)
+				&& (nBRStop == null || nBRStop.orId > orId)
 				&& (pBRStop != null && nBRStop != null && !pBRStop
 						.equals(nBRStop))) {
 
