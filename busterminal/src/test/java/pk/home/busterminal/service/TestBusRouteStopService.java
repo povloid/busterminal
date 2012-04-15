@@ -1,6 +1,7 @@
 package pk.home.busterminal.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -579,12 +580,9 @@ public class TestBusRouteStopService {
 		assertTrue(list.size() == index);
 	}
 
-	
-	
-	
-	// Тесты на логику -------------------------------------------------------------------------------------------------
-	
-	
+	// Тесты на логику
+	// -------------------------------------------------------------------------------------------------
+
 	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#merge(java.lang.Object)}.
@@ -593,7 +591,7 @@ public class TestBusRouteStopService {
 	 */
 	@Test
 	@Rollback(true)
-	public void testMerge1() throws Exception {
+	public void testIsProtectionFieldUpdated() throws Exception {
 		BusRoute busRoute = new BusRoute();
 		busRoute.setKeyName("test 1");
 		busRoute = busRouteStopService.persist(busRoute);
@@ -602,29 +600,80 @@ public class TestBusRouteStopService {
 		busStop.setKeyName("test " + 1);
 		busStop = busStopService.persist(busStop);
 
-		BusRouteStop busRouteStop = new BusRouteStop();
-		busRouteStop.setBusRoute(busRoute);
-		busRouteStop.setBusStop(busStop);
-		busRouteStop.setOrId(1);
-		busRouteStop = busRouteStopStopService.persist(busRouteStop);
+		BusRouteStop busRouteStop1 = new BusRouteStop();
+		busRouteStop1.setBusRoute(busRoute);
+		busRouteStop1.setBusStop(busStop);
+		busRouteStop1.setOrId(1);
+		busRouteStop1 = busRouteStopStopService.persist(busRouteStop1);
 
-		long id = busRouteStop.getId();
+		busStop = new BusStop();
+		busStop.setKeyName("test " + 2);
+		busStop = busStopService.persist(busStop);
 
-		BusRouteStop busRouteStop2 = busRouteStopStopService.find(id);
+		BusRouteStop busRouteStop2 = new BusRouteStop();
+		busRouteStop2.setBusRoute(busRoute);
+		busRouteStop2.setBusStop(busStop);
+		busRouteStop2.setOrId(2);
+		busRouteStop2 = busRouteStopStopService.persist(busRouteStop2);
 
-		assertEquals(busRouteStop, busRouteStop2);
-		assertTrue(busRouteStop.getId() == busRouteStop2.getId());
+		busStop = new BusStop();
+		busStop.setKeyName("test " + 3);
+		busStop = busStopService.persist(busStop);
 
+		BusRouteStop busRouteStop3 = new BusRouteStop();
+		busRouteStop3.setBusRoute(busRoute);
+		busRouteStop3.setBusStop(busStop);
+		busRouteStop3.setOrId(3);
+		busRouteStop3 = busRouteStopStopService.persist(busRouteStop3);
+
+		// long id = busRouteStop2.getId();
+
+		// BusRouteStop busRouteStop3 = busRouteStopStopService.find(id);
+
+
+		// b ----------------------------------------------------------------------
+		assertFalse(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
 		
-					
-		
-		
-		busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
-		busRouteStop = busRouteStopStopService.refresh(busRouteStop);
+		busRouteStop3.setpBRStop(busRouteStop1);
 
-		assertEquals(busRouteStop, busRouteStop2);
-		assertTrue(busRouteStop.getId() == busRouteStop2.getId());
+		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+
+		busRouteStop2.setpBRStop(busRouteStop1);
+
+		assertFalse(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+
+		busRouteStop2.setpBRStop(busRouteStop3);
+
+		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+		
+		busRouteStop2.setpBRStop(null);
+
+		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+
+		// n ----------------------------------------------------------------------
+		
+		busRouteStop3.setpBRStop(null);
+		busRouteStop2.setpBRStop(null);
+		
+		assertFalse(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+		
+		busRouteStop3.setnBRStop(busRouteStop1);
+
+		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+
+		busRouteStop2.setnBRStop(busRouteStop1);
+
+		assertFalse(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+
+		busRouteStop2.setnBRStop(busRouteStop3);
+
+		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+		
+		busRouteStop2.setnBRStop(null);
+
+		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
+
+
 	}
-	
-	
+
 }

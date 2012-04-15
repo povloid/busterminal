@@ -71,15 +71,20 @@ public class BusRouteStop implements Serializable {
 		// Первое поле
 		(((this.pBRStop == null && busRouteStop.pBRStop == null) || (this.pBRStop != null
 				&& busRouteStop.pBRStop != null && this.pBRStop
-				.equals(busRouteStop.pBRStop)))
+					.equals(busRouteStop.pBRStop)))
 		// и
 		&&
 		// Второе поле
 		((this.nBRStop == null && busRouteStop.nBRStop == null) || (this.nBRStop != null
 				&& busRouteStop.nBRStop != null && this.nBRStop
-				.equals(busRouteStop.nBRStop))));
+					.equals(busRouteStop.nBRStop))));
 	}
 
+	/**
+	 * Проверка логической правильности
+	 * 
+	 * @throws Exception
+	 */
 	@PreUpdate
 	@PrePersist
 	public void check() throws Exception {
@@ -133,6 +138,22 @@ public class BusRouteStop implements Serializable {
 
 	public void setOrId(int orId) {
 		this.orId = orId;
+	}
+
+	public BusRouteStop getpBRStop() {
+		return pBRStop;
+	}
+
+	public void setpBRStop(BusRouteStop pBRStop) {
+		this.pBRStop = pBRStop;
+	}
+
+	public BusRouteStop getnBRStop() {
+		return nBRStop;
+	}
+
+	public void setnBRStop(BusRouteStop nBRStop) {
+		this.nBRStop = nBRStop;
 	}
 
 	@Override
