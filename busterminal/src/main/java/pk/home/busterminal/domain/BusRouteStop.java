@@ -65,9 +65,8 @@ public class BusRouteStop implements Serializable {
 	 */
 	public boolean isProtectionFieldUpdated(BusRouteStop busRouteStop)
 			throws Exception {
-		boolean res = false;
 
-		res = // инвертированное условие номального состояния
+		return // инвертированное условие номального состояния
 		!
 		// Первое поле
 		(((this.pBRStop == null && busRouteStop.pBRStop == null) || (this.pBRStop != null
@@ -79,8 +78,6 @@ public class BusRouteStop implements Serializable {
 		((this.nBRStop == null && busRouteStop.nBRStop == null) || (this.nBRStop != null
 				&& busRouteStop.nBRStop != null && this.nBRStop
 				.equals(busRouteStop.nBRStop))));
-
-		return res;
 	}
 
 	@PreUpdate
