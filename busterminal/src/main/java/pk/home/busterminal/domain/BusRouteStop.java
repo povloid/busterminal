@@ -67,12 +67,20 @@ public class BusRouteStop implements Serializable {
 			throws Exception {
 		boolean res = false;
 
-		res = ((this.pBRStop == null && busRouteStop.pBRStop == null) || (this.pBRStop
-				.equals(busRouteStop.pBRStop))
-				&& ((this.nBRStop == null && busRouteStop.nBRStop == null) || (this.nBRStop
-						.equals(busRouteStop.nBRStop))));
+		res = // инвертированное условие номального состояния
+		!
+		// Первое поле
+		(((this.pBRStop == null && busRouteStop.pBRStop == null) || (this.pBRStop != null
+				&& busRouteStop.pBRStop != null && this.pBRStop
+				.equals(busRouteStop.pBRStop)))
+		// и
+		&&
+		// Второе поле
+		((this.nBRStop == null && busRouteStop.nBRStop == null) || (this.nBRStop != null
+				&& busRouteStop.nBRStop != null && this.nBRStop
+				.equals(busRouteStop.nBRStop))));
 
-		return !res;
+		return res;
 	}
 
 	@PreUpdate
@@ -80,8 +88,7 @@ public class BusRouteStop implements Serializable {
 	public void check() throws Exception {
 
 		if ((pBRStop == null && pBRStop == null)
-				||
-				(pBRStop == null || pBRStop.orId < orId)
+				|| (pBRStop == null || pBRStop.orId < orId)
 				&& (nBRStop == null || nBRStop.orId > orId)
 				&& (pBRStop != null && nBRStop != null && !pBRStop
 						.equals(nBRStop))) {

@@ -579,4 +579,52 @@ public class TestBusRouteStopService {
 		assertTrue(list.size() == index);
 	}
 
+	
+	
+	
+	// Тесты на логику -------------------------------------------------------------------------------------------------
+	
+	
+	/**
+	 * Test method for
+	 * {@link pk.home.libs.combine.dao.ABaseDAO#merge(java.lang.Object)}.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Rollback(true)
+	public void testMerge1() throws Exception {
+		BusRoute busRoute = new BusRoute();
+		busRoute.setKeyName("test 1");
+		busRoute = busRouteStopService.persist(busRoute);
+
+		BusStop busStop = new BusStop();
+		busStop.setKeyName("test " + 1);
+		busStop = busStopService.persist(busStop);
+
+		BusRouteStop busRouteStop = new BusRouteStop();
+		busRouteStop.setBusRoute(busRoute);
+		busRouteStop.setBusStop(busStop);
+		busRouteStop.setOrId(1);
+		busRouteStop = busRouteStopStopService.persist(busRouteStop);
+
+		long id = busRouteStop.getId();
+
+		BusRouteStop busRouteStop2 = busRouteStopStopService.find(id);
+
+		assertEquals(busRouteStop, busRouteStop2);
+		assertTrue(busRouteStop.getId() == busRouteStop2.getId());
+
+		
+					
+		
+		
+		busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+		busRouteStop = busRouteStopStopService.refresh(busRouteStop);
+
+		assertEquals(busRouteStop, busRouteStop2);
+		assertTrue(busRouteStop.getId() == busRouteStop2.getId());
+	}
+	
+	
 }
