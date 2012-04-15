@@ -135,6 +135,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
@@ -173,6 +174,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
@@ -216,6 +218,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
@@ -254,6 +257,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
@@ -298,6 +302,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
@@ -353,6 +358,7 @@ public class TestBusRouteStopService {
 		BusRouteStop busRouteStop = new BusRouteStop();
 		busRouteStop.setBusRoute(busRoute);
 		busRouteStop.setBusStop(busStop);
+		busRouteStop.setOrId(1);
 		busRouteStop = busRouteStopStopService.persist(busRouteStop);
 
 		long id = busRouteStop.getId();
@@ -386,6 +392,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
@@ -417,6 +424,7 @@ public class TestBusRouteStopService {
 		BusRouteStop busRouteStop = new BusRouteStop();
 		busRouteStop.setBusRoute(busRoute);
 		busRouteStop.setBusStop(busStop);
+		busRouteStop.setOrId(1);
 		busRouteStop = busRouteStopStopService.persist(busRouteStop);
 
 		long id = busRouteStop.getId();
@@ -447,6 +455,7 @@ public class TestBusRouteStopService {
 		BusRouteStop busRouteStop = new BusRouteStop();
 		busRouteStop.setBusRoute(busRoute);
 		busRouteStop.setBusStop(busStop);
+		busRouteStop.setOrId(1);
 		busRouteStop = busRouteStopStopService.persist(busRouteStop);
 
 		long id = busRouteStop.getId();
@@ -483,6 +492,7 @@ public class TestBusRouteStopService {
 		BusRouteStop busRouteStop = new BusRouteStop();
 		busRouteStop.setBusRoute(busRoute);
 		busRouteStop.setBusStop(busStop);
+		busRouteStop.setOrId(1);
 		busRouteStop = busRouteStopStopService.persist(busRouteStop);
 
 		long id = busRouteStop.getId();
@@ -520,6 +530,7 @@ public class TestBusRouteStopService {
 		BusRouteStop busRouteStop = new BusRouteStop();
 		busRouteStop.setBusRoute(busRoute);
 		busRouteStop.setBusStop(busStop);
+		busRouteStop.setOrId(1);
 		busRouteStop = busRouteStopStopService.persist(busRouteStop);
 
 		long id = busRouteStop.getId();
@@ -554,6 +565,7 @@ public class TestBusRouteStopService {
 			BusStop busStop = new BusStop();
 			busStop.setKeyName("test " + i);
 			busStop = busStopService.persist(busStop);
+			busRouteStop.setOrId(i);
 			busRouteStop.setBusStop(busStop);
 
 			busRouteStopStopService.persist(busRouteStop);
