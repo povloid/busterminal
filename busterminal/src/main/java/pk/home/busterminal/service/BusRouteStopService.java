@@ -45,6 +45,8 @@ public class BusRouteStopService extends ABaseService<BusRouteStop> {
 		
 		if(old != null && old.isProtectionFieldUpdated(o))
 			throw new Exception("Менять значения полей pBRStop и nBRStop нельзя");
+		
+		o.check();
 	}
 
 	

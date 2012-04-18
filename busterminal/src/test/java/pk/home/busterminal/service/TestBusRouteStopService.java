@@ -583,12 +583,6 @@ public class TestBusRouteStopService {
 	// Тесты на логику
 	// -------------------------------------------------------------------------------------------------
 
-	/**
-	 * Test method for
-	 * {@link pk.home.libs.combine.dao.ABaseDAO#merge(java.lang.Object)}.
-	 * 
-	 * @throws Exception
-	 */
 	@Test
 	@Rollback(true)
 	public void testIsProtectionFieldUpdated() throws Exception {
@@ -630,10 +624,10 @@ public class TestBusRouteStopService {
 
 		// BusRouteStop busRouteStop3 = busRouteStopStopService.find(id);
 
-
-		// b ----------------------------------------------------------------------
+		// b
+		// ----------------------------------------------------------------------
 		assertFalse(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
-		
+
 		busRouteStop3.setpBRStop(busRouteStop1);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
@@ -645,18 +639,19 @@ public class TestBusRouteStopService {
 		busRouteStop2.setpBRStop(busRouteStop3);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
-		
+
 		busRouteStop2.setpBRStop(null);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
 
-		// n ----------------------------------------------------------------------
-		
+		// n
+		// ----------------------------------------------------------------------
+
 		busRouteStop3.setpBRStop(null);
 		busRouteStop2.setpBRStop(null);
-		
+
 		assertFalse(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
-		
+
 		busRouteStop3.setnBRStop(busRouteStop1);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
@@ -668,11 +663,124 @@ public class TestBusRouteStopService {
 		busRouteStop2.setnBRStop(busRouteStop3);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
-		
+
 		busRouteStop2.setnBRStop(null);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
 
+	}
+
+	@Test
+	@Rollback(true)
+	public void testCheck() throws Exception {
+
+		BusRoute busRoute = new BusRoute();
+		busRoute.setKeyName("test 1");
+		busRoute = busRouteStopService.persist(busRoute);
+
+		BusStop busStop = new BusStop();
+		busStop.setKeyName("test " + 1);
+		busStop = busStopService.persist(busStop);
+
+		BusRouteStop busRouteStop1 = new BusRouteStop();
+		busRouteStop1.setBusRoute(busRoute);
+		busRouteStop1.setBusStop(busStop);
+		busRouteStop1.setOrId(1);
+		busRouteStop1 = busRouteStopStopService.persist(busRouteStop1);
+
+		busStop = new BusStop();
+		busStop.setKeyName("test " + 2);
+		busStop = busStopService.persist(busStop);
+
+		BusRouteStop busRouteStop2 = new BusRouteStop();
+		busRouteStop2.setBusRoute(busRoute);
+		busRouteStop2.setBusStop(busStop);
+		busRouteStop2.setOrId(2);
+		busRouteStop2 = busRouteStopStopService.persist(busRouteStop2);
+
+		busStop = new BusStop();
+		busStop.setKeyName("test " + 3);
+		busStop = busStopService.persist(busStop);
+
+		BusRouteStop busRouteStop3 = new BusRouteStop();
+		busRouteStop3.setBusRoute(busRoute);
+		busRouteStop3.setBusStop(busStop);
+		busRouteStop3.setOrId(3);
+		busRouteStop3 = busRouteStopStopService.persist(busRouteStop3);
+
+		busRouteStop2.setpBRStop(busRouteStop1);
+		busRouteStop2.setnBRStop(busRouteStop3);
+		busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+		
+		System.out.println(busRouteStop2.getOrId());
+		System.out.println(busRouteStop2.getpBRStop());
+		System.out.println(busRouteStop2.getnBRStop());
+
+		try {
+			busRouteStop2.setOrId(1);
+			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+
+			assertTrue("Допущено нарушение порядка", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		try {
+			busRouteStop2.setOrId(3);
+			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+
+			assertTrue("Допущено нарушение порядка", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		try {
+			busRouteStop2.setOrId(2);
+			busRouteStop2.setpBRStop(busRouteStop3);
+			busRouteStop2.setnBRStop(busRouteStop3);
+			
+			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+
+			assertTrue("Допущено нарушение порядка", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		try {
+			busRouteStop2.setOrId(2);
+			busRouteStop2.setpBRStop(busRouteStop2);
+			busRouteStop2.setnBRStop(busRouteStop3);
+			
+			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+
+			assertTrue("Допущено нарушение порядка", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		try {
+			busRouteStop2.setOrId(2);
+			busRouteStop2.setpBRStop(busRouteStop1);
+			busRouteStop2.setnBRStop(busRouteStop2);
+			
+			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+
+			assertTrue("Допущено нарушение порядка", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		
 
 	}
 
