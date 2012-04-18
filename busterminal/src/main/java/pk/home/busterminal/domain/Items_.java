@@ -12,6 +12,5 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Items.class)
 public class Items_ {
 	public static volatile SingularAttribute<Items, Long> id;
-	public static volatile SingularAttribute<Items, String> keyName;
 	public static volatile SingularAttribute<Items, String> description;
 }

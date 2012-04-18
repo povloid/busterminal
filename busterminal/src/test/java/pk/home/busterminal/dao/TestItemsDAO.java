@@ -89,7 +89,6 @@ public class TestItemsDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			index++;
 		}
@@ -115,7 +114,6 @@ public class TestItemsDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			index++;
 		}
@@ -146,7 +144,6 @@ public class TestItemsDAO {
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			// index++;
 		}
@@ -172,7 +169,6 @@ public class TestItemsDAO {
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			// index++;
 		}
@@ -205,7 +201,6 @@ public class TestItemsDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			index++;
 		}
@@ -250,7 +245,6 @@ public class TestItemsDAO {
 	public void testFind() throws Exception {
 
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = dataStore.persist(items);
 
 		long id = items.getId();
@@ -259,7 +253,7 @@ public class TestItemsDAO {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 	}
 
@@ -274,7 +268,6 @@ public class TestItemsDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			index++;
 		}
@@ -294,7 +287,6 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = dataStore.persist(items);
 
 		long id = items.getId();
@@ -303,7 +295,7 @@ public class TestItemsDAO {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 	}
 
 	/**
@@ -316,7 +308,6 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = dataStore.persist(items);
 
 		long id = items.getId();
@@ -325,14 +316,14 @@ public class TestItemsDAO {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
-		items2.setKeyName("key 65535");
+		///items2.setKeyName("key 65535");
 		items2 = dataStore.refresh(items2);
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 	}
 
@@ -346,7 +337,6 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = dataStore.persist(items);
 
 		long id = items.getId();
@@ -355,16 +345,16 @@ public class TestItemsDAO {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
-		items2.setKeyName("key 65535");
+		///items2.setKeyName("key 65535");
 		items2 = dataStore.merge(items2);
 
 		items = dataStore.refresh(items);
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 	}
 
 	/**
@@ -377,7 +367,6 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = dataStore.persist(items);
 
 		long id = items.getId();
@@ -386,7 +375,7 @@ public class TestItemsDAO {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 		dataStore.remove(items);
 
@@ -406,7 +395,6 @@ public class TestItemsDAO {
 		long index = dataStore.count();
 		for (int i = 200; i < 210; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			dataStore.persist(items);
 			index++;
 		}

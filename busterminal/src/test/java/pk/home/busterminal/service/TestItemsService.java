@@ -89,7 +89,6 @@ public class TestItemsService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			service.persist(items);
 			index++;
 		}
@@ -115,7 +114,6 @@ public class TestItemsService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			service.persist(items);
 			index++;
 		}
@@ -146,7 +144,6 @@ public class TestItemsService {
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			service.persist(items);
 			// index++;
 		}
@@ -172,7 +169,6 @@ public class TestItemsService {
 		// long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			service.persist(items);
 			// index++;
 		}
@@ -205,7 +201,6 @@ public class TestItemsService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			service.persist(items);
 			index++;
 		}
@@ -250,7 +245,6 @@ public class TestItemsService {
 	public void testFind() throws Exception {
 
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = service.persist(items);
 
 		long id = items.getId();
@@ -259,7 +253,7 @@ public class TestItemsService {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 	}
 
@@ -274,7 +268,6 @@ public class TestItemsService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
 			service.persist(items);
 			index++;
 		}
@@ -294,7 +287,6 @@ public class TestItemsService {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
 		items = service.persist(items);
 
 		long id = items.getId();
@@ -303,7 +295,7 @@ public class TestItemsService {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 	}
 
 	/**
@@ -316,7 +308,7 @@ public class TestItemsService {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
+		///items.setKeyName("key " + 999);
 		items = service.persist(items);
 
 		long id = items.getId();
@@ -325,14 +317,14 @@ public class TestItemsService {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
-		items2.setKeyName("key 65535");
+		///items2.setKeyName("key 65535");
 		items2 = service.refresh(items2);
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 	}
 
@@ -346,7 +338,7 @@ public class TestItemsService {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
+		///items.setKeyName("key " + 999);
 		items = service.persist(items);
 
 		long id = items.getId();
@@ -355,16 +347,16 @@ public class TestItemsService {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
-		items2.setKeyName("key 65535");
+		///items2.setKeyName("key 65535");
 		items2 = service.merge(items2);
 
 		items = service.refresh(items);
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 	}
 
 	/**
@@ -377,7 +369,7 @@ public class TestItemsService {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Items items = new Items();
-		items.setKeyName("key " + 999);
+		///items.setKeyName("key " + 999);
 		items = service.persist(items);
 
 		long id = items.getId();
@@ -386,7 +378,7 @@ public class TestItemsService {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		assertEquals(items.getKeyName(), items2.getKeyName());
+		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 		service.remove(items);
 
@@ -406,7 +398,7 @@ public class TestItemsService {
 		long index = service.count();
 		for (int i = 200; i < 210; i++) {
 			Items items = new Items();
-			items.setKeyName("key " + i);
+			///items.setKeyName("key " + i);
 			service.persist(items);
 			index++;
 		}

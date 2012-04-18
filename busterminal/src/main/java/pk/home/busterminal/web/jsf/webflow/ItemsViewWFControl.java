@@ -31,8 +31,6 @@ public class ItemsViewWFControl extends AWFBaseLazyLoadTableView<Items> implemen
 		SingularAttribute<Items, ?> orderByAttribute = Items_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Items_.id;
-		} else if (csortField != null && csortField.equals("keyName")) {
-			orderByAttribute = Items_.keyName;
 		}
 
 		dataModel = getItemsService().getAllEntities((page - 1) * rows, rows,

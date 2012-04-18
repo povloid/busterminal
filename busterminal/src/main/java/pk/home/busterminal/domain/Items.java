@@ -30,10 +30,6 @@ public class Items implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
-    @Column(unique=true, nullable = false)
-	private String keyName;
-	
 	
 	private String description;
 	
@@ -48,14 +44,7 @@ public class Items implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}   
-	public String getKeyName() {
-		return this.keyName;
-	}
-
-	public void setKeyName(String keyName) {
-		System.out.println(keyName);
-		this.keyName = keyName;
-	}   
+ 
 	public String getDescription() {
 		return this.description;
 	}
