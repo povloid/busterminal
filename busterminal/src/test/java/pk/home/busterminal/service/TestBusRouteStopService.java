@@ -667,7 +667,18 @@ public class TestBusRouteStopService {
 		busRouteStop2.setnBRStop(null);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
-
+		
+		
+		
+		
+		// ---------------------------------------------------------------------
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	@Test

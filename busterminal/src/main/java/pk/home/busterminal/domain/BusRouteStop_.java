@@ -10,6 +10,9 @@ public abstract class BusRouteStop_ {
 	public static volatile SingularAttribute<BusRouteStop, BusStop> busStop;
 	public static volatile SingularAttribute<BusRouteStop, String> description;
 	public static volatile SingularAttribute<BusRouteStop, BusRoute> busRoute;
+	public static volatile SingularAttribute<BusRouteStop, BusRouteStop> pBRStop;
+	public static volatile SingularAttribute<BusRouteStop, Integer> orId;
+	public static volatile SingularAttribute<BusRouteStop, BusRouteStop> nBRStop;
 
 }
 
