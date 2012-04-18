@@ -6,7 +6,6 @@ import java.lang.String;
 import java.util.Date;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Entity class: Race Race - рейс
@@ -32,10 +31,6 @@ public class Race implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
-	@Column(unique = true, nullable = false)
-	private String keyName;
-
 	private String description;
 
 	// -------------------------------
@@ -59,7 +54,7 @@ public class Race implements Serializable {
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception{
-		if(bus.getBssType() != BssType.WORK){
+		if(bus != null && bus.getBssType() != BssType.WORK){
 			throw new Exception("В рейсе должен быть рабочий вариант шаблона");
 		}
 	}
@@ -75,15 +70,6 @@ public class Race implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getKeyName() {
-		return this.keyName;
-	}
-
-	public void setKeyName(String keyName) {
-		System.out.println(keyName);
-		this.keyName = keyName;
 	}
 
 	public String getDescription() {

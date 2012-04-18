@@ -1,7 +1,10 @@
 package pk.home.busterminal.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,13 +20,14 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test DAO class for entity class: Race
- * Race - рейс
+ * JUnit test DAO class for entity class: Race Race - рейс
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -31,7 +35,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestRaceDAO {
+public class TestRaceDAO extends BaseTest {
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -67,6 +71,7 @@ public class TestRaceDAO {
 	 */
 	@Before
 	public void setUp() throws Exception {
+
 	}
 
 	/**
@@ -86,10 +91,15 @@ public class TestRaceDAO {
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
 
+		createTestEntitys();
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
+
 			dataStore.persist(race);
 			index++;
 		}
@@ -112,10 +122,15 @@ public class TestRaceDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		
+		createTestEntitys();
+		
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			dataStore.persist(race);
 			index++;
 		}
@@ -143,10 +158,14 @@ public class TestRaceDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesIntInt() throws Exception {
 
+		createTestEntitys();
+		
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
+			race.setdTime(createUniqueDate());
 			dataStore.persist(race);
 			// index++;
 		}
@@ -169,10 +188,14 @@ public class TestRaceDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+		
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			dataStore.persist(race);
 			// index++;
 		}
@@ -202,10 +225,14 @@ public class TestRaceDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+		
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			dataStore.persist(race);
 			index++;
 		}
@@ -248,9 +275,12 @@ public class TestRaceDAO {
 	@Test
 	@Rollback(true)
 	public void testFind() throws Exception {
+		createTestEntitys();
 
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -259,7 +289,7 @@ public class TestRaceDAO {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
 	}
 
@@ -271,10 +301,14 @@ public class TestRaceDAO {
 	@Test
 	@Rollback(true)
 	public void testCount() throws Exception {
+		createTestEntitys();
+		
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			dataStore.persist(race);
 			index++;
 		}
@@ -293,8 +327,12 @@ public class TestRaceDAO {
 	@Test
 	@Rollback(true)
 	public void testPersist() throws Exception {
+		createTestEntitys();
+		
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -303,7 +341,7 @@ public class TestRaceDAO {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 	}
 
 	/**
@@ -315,8 +353,12 @@ public class TestRaceDAO {
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
+		createTestEntitys();
+		
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -325,14 +367,14 @@ public class TestRaceDAO {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
-		race2.setKeyName("key 65535");
+		race.setdTime(createUniqueDate());
 		race2 = dataStore.refresh(race2);
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
 	}
 
@@ -345,8 +387,12 @@ public class TestRaceDAO {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
+		createTestEntitys();
+		
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -355,16 +401,16 @@ public class TestRaceDAO {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
-		race2.setKeyName("key 65535");
+		race.setdTime(createUniqueDate());
 		race2 = dataStore.merge(race2);
 
 		race = dataStore.refresh(race);
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 	}
 
 	/**
@@ -376,8 +422,12 @@ public class TestRaceDAO {
 	@Test
 	@Rollback(true)
 	public void testRemove() throws Exception {
+		createTestEntitys();
+		
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -386,7 +436,7 @@ public class TestRaceDAO {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
 		dataStore.remove(race);
 
@@ -394,19 +444,20 @@ public class TestRaceDAO {
 		assertTrue(race3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
+		createTestEntitys();
 
 		long index = dataStore.count();
 		for (int i = 200; i < 210; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			dataStore.persist(race);
 			index++;
 		}
@@ -417,6 +468,5 @@ public class TestRaceDAO {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }

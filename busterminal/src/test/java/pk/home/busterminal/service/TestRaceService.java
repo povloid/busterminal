@@ -1,6 +1,7 @@
 package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
+
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,11 +20,11 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test service class for entity class: Race
- * Race - рейс
+ * JUnit test service class for entity class: Race Race - рейс
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -31,7 +32,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestRaceService {
+public class TestRaceService extends BaseTest {
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -86,10 +87,15 @@ public class TestRaceService {
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
 
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
+
 			service.persist(race);
 			index++;
 		}
@@ -112,10 +118,15 @@ public class TestRaceService {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
+
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			service.persist(race);
 			index++;
 		}
@@ -143,10 +154,14 @@ public class TestRaceService {
 	@Rollback(true)
 	public void testGetAllEntitiesIntInt() throws Exception {
 
+		createTestEntitys();
+
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
+			race.setdTime(createUniqueDate());
 			service.persist(race);
 			// index++;
 		}
@@ -169,10 +184,14 @@ public class TestRaceService {
 	@Rollback(true)
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+
 		// long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			service.persist(race);
 			// index++;
 		}
@@ -202,10 +221,14 @@ public class TestRaceService {
 	@Rollback(true)
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			service.persist(race);
 			index++;
 		}
@@ -225,8 +248,8 @@ public class TestRaceService {
 		}
 
 		// all - TRUE
-		list = service.getAllEntities(true, 10, 10, Race_.id,
-				SortOrderType.ASC);
+		list = service
+				.getAllEntities(true, 10, 10, Race_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -248,9 +271,12 @@ public class TestRaceService {
 	@Test
 	@Rollback(true)
 	public void testFind() throws Exception {
+		createTestEntitys();
 
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -259,7 +285,7 @@ public class TestRaceService {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
 	}
 
@@ -271,10 +297,14 @@ public class TestRaceService {
 	@Test
 	@Rollback(true)
 	public void testCount() throws Exception {
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			service.persist(race);
 			index++;
 		}
@@ -293,8 +323,12 @@ public class TestRaceService {
 	@Test
 	@Rollback(true)
 	public void testPersist() throws Exception {
+		createTestEntitys();
+
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -303,7 +337,7 @@ public class TestRaceService {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 	}
 
 	/**
@@ -315,8 +349,12 @@ public class TestRaceService {
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
+		createTestEntitys();
+
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -325,14 +363,14 @@ public class TestRaceService {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
-		race2.setKeyName("key 65535");
+		race.setdTime(createUniqueDate());
 		race2 = service.refresh(race2);
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
 	}
 
@@ -345,8 +383,12 @@ public class TestRaceService {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
+		createTestEntitys();
+
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -355,16 +397,16 @@ public class TestRaceService {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
-		race2.setKeyName("key 65535");
+		race.setdTime(createUniqueDate());
 		race2 = service.merge(race2);
 
 		race = service.refresh(race);
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 	}
 
 	/**
@@ -376,8 +418,12 @@ public class TestRaceService {
 	@Test
 	@Rollback(true)
 	public void testRemove() throws Exception {
+		createTestEntitys();
+
 		Race race = new Race();
-		race.setKeyName("key " + 999);
+		race.setdTime(createUniqueDate());
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -386,7 +432,7 @@ public class TestRaceService {
 
 		assertEquals(race, race2);
 		assertTrue(race.getId() == race2.getId());
-		assertEquals(race.getKeyName(), race2.getKeyName());
+		assertEquals(race.getdTime().getTime(), race.getdTime().getTime());
 
 		service.remove(race);
 
@@ -394,19 +440,20 @@ public class TestRaceService {
 		assertTrue(race3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
+		createTestEntitys();
 
 		long index = service.count();
 		for (int i = 200; i < 210; i++) {
 			Race race = new Race();
-			race.setKeyName("key " + i);
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute);
 			service.persist(race);
 			index++;
 		}
@@ -417,6 +464,5 @@ public class TestRaceService {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }

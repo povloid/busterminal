@@ -95,7 +95,7 @@ public class BusRouteStop implements Serializable {
 				&& (pBRStop != null && nBRStop != null
 						&& !pBRStop.equals(nBRStop) && !pBRStop.equals(this) && !nBRStop
 							.equals(this))) {
-			System.out.println(">>> OK");
+			//System.out.println(">>> OK");
 		} else {
 			throw new Exception("Нарушение упорядоченности");
 		}

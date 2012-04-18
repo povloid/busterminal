@@ -31,10 +31,8 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 		SingularAttribute<Race, ?> orderByAttribute = Race_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Race_.id;
-		} else if (csortField != null && csortField.equals("keyName")) {
-			orderByAttribute = Race_.keyName;
-		}
-
+		} 
+		
 		dataModel = getRaceService().getAllEntities((page - 1) * rows, rows,
 				orderByAttribute, getSortOrderType());
 	}
