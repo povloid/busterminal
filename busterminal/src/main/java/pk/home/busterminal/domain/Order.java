@@ -49,36 +49,38 @@ public class Order implements Serializable {
 	private Race race;
 
 	@ManyToOne
+	// Проверка содержания данного места в списке мест выставленного на данном рейсе автобуса
+	// в сервисном уровне
 	private Seat seat;
 
 	@ManyToOne
+	// Проверка содержания данной остановки в списке становок маршрута размещена
+	// в сервисном уровне
 	private BusStop busStopA;
 
 	@ManyToOne
+	// Проверка содержания данной остановки в списке становок маршрута размещена
+	// в сервисном уровне
 	private BusStop busStopB;
 
 	private BigDecimal actualPrice;
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
-		if(!seat.getSchema().getBus().equals(race.getBus())){
-			throw new Exception("Указанный автобус в схеме не совпадает с указаным автобусом в маршруте");
+		if (!seat.getSchema().getBus().equals(race.getBus())) {
+			throw new Exception(
+					"Указанный автобус в схеме не совпадает с указаным автобусом в рейсе");
 		}
-		
-		if(busStopA.equals(busStopB)){
+
+		if (busStopA.equals(busStopB)) {
 			throw new Exception("Остановки отрезка совпадать не могут");
 		}
 	}
-	
-	
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
 
 	public Order() {
 		super();
