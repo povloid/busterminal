@@ -1,6 +1,7 @@
 package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
+
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,12 +19,12 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test service class for entity class: Order
- * Order - ордер - операция
+ * JUnit test service class for entity class: Order Order - ордер - операция
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -89,7 +90,7 @@ public class TestOrderService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			index++;
 		}
@@ -115,7 +116,7 @@ public class TestOrderService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			index++;
 		}
@@ -146,7 +147,7 @@ public class TestOrderService {
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			// index++;
 		}
@@ -172,7 +173,7 @@ public class TestOrderService {
 		// long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			// index++;
 		}
@@ -205,7 +206,7 @@ public class TestOrderService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			index++;
 		}
@@ -250,7 +251,7 @@ public class TestOrderService {
 	public void testFind() throws Exception {
 
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = service.persist(order);
 
 		long id = order.getId();
@@ -259,7 +260,7 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
 
 	}
 
@@ -274,7 +275,7 @@ public class TestOrderService {
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			index++;
 		}
@@ -294,7 +295,7 @@ public class TestOrderService {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = service.persist(order);
 
 		long id = order.getId();
@@ -303,7 +304,7 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
 	}
 
 	/**
@@ -316,7 +317,7 @@ public class TestOrderService {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = service.persist(order);
 
 		long id = order.getId();
@@ -325,14 +326,14 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 
-		order2.setKeyName("key 65535");
+		order2.setOrderType(OrderType.TICKET_RETURN);
 		order2 = service.refresh(order2);
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 
 	}
 
@@ -346,7 +347,7 @@ public class TestOrderService {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = service.persist(order);
 
 		long id = order.getId();
@@ -355,16 +356,16 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 
-		order2.setKeyName("key 65535");
+		order2.setOrderType(OrderType.TICKET_RETURN);
 		order2 = service.merge(order2);
 
 		order = service.refresh(order);
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 	}
 
 	/**
@@ -377,7 +378,7 @@ public class TestOrderService {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = service.persist(order);
 
 		long id = order.getId();
@@ -386,7 +387,7 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
 
 		service.remove(order);
 
@@ -394,11 +395,9 @@ public class TestOrderService {
 		assertTrue(order3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
@@ -406,7 +405,7 @@ public class TestOrderService {
 		long index = service.count();
 		for (int i = 200; i < 210; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			index++;
 		}
@@ -417,6 +416,5 @@ public class TestOrderService {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }

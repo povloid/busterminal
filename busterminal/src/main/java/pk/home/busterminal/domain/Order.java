@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Index;
 
 /**
  * Entity class: Order Order - ордер - операция
@@ -33,12 +33,14 @@ public class Order implements Serializable {
 	@ManyToOne
 	private Order previousOrder; // Предшествующий ордер
 
-	@NotNull
-	@Column(unique = true, nullable = false)
-	private String keyName; // TODO: Тип операции необходимо ввести
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@Index(name = "order_idx1")
+	private OrderType orderType;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
+	@Index(name = "order_idx2")
 	private Date сTime;
 
 	private String description;
@@ -49,7 +51,8 @@ public class Order implements Serializable {
 	private Race race;
 
 	@ManyToOne
-	// Проверка содержания данного места в списке мест выставленного на данном рейсе автобуса
+	// Проверка содержания данного места в списке мест выставленного на данном
+	// рейсе автобуса
 	// в сервисном уровне
 	private Seat seat;
 
@@ -92,15 +95,6 @@ public class Order implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getKeyName() {
-		return this.keyName;
-	}
-
-	public void setKeyName(String keyName) {
-		System.out.println(keyName);
-		this.keyName = keyName;
 	}
 
 	public String getDescription() {
@@ -165,6 +159,14 @@ public class Order implements Serializable {
 
 	public void setActualPrice(BigDecimal actualPrice) {
 		this.actualPrice = actualPrice;
+	}
+
+	public OrderType getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(OrderType orderType) {
+		this.orderType = orderType;
 	}
 
 	@Override

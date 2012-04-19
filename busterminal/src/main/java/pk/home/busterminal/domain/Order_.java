@@ -11,7 +11,6 @@ public abstract class Order_ {
 	public static volatile SingularAttribute<Order, Long> id;
 	public static volatile SingularAttribute<Order, BusStop> busStopB;
 	public static volatile SingularAttribute<Order, BigDecimal> actualPrice;
-	public static volatile SingularAttribute<Order, String> keyName;
 	public static volatile SingularAttribute<Order, Seat> seat;
 	public static volatile SingularAttribute<Order, String> description;
 	public static volatile SingularAttribute<Order, Order> previousOrder;

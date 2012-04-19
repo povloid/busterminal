@@ -18,6 +18,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -89,7 +90,7 @@ public class TestOrderDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			index++;
 		}
@@ -115,7 +116,7 @@ public class TestOrderDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			index++;
 		}
@@ -146,7 +147,7 @@ public class TestOrderDAO {
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			// index++;
 		}
@@ -172,7 +173,7 @@ public class TestOrderDAO {
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			// index++;
 		}
@@ -205,7 +206,7 @@ public class TestOrderDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			index++;
 		}
@@ -250,7 +251,7 @@ public class TestOrderDAO {
 	public void testFind() throws Exception {
 
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = dataStore.persist(order);
 
 		long id = order.getId();
@@ -259,7 +260,7 @@ public class TestOrderDAO {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
 
 	}
 
@@ -274,7 +275,7 @@ public class TestOrderDAO {
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			index++;
 		}
@@ -294,7 +295,7 @@ public class TestOrderDAO {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = dataStore.persist(order);
 
 		long id = order.getId();
@@ -303,7 +304,7 @@ public class TestOrderDAO {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
 	}
 
 	/**
@@ -316,7 +317,7 @@ public class TestOrderDAO {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = dataStore.persist(order);
 
 		long id = order.getId();
@@ -325,14 +326,14 @@ public class TestOrderDAO {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 
-		order2.setKeyName("key 65535");
+		order2.setOrderType(OrderType.TICKET_RETURN);
 		order2 = dataStore.refresh(order2);
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 
 	}
 
@@ -346,7 +347,7 @@ public class TestOrderDAO {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = dataStore.persist(order);
 
 		long id = order.getId();
@@ -355,16 +356,16 @@ public class TestOrderDAO {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 
-		order2.setKeyName("key 65535");
+		order2.setOrderType(OrderType.TICKET_RETURN);
 		order2 = dataStore.merge(order2);
 
 		order = dataStore.refresh(order);
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getOrderType(), order2.getOrderType());
 	}
 
 	/**
@@ -377,7 +378,7 @@ public class TestOrderDAO {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		Order order = new Order();
-		order.setKeyName("key " + 999);
+		order.setOrderType(OrderType.TICKET_SALE);
 		order = dataStore.persist(order);
 
 		long id = order.getId();
@@ -386,7 +387,7 @@ public class TestOrderDAO {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getKeyName(), order2.getKeyName());
+		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
 
 		dataStore.remove(order);
 
@@ -406,7 +407,7 @@ public class TestOrderDAO {
 		long index = dataStore.count();
 		for (int i = 200; i < 210; i++) {
 			Order order = new Order();
-			order.setKeyName("key " + i);
+			order.setOrderType(OrderType.TICKET_SALE);
 			dataStore.persist(order);
 			index++;
 		}

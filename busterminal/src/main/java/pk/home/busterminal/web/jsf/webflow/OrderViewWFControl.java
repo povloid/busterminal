@@ -31,8 +31,6 @@ public class OrderViewWFControl extends AWFBaseLazyLoadTableView<Order> implemen
 		SingularAttribute<Order, ?> orderByAttribute = Order_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Order_.id;
-		} else if (csortField != null && csortField.equals("keyName")) {
-			orderByAttribute = Order_.keyName;
 		}
 
 		dataModel = getOrderService().getAllEntities((page - 1) * rows, rows,
