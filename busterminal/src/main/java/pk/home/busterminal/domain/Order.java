@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.annotations.Index;
 
+import pk.home.busterminal.domain.security.UserAccount;
+
 /**
  * Entity class: Order Order - ордер - операция
  * 
@@ -41,7 +43,7 @@ public class Order implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
 	@Index(name = "order_idx2")
-	private Date сTime;
+	private Date opTime;
 
 	private String description;
 
@@ -67,6 +69,13 @@ public class Order implements Serializable {
 	private BusStop busStopB;
 
 	private BigDecimal actualPrice;
+
+	// -----------------------------------------------------------------------------------------------------------------
+
+	@ManyToOne
+	@Index(name = "order_idx3")
+	@JoinColumn(nullable = false)
+	private UserAccount userAccount;
 
 	// -----------------------------------------------------------------------------------------------------------------
 
@@ -113,12 +122,12 @@ public class Order implements Serializable {
 		this.previousOrder = previousOrder;
 	}
 
-	public Date getсTime() {
-		return сTime;
+	public Date getOpTime() {
+		return opTime;
 	}
 
-	public void setсTime(Date сTime) {
-		this.сTime = сTime;
+	public void setOpTime(Date opTime) {
+		this.opTime = opTime;
 	}
 
 	public Race getRace() {
@@ -167,6 +176,14 @@ public class Order implements Serializable {
 
 	public void setOrderType(OrderType orderType) {
 		this.orderType = orderType;
+	}
+
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	@Override

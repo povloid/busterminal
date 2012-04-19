@@ -260,7 +260,7 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
+		assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
 
 	}
 
@@ -304,7 +304,7 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
+		assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
 	}
 
 	/**
@@ -387,7 +387,7 @@ public class TestOrderService {
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getсTime().getTime(), order.getсTime().getTime());
+		assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
 
 		service.remove(order);
 
