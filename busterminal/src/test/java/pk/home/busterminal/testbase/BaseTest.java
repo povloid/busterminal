@@ -124,13 +124,16 @@ public class BaseTest {
 		busRouteStop3 = busRouteStopService.persist(busRouteStop3);
 		busRoute.getBusRouteStops().add(busRouteStop3);
 	
-		// Создаем пользователя
+		// Создаем пользователя -----------------------------------
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUsername("testuser1");
 		userAccount.setPassword(passwordEncoder.encodePassword("password",
 				null));
 		
 		userAccount = userAccountService.persist(userAccount);
+		
+		
+		
 		
 		
 	}
