@@ -11,11 +11,13 @@ import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.BusStop;
+import pk.home.busterminal.domain.Customer;
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.service.BusRouteService;
 import pk.home.busterminal.service.BusRouteStopService;
 import pk.home.busterminal.service.BusService;
 import pk.home.busterminal.service.BusStopService;
+import pk.home.busterminal.service.CustomerService;
 import pk.home.busterminal.service.security.UserAccountService;
 
 @Transactional
@@ -41,7 +43,8 @@ public class BaseTest {
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
 	
-	
+	@Autowired
+	private CustomerService customerService; 
 	
 
 	
@@ -50,6 +53,8 @@ public class BaseTest {
 	protected BusRoute busRoute;
 	protected BusStop busStop1, busStop2, busStop3;
 	protected BusRouteStop busRouteStop1, busRouteStop2, busRouteStop3;
+
+	private Customer customer1, customer2;
 	// ------------------------------------------------------------------------------------------
 	
 	
@@ -75,7 +80,7 @@ public class BaseTest {
 		busWork1.setBssType(BssType.WORK);
 		busWork1.setTemplite(busTemplite);
 		busWork1 = busService.persist(busWork1);
-
+ 
 		busWork2 = new Bus();
 		busWork2.setKeyName("Тестовый автобус 2");
 		busWork2.setGosNum("TEST NUM 2");
@@ -132,7 +137,14 @@ public class BaseTest {
 		
 		userAccount = userAccountService.persist(userAccount);
 		
+		// Создаем клиента -----------------------------------------
+		customer1 = new Customer();
+		customer1.setKeyName("Дядя Вася");
+		customer1 = customerService.persist(customer1);
 		
+		customer2 = new Customer();
+		customer2.setKeyName("Дядя Петя");
+		customer2 = customerService.persist(customer2);
 		
 		
 		

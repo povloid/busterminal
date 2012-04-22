@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
@@ -32,7 +33,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestOrderService {
+public class TestOrderService extends BaseTest {
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -78,6 +79,20 @@ public class TestOrderService {
 	}
 
 	/**
+	 * Инициализация
+	 */
+	@Override
+	@Transactional
+	public void createTestEntitys() throws Exception {
+		super.createTestEntitys();
+	}
+	
+	
+	
+	
+	
+
+	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#getAllEntities()}.
 	 * 
@@ -87,9 +102,15 @@ public class TestOrderService {
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
 
+		createTestEntitys();
+		
+		
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Order order = new Order();
+			
+			
+			
 			order.setOrderType(OrderType.TICKET_SALE);
 			service.persist(order);
 			index++;

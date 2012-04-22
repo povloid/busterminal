@@ -5,8 +5,10 @@ import java.lang.Long;
 import java.lang.String;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
 import org.hibernate.annotations.Index;
 
 import pk.home.busterminal.domain.security.UserAccount;
@@ -70,6 +72,9 @@ public class Order implements Serializable {
 
 	private BigDecimal actualPrice;
 
+	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+	private List<Items> items;
+
 	// -----------------------------------------------------------------------------------------------------------------
 
 	@ManyToOne
@@ -77,19 +82,39 @@ public class Order implements Serializable {
 	@JoinColumn(nullable = false)
 	private UserAccount userAccount;
 
+	@ManyToOne
+	@Index(name = "order_idx4")
+	@JoinColumn(nullable = false)
+	private Customer customer;
+
 	// -----------------------------------------------------------------------------------------------------------------
 
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
+		// (1) Проверка по типу ордера --------------------------
+		if (orderType == OrderType.TICKET_RETURN && previousOrder != null) {
+			throw new Exception(
+					"Возвратный ордер должен иметь родительский ордер!");
+		}
+
+		// (2) Проверки по введенному рейсу ---------------------
+		if (race.getBus().getBssType() != BssType.WORK) {
+			throw new Exception(
+					"Автобус продаваемого рейса должен иметь тип WORK");
+		}
+
+		// (3) --------------------------------------------------
 		if (!seat.getSchema().getBus().equals(race.getBus())) {
 			throw new Exception(
 					"Указанный автобус в схеме не совпадает с указаным автобусом в рейсе");
 		}
 
+		// (4) --------------------------------------------------
 		if (busStopA.equals(busStopB)) {
 			throw new Exception("Остановки отрезка совпадать не могут");
 		}
+
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
@@ -184,6 +209,22 @@ public class Order implements Serializable {
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public List<Items> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Items> items) {
+		this.items = items;
 	}
 
 	@Override
