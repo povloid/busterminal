@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Index;
 
@@ -45,6 +46,7 @@ public class Order implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
 	@Index(name = "order_idx2")
+	@NotNull
 	private Date opTime;
 
 	private String description;
@@ -52,24 +54,29 @@ public class Order implements Serializable {
 	// -----------------------------------------------------------------------------------------------------------------
 
 	@ManyToOne
+	@NotNull
 	private Race race;
 
 	@ManyToOne
 	// Проверка содержания данного места в списке мест выставленного на данном
 	// рейсе автобуса
 	// в сервисном уровне
+	@NotNull
 	private Seat seat;
 
 	@ManyToOne
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
-	private BusStop busStopA;
+	@NotNull
+	private BusRouteStop busRouteStopA;
 
 	@ManyToOne
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
-	private BusStop busStopB;
+	@NotNull
+	private BusRouteStop busRouteStopB;
 
+	@NotNull
 	private BigDecimal actualPrice;
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
@@ -80,11 +87,13 @@ public class Order implements Serializable {
 	@ManyToOne
 	@Index(name = "order_idx3")
 	@JoinColumn(nullable = false)
+	@NotNull
 	private UserAccount userAccount;
 
 	@ManyToOne
 	@Index(name = "order_idx4")
 	@JoinColumn(nullable = false)
+	@NotNull
 	private Customer customer;
 
 	// -----------------------------------------------------------------------------------------------------------------
@@ -93,26 +102,38 @@ public class Order implements Serializable {
 	@PreUpdate
 	public void check() throws Exception {
 		// (1) Проверка по типу ордера --------------------------
-		if (orderType == OrderType.TICKET_RETURN && previousOrder != null) {
+		if (orderType != null && orderType == OrderType.TICKET_RETURN
+				&& previousOrder == null) {
 			throw new Exception(
 					"Возвратный ордер должен иметь родительский ордер!");
 		}
 
 		// (2) Проверки по введенному рейсу ---------------------
-		if (race.getBus().getBssType() != BssType.WORK) {
+		// Пусть принадлежность к рейсу всегда указывается
+		if (race == null) {
+			throw new Exception("Не указан рейс");
+
+		} else if (race.getBus().getBssType() != BssType.WORK) {
 			throw new Exception(
 					"Автобус продаваемого рейса должен иметь тип WORK");
 		}
 
 		// (3) --------------------------------------------------
-		if (!seat.getSchema().getBus().equals(race.getBus())) {
+		if (seat == null) {
+			throw new Exception("Не указано место");
+		} else if (!seat.getSchema().getBus().equals(race.getBus())) {
 			throw new Exception(
 					"Указанный автобус в схеме не совпадает с указаным автобусом в рейсе");
 		}
 
-		// (4) --------------------------------------------------
-		if (busStopA.equals(busStopB)) {
+		// (4) Сведения по отрезку пути
+		if (busRouteStopA == null || busRouteStopB == null) {
+			throw new Exception("Не указаны пункты начала и конца пути");
+		} else if (busRouteStopA.equals(busRouteStopB)) {
 			throw new Exception("Остановки отрезка совпадать не могут");
+		} else if (busRouteStopA.getOrId() >= busRouteStopB.getOrId()) {
+			throw new Exception(
+					"Остановка начала пути не может быть позже остановки конца пути");
 		}
 
 	}
@@ -171,20 +192,20 @@ public class Order implements Serializable {
 		this.seat = seat;
 	}
 
-	public BusStop getBusStopA() {
-		return busStopA;
+	public BusRouteStop getBusRouteStopA() {
+		return busRouteStopA;
 	}
 
-	public void setBusStopA(BusStop busStopA) {
-		this.busStopA = busStopA;
+	public void setBusRouteStopA(BusRouteStop busRouteStopA) {
+		this.busRouteStopA = busRouteStopA;
 	}
 
-	public BusStop getBusStopB() {
-		return busStopB;
+	public BusRouteStop getBusRouteStopB() {
+		return busRouteStopB;
 	}
 
-	public void setBusStopB(BusStop busStopB) {
-		this.busStopB = busStopB;
+	public void setBusRouteStopB(BusRouteStop busRouteStopB) {
+		this.busRouteStopB = busRouteStopB;
 	}
 
 	public BigDecimal getActualPrice() {

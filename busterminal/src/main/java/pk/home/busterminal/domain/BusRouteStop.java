@@ -18,8 +18,10 @@ import org.hibernate.annotations.Index;
 
 @Entity
 @Table(schema = "public", name = "bus_routes_stops", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "busroute_id", "busstop_id" }),
-		@UniqueConstraint(columnNames = { "busroute_id", "orId" }) })
+// @UniqueConstraint(columnNames = { "busroute_id", "busstop_id" }), --> Потому
+// что надо чтобы были возможны круговые маршруты и петли
+// Подразумевается мультиграф с петлями
+@UniqueConstraint(columnNames = { "busroute_id", "orId" }) })
 public class BusRouteStop implements Serializable {
 
 	/**
@@ -95,7 +97,8 @@ public class BusRouteStop implements Serializable {
 				&& (pBRStop != null && nBRStop != null
 						&& !pBRStop.equals(nBRStop) && !pBRStop.equals(this) && !nBRStop
 							.equals(this))) {
-			//System.out.println(">>> OK");
+			// Выполнение данного условия считается нормальным
+			// System.out.println(">>> OK");
 		} else {
 			throw new Exception("Нарушение упорядоченности");
 		}

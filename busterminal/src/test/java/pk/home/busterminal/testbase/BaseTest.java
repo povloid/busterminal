@@ -12,12 +12,15 @@ import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.BusStop;
 import pk.home.busterminal.domain.Customer;
+import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.service.BusRouteService;
 import pk.home.busterminal.service.BusRouteStopService;
 import pk.home.busterminal.service.BusService;
 import pk.home.busterminal.service.BusStopService;
 import pk.home.busterminal.service.CustomerService;
+import pk.home.busterminal.service.RaceService;
+import pk.home.busterminal.service.SeatService;
 import pk.home.busterminal.service.security.UserAccountService;
 
 @Transactional
@@ -46,6 +49,11 @@ public class BaseTest {
 	@Autowired
 	private CustomerService customerService; 
 	
+	@Autowired
+	private RaceService raceService;
+
+	@Autowired
+	private SeatService seatService;
 
 	
 	// Переменные -------------------------------------------------------------------------------
@@ -53,8 +61,9 @@ public class BaseTest {
 	protected BusRoute busRoute;
 	protected BusStop busStop1, busStop2, busStop3;
 	protected BusRouteStop busRouteStop1, busRouteStop2, busRouteStop3;
+	protected Race race;
 
-	private Customer customer1, customer2;
+	protected Customer customer1, customer2;
 	// ------------------------------------------------------------------------------------------
 	
 	
@@ -65,7 +74,6 @@ public class BaseTest {
 	@Transactional
 	public void createTestEntitys() throws Exception {
 
-		
 		// Создаем шаблон ----------------------------------------
 		busTemplite = new Bus();
 		busTemplite.setKeyName("Тестовый автобус 2");
@@ -80,13 +88,17 @@ public class BaseTest {
 		busWork1.setBssType(BssType.WORK);
 		busWork1.setTemplite(busTemplite);
 		busWork1 = busService.persist(busWork1);
- 
+		
+		
 		busWork2 = new Bus();
 		busWork2.setKeyName("Тестовый автобус 2");
 		busWork2.setGosNum("TEST NUM 2");
 		busWork2.setBssType(BssType.WORK);
 		busWork2.setTemplite(busTemplite);
 		busWork2 = busService.persist(busWork2);
+		
+		
+		
 
 		// Создаем маршрут ---------------------------------------
 		busRoute = new BusRoute();
@@ -128,6 +140,13 @@ public class BaseTest {
 		busRouteStop3.setOrId(3);
 		busRouteStop3 = busRouteStopService.persist(busRouteStop3);
 		busRoute.getBusRouteStops().add(busRouteStop3);
+		// Создаем рейс
+		
+		race = new Race();
+		race.setBus(busWork1);
+		race.setBusRoute(busRoute);
+		race.setdTime(new Date());
+		race = raceService.persist(race);
 	
 		// Создаем пользователя -----------------------------------
 		UserAccount userAccount = new UserAccount();
