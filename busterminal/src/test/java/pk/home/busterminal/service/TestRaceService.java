@@ -77,7 +77,8 @@ public class TestRaceService extends BaseTest {
 	public void tearDown() throws Exception {
 	}
 
-	/**
+	
+	/**                                                                                                           
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#getAllEntities()}.
 	 * 
