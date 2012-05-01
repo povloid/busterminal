@@ -279,120 +279,116 @@ public class TestOrderService extends BaseTest {
 		assertTrue(count == index + 1);
 
 	}
+
 	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#persist(java.lang.Object)}.
 	 * 
 	 * @throws Exception
 	 */
-	/*
-	 * @Test
-	 * 
-	 * @Rollback(true) public void testPersist() throws Exception { Order order
-	 * = new Order(); order.setOrderType(OrderType.TICKET_SALE); order =
-	 * service.persist(order);
-	 * 
-	 * long id = order.getId();
-	 * 
-	 * Order order2 = service.find(id);
-	 * 
-	 * assertEquals(order, order2); assertTrue(order.getId() == order2.getId());
-	 * assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime()); }
-	 *//**
+	@Test
+	@Rollback(true)
+	public void testPersist() throws Exception {
+		createTestEntitys();
+
+		Order order1 = createNewOrder();
+
+		long id = order1.getId();
+
+		Order order2 = service.find(id);
+
+		assertEquals(order1, order2);
+		assertTrue(order1.getId() == order2.getId());
+		assertEquals(order1.getOpTime().getTime(), order1.getOpTime().getTime());
+	}
+
+	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#refresh(java.lang.Object)}.
 	 * 
 	 * @throws Exception
 	 */
-	/*
-	 * @Test
-	 * 
-	 * @Rollback(true) public void testRefresh() throws Exception { Order order
-	 * = new Order(); order.setOrderType(OrderType.TICKET_SALE); order =
-	 * service.persist(order);
-	 * 
-	 * long id = order.getId();
-	 * 
-	 * Order order2 = service.find(id);
-	 * 
-	 * assertEquals(order, order2); assertTrue(order.getId() == order2.getId());
-	 * assertEquals(order.getOrderType(), order2.getOrderType());
-	 * 
-	 * order2.setOrderType(OrderType.TICKET_RETURN); order2 =
-	 * service.refresh(order2);
-	 * 
-	 * assertEquals(order, order2); assertTrue(order.getId() == order2.getId());
-	 * assertEquals(order.getOrderType(), order2.getOrderType());
-	 * 
-	 * }
-	 *//**
+
+	@Test
+	@Rollback(true)
+	public void testRefresh() throws Exception {
+		createTestEntitys();
+
+		Order order = createNewOrder();
+
+		long id = order.getId();
+
+		Order order2 = service.find(id);
+
+		assertEquals(order, order2);
+		assertTrue(order.getId() == order2.getId());
+		assertEquals(order.getOrderType(), order2.getOrderType());
+
+		order2.setOrderType(OrderType.TICKET_RETURN);
+		order2 = service.refresh(order2);
+
+		assertEquals(order, order2);
+		assertTrue(order.getId() == order2.getId());
+		assertEquals(order.getOrderType(), order2.getOrderType());
+	}
+
+	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#merge(java.lang.Object)}.
 	 * 
 	 * @throws Exception
 	 */
-	/*
-	 * @Test
-	 * 
-	 * @Rollback(true) public void testMerge() throws Exception { Order order =
-	 * new Order(); order.setOrderType(OrderType.TICKET_SALE); order =
-	 * service.persist(order);
-	 * 
-	 * long id = order.getId();
-	 * 
-	 * Order order2 = service.find(id);
-	 * 
-	 * assertEquals(order, order2); assertTrue(order.getId() == order2.getId());
-	 * assertEquals(order.getOrderType(), order2.getOrderType());
-	 * 
-	 * order2.setOrderType(OrderType.TICKET_RETURN); order2 =
-	 * service.merge(order2);
-	 * 
-	 * order = service.refresh(order);
-	 * 
-	 * assertEquals(order, order2); assertTrue(order.getId() == order2.getId());
-	 * assertEquals(order.getOrderType(), order2.getOrderType()); }
-	 *//**
+	@Test
+	@Rollback(true)
+	public void testMerge() throws Exception {
+		createTestEntitys();
+
+		Order order = createNewOrder();
+
+		long id = order.getId();
+
+		Order order2 = service.find(id);
+
+		assertEquals(order, order2);
+		assertTrue(order.getId() == order2.getId());
+		assertEquals(order.getOrderType(), order2.getOrderType());
+
+		order2.setOrderType(OrderType.TICKET_RETURN);
+		order2 = service.merge(order2);
+
+		order = service.refresh(order);
+
+		assertEquals(order, order2);
+		assertTrue(order.getId() == order2.getId());
+		assertEquals(order.getOrderType(), order2.getOrderType());
+	}
+
+	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#remove(java.lang.Object)}.
 	 * 
 	 * @throws Exception
 	 */
-	/*
-	 * @Test
-	 * 
-	 * @Rollback(true) public void testRemove() throws Exception { Order order =
-	 * new Order(); order.setOrderType(OrderType.TICKET_SALE); order =
-	 * service.persist(order);
-	 * 
-	 * long id = order.getId();
-	 * 
-	 * Order order2 = service.find(id);
-	 * 
-	 * assertEquals(order, order2); assertTrue(order.getId() == order2.getId());
-	 * assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
-	 * 
-	 * service.remove(order);
-	 * 
-	 * Order order3 = service.find(id); assertTrue(order3 == null);
-	 * 
-	 * }
-	 * 
-	 * //
-	 * ------------------------------------------------------------------------
-	 * -----------------------------------------
-	 * 
-	 * @Test
-	 * 
-	 * @Rollback(true) public void insertEntities() throws Exception {
-	 * 
-	 * long index = service.count(); for (int i = 200; i < 210; i++) { Order
-	 * order = new Order(); order.setOrderType(OrderType.TICKET_SALE);
-	 * service.persist(order); index++; }
-	 * 
-	 * List<Order> list = service.getAllEntities();
-	 * 
-	 * assertTrue(list != null); assertTrue(list.size() > 0);
-	 * assertTrue(list.size() == index); }
-	 */
+	@Test
+	@Rollback(true)
+	public void testRemove() throws Exception {
+		createTestEntitys();
+
+		Order order = createNewOrder();
+
+		long id = order.getId();
+
+		Order order2 = service.find(id);
+
+		assertEquals(order, order2);
+		assertTrue(order.getId() == order2.getId());
+		assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
+
+		service.remove(order);
+
+		Order order3 = service.find(id);
+		assertTrue(order3 == null);
+
+	}
+
 }
