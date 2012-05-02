@@ -58,19 +58,22 @@ public class Order implements Serializable {
 	private Race race;
 
 	@ManyToOne
+	// (1S)
 	// Проверка содержания данного места в списке мест выставленного на данном
-	// рейсе автобуса
+	// рейсе автобуса при продаже
 	// в сервисном уровне
 	@NotNull
 	private Seat seat;
 
 	@ManyToOne
+	// (2S)
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
 	@NotNull
 	private BusRouteStop busRouteStopA;
 
 	@ManyToOne
+	// (3S)
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
 	@NotNull
@@ -98,22 +101,30 @@ public class Order implements Serializable {
 
 	// -----------------------------------------------------------------------------------------------------------------
 
+	/**
+	 * Проверка
+	 * @throws Exception
+	 */
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
-		if(opTime == null){
-			throw new Exception(
-					"Должно быть указано время операции!");
+
+		if (opTime == null) {
+			throw new Exception("Должно быть указано время операции!");
 		}
-		
-		
-		if(orderType == null){
-			throw new Exception(
-					"Не указан тип операции!");
+
+		if (orderType == null) {
+			throw new Exception("Не указан тип операции!");
 		}
-		
-		
-		
+
+		if (customer == null) {
+			throw new Exception("Не указан клиент");
+		}
+
+		if (userAccount == null) {
+			throw new Exception("Не указан пользователь операции");
+		}
+
 		// (1) Проверка по типу ордера --------------------------
 		if (orderType != null && orderType == OrderType.TICKET_RETURN
 				&& previousOrder == null) {
@@ -125,7 +136,6 @@ public class Order implements Serializable {
 		// Пусть принадлежность к рейсу всегда указывается
 		if (race == null) {
 			throw new Exception("Не указан рейс");
-
 		} else if (race.getBus().getBssType() != BssType.WORK) {
 			throw new Exception(
 					"Автобус продаваемого рейса должен иметь тип WORK");

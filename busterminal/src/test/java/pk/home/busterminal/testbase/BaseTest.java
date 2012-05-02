@@ -87,12 +87,21 @@ public class BaseTest {
 		busTemplite = busService.persist(busTemplite);
 
 		// Создаем копии для постановки на рейс ------------------
+		// 1
 		busWork1 = new Bus();
 		busWork1.setKeyName("Тестовый автобус 1");
 		busWork1.setGosNum("TEST NUM 1");
 		busWork1.setBssType(BssType.WORK);
 		busWork1.setTemplite(busTemplite);
 		busWork1 = busService.persist(busWork1);
+		
+		// 2
+		busWork2 = new Bus();
+		busWork2.setKeyName("Тестовый автобус 2");
+		busWork2.setGosNum("TEST NUM 2");
+		busWork2.setBssType(BssType.WORK);
+		busWork2.setTemplite(busTemplite);
+		busWork2 = busService.persist(busWork2);
 
 		// -------------------------------------------------------
 		schema1 = new Schema();
@@ -101,6 +110,14 @@ public class BaseTest {
 		schema1.setxSize((short) 1);
 		schema1.setySize((short) 2);
 		schema1 = schemaService.persist(schema1);
+		
+		schema2 = new Schema();
+		schema2.setKeyName("Тестовая схема 2");
+		schema2.setBus(busWork2);
+		schema2.setxSize((short) 4);
+		schema2.setySize((short) 2);
+		schema2 = schemaService.persist(schema2);
+		
 
 		seat1 = new Seat();
 		seat1.setNum((short) 1);
@@ -116,8 +133,22 @@ public class BaseTest {
 		seat2.setSchema(schema1);
 		seat2 = seatService.persist(seat2);
 		
+		// 2 -------------------------------
+		
+		seat8 = new Seat();
+		seat8.setNum((short) 8);
+		seat8.setSx((short) 1);
+		seat8.setSy((short) 1);
+		seat8.setSchema(schema2);
+		seat8 = seatService.persist(seat8);
+		
 		//..
 		schema1 = schemaService.refresh(schema1);
+		schema2 = schemaService.refresh(schema2);
+		
+		busWork1 = busService.refresh(busWork1);
+		busWork2 = busService.refresh(busWork2);
+		
 
 		// --------------------------------------------------------
 

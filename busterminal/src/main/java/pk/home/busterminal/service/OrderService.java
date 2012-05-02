@@ -31,7 +31,6 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Order persist(Order o) throws Exception {
 		check(o);
-		o.check();
 		return super.persist(o);
 	}
 
@@ -40,14 +39,13 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Order merge(Order o) throws Exception {
 		check(o);
-		o.check();
 		return super.merge(o);
 	}
 
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation=Propagation.SUPPORTS)
 	public void check(Order o) throws Exception {
-
+		o.check();
 	}
 
 	@Override

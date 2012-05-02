@@ -20,6 +20,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
@@ -445,6 +447,199 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setOrderType(OrderType.TICKET_SALE);
+		
+		
+		try {
+
+			order.setCustomer(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без клинта", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setCustomer(customer1);
+
+		
+		try {
+
+			order.setUserAccount(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания пользователя, проводящего операцию", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setUserAccount(userAccount);
+		
+		
+		try {
+
+			order.setOrderType(OrderType.TICKET_RETURN);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка возвратного ордера без указания родительского", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setOrderType(OrderType.TICKET_SALE);
+		
+		
+		try {
+
+			order.setRace(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания рейса", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setRace(race);
+		
+		
+		try {
+
+			order.getRace().getBus().setBssType(BssType.TEMPLITE);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка автобуса продаваемого рейса неимеющего тип TEMPLITE", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.getRace().getBus().setBssType(BssType.WORK);
+		
+		
+		try {
+
+			order.setSeat(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания продаваемого места", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setSeat(seat1);
+		
+		
+		try {
+
+			order.setSeat(seat8);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка указанного автобуса в схеме не совпадающего с указаным автобусом в рейсе", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setSeat(seat1);
+		
+		
+		
+		try {
+
+			order.setBusRouteStopA(null);
+			order.setBusRouteStopB(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания пункта начала и конца пути", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopA(busRouteStop1);
+		order.setBusRouteStopB(busRouteStop2);
+		
+		
+		try {
+
+			order.setBusRouteStopA(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания пункта начала пути", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopA(busRouteStop1);
+		
+		
+		try {
+
+			order.setBusRouteStopB(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания пункта конца пути", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopB(busRouteStop2);
+		
+		
+		
+		try {
+
+			order.setBusRouteStopB(busRouteStop1);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка одинаковых пунктов конца и начала пути", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopB(busRouteStop2);
+		
+		
+		try {
+
+			order.setBusRouteStopA(busRouteStop2);
+			order.setBusRouteStopB(busRouteStop1);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка остановки начала пути которая позже остановки конца пути", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopA(busRouteStop1);
+		order.setBusRouteStopB(busRouteStop2);
+		
+		
+		
+		
+		// Сервисные проверки --------------------------------------------------------------------------------
+		
+		
 		
 		
 		
