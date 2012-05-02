@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import org.hibernate.type.TrueFalseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
 import pk.home.busterminal.dao.BusRouteDAO;
 import pk.home.busterminal.domain.BusRoute;
+import pk.home.busterminal.domain.BusRouteStop;
 
 /**
  * Service class for entity class: BusRoute BusRoute - Маршрут
@@ -58,6 +60,27 @@ public class BusRouteService extends ABaseService<BusRoute> {
 
 		return busRoute;
 
+	}
+
+	/**
+	 * Содержит ли данную остановку
+	 * @param busRoute
+	 * @param busRouteStop
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public boolean isContain(BusRoute busRoute, BusRouteStop busRouteStop)
+			throws Exception {
+		busRoute = findWithLazy(busRoute.getId());
+
+		for (BusRouteStop brs : busRoute.getBusRouteStops()) {
+			if (brs!= null && brs.equals(busRouteStop)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

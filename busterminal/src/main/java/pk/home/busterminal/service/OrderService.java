@@ -20,6 +20,9 @@ public class OrderService extends ABaseService<Order> {
 
 	@Autowired
 	private OrderDAO orderDAO;
+	
+	@Autowired
+	private BusRouteService busRouteService;
 
 	@Override
 	public ABaseDAO<Order> getAbstractBasicDAO() {
@@ -46,6 +49,14 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(propagation=Propagation.SUPPORTS)
 	public void check(Order o) throws Exception {
 		o.check();
+		
+		if(!busRouteService.isContain(o.getRace().getBusRoute(), o.getBusRouteStopA())){
+			throw new Exception("Указанное начало пути не содержится в данном маршруте!");
+		}
+		
+		if(!busRouteService.isContain(o.getRace().getBusRoute(), o.getBusRouteStopB())){
+			throw new Exception("Указаннай конец пути не содержится в данном маршруте!");
+		}
 	}
 
 	@Override

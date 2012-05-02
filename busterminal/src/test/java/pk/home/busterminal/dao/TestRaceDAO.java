@@ -98,7 +98,7 @@ public class TestRaceDAO extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 
 			dataStore.persist(race);
 			index++;
@@ -130,7 +130,7 @@ public class TestRaceDAO extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			dataStore.persist(race);
 			index++;
 		}
@@ -164,7 +164,7 @@ public class TestRaceDAO extends BaseTest {
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			race.setdTime(createUniqueDate());
 			dataStore.persist(race);
 			// index++;
@@ -195,7 +195,7 @@ public class TestRaceDAO extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			dataStore.persist(race);
 			// index++;
 		}
@@ -232,7 +232,7 @@ public class TestRaceDAO extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			dataStore.persist(race);
 			index++;
 		}
@@ -280,7 +280,7 @@ public class TestRaceDAO extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -308,7 +308,7 @@ public class TestRaceDAO extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			dataStore.persist(race);
 			index++;
 		}
@@ -332,7 +332,7 @@ public class TestRaceDAO extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -358,7 +358,7 @@ public class TestRaceDAO extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -392,7 +392,7 @@ public class TestRaceDAO extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -427,7 +427,7 @@ public class TestRaceDAO extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = dataStore.persist(race);
 
 		long id = race.getId();
@@ -457,7 +457,7 @@ public class TestRaceDAO extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			dataStore.persist(race);
 			index++;
 		}

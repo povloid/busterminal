@@ -96,8 +96,8 @@ public class TestOrderDAO extends BaseTest {
 		order.setOpTime(new Date());
 
 		order.setRace(race);
-		order.setBusRouteStopA(busRouteStop1);
-		order.setBusRouteStopB(busRouteStop2);
+		order.setBusRouteStopA(busRouteStop11);
+		order.setBusRouteStopB(busRouteStop21);
 
 		order.setSeat(seat1);
 

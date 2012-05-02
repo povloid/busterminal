@@ -95,7 +95,7 @@ public class TestRaceService extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 
 			service.persist(race);
 			index++;
@@ -127,7 +127,7 @@ public class TestRaceService extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			service.persist(race);
 			index++;
 		}
@@ -161,7 +161,7 @@ public class TestRaceService extends BaseTest {
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			race.setdTime(createUniqueDate());
 			service.persist(race);
 			// index++;
@@ -192,7 +192,7 @@ public class TestRaceService extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			service.persist(race);
 			// index++;
 		}
@@ -229,7 +229,7 @@ public class TestRaceService extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			service.persist(race);
 			index++;
 		}
@@ -277,7 +277,7 @@ public class TestRaceService extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -305,7 +305,7 @@ public class TestRaceService extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			service.persist(race);
 			index++;
 		}
@@ -329,7 +329,7 @@ public class TestRaceService extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -355,7 +355,7 @@ public class TestRaceService extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -389,7 +389,7 @@ public class TestRaceService extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -424,7 +424,7 @@ public class TestRaceService extends BaseTest {
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
-		race.setBusRoute(busRoute);
+		race.setBusRoute(busRoute1);
 		race = service.persist(race);
 
 		long id = race.getId();
@@ -454,7 +454,7 @@ public class TestRaceService extends BaseTest {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
-			race.setBusRoute(busRoute);
+			race.setBusRoute(busRoute1);
 			service.persist(race);
 			index++;
 		}

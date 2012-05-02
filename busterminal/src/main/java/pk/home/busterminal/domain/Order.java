@@ -58,7 +58,7 @@ public class Order implements Serializable {
 	private Race race;
 
 	@ManyToOne
-	// (1S)
+	// (1S) ????????
 	// Проверка содержания данного места в списке мест выставленного на данном
 	// рейсе автобуса при продаже
 	// в сервисном уровне

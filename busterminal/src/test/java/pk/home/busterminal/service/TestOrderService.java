@@ -102,8 +102,8 @@ public class TestOrderService extends BaseTest {
 		order.setOpTime(new Date());
 
 		order.setRace(race);
-		order.setBusRouteStopA(busRouteStop1);
-		order.setBusRouteStopB(busRouteStop2);
+		order.setBusRouteStopA(busRouteStop11);
+		order.setBusRouteStopB(busRouteStop12);
 
 		order.setSeat(seat1);
 
@@ -568,8 +568,8 @@ public class TestOrderService extends BaseTest {
 			assertTrue(true);
 		}
 		
-		order.setBusRouteStopA(busRouteStop1);
-		order.setBusRouteStopB(busRouteStop2);
+		order.setBusRouteStopA(busRouteStop11);
+		order.setBusRouteStopB(busRouteStop12);
 		
 		
 		try {
@@ -584,7 +584,7 @@ public class TestOrderService extends BaseTest {
 			assertTrue(true);
 		}
 		
-		order.setBusRouteStopA(busRouteStop1);
+		order.setBusRouteStopA(busRouteStop11);
 		
 		
 		try {
@@ -599,13 +599,13 @@ public class TestOrderService extends BaseTest {
 			assertTrue(true);
 		}
 		
-		order.setBusRouteStopB(busRouteStop2);
+		order.setBusRouteStopB(busRouteStop12);
 		
 		
 		
 		try {
 
-			order.setBusRouteStopB(busRouteStop1);
+			order.setBusRouteStopB(busRouteStop11);
 			order = service.merge(order);
 
 			assertTrue("Допущена вставка одинаковых пунктов конца и начала пути", false);
@@ -615,13 +615,13 @@ public class TestOrderService extends BaseTest {
 			assertTrue(true);
 		}
 		
-		order.setBusRouteStopB(busRouteStop2);
+		order.setBusRouteStopB(busRouteStop12);
 		
 		
 		try {
 
-			order.setBusRouteStopA(busRouteStop2);
-			order.setBusRouteStopB(busRouteStop1);
+			order.setBusRouteStopA(busRouteStop12);
+			order.setBusRouteStopB(busRouteStop11);
 			order = service.merge(order);
 
 			assertTrue("Допущена вставка остановки начала пути которая позже остановки конца пути", false);
@@ -631,13 +631,39 @@ public class TestOrderService extends BaseTest {
 			assertTrue(true);
 		}
 		
-		order.setBusRouteStopA(busRouteStop1);
-		order.setBusRouteStopB(busRouteStop2);
-		
-		
-		
+		order.setBusRouteStopA(busRouteStop11);
+		order.setBusRouteStopB(busRouteStop12);
 		
 		// Сервисные проверки --------------------------------------------------------------------------------
+		
+		try {
+
+			order.setBusRouteStopA(busRouteStop21);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка точки начала пути которая не содержится в списке становок маршрута размещена", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopA(busRouteStop11);
+		
+		
+		try {
+
+			order.setBusRouteStopB(busRouteStop21);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка точки конца пути которая не содержится в списке становок маршрута размещена", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		order.setBusRouteStopB(busRouteStop12);
 		
 		
 		
