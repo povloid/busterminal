@@ -101,6 +101,19 @@ public class Order implements Serializable {
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
+		if(opTime == null){
+			throw new Exception(
+					"Должно быть указано время операции!");
+		}
+		
+		
+		if(orderType == null){
+			throw new Exception(
+					"Не указан тип операции!");
+		}
+		
+		
+		
 		// (1) Проверка по типу ордера --------------------------
 		if (orderType != null && orderType == OrderType.TICKET_RETURN
 				&& previousOrder == null) {

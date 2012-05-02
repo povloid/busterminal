@@ -353,14 +353,14 @@ public class TestOrderService extends BaseTest {
 		assertTrue(order.getId() == order2.getId());
 		assertEquals(order.getOrderType(), order2.getOrderType());
 
-		order2.setOrderType(OrderType.TICKET_RETURN);
+		order2.setOpTime(createUniqueDate());
 		order2 = service.merge(order2);
 
 		order = service.refresh(order);
 
 		assertEquals(order, order2);
 		assertTrue(order.getId() == order2.getId());
-		assertEquals(order.getOrderType(), order2.getOrderType());
+		assertEquals(order.getOpTime(), order2.getOpTime());
 	}
 
 	/**
@@ -389,6 +389,65 @@ public class TestOrderService extends BaseTest {
 		Order order3 = service.find(id);
 		assertTrue(order3 == null);
 
+	}
+
+	/**
+	 * Тест ограничений
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Rollback(true)
+	public void consctraintTest() throws Exception {
+		createTestEntitys();
+
+		Order order = createNewOrder();
+
+		try {
+
+			order.setOpTime(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания времени уперации", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setOpTime(createUniqueDate());
+
+		try {
+
+			order.setOrderType(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания типа операции", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setOrderType(OrderType.TICKET_SALE);
+
+		
+		try {
+
+			order.setOrderType(null);
+			order = service.merge(order);
+
+			assertTrue("Допущена вставка без указания типа операции", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setOrderType(OrderType.TICKET_SALE);
+		
+		
+		
 	}
 
 }
