@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Index;
 
@@ -39,43 +40,49 @@ public class Items implements Serializable {
 	@ManyToOne
 	@Index(name = "items_idx1")
 	@JoinColumn(name = "order_id", nullable = false)
+	@NotNull
 	private Order order;
 
 	@ManyToOne
 	@JoinColumn(name = "race_id", nullable = false)
+	@NotNull
 	private Race race;
 
 	@ManyToOne
 	@JoinColumn(name = "seat_id", nullable = false)
+	@NotNull
 	private Seat seat;
 
 	@ManyToOne
 	@JoinColumn(name = "brst1_id", nullable = false)
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
+	@NotNull
 	private BusRouteStop brst1;
 
 	@ManyToOne
 	@JoinColumn(name = "brst2_id", nullable = false)
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
+	@NotNull
 	private BusRouteStop brst2;
 
 	/**
 	 * Проверка на уровне записи
+	 * 
 	 * @throws Exception
 	 */
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
-		if (brst1.equals(brst2))
+		if (brst1 != null && brst2 != null && brst1.equals(brst2))
 			throw new Exception("Точки отрезков совпадать не могут");
 
-		if (!order.getSeat().equals(seat))
+		if (order != null && !order.getSeat().equals(seat))
 			throw new Exception(
 					"Место в записи не соответствует месту в ордере");
 
-		if (!order.getRace().equals(race))
+		if (order != null && !order.getRace().equals(race))
 			throw new Exception("Рейс в записи не соответствует рейсу в ордере");
 	}
 

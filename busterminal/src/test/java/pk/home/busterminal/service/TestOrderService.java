@@ -48,6 +48,11 @@ public class TestOrderService extends BaseTest {
 	 * 
 	 */
 	private OrderService service;
+	
+	
+	@Autowired
+	private ItemsService itemsService;
+	
 
 	/**
 	 * Method to allow Spring to inject the DAO that will be tested
@@ -102,8 +107,8 @@ public class TestOrderService extends BaseTest {
 		order.setOpTime(new Date());
 
 		order.setRace(race);
-		order.setBusRouteStopA(busRouteStop11);
-		order.setBusRouteStopB(busRouteStop12);
+		order.setBusRouteStopA(busRouteStop12);
+		order.setBusRouteStopB(busRouteStop15);
 
 		order.setSeat(seat1);
 
