@@ -1,6 +1,9 @@
 package pk.home.busterminal.dao;
 
 import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,11 +22,14 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Items_;
+import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.service.OrderService;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test DAO class for entity class: Items
- * Items - запись ордера
+ * JUnit test DAO class for entity class: Items Items - запись ордера
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -31,7 +37,10 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestItemsDAO {
+public class TestItemsDAO extends BaseTest {
+
+	@Autowired
+	private OrderService orderService;
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -76,6 +85,31 @@ public class TestItemsDAO {
 	public void tearDown() throws Exception {
 	}
 
+	@Transactional
+	public Order createNewOrder() throws Exception {
+
+		createTestEntitys();
+
+		Order order = new Order();
+		order.setOrderType(OrderType.TICKET_SALE);
+		order.setOpTime(new Date());
+
+		order.setRace(race);
+		order.setBusRouteStopA(busRouteStop11);
+		order.setBusRouteStopB(busRouteStop15);
+
+		order.setSeat(seat1);
+
+		order.setUserAccount(userAccount);
+		order.setCustomer(customer1);
+
+		order.setActualPrice(new BigDecimal(1000));
+
+		order = orderService.persist(order);
+
+		return order;
+	}
+
 	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#getAllEntities()}.
@@ -86,18 +120,15 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
 
-		long index = dataStore.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			index++;
-		}
+		long count = dataStore.count();
+
+		Order order = createNewOrder();
 
 		List<Items> list = dataStore.getAllEntities();
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
+		assertTrue(list.size() == count + order.getItems().size());
 	}
 
 	/**
@@ -111,24 +142,17 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		long index = dataStore.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			index++;
-		}
 
-		List<Items> list = dataStore.getAllEntities(Items_.id, SortOrderType.ASC);
+		long count = dataStore.count();
+
+		Order order = createNewOrder();
+
+		List<Items> list = dataStore.getAllEntities(Items_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
-
-		long lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
+		assertTrue(list.size() == count + order.getItems().size());
 	}
 
 	/**
@@ -141,18 +165,15 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesIntInt() throws Exception {
 
-		// int index = 0;
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			// index++;
-		}
+		dataStore.count();
 
-		List<Items> list = dataStore.getAllEntities(10, 10);
+		createNewOrder();
+
+		List<Items> list = dataStore.getAllEntities(1, 1);
 
 		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == 10);
+		assertTrue(list.size() == 1);
+
 	}
 
 	/**
@@ -166,25 +187,15 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		// long index = dataStore.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			// index++;
-		}
+		dataStore.count();
 
-		List<Items> list = dataStore.getAllEntities(10, 10, Items_.id,
+		createNewOrder();
+
+		List<Items> list = dataStore.getAllEntities(1, 1, Items_.id,
 				SortOrderType.ASC);
 
 		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == 10);
-
-		long lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
+		assertTrue(list.size() == 1);
 	}
 
 	/**
@@ -198,40 +209,23 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		long index = dataStore.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			index++;
-		}
+		long count = dataStore.count();
 
-		// all - FALSE
-		List<Items> list = dataStore.getAllEntities(false, 10, 10, Items_.id,
+		Order order = createNewOrder();
+
+		List<Items> list = dataStore.getAllEntities(true, 1, 1, Items_.id,
 				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		assertTrue(list.size() == 10);
+		assertTrue(list.size() == count + order.getItems().size());
 
-		long lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
-
-		// all - TRUE
-		list = dataStore.getAllEntities(true, 10, 10, Items_.id,
+		list = dataStore.getAllEntities(false, 1, 1, Items_.id,
 				SortOrderType.ASC);
 
 		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
+		assertTrue(list.size() == 1);
 
-		lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
 	}
 
 	/**
@@ -244,8 +238,11 @@ public class TestItemsDAO {
 	@Rollback(true)
 	public void testFind() throws Exception {
 
-		Items items = new Items();
-		items = dataStore.persist(items);
+		dataStore.count();
+
+		Order order = createNewOrder();
+
+		Items items = order.getItems().get(1);
 
 		long id = items.getId();
 
@@ -253,7 +250,6 @@ public class TestItemsDAO {
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 	}
 
@@ -265,16 +261,15 @@ public class TestItemsDAO {
 	@Test
 	@Rollback(true)
 	public void testCount() throws Exception {
-		long index = dataStore.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			index++;
-		}
+		long count1 = dataStore.count();
 
-		long count = dataStore.count();
+		Order order = createNewOrder();
 
-		assertTrue(count == index);
+		long count2 = dataStore.count();
+
+		assertTrue(count2 > 0);
+		assertTrue(count2 > count1);
+		assertTrue(count2 == count1 + order.getItems().size());
 	}
 
 	/**
@@ -286,16 +281,13 @@ public class TestItemsDAO {
 	@Test
 	@Rollback(true)
 	public void testPersist() throws Exception {
-		Items items = new Items();
-		items = dataStore.persist(items);
+		Order order = createNewOrder();
 
-		long id = items.getId();
+		Items items1 = order.getItems().get(1);
+		Items items2 = dataStore.find(order.getItems().get(1).getId());
 
-		Items items2 = dataStore.find(id);
-
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
 	}
 
 	/**
@@ -307,23 +299,21 @@ public class TestItemsDAO {
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
-		Items items = new Items();
-		items = dataStore.persist(items);
+		Order order = createNewOrder();
 
-		long id = items.getId();
+		Items items1 = order.getItems().get(1);
+		Items items2 = dataStore.find(order.getItems().get(1).getId());
 
-		Items items2 = dataStore.find(id);
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertEquals(items1.getBrst1().getId(), items1.getBrst1().getId());
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
-
-		///items2.setKeyName("key 65535");
+		items2.setBrst1(busRouteStop11);
 		items2 = dataStore.refresh(items2);
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertEquals(items1.getBrst1().getId(), items1.getBrst1().getId());
 
 	}
 
@@ -336,25 +326,23 @@ public class TestItemsDAO {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
-		Items items = new Items();
-		items = dataStore.persist(items);
+		Order order = createNewOrder();
 
-		long id = items.getId();
+		Items items1 = order.getItems().get(1);
+		Items items2 = dataStore.find(order.getItems().get(1).getId());
 
-		Items items2 = dataStore.find(id);
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertEquals(items1.getBrst1().getId(), items1.getBrst1().getId());
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
-
-		///items2.setKeyName("key 65535");
+		items2.setBrst1(busRouteStop11);
 		items2 = dataStore.merge(items2);
 
-		items = dataStore.refresh(items);
+		items1 = dataStore.find(order.getItems().get(1).getId());
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertTrue(items1.getBrst1().getId() == items1.getBrst1().getId());
 	}
 
 	/**
@@ -366,45 +354,26 @@ public class TestItemsDAO {
 	@Test
 	@Rollback(true)
 	public void testRemove() throws Exception {
-		Items items = new Items();
-		items = dataStore.persist(items);
+		long count = dataStore.count();
 
-		long id = items.getId();
+		Order order = createNewOrder();
 
-		Items items2 = dataStore.find(id);
+		long count1 = dataStore.count();
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertTrue(count1 > count);
 
-		dataStore.remove(items);
+		Items items1 = order.getItems().get(1);
+		Items items2 = dataStore.find(order.getItems().get(1).getId());
 
-		Items items3 = dataStore.find(id);
-		assertTrue(items3 == null);
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+
+		dataStore.remove(items1);
+
+		items2 = dataStore.find(order.getItems().get(1).getId());
+
+		assertTrue(items2 == null);
 
 	}
-	
-	
-	
-	// -----------------------------------------------------------------------------------------------------------------
-	
-	@Test
-	@Rollback(true)
-	public void insertEntities() throws Exception {
-
-		long index = dataStore.count();
-		for (int i = 200; i < 210; i++) {
-			Items items = new Items();
-			dataStore.persist(items);
-			index++;
-		}
-
-		List<Items> list = dataStore.getAllEntities();
-
-		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
-	}
-	
 
 }

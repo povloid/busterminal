@@ -44,6 +44,11 @@ public class ItemsService extends ABaseService<Items> {
 		return super.merge(o);
 	}
 
+	/**
+	 * Проверка уровня сервиса
+	 * @param o
+	 * @throws Exception
+	 */
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void check(Items o) throws Exception {

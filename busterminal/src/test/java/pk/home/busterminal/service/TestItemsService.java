@@ -28,8 +28,7 @@ import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test service class for entity class: Items
- * Items - запись ордера
+ * JUnit test service class for entity class: Items Items - запись ордера
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -37,13 +36,11 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestItemsService extends BaseTest{
+public class TestItemsService extends BaseTest {
 
-	
 	@Autowired
 	private OrderService orderService;
-	
-	
+
 	/**
 	 * The DAO being tested, injected by Spring
 	 * 
@@ -87,9 +84,11 @@ public class TestItemsService extends BaseTest{
 	public void tearDown() throws Exception {
 	}
 
-	
 	@Transactional
 	public Order createNewOrder() throws Exception {
+
+		createTestEntitys();
+
 		Order order = new Order();
 		order.setOrderType(OrderType.TICKET_SALE);
 		order.setOpTime(new Date());
@@ -106,11 +105,10 @@ public class TestItemsService extends BaseTest{
 		order.setActualPrice(new BigDecimal(1000));
 
 		order = orderService.persist(order);
+
 		return order;
 	}
-	
-	
-	
+
 	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#getAllEntities()}.
@@ -121,18 +119,15 @@ public class TestItemsService extends BaseTest{
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
 
-		
-		
+		long count = service.count();
+
 		Order order = createNewOrder();
-		
-		
-		
 
 		List<Items> list = service.getAllEntities();
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		//assertTrue(list.size() == index);
+		assertTrue(list.size() == count + order.getItems().size());
 	}
 
 	/**
@@ -146,24 +141,16 @@ public class TestItemsService extends BaseTest{
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		long index = service.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			service.persist(items);
-			index++;
-		}
+
+		long count = service.count();
+
+		Order order = createNewOrder();
 
 		List<Items> list = service.getAllEntities(Items_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
-
-		long lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
+		assertTrue(list.size() == count + order.getItems().size());
 	}
 
 	/**
@@ -176,18 +163,15 @@ public class TestItemsService extends BaseTest{
 	@Rollback(true)
 	public void testGetAllEntitiesIntInt() throws Exception {
 
-		// int index = 0;
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			service.persist(items);
-			// index++;
-		}
+		service.count();
 
-		List<Items> list = service.getAllEntities(10, 10);
+		createNewOrder();
+
+		List<Items> list = service.getAllEntities(1, 1);
 
 		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == 10);
+		assertTrue(list.size() == 1);
+
 	}
 
 	/**
@@ -201,25 +185,15 @@ public class TestItemsService extends BaseTest{
 	@Rollback(true)
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		// long index = service.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			service.persist(items);
-			// index++;
-		}
+		service.count();
 
-		List<Items> list = service.getAllEntities(10, 10, Items_.id,
+		createNewOrder();
+
+		List<Items> list = service.getAllEntities(1, 1, Items_.id,
 				SortOrderType.ASC);
 
 		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == 10);
-
-		long lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
+		assertTrue(list.size() == 1);
 	}
 
 	/**
@@ -233,40 +207,23 @@ public class TestItemsService extends BaseTest{
 	@Rollback(true)
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		long index = service.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			service.persist(items);
-			index++;
-		}
+		long count = service.count();
 
-		// all - FALSE
-		List<Items> list = service.getAllEntities(false, 10, 10, Items_.id,
+		Order order = createNewOrder();
+
+		List<Items> list = service.getAllEntities(true, 1, 1, Items_.id,
 				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		assertTrue(list.size() == 10);
+		assertTrue(list.size() == count + order.getItems().size());
 
-		long lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
-
-		// all - TRUE
-		list = service.getAllEntities(true, 10, 10, Items_.id,
-				SortOrderType.ASC);
+		list = service
+				.getAllEntities(false, 1, 1, Items_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
+		assertTrue(list.size() == 1);
 
-		lastId = 0;
-		for (Items items : list) {
-			assertTrue(lastId < items.getId());
-			lastId = items.getId();
-		}
 	}
 
 	/**
@@ -279,8 +236,11 @@ public class TestItemsService extends BaseTest{
 	@Rollback(true)
 	public void testFind() throws Exception {
 
-		Items items = new Items();
-		items = service.persist(items);
+		service.count();
+
+		Order order = createNewOrder();
+
+		Items items = order.getItems().get(1);
 
 		long id = items.getId();
 
@@ -288,7 +248,6 @@ public class TestItemsService extends BaseTest{
 
 		assertEquals(items, items2);
 		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
 
 	}
 
@@ -300,16 +259,15 @@ public class TestItemsService extends BaseTest{
 	@Test
 	@Rollback(true)
 	public void testCount() throws Exception {
-		long index = service.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			service.persist(items);
-			index++;
-		}
+		long count1 = service.count();
 
-		long count = service.count();
+		Order order = createNewOrder();
 
-		assertTrue(count == index);
+		long count2 = service.count();
+
+		assertTrue(count2 > 0);
+		assertTrue(count2 > count1);
+		assertTrue(count2 == count1 + order.getItems().size());
 	}
 
 	/**
@@ -321,16 +279,13 @@ public class TestItemsService extends BaseTest{
 	@Test
 	@Rollback(true)
 	public void testPersist() throws Exception {
-		Items items = new Items();
-		items = service.persist(items);
+		Order order = createNewOrder();
 
-		long id = items.getId();
+		Items items1 = order.getItems().get(1);
+		Items items2 = service.find(order.getItems().get(1).getId());
 
-		Items items2 = service.find(id);
-
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
 	}
 
 	/**
@@ -342,24 +297,21 @@ public class TestItemsService extends BaseTest{
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
-		Items items = new Items();
-		///items.setKeyName("key " + 999);
-		items = service.persist(items);
+		Order order = createNewOrder();
 
-		long id = items.getId();
+		Items items1 = order.getItems().get(1);
+		Items items2 = service.find(order.getItems().get(1).getId());
 
-		Items items2 = service.find(id);
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertEquals(items1.getBrst1().getId(), items1.getBrst1().getId());
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
-
-		///items2.setKeyName("key 65535");
+		items2.setBrst1(busRouteStop11);
 		items2 = service.refresh(items2);
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertEquals(items1.getBrst1().getId(), items1.getBrst1().getId());
 
 	}
 
@@ -372,26 +324,23 @@ public class TestItemsService extends BaseTest{
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
-		Items items = new Items();
-		///items.setKeyName("key " + 999);
-		items = service.persist(items);
+		Order order = createNewOrder();
 
-		long id = items.getId();
+		Items items1 = order.getItems().get(1);
+		Items items2 = service.find(order.getItems().get(1).getId());
 
-		Items items2 = service.find(id);
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertEquals(items1.getBrst1().getId(), items1.getBrst1().getId());
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
-
-		///items2.setKeyName("key 65535");
+		items2.setBrst1(busRouteStop11);
 		items2 = service.merge(items2);
 
-		items = service.refresh(items);
+		items1 = service.find(order.getItems().get(1).getId());
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+		assertTrue(items1.getBrst1().getId() == items1.getBrst1().getId());
 	}
 
 	/**
@@ -403,47 +352,26 @@ public class TestItemsService extends BaseTest{
 	@Test
 	@Rollback(true)
 	public void testRemove() throws Exception {
-		Items items = new Items();
-		///items.setKeyName("key " + 999);
-		items = service.persist(items);
+		long count = service.count();
 
-		long id = items.getId();
+		Order order = createNewOrder();
 
-		Items items2 = service.find(id);
+		long count1 = service.count();
 
-		assertEquals(items, items2);
-		assertTrue(items.getId() == items2.getId());
-		///assertEquals(items.getKeyName(), items2.getKeyName());
+		assertTrue(count1 > count);
 
-		service.remove(items);
+		Items items1 = order.getItems().get(1);
+		Items items2 = service.find(order.getItems().get(1).getId());
 
-		Items items3 = service.find(id);
-		assertTrue(items3 == null);
+		assertEquals(items1, items2);
+		assertTrue(items1.getId() == items2.getId());
+
+		service.remove(items1);
+
+		items2 = service.find(order.getItems().get(1).getId());
+
+		assertTrue(items2 == null);
 
 	}
-	
-	
-	
-	// -----------------------------------------------------------------------------------------------------------------
-	
-	@Test
-	@Rollback(true)
-	public void insertEntities() throws Exception {
-
-		long index = service.count();
-		for (int i = 200; i < 210; i++) {
-			Items items = new Items();
-			///items.setKeyName("key " + i);
-			service.persist(items);
-			index++;
-		}
-
-		List<Items> list = service.getAllEntities();
-
-		assertTrue(list != null);
-		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
-	}
-	
 
 }
