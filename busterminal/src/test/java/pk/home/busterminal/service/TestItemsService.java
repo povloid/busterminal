@@ -1,6 +1,9 @@
 package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,6 +22,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Items_;
+import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
@@ -31,8 +37,13 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestItemsService {
+public class TestItemsService extends BaseTest{
 
+	
+	@Autowired
+	private OrderService orderService;
+	
+	
 	/**
 	 * The DAO being tested, injected by Spring
 	 * 
@@ -76,6 +87,30 @@ public class TestItemsService {
 	public void tearDown() throws Exception {
 	}
 
+	
+	@Transactional
+	public Order createNewOrder() throws Exception {
+		Order order = new Order();
+		order.setOrderType(OrderType.TICKET_SALE);
+		order.setOpTime(new Date());
+
+		order.setRace(race);
+		order.setBusRouteStopA(busRouteStop11);
+		order.setBusRouteStopB(busRouteStop15);
+
+		order.setSeat(seat1);
+
+		order.setUserAccount(userAccount);
+		order.setCustomer(customer1);
+
+		order.setActualPrice(new BigDecimal(1000));
+
+		order = orderService.persist(order);
+		return order;
+	}
+	
+	
+	
 	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#getAllEntities()}.
@@ -86,18 +121,18 @@ public class TestItemsService {
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
 
-		long index = service.count();
-		for (int i = 0; i < 100; i++) {
-			Items items = new Items();
-			service.persist(items);
-			index++;
-		}
+		
+		
+		Order order = createNewOrder();
+		
+		
+		
 
 		List<Items> list = service.getAllEntities();
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
-		assertTrue(list.size() == index);
+		//assertTrue(list.size() == index);
 	}
 
 	/**

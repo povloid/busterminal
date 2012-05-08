@@ -23,7 +23,7 @@ public class OrderService extends ABaseService<Order> {
 	
 	@Autowired
 	private BusRouteService busRouteService;
-
+	
 	@Override
 	public ABaseDAO<Order> getAbstractBasicDAO() {
 		return orderDAO;

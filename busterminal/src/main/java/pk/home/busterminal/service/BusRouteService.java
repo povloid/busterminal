@@ -1,6 +1,8 @@
 package pk.home.busterminal.service;
 
-import org.hibernate.type.TrueFalseType;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +66,7 @@ public class BusRouteService extends ABaseService<BusRoute> {
 
 	/**
 	 * Содержит ли данную остановку
+	 * 
 	 * @param busRoute
 	 * @param busRouteStop
 	 * @return
@@ -75,12 +78,54 @@ public class BusRouteService extends ABaseService<BusRoute> {
 		busRoute = findWithLazy(busRoute.getId());
 
 		for (BusRouteStop brs : busRoute.getBusRouteStops()) {
-			if (brs!= null && brs.equals(busRouteStop)) {
+			if (brs != null && brs.equals(busRouteStop)) {
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * Получить путь - список остановок от начальной до конечной
+	 * 
+	 * @param busRoute
+	 * @param brstStart
+	 * @param brstFinish
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<BusRouteStop> getPath(BusRoute busRoute,
+			BusRouteStop brstStart, BusRouteStop brstFinish) throws Exception {
+
+		List<BusRouteStop> path = new ArrayList<BusRouteStop>();
+
+		busRoute = findWithLazy(busRoute.getId());
+
+		path.add(brstStart);
+
+		boolean add = false;
+		for (BusRouteStop brs : busRoute.getBusRouteStops()) {
+
+			if (brs.equals(brstStart)) {
+				add = true;
+				continue;
+			}
+
+			if (add) {
+				path.add(brs);
+			}
+
+			if (brs.equals(brstFinish)) {
+				add = false;
+				break;
+			}
+		}
+
+		path.add(brstFinish);
+
+		return path;
 	}
 
 }

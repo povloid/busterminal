@@ -66,18 +66,19 @@ public class BaseTest {
 	protected Seat seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8;
 
 	protected BusRoute busRoute1;
-	protected BusStop busStop11, busStop12, busStop13;
-	protected BusRouteStop busRouteStop11, busRouteStop12, busRouteStop13;
-	
+	protected BusStop busStop11, busStop12, busStop13, busStop14, busStop15,
+			busStop16;
+	protected BusRouteStop busRouteStop11, busRouteStop12, busRouteStop13,
+			busRouteStop14, busRouteStop15, busRouteStop16;
+
 	protected BusRoute busRoute2;
 	protected BusStop busStop21, busStop22, busStop23;
 	protected BusRouteStop busRouteStop21, busRouteStop22, busRouteStop23;
-	
-	
+
 	protected Race race;
 
 	protected Customer customer1, customer2;
-	
+
 	protected UserAccount userAccount;
 
 	// ------------------------------------------------------------------------------------------
@@ -100,7 +101,7 @@ public class BaseTest {
 		busWork1.setBssType(BssType.WORK);
 		busWork1.setTemplite(busTemplite);
 		busWork1 = busService.persist(busWork1);
-		
+
 		// 2
 		busWork2 = new Bus();
 		busWork2.setKeyName("Тестовый автобус 2");
@@ -116,14 +117,13 @@ public class BaseTest {
 		schema1.setxSize((short) 1);
 		schema1.setySize((short) 2);
 		schema1 = schemaService.persist(schema1);
-		
+
 		schema2 = new Schema();
 		schema2.setKeyName("Тестовая схема 2");
 		schema2.setBus(busWork2);
 		schema2.setxSize((short) 4);
 		schema2.setySize((short) 2);
 		schema2 = schemaService.persist(schema2);
-		
 
 		seat1 = new Seat();
 		seat1.setNum((short) 1);
@@ -138,32 +138,31 @@ public class BaseTest {
 		seat2.setSy((short) 2);
 		seat2.setSchema(schema1);
 		seat2 = seatService.persist(seat2);
-		
+
 		// 2 -------------------------------
-		
+
 		seat8 = new Seat();
 		seat8.setNum((short) 8);
 		seat8.setSx((short) 1);
 		seat8.setSy((short) 1);
 		seat8.setSchema(schema2);
 		seat8 = seatService.persist(seat8);
-		
-		//..
+
+		// ..
 		schema1 = schemaService.refresh(schema1);
 		schema2 = schemaService.refresh(schema2);
-		
+
 		busWork1 = busService.refresh(busWork1);
 		busWork2 = busService.refresh(busWork2);
-		
 
 		// --------------------------------------------------------
 
-/*		busWork2 = new Bus();
-		busWork2.setKeyName("Тестовый автобус 2");
-		busWork2.setGosNum("TEST NUM 2");
-		busWork2.setBssType(BssType.WORK);
-		busWork2.setTemplite(busTemplite);
-		busWork2 = busService.persist(busWork2);*/
+		/*
+		 * busWork2 = new Bus(); busWork2.setKeyName("Тестовый автобус 2");
+		 * busWork2.setGosNum("TEST NUM 2"); busWork2.setBssType(BssType.WORK);
+		 * busWork2.setTemplite(busTemplite); busWork2 =
+		 * busService.persist(busWork2);
+		 */
 
 		// Создаем маршрут 1 ---------------------------------------
 		busRoute1 = new BusRoute();
@@ -171,7 +170,7 @@ public class BaseTest {
 		busRoute1 = busRouteService.persist(busRoute1);
 		busRoute1 = busRouteService.refresh(busRoute1);
 
-		// Создаем остановки  1 -------------------------------------
+		// Создаем остановки 1 -------------------------------------
 		busStop11 = new BusStop();
 		busStop11.setKeyName("ТЕСТ ОСТАНОВКА 11");
 		busStop11 = busStopService.persist(busStop11);
@@ -183,6 +182,18 @@ public class BaseTest {
 		busStop13 = new BusStop();
 		busStop13.setKeyName("ТЕСТ ОСТАНОВКА 13");
 		busStop13 = busStopService.persist(busStop13);
+
+		busStop14 = new BusStop();
+		busStop14.setKeyName("ТЕСТ ОСТАНОВКА 14");
+		busStop14 = busStopService.persist(busStop14);
+
+		busStop15 = new BusStop();
+		busStop15.setKeyName("ТЕСТ ОСТАНОВКА 15");
+		busStop15 = busStopService.persist(busStop15);
+
+		busStop16 = new BusStop();
+		busStop16.setKeyName("ТЕСТ ОСТАНОВКА 16");
+		busStop16 = busStopService.persist(busStop16);
 
 		// Создаем траекторию для маршрута 1 -----------------------
 		busRouteStop11 = new BusRouteStop();
@@ -205,12 +216,32 @@ public class BaseTest {
 		busRouteStop13.setOrId(2);
 		busRouteStop13 = busRouteStopService.persist(busRouteStop13);
 		busRoute1.getBusRouteStops().add(busRouteStop13);
-		
+
+		busRouteStop14 = new BusRouteStop();
+		busRouteStop14.setBusStop(busStop14);
+		busRouteStop14.setBusRoute(busRoute1);
+		busRouteStop14.setOrId(3);
+		busRouteStop14 = busRouteStopService.persist(busRouteStop14);
+		busRoute1.getBusRouteStops().add(busRouteStop14);
+
+		busRouteStop15 = new BusRouteStop();
+		busRouteStop15.setBusStop(busStop15);
+		busRouteStop15.setBusRoute(busRoute1);
+		busRouteStop15.setOrId(4);
+		busRouteStop15 = busRouteStopService.persist(busRouteStop15);
+		busRoute1.getBusRouteStops().add(busRouteStop15);
+
+		busRouteStop16 = new BusRouteStop();
+		busRouteStop16.setBusStop(busStop16);
+		busRouteStop16.setBusRoute(busRoute1);
+		busRouteStop16.setOrId(5);
+		busRouteStop16 = busRouteStopService.persist(busRouteStop16);
+		busRoute1.getBusRouteStops().add(busRouteStop16);
+
 		// ---
 		busRoute1 = busRouteService.refresh(busRoute1);
-		//System.out.println(">>>" + busRoute.getBusRouteStops().size());
-		
-		
+		// System.out.println(">>>" + busRoute.getBusRouteStops().size());
+
 		// Создаем маршрут ---------------------------------------
 		busRoute2 = new BusRoute();
 		busRoute2.setKeyName("TEST BUS ROUTE 2");
@@ -251,15 +282,11 @@ public class BaseTest {
 		busRouteStop23.setOrId(2);
 		busRouteStop23 = busRouteStopService.persist(busRouteStop23);
 		busRoute2.getBusRouteStops().add(busRouteStop23);
-		
+
 		// ---
 		busRoute2 = busRouteService.refresh(busRoute2);
-		//System.out.println(">>>" + busRoute.getBusRouteStops().size());
-		
-		
-		
-		
-		
+		// System.out.println(">>>" + busRoute.getBusRouteStops().size());
+
 		// Создаем рейс -------------------------------------------
 
 		race = new Race();
@@ -284,7 +311,6 @@ public class BaseTest {
 		customer2 = new Customer();
 		customer2.setKeyName("Дядя Петя");
 		customer2 = customerService.persist(customer2);
-		
 
 	}
 
