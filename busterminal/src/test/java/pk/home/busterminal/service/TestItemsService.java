@@ -381,8 +381,6 @@ public class TestItemsService extends BaseTest {
 	@Rollback(true)
 	public void testLogical() throws Exception {
 
-		long count = service.count();
-
 		Order order = createNewOrder();
 
 		Items item = order.getItems().get(1);
@@ -401,47 +399,98 @@ public class TestItemsService extends BaseTest {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		item.setBrst2(busRouteStop15);
-		
-		
+
 		try {
 
 			item.setSeat(seat5);
 
 			item = service.merge(item);
 
-			assertTrue("Допущена вставка места в записи не соответствущего месту в ордере",
+			assertTrue(
+					"Допущена вставка места в записи не соответствущего месту в ордере",
 					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		item.setSeat(seat1);
-		
-		
-		
+
 		try {
 
 			item.setRace(new Race());
 
 			item = service.merge(item);
 
-			assertTrue("Допущена вставка рейса в записи не соответствующего рейсу в ордере",
+			assertTrue(
+					"Допущена вставка рейса в записи не соответствующего рейсу в ордере",
 					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		item.setRace(race);
-		
-		
-		
-		
+
+	}
+
+	@Test
+	@Rollback(true)
+	public void testLogical2() throws Exception {
+
+		try {
+			createTestEntitys();
+
+			{
+				Order order = new Order();
+				order.setOrderType(OrderType.TICKET_SALE);
+				order.setOpTime(new Date());
+
+				order.setRace(race);
+				order.setBusRouteStopA(busRouteStop11);
+				order.setBusRouteStopB(busRouteStop15);
+
+				order.setSeat(seat1);
+
+				order.setUserAccount(userAccount);
+				order.setCustomer(customer1);
+
+				order.setActualPrice(new BigDecimal(1000));
+
+				order = orderService.persist(order);
+			}
+
+			{
+				Order order = new Order();
+				order.setOrderType(OrderType.TICKET_SALE);
+				order.setOpTime(new Date());
+
+				order.setRace(race);
+				order.setBusRouteStopA(busRouteStop11);
+				order.setBusRouteStopB(busRouteStop15);
+
+				order.setSeat(seat1);
+
+				order.setUserAccount(userAccount);
+				order.setCustomer(customer1);
+
+				order.setActualPrice(new BigDecimal(1000));
+
+				order = orderService.persist(order);
+			}
+			
+			assertTrue(
+					"Допущена продажа одного места двум людям",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
 
 	}
 
