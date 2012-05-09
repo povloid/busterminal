@@ -14,6 +14,7 @@ import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
 
 /**
  * Service class for entity class: Order Order - ордер - операция
@@ -47,22 +48,25 @@ public class OrderService extends ABaseService<Order> {
 
 		o = super.persist(o);
 
-		BusRouteStop brsLast = o.getBusRouteStopA();
-		for (BusRouteStop brs : list) {
-			if (!brs.equals(brsLast)) {
-				Items item = new Items();
+		// Это надо делать только при продаже
+		if (o.getOrderType() == OrderType.TICKET_SALE) {
+			BusRouteStop brsLast = o.getBusRouteStopA();
+			for (BusRouteStop brs : list) {
+				if (!brs.equals(brsLast)) {
+					Items item = new Items();
 
-				item.setOrder(o);
-				item.setRace(o.getRace());
-				item.setSeat(o.getSeat());
-				item.setBrst1(brsLast);
-				item.setBrst2(brs);
+					item.setOrder(o);
+					item.setRace(o.getRace());
+					item.setSeat(o.getSeat());
+					item.setBrst1(brsLast);
+					item.setBrst2(brs);
 
-				item = itemsService.persist(item);
+					item = itemsService.persist(item);
 
+				}
+
+				brsLast = brs;
 			}
-
-			brsLast = brs;
 		}
 
 		return super.refresh(o);

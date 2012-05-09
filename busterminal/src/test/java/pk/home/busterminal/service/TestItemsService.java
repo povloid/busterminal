@@ -24,6 +24,7 @@ import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Items_;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -371,6 +372,76 @@ public class TestItemsService extends BaseTest {
 		items2 = service.find(order.getItems().get(1).getId());
 
 		assertTrue(items2 == null);
+
+	}
+
+	// Тесты логической целостности
+
+	@Test
+	@Rollback(true)
+	public void testLogical() throws Exception {
+
+		long count = service.count();
+
+		Order order = createNewOrder();
+
+		Items item = order.getItems().get(1);
+
+		try {
+
+			item.setBrst1(busRouteStop11);
+			item.setBrst2(busRouteStop11);
+
+			item = service.merge(item);
+
+			assertTrue("Допущена вставка точек отрезков которые совпадают",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		item.setBrst2(busRouteStop15);
+		
+		
+		try {
+
+			item.setSeat(seat5);
+
+			item = service.merge(item);
+
+			assertTrue("Допущена вставка места в записи не соответствущего месту в ордере",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		item.setSeat(seat1);
+		
+		
+		
+		try {
+
+			item.setRace(new Race());
+
+			item = service.merge(item);
+
+			assertTrue("Допущена вставка рейса в записи не соответствующего рейсу в ордере",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
+		item.setRace(race);
+		
+		
+		
+		
 
 	}
 
