@@ -91,17 +91,20 @@ public class BusRouteStop implements Serializable {
 	@PrePersist
 	public void check() throws Exception {
 
-		if ((pBRStop == null && pBRStop == null)
-				|| (pBRStop == null || pBRStop.orId < orId)
-				&& (nBRStop == null || nBRStop.orId > orId)
-				&& (pBRStop != null && nBRStop != null
-						&& !pBRStop.equals(nBRStop) && !pBRStop.equals(this) && !nBRStop
-							.equals(this))) {
-			// Выполнение данного условия считается нормальным
-			// System.out.println(">>> OK");
-		} else {
-			throw new Exception("Нарушение упорядоченности");
-		}
+		// Данная проверька была перенесена на уровень сервиса
+		// так как сервисный уровено должен помечать сразу группу без проверок
+		// через DAO уровен
+		// if ((pBRStop == null && pBRStop == null)
+		// || (pBRStop == null || pBRStop.orId < orId)
+		// && (nBRStop == null || nBRStop.orId > orId)
+		// && (pBRStop != null && nBRStop != null
+		// && !pBRStop.equals(nBRStop) && !pBRStop.equals(this) && !nBRStop
+		// .equals(this))) {
+		// // Выполнение данного условия считается нормальным
+		// // System.out.println(">>> OK");
+		// } else {
+		// throw new Exception("Нарушение упорядоченности");
+		// }
 	}
 
 	public Long getId() {

@@ -38,19 +38,32 @@ public class BusRouteStopService extends ABaseService<BusRouteStop> {
 		check(o);
 		return super.merge(o);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public void check(BusRouteStop o) throws Exception {
 		BusRouteStop old = find(o.getId());
-		
-		if(old != null && old.isProtectionFieldUpdated(o))
-			throw new Exception("Менять значения полей pBRStop и nBRStop нельзя");
-		
+
+		if (old != null && old.isProtectionFieldUpdated(o))
+			throw new Exception(
+					"Менять значения полей o.getpBRStop() и o.getnBRStop() нельзя");
+
+		// Проверка упорядоченности ------------------------------------------
+		if ((o.getpBRStop() == null && o.getnBRStop() == null)
+				|| (o.getpBRStop() == null || o.getpBRStop().getOrId() < o
+						.getOrId())
+				&& (o.getnBRStop() == null || o.getnBRStop().getOrId() > o
+						.getOrId())
+				&& (o.getpBRStop() != null && o.getnBRStop() != null
+						&& !o.getpBRStop().equals(o.getnBRStop())
+						&& !o.getpBRStop().equals(this) && !o.getnBRStop()
+						.equals(this))) {
+			// Выполнение данного условия считается нормальным
+			// System.out.println(">>> OK");
+		} else {
+			throw new Exception("Нарушение упорядоченности");
+		}
+
 		o.check();
 	}
 
-	
-	
-	
-	
 }

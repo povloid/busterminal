@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
-import pk.home.busterminal.dao.BusRouteDAO;
 import pk.home.busterminal.dao.BusRouteStopDAO;
 import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
@@ -35,7 +34,7 @@ public class OrderService extends ABaseService<Order> {
 	private ItemsService itemsService;
 
 	@Autowired
-	private BusRouteStopService busRouteStopService;
+	private BusRouteStopDAO busRouteStopDAO;
 
 	@Override
 	public ABaseDAO<Order> getAbstractBasicDAO() {
@@ -113,9 +112,9 @@ public class OrderService extends ABaseService<Order> {
 					System.out.println(" - " + "null");
 			}
 
-			// for (BusRouteStop brs : list) {
-
-			// }
+			for (BusRouteStop brs : list) {
+				brs = busRouteStopDAO.merge(brs);
+			}
 
 		}
 

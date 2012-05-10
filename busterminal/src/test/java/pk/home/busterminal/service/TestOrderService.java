@@ -49,10 +49,6 @@ public class TestOrderService extends BaseTest {
 	 */
 	private OrderService service;
 	
-	
-	@Autowired
-	private ItemsService itemsService;
-	
 
 	/**
 	 * Method to allow Spring to inject the DAO that will be tested
