@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
+import pk.home.busterminal.dao.BusRouteDAO;
+import pk.home.busterminal.dao.BusRouteStopDAO;
 import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.Items;
@@ -32,6 +34,9 @@ public class OrderService extends ABaseService<Order> {
 	@Autowired
 	private ItemsService itemsService;
 
+	@Autowired
+	private BusRouteStopService busRouteStopService;
+
 	@Override
 	public ABaseDAO<Order> getAbstractBasicDAO() {
 		return orderDAO;
@@ -45,6 +50,21 @@ public class OrderService extends ABaseService<Order> {
 
 		List<BusRouteStop> list = busRouteService.getPath(o.getRace()
 				.getBusRoute(), o.getBusRouteStopA(), o.getBusRouteStopB());
+
+		// for (BusRouteStop ibrs : list) {
+		// System.out.print(">>>>>>>" + ibrs);
+		// System.out.print(" - " + ibrs.getOrId());
+		//
+		// if (ibrs.getpBRStop() != null)
+		// System.out.print(" - " + ibrs.getpBRStop().getOrId());
+		// else
+		// System.out.print(" - " + "null");
+		//
+		// if (ibrs.getnBRStop() != null)
+		// System.out.println(" - " + ibrs.getnBRStop().getOrId());
+		// else
+		// System.out.println(" - " + "null");
+		// }
 
 		o = super.persist(o);
 
@@ -62,11 +82,41 @@ public class OrderService extends ABaseService<Order> {
 					item.setBrst2(brs);
 
 					item = itemsService.persist(item);
-
 				}
 
 				brsLast = brs;
+
 			}
+
+			BusRouteStop ibrsLast = list.get(0);
+			for (BusRouteStop ibrs : list) {
+				if (!ibrs.equals(ibrsLast)) {
+					ibrs.setpBRStop(ibrsLast);
+					ibrsLast.setnBRStop(ibrs);
+				}
+
+				ibrsLast = ibrs;
+			}
+
+			for (BusRouteStop ibrs : list) {
+				System.out.print(">>>>>>>" + ibrs);
+				System.out.print(" - " + ibrs.getOrId());
+
+				if (ibrs.getpBRStop() != null)
+					System.out.print(" - " + ibrs.getpBRStop().getOrId());
+				else
+					System.out.print(" - " + "null");
+
+				if (ibrs.getnBRStop() != null)
+					System.out.println(" - " + ibrs.getnBRStop().getOrId());
+				else
+					System.out.println(" - " + "null");
+			}
+
+			// for (BusRouteStop brs : list) {
+
+			// }
+
 		}
 
 		return super.refresh(o);

@@ -113,14 +113,15 @@ public class BusRouteService extends ABaseService<BusRoute> {
 				continue;
 			}
 
-			if (add) {
-				path.add(brs);
-			}
-
 			if (brs.equals(brstFinish)) {
 				add = false;
 				break;
 			}
+
+			if (add) {
+				path.add(brs);
+			}
+
 		}
 
 		path.add(brstFinish);
