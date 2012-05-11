@@ -17,6 +17,7 @@ import pk.home.busterminal.dao.BusDAO;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
+import pk.home.busterminal.domain.Schema;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
@@ -74,8 +75,6 @@ public class BusService extends ABaseService<Bus> {
 	 */
 	@Transactional(readOnly = true)
 	public void check(Bus o, DML dml) throws Exception {
-
-
 
 		CriteriaBuilder cb = busDAO.getEntityManager().getCriteriaBuilder();
 
@@ -197,6 +196,46 @@ public class BusService extends ABaseService<Bus> {
 		cq.select(busDAO.getEntityManager().getCriteriaBuilder().count(rt));
 
 		return (Long) busDAO.getSinleResult(cq);
+	}
+
+	/**
+	 * Создание рабочей копии шаблона
+	 * 
+	 * @param templite
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Bus createWorkBusCopy(Bus templite) throws Exception {
+
+		Bus workCopy = new Bus();
+
+		return workCopy;
+
+	}
+
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Bus createBusCopy(Bus templite) throws Exception {
+		Bus copy = new Bus();
+
+		// Копируем простые поля
+		copy.setBssType(templite.getBssType());
+		copy.setDescription(templite.getDescription());
+		copy.setGosNum(templite.getGosNum());
+		copy.setKeyName(templite.getKeyName());
+		copy.setTemplite(templite.getTemplite());
+
+		// Копируем колекции
+		for (Schema schema : templite.getSchemas()) {
+
+			
+			
+			
+		}
+
+		return copy;
 	}
 
 }
