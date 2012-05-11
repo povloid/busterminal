@@ -2,6 +2,8 @@ package pk.home.busterminal.service;
 
 import java.util.List;
 
+import javax.transaction.NotSupportedException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -42,91 +44,13 @@ public class OrderService extends ABaseService<Order> {
 	}
 
 	@Override
-	@ExceptionHandler(Exception.class)
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Order persist(Order o) throws Exception {
-		check(o);
-
-		List<BusRouteStop> list = busRouteService.getPath(o.getRace()
-				.getBusRoute(), o.getBusRouteStopA(), o.getBusRouteStopB());
-
-		// for (BusRouteStop ibrs : list) {
-		// System.out.print(">>>>>>>" + ibrs);
-		// System.out.print(" - " + ibrs.getOrId());
-		//
-		// if (ibrs.getpBRStop() != null)
-		// System.out.print(" - " + ibrs.getpBRStop().getOrId());
-		// else
-		// System.out.print(" - " + "null");
-		//
-		// if (ibrs.getnBRStop() != null)
-		// System.out.println(" - " + ibrs.getnBRStop().getOrId());
-		// else
-		// System.out.println(" - " + "null");
-		// }
-
-		o = super.persist(o);
-
-		// Это надо делать только при продаже
-		if (o.getOrderType() == OrderType.TICKET_SALE) {
-			BusRouteStop brsLast = o.getBusRouteStopA();
-			for (BusRouteStop brs : list) {
-				if (!brs.equals(brsLast)) {
-					Items item = new Items();
-
-					item.setOrder(o);
-					item.setRace(o.getRace());
-					item.setSeat(o.getSeat());
-					item.setBrst1(brsLast);
-					item.setBrst2(brs);
-
-					item = itemsService.persist(item);
-				}
-
-				brsLast = brs;
-
-			}
-
-			BusRouteStop ibrsLast = list.get(0);
-			for (BusRouteStop ibrs : list) {
-				if (!ibrs.equals(ibrsLast)) {
-					ibrs.setpBRStop(ibrsLast);
-					ibrsLast.setnBRStop(ibrs);
-				}
-
-				ibrsLast = ibrs;
-			}
-
-			for (BusRouteStop ibrs : list) {
-				System.out.print(">>>>>>>" + ibrs);
-				System.out.print(" - " + ibrs.getOrId());
-
-				if (ibrs.getpBRStop() != null)
-					System.out.print(" - " + ibrs.getpBRStop().getOrId());
-				else
-					System.out.print(" - " + "null");
-
-				if (ibrs.getnBRStop() != null)
-					System.out.println(" - " + ibrs.getnBRStop().getOrId());
-				else
-					System.out.println(" - " + "null");
-			}
-
-			for (BusRouteStop brs : list) {
-				brs = busRouteStopDAO.merge(brs);
-			}
-
-		}
-
-		return super.refresh(o);
+		throw new NotSupportedException();
 	}
 
 	@Override
-	@ExceptionHandler(Exception.class)
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Order merge(Order o) throws Exception {
-		check(o);
-		return super.merge(o);
+		throw new NotSupportedException();
 	}
 
 	@ExceptionHandler(Exception.class)
@@ -151,15 +75,99 @@ public class OrderService extends ABaseService<Order> {
 	@Override
 	public void remove(Order object) throws Exception {
 
-		object = find(object.getId());
+		// object = find(object.getId());
+		//
+		// if (object.getItems().size() > 0) {
+		// for (Items item : object.getItems()) {
+		// itemsService.remove(item);
+		// }
+		// }
+		//
+		// super.remove(object);
+		throw new NotSupportedException();
+	}
 
-		if (object.getItems().size() > 0) {
-			for (Items item : object.getItems()) {
-				itemsService.remove(item);
-			}
+	// Операции
+
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Order createTicketSaleOrder(Order o) throws Exception {
+		if (o.getOrderType() != OrderType.TICKET_SALE) {
+			throw new Exception("Не TICKET_SALE тип!");
 		}
 
-		super.remove(object);
+		check(o);
+
+		List<BusRouteStop> list = busRouteService.getPath(o.getRace()
+				.getBusRoute(), o.getBusRouteStopA(), o.getBusRouteStopB());
+
+		// for (BusRouteStop ibrs : list) {
+		// System.out.print(">>>>>>>" + ibrs);
+		// System.out.print(" - " + ibrs.getOrId());
+		//
+		// if (ibrs.getpBRStop() != null)
+		// System.out.print(" - " + ibrs.getpBRStop().getOrId());
+		// else
+		// System.out.print(" - " + "null");
+		//
+		// if (ibrs.getnBRStop() != null)
+		// System.out.println(" - " + ibrs.getnBRStop().getOrId());
+		// else
+		// System.out.println(" - " + "null");
+		// }
+
+		o = super.persist(o);
+
+		// Это надо делать только при продаже
+
+		BusRouteStop brsLast = o.getBusRouteStopA();
+		for (BusRouteStop brs : list) {
+			if (!brs.equals(brsLast)) {
+				Items item = new Items();
+
+				item.setOrder(o);
+				item.setRace(o.getRace());
+				item.setSeat(o.getSeat());
+				item.setBrst1(brsLast);
+				item.setBrst2(brs);
+
+				item = itemsService.persist(item);
+			}
+
+			brsLast = brs;
+
+		}
+
+		BusRouteStop ibrsLast = list.get(0);
+		for (BusRouteStop ibrs : list) {
+			if (!ibrs.equals(ibrsLast)) {
+				ibrs.setpBRStop(ibrsLast);
+				ibrsLast.setnBRStop(ibrs);
+			}
+
+			ibrsLast = ibrs;
+		}
+
+		for (BusRouteStop ibrs : list) {
+			System.out.print(">>>>>>>" + ibrs);
+			System.out.print(" - " + ibrs.getOrId());
+
+			if (ibrs.getpBRStop() != null)
+				System.out.print(" - " + ibrs.getpBRStop().getOrId());
+			else
+				System.out.print(" - " + "null");
+
+			if (ibrs.getnBRStop() != null)
+				System.out.println(" - " + ibrs.getnBRStop().getOrId());
+			else
+				System.out.println(" - " + "null");
+		}
+
+		for (BusRouteStop brs : list) {
+			brs = busRouteStopDAO.merge(brs);
+		}
+
+		return super.refresh(o);
 	}
 
 }
