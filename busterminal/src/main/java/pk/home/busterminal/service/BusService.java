@@ -271,8 +271,11 @@ public class BusService extends ABaseService<Bus> {
 			schema = schemaService.persist(schema);
 
 			for (Seat seat : schema.getSeats()) {
+				seat.setSchema(schema);
 				seat = seatService.persist(seat);
 			}
+			
+			schema = schemaService.refresh(schema);
 		}
 
 		return copy;

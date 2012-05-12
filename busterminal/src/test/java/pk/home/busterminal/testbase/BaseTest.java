@@ -93,37 +93,13 @@ public class BaseTest {
 		busTemplite.setBssType(BssType.TEMPLITE);
 		busTemplite = busService.persist(busTemplite);
 
-		// Создаем копии для постановки на рейс ------------------
-		// 1
-		busWork1 = new Bus();
-		busWork1.setKeyName("Тестовый автобус 1");
-		busWork1.setGosNum("TEST NUM 1");
-		busWork1.setBssType(BssType.WORK);
-		busWork1.setTemplite(busTemplite);
-		busWork1 = busService.persist(busWork1);
-
-		// 2
-		busWork2 = new Bus();
-		busWork2.setKeyName("Тестовый автобус 2");
-		busWork2.setGosNum("TEST NUM 2");
-		busWork2.setBssType(BssType.WORK);
-		busWork2.setTemplite(busTemplite);
-		busWork2 = busService.persist(busWork2);
-
-		// -------------------------------------------------------
+		// 1 -------------------------------------------------------
 		schema1 = new Schema();
 		schema1.setKeyName("Тестовая схема 1");
-		schema1.setBus(busWork1);
+		schema1.setBus(busTemplite);
 		schema1.setxSize((short) 1);
 		schema1.setySize((short) 2);
 		schema1 = schemaService.persist(schema1);
-
-		schema2 = new Schema();
-		schema2.setKeyName("Тестовая схема 2");
-		schema2.setBus(busWork2);
-		schema2.setxSize((short) 4);
-		schema2.setySize((short) 2);
-		schema2 = schemaService.persist(schema2);
 
 		seat1 = new Seat();
 		seat1.setNum((short) 1);
@@ -141,6 +117,13 @@ public class BaseTest {
 
 		// 2 -------------------------------
 
+		schema2 = new Schema();
+		schema2.setKeyName("Тестовая схема 2");
+		schema2.setBus(busTemplite);
+		schema2.setxSize((short) 4);
+		schema2.setySize((short) 2);
+		schema2 = schemaService.persist(schema2);
+
 		seat8 = new Seat();
 		seat8.setNum((short) 8);
 		seat8.setSx((short) 1);
@@ -151,9 +134,14 @@ public class BaseTest {
 		// ..
 		schema1 = schemaService.refresh(schema1);
 		schema2 = schemaService.refresh(schema2);
+		busTemplite = busService.refresh(busTemplite);
 
-		busWork1 = busService.refresh(busWork1);
-		busWork2 = busService.refresh(busWork2);
+		// Создаем копии для постановки на рейс ------------------
+		// 1
+		busWork1 = busService.createWorkCopyFromTemplite(busTemplite);
+
+		// 2
+		busWork2 = busService.createWorkCopyFromTemplite(busTemplite);
 
 		// --------------------------------------------------------
 

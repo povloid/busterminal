@@ -698,6 +698,7 @@ public class TestBusService extends BaseTest {
 			assertTrue(a.getSeats().size() == b.getSeats().size());
 
 			assertFalse(a.getId() == b.getId());
+			assertFalse(a.getBus().equals(b.getBus()));
 
 			Map<Short, Seat> ssmap = new HashMap<Short, Seat>();
 			for (Seat s : b.getSeats()) {
@@ -726,8 +727,10 @@ public class TestBusService extends BaseTest {
 		assertTrue(workCopy.getId() != null && workCopy.getId() > 0);
 		assertFalse(workCopy.getId() == busTemplite.getId());
 		assertTrue(workCopy.getBssType() == BssType.WORK);
-		
-		
+		assertTrue(workCopy.getSchemas() != null);
+		assertTrue(workCopy.getSchemas().size() == busTemplite.getSchemas()
+				.size());
+		assertTrue(workCopy.getSchemas().size() > 0);
 
 	}
 
