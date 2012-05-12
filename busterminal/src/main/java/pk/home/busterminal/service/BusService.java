@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -28,6 +29,9 @@ public class BusService extends ABaseService<Bus> {
 
 	@Autowired
 	private BusDAO busDAO;
+
+	@Autowired
+	private SchemaService schemaService;
 
 	@Override
 	public ABaseDAO<Bus> getAbstractBasicDAO() {
@@ -215,27 +219,34 @@ public class BusService extends ABaseService<Bus> {
 
 	}
 
+	/**
+	 * Создание копии автобуса
+	 * @param templite
+	 * @return
+	 * @throws Exception
+	 */
 	@ExceptionHandler(Exception.class)
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly = true, rollbackFor = Exception.class)
 	public Bus createBusCopy(Bus templite) throws Exception {
-		Bus copy = new Bus();
+		Bus busWorkCopy = new Bus();
 
 		// Копируем простые поля
-		copy.setBssType(templite.getBssType());
-		copy.setDescription(templite.getDescription());
-		copy.setGosNum(templite.getGosNum());
-		copy.setKeyName(templite.getKeyName());
-		copy.setTemplite(templite.getTemplite());
+		busWorkCopy.setBssType(templite.getBssType());
+		busWorkCopy.setDescription(templite.getDescription());
+		busWorkCopy.setGosNum(templite.getGosNum());
+		busWorkCopy.setKeyName(templite.getKeyName());
+		busWorkCopy.setTemplite(templite.getTemplite());
 
+		busWorkCopy.setSchemes(new HashSet<Schema>());
+		
 		// Копируем колекции
 		for (Schema schema : templite.getSchemas()) {
-
-			
-			
-			
+			Schema schemaCopy = schemaService.createSchemaCopy(schema);
+			schemaCopy.setBus(busWorkCopy);
+			busWorkCopy.getSchemas().add(schemaCopy);
 		}
 
-		return copy;
+		return busWorkCopy;
 	}
 
 }

@@ -91,6 +91,7 @@ public class SeatService extends ABaseService<Seat> {
 
 	/**
 	 * Проверка логической уникальности сохраняемого места
+	 * 
 	 * @param o
 	 * @throws Exception
 	 */
@@ -111,18 +112,17 @@ public class SeatService extends ABaseService<Seat> {
 								"Номера мест в пределах одного автобуса должны бвть уникальными!");
 					}
 
-					if (o.getSx() != null && o.getSx() > 0
-							&& o.getSy() != null && o.getSy() > 0
-							
+					if (o.getSx() != null && o.getSx() > 0 && o.getSy() != null
+							&& o.getSy() > 0
+
 							&& o.getSchema().equals(st.getSchema())
-							
+
 							&& o.getSx().equals(st.getSx())
 							&& o.getSy().equals(st.getSy())) {
 						throw new Exception("Координаты места в схеме x="
 								+ o.getSx() + " и y=" + o.getSy()
 								+ " уже заняты местом №" + st.getNum());
 					}
-
 				}
 			}
 		}
@@ -149,6 +149,27 @@ public class SeatService extends ABaseService<Seat> {
 	public int findNotMarkedSeatsCount(Schema schema) throws Exception {
 		return (Integer) seatDAO.executeQueryByNameSingleResultO(
 				"Seat.findNoMarkedBySchema.count", schema);
+	}
+
+	/**
+	 * Создать копию
+	 * 
+	 * @param seat
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	public Seat createSeatCopy(Seat seat) throws Exception {
+		Seat seatCopy = new Seat();
+
+		seatCopy.setDescription(seat.getDescription());
+		seatCopy.setNum(seat.getNum());
+		seatCopy.setSx(seat.getSx());
+		seatCopy.setSy(seat.getSy());
+		seatCopy.setSchema(seat.getSchema());
+
+		return seatCopy;
 	}
 
 }

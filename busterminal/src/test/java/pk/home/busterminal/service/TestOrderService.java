@@ -48,7 +48,6 @@ public class TestOrderService extends BaseTest {
 	 * 
 	 */
 	private OrderService service;
-	
 
 	/**
 	 * Method to allow Spring to inject the DAO that will be tested
@@ -341,30 +340,30 @@ public class TestOrderService extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-//	@Test
-//	@Rollback(true)
-//	public void testMerge() throws Exception {
-//		createTestEntitys();
-//
-//		Order order = createNewOrder();
-//
-//		long id = order.getId();
-//
-//		Order order2 = service.find(id);
-//
-//		assertEquals(order, order2);
-//		assertTrue(order.getId() == order2.getId());
-//		assertEquals(order.getOrderType(), order2.getOrderType());
-//
-//		order2.setOpTime(createUniqueDate());
-//		order2 = service.merge(order2);
-//
-//		order = service.refresh(order);
-//
-//		assertEquals(order, order2);
-//		assertTrue(order.getId() == order2.getId());
-//		assertEquals(order.getOpTime(), order2.getOpTime());
-//	}
+	// @Test
+	// @Rollback(true)
+	// public void testMerge() throws Exception {
+	// createTestEntitys();
+	//
+	// Order order = createNewOrder();
+	//
+	// long id = order.getId();
+	//
+	// Order order2 = service.find(id);
+	//
+	// assertEquals(order, order2);
+	// assertTrue(order.getId() == order2.getId());
+	// assertEquals(order.getOrderType(), order2.getOrderType());
+	//
+	// order2.setOpTime(createUniqueDate());
+	// order2 = service.merge(order2);
+	//
+	// order = service.refresh(order);
+	//
+	// assertEquals(order, order2);
+	// assertTrue(order.getId() == order2.getId());
+	// assertEquals(order.getOpTime(), order2.getOpTime());
+	// }
 
 	/**
 	 * Test method for
@@ -372,27 +371,27 @@ public class TestOrderService extends BaseTest {
 	 * 
 	 * @throws Exception
 	 */
-//	@Test
-//	@Rollback(true)
-//	public void testRemove() throws Exception {
-//		createTestEntitys();
-//
-//		Order order = createNewOrder();
-//
-//		long id = order.getId();
-//
-//		Order order2 = service.find(id);
-//
-//		assertEquals(order, order2);
-//		assertTrue(order.getId() == order2.getId());
-//		assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
-//
-//		service.remove(order);
-//
-//		Order order3 = service.find(id);
-//		assertTrue(order3 == null);
-//
-//	}
+	// @Test
+	// @Rollback(true)
+	// public void testRemove() throws Exception {
+	// createTestEntitys();
+	//
+	// Order order = createNewOrder();
+	//
+	// long id = order.getId();
+	//
+	// Order order2 = service.find(id);
+	//
+	// assertEquals(order, order2);
+	// assertTrue(order.getId() == order2.getId());
+	// assertEquals(order.getOpTime().getTime(), order.getOpTime().getTime());
+	//
+	// service.remove(order);
+	//
+	// Order order3 = service.find(id);
+	// assertTrue(order3 == null);
+	//
+	// }
 
 	/**
 	 * Тест ограничений
@@ -434,7 +433,6 @@ public class TestOrderService extends BaseTest {
 
 		order.setOrderType(OrderType.TICKET_SALE);
 
-		
 		try {
 
 			order.setOrderType(null);
@@ -448,8 +446,7 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setOrderType(OrderType.TICKET_SALE);
-		
-		
+
 		try {
 
 			order.setCustomer(null);
@@ -464,13 +461,14 @@ public class TestOrderService extends BaseTest {
 
 		order.setCustomer(customer1);
 
-		
 		try {
 
 			order.setUserAccount(null);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка без указания пользователя, проводящего операцию", false);
+			assertTrue(
+					"Допущена вставка без указания пользователя, проводящего операцию",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -478,14 +476,15 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setUserAccount(userAccount);
-		
-		
+
 		try {
 
 			order.setOrderType(OrderType.TICKET_RETURN);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка возвратного ордера без указания родительского", false);
+			assertTrue(
+					"Допущена вставка возвратного ордера без указания родительского",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -493,8 +492,7 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setOrderType(OrderType.TICKET_SALE);
-		
-		
+
 		try {
 
 			order.setRace(null);
@@ -508,14 +506,15 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setRace(race);
-		
-		
+
 		try {
 
 			order.getRace().getBus().setBssType(BssType.TEMPLITE);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка автобуса продаваемого рейса неимеющего тип TEMPLITE", false);
+			assertTrue(
+					"Допущена вставка автобуса продаваемого рейса неимеющего тип TEMPLITE",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -523,14 +522,14 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.getRace().getBus().setBssType(BssType.WORK);
-		
-		
+
 		try {
 
 			order.setSeat(null);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка без указания продаваемого места", false);
+			assertTrue("Допущена вставка без указания продаваемого места",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -538,14 +537,15 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setSeat(seat1);
-		
-		
+
 		try {
 
 			order.setSeat(seat8);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка указанного автобуса в схеме не совпадающего с указаным автобусом в рейсе", false);
+			assertTrue(
+					"Допущена вставка указанного автобуса в схеме не совпадающего с указаным автобусом в рейсе",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -553,41 +553,40 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setSeat(seat1);
-		
-		
-		
+
 		try {
 
 			order.setBusRouteStopA(null);
 			order.setBusRouteStopB(null);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка без указания пункта начала и конца пути", false);
+			assertTrue(
+					"Допущена вставка без указания пункта начала и конца пути",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopA(busRouteStop11);
 		order.setBusRouteStopB(busRouteStop12);
-		
-		
+
 		try {
 
 			order.setBusRouteStopA(null);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка без указания пункта начала пути", false);
+			assertTrue("Допущена вставка без указания пункта начала пути",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopA(busRouteStop11);
-		
-		
+
 		try {
 
 			order.setBusRouteStopB(null);
@@ -599,77 +598,78 @@ public class TestOrderService extends BaseTest {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopB(busRouteStop12);
-		
-		
-		
+
 		try {
 
 			order.setBusRouteStopB(busRouteStop11);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка одинаковых пунктов конца и начала пути", false);
+			assertTrue(
+					"Допущена вставка одинаковых пунктов конца и начала пути",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopB(busRouteStop12);
-		
-		
+
 		try {
 
 			order.setBusRouteStopA(busRouteStop12);
 			order.setBusRouteStopB(busRouteStop11);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка остановки начала пути которая позже остановки конца пути", false);
+			assertTrue(
+					"Допущена вставка остановки начала пути которая позже остановки конца пути",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopA(busRouteStop11);
 		order.setBusRouteStopB(busRouteStop12);
-		
-		// Сервисные проверки --------------------------------------------------------------------------------
-		
+
+		// Сервисные проверки
+		// --------------------------------------------------------------------------------
+
 		try {
 
 			order.setBusRouteStopA(busRouteStop21);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка точки начала пути которая не содержится в списке становок маршрута размещена", false);
+			assertTrue(
+					"Допущена вставка точки начала пути которая не содержится в списке становок маршрута размещена",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopA(busRouteStop11);
-		
-		
+
 		try {
 
 			order.setBusRouteStopB(busRouteStop21);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка точки конца пути которая не содержится в списке становок маршрута размещена", false);
+			assertTrue(
+					"Допущена вставка точки конца пути которая не содержится в списке становок маршрута размещена",
+					false);
 
 		} catch (Exception e) {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		order.setBusRouteStopB(busRouteStop12);
-		
-		
-		
-		
-		
+
 	}
 
 }

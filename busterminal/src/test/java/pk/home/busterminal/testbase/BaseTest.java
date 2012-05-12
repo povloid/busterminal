@@ -30,34 +30,34 @@ import pk.home.busterminal.service.security.UserAccountService;
 public class BaseTest {
 
 	@Autowired
-	private BusService busService;
+	protected BusService busService;
 
 	@Autowired
-	private BusRouteService busRouteService;
+	protected BusRouteService busRouteService;
 
 	@Autowired
-	private BusRouteStopService busRouteStopService;
+	protected BusRouteStopService busRouteStopService;
 
 	@Autowired
-	private BusStopService busStopService;
+	protected BusStopService busStopService;
 
 	@Autowired
-	private UserAccountService userAccountService;
+	protected UserAccountService userAccountService;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	protected PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private CustomerService customerService;
+	protected CustomerService customerService;
 
 	@Autowired
-	private RaceService raceService;
+	protected RaceService raceService;
 
 	@Autowired
-	private SchemaService schemaService;
+	protected SchemaService schemaService;
 
 	@Autowired
-	private SeatService seatService;
+	protected SeatService seatService;
 
 	// Переменные
 	// -------------------------------------------------------------------------------

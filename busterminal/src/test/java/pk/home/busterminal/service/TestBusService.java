@@ -24,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
+import pk.home.busterminal.domain.Schema;
+import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
@@ -36,7 +39,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestBusService {
+public class TestBusService extends BaseTest {
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -600,7 +603,7 @@ public class TestBusService {
 		}
 
 	}
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
 	@Test
 	@Rollback(true)
@@ -621,6 +624,89 @@ public class TestBusService {
 
 			assertTrue("Проверка сработала правильно", true);
 		}
+
+	}
+
+	@Test
+	@Rollback(true)
+	public void createBusCopy() throws Exception {
+		// Создаем шаблон ----------------------------------------
+		busTemplite = new Bus();
+		busTemplite.setKeyName("Тестовый автобус 2");
+		busTemplite.setGosNum("TEST NUM 2");
+		busTemplite.setBssType(BssType.TEMPLITE);
+		busTemplite = busService.persist(busTemplite);
+
+		// -------------------------------------------------------
+		schema1 = new Schema();
+		schema1.setKeyName("Тестовая схема 1");
+		schema1.setBus(busTemplite);
+		schema1.setxSize((short) 1);
+		schema1.setySize((short) 2);
+		schema1 = schemaService.persist(schema1);
+
+		seat1 = new Seat();
+		seat1.setNum((short) 1);
+		seat1.setSx((short) 1);
+		seat1.setSy((short) 1);
+		seat1.setSchema(schema1);
+		seat1 = seatService.persist(seat1);
+
+		seat2 = new Seat();
+		seat2.setNum((short) 2);
+		seat2.setSx((short) 1);
+		seat2.setSy((short) 2);
+		seat2.setSchema(schema1);
+		seat2 = seatService.persist(seat2);
+
+		schema1 = schemaService.refresh(schema1);
+
+		busTemplite = busService.refresh(busTemplite);
+
+		Bus busCopy = busService.createBusCopy(busTemplite);
+
+		assertEquals(busTemplite.getKeyName(), busCopy.getKeyName());
+		assertEquals(busTemplite.getDescription(), busCopy.getDescription());
+		assertEquals(busTemplite.getGosNum(), busCopy.getGosNum());
+		assertEquals(busTemplite.getBssType(), busCopy.getBssType());
+		assertFalse(busTemplite.getId() == busCopy.getId());
+
+		assertTrue(busTemplite.getSchemas().size() == busCopy.getSchemas()
+				.size());
+
+		Schema[] aa = busTemplite.getSchemas().toArray(new Schema[0]);
+		Schema[] ba = busCopy.getSchemas().toArray(new Schema[0]);
+
+		for (int i = 0; i < busTemplite.getSchemas().size(); i++) {
+			Schema a = aa[i];
+			Schema b = ba[i];
+
+			assertEquals(a.getKeyName(), b.getKeyName());
+			assertEquals(a.getDescription(), b.getDescription());
+			assertEquals(a.getxSize(), b.getxSize());
+			assertEquals(a.getySize(), b.getySize());
+			assertTrue(a.getSeats().size() == b.getSeats().size());
+
+			assertFalse(a.getId() == b.getId());
+
+			Seat[] asa = a.getSeats().toArray(new Seat[0]);
+			Seat[] bsa = b.getSeats().toArray(new Seat[0]);
+
+			for (int j = 0; j < busTemplite.getSchemas().size(); j++) {
+				Seat as = asa[j];
+				Seat bs = bsa[j];
+
+				assertEquals(as.getDescription(), bs.getDescription());
+				assertEquals(as.getNum(), bs.getNum());
+				assertEquals(as.getSx(), bs.getSx());
+				assertEquals(as.getSy(), bs.getSy());
+
+				assertFalse(as.getId() == bs.getId());
+			}
+		}
+		
+		
+		
 
 	}
 
