@@ -731,6 +731,12 @@ public class TestBusService extends BaseTest {
 		assertTrue(workCopy.getSchemas().size() == busTemplite.getSchemas()
 				.size());
 		assertTrue(workCopy.getSchemas().size() > 0);
+		
+		
+		assertNotNull(workCopy.getSchemas().iterator().next().getSeats());
+		assertNotNull(workCopy.getSchemas().iterator().next().getSeats().iterator());
+		assertNotNull(workCopy.getSchemas().iterator().next().getSeats().iterator().next());
+		//System.out.println(">>>" + busWork1.getSchemas().iterator().next().getSeats().size());
 
 	}
 

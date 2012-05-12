@@ -262,7 +262,7 @@ public class BusService extends ABaseService<Bus> {
 	 * @throws Exception
 	 */
 	@ExceptionHandler(Exception.class)
-	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Bus persistCopy(Bus copy) throws Exception {
 
 		copy = busDAO.persist(copy);
@@ -274,7 +274,7 @@ public class BusService extends ABaseService<Bus> {
 				seat.setSchema(schema);
 				seat = seatService.persist(seat);
 			}
-			
+
 			schema = schemaService.refresh(schema);
 		}
 
@@ -289,7 +289,7 @@ public class BusService extends ABaseService<Bus> {
 	 * @throws Exception
 	 */
 	@ExceptionHandler(Exception.class)
-	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Bus createWorkCopyFromTemplite(Bus templite) throws Exception {
 
 		if (templite.getBssType() != BssType.TEMPLITE) {
