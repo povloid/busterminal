@@ -105,7 +105,7 @@ public class TestOrderService extends BaseTest {
 		order.setBusRouteStopA(busRouteStop12);
 		order.setBusRouteStopB(busRouteStop15);
 
-		System.out.println(">>>" + busWork1.getSchemas().iterator().next().getSeats().size());
+		//System.out.println(">>>" + busWork1.getSchemas().iterator().next().getSeats().size());
 
 		order.setSeat(busWork1.getSchemas().iterator().next().getSeats()
 				.iterator().next());
