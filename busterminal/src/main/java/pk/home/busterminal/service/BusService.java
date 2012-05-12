@@ -19,6 +19,7 @@ import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
 import pk.home.busterminal.domain.Schema;
+import pk.home.busterminal.domain.Seat;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
@@ -32,6 +33,9 @@ public class BusService extends ABaseService<Bus> {
 
 	@Autowired
 	private SchemaService schemaService;
+
+	@Autowired
+	private SeatService seatService;
 
 	@Override
 	public ABaseDAO<Bus> getAbstractBasicDAO() {
@@ -221,6 +225,7 @@ public class BusService extends ABaseService<Bus> {
 
 	/**
 	 * Создание копии автобуса
+	 * 
 	 * @param templite
 	 * @return
 	 * @throws Exception
@@ -238,7 +243,7 @@ public class BusService extends ABaseService<Bus> {
 		busWorkCopy.setTemplite(templite.getTemplite());
 
 		busWorkCopy.setSchemes(new HashSet<Schema>());
-		
+
 		// Копируем колекции
 		for (Schema schema : templite.getSchemas()) {
 			Schema schemaCopy = schemaService.createSchemaCopy(schema);
@@ -247,6 +252,54 @@ public class BusService extends ABaseService<Bus> {
 		}
 
 		return busWorkCopy;
+	}
+
+	/**
+	 * Рекурсивное сохранение копии
+	 * 
+	 * @param copy
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	public Bus persistCopy(Bus copy) throws Exception {
+
+		copy = busDAO.persist(copy);
+
+		for (Schema schema : copy.getSchemas()) {
+			schema = schemaService.persist(schema);
+
+			for (Seat seat : schema.getSeats()) {
+				seat = seatService.persist(seat);
+			}
+		}
+
+		return copy;
+	}
+
+	/**
+	 * Создание рабочей копии
+	 * 
+	 * @param copy
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	public Bus createWorkCopyFromTemplite(Bus templite) throws Exception {
+
+		if (templite.getBssType() != BssType.TEMPLITE) {
+			throw new Exception(
+					"Создать рабочую копию можно только из шаблонной");
+		}
+
+		Bus work = createBusCopy(templite);
+
+		work.setTemplite(templite);
+		work.setBssType(BssType.WORK);
+
+		return persistCopy(work);
 	}
 
 }

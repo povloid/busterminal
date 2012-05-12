@@ -4,7 +4,12 @@
 package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -674,37 +679,53 @@ public class TestBusService extends BaseTest {
 		assertTrue(busTemplite.getSchemas().size() == busCopy.getSchemas()
 				.size());
 
-		Schema[] aa = busTemplite.getSchemas().toArray(new Schema[0]);
-		Schema[] ba = busCopy.getSchemas().toArray(new Schema[0]);
+		Map<String, Schema> smap = new HashMap<String, Schema>();
 
-		for (int i = 0; i < busTemplite.getSchemas().size(); i++) {
-			Schema a = aa[i];
-			Schema b = ba[i];
+		Iterator<Schema> its = busCopy.getSchemas().iterator();
+		while (its.hasNext()) {
+			Schema s = its.next();
+			smap.put(s.getBus().getGosNum() + " - " + s.getKeyName(), s);
+		}
+
+		for (Schema a : busTemplite.getSchemas()) {
+			Schema b = smap
+					.get(a.getBus().getGosNum() + " - " + a.getKeyName());
 
 			assertEquals(a.getKeyName(), b.getKeyName());
 			assertEquals(a.getDescription(), b.getDescription());
-			assertEquals(a.getxSize(), b.getxSize());
-			assertEquals(a.getySize(), b.getySize());
+			assertEquals(a.getxSize().shortValue(), b.getxSize().shortValue());
+			assertEquals(a.getySize().shortValue(), b.getySize().shortValue());
 			assertTrue(a.getSeats().size() == b.getSeats().size());
 
 			assertFalse(a.getId() == b.getId());
 
-			Seat[] asa = a.getSeats().toArray(new Seat[0]);
-			Seat[] bsa = b.getSeats().toArray(new Seat[0]);
+			Map<Short, Seat> ssmap = new HashMap<Short, Seat>();
+			for (Seat s : b.getSeats()) {
+				ssmap.put(s.getNum(), s);
+			}
 
-			for (int j = 0; j < busTemplite.getSchemas().size(); j++) {
-				Seat as = asa[j];
-				Seat bs = bsa[j];
+			for (Seat as : a.getSeats()) {
+				Seat bs = ssmap.get(as.getNum());
 
 				assertEquals(as.getDescription(), bs.getDescription());
-				assertEquals(as.getNum(), bs.getNum());
-				assertEquals(as.getSx(), bs.getSx());
-				assertEquals(as.getSy(), bs.getSy());
+
+				System.out.println(">>>>>" + as.getNum() + " - " + bs.getNum());
+
+				assertEquals(as.getNum().shortValue(), bs.getNum().shortValue());
+				assertEquals(as.getSx().shortValue(), bs.getSx().shortValue());
+				assertEquals(as.getSy().shortValue(), bs.getSy().shortValue());
 
 				assertFalse(as.getId() == bs.getId());
 			}
 		}
-		
+
+		busCopy = busService.persistCopy(busCopy);
+
+		Bus workCopy = busService.createWorkCopyFromTemplite(busTemplite);
+
+		assertTrue(workCopy.getId() != null && workCopy.getId() > 0);
+		assertFalse(workCopy.getId() == busTemplite.getId());
+		assertTrue(workCopy.getBssType() == BssType.WORK);
 		
 		
 
