@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="busSelectOne">
+
+	<secured attributes="ROLE_USER" />
+
+	<var name="busSelectOneWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.BusSelectOneWFControl" />
+
+	<input name="retUrl" type="java.lang.String" />
+
+	<view-state id="busSelectOne">
+		<transition on="select" to="end" />
+		<transition on="cancel" to="end" />
+		<transition on-exception="java.lang.Exception" to="busSelectOne" />
+	</view-state>
+
+
+	<!-- END -->
+
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+		<output name="selectedId" value="busSelectOneWFControl.selectedId"/>
+	</end-state>
+
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+		<output name="selectedId" value="busSelectOneWFControl.selectedId"/>
+	</end-state>
+
+</flow>

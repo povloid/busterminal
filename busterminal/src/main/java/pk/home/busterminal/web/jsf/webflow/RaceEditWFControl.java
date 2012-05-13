@@ -51,6 +51,10 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
 	}
+	
+	
+	
+	
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
