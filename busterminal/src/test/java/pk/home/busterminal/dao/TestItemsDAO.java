@@ -98,14 +98,15 @@ public class TestItemsDAO extends BaseTest {
 		order.setBusRouteStopA(busRouteStop11);
 		order.setBusRouteStopB(busRouteStop15);
 
-		order.setSeat(seat1);
+		order.setSeat(busWork1.getSchemas().iterator().next().getSeats()
+				.iterator().next());
 
 		order.setUserAccount(userAccount);
 		order.setCustomer(customer1);
 
 		order.setActualPrice(new BigDecimal(1000));
 
-		order = orderService.persist(order);
+		order = orderService.createTicketSaleOrder(order);
 
 		return order;
 	}

@@ -99,7 +99,8 @@ public class TestOrderDAO extends BaseTest {
 		order.setBusRouteStopA(busRouteStop11);
 		order.setBusRouteStopB(busRouteStop16);
 
-		order.setSeat(seat1);
+		order.setSeat(busWork1.getSchemas().iterator().next().getSeats()
+				.iterator().next());
 
 		order.setUserAccount(userAccount);
 		order.setCustomer(customer1);
