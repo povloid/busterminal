@@ -72,7 +72,9 @@ public class Bus implements Serializable {
 
 	@OneToMany(mappedBy = "bus")
 	private Set<Schema> schemas;
-	
+
+	@ManyToOne
+	private Race race;
 
 	// check
 	// -----------------------------------------------------------------------------------------------------------
@@ -156,6 +158,14 @@ public class Bus implements Serializable {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
 	}
 
 	@Override

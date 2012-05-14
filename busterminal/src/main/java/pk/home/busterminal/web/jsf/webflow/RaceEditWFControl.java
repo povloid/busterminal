@@ -72,7 +72,7 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 
 	public void setBus(long id) throws Exception {
 		Bus templite = getBusService().find(id);
-		edited.setBus(getBusService().createWorkCopyFromTemplite(templite));
+		edited = getRaceService().setBusWorkCopy(edited, templite);
 	}
 
 	// ...

@@ -49,7 +49,7 @@ public class RaceService extends ABaseService<Race> {
 			throw new Exception("Автобус должен иметь тип TEMPLITE");
 		// ....
 
-		Bus busWorkCopy = busService.createBusCopy(busTemplite);
+		Bus busWorkCopy = busService.createWorkCopyFromTemplite(busTemplite);
 
 		race.setBus(busWorkCopy);
 
@@ -60,14 +60,20 @@ public class RaceService extends ABaseService<Race> {
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Race persist(Race o) throws Exception {
-		return super.persist(o);
+		o = super.persist(o);
+		o.getBus().setRace(o);
+		busService.merge(o.getBus()); // Так как он уже существует
+		return o;
 	}
 
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Race merge(Race o) throws Exception {
-		return super.merge(o);
+		o = super.merge(o);
+		o.getBus().setRace(o);
+		busService.merge(o.getBus());
+		return o;
 	}
 
 	@Override
