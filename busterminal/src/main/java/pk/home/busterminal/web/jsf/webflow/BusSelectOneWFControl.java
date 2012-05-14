@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.model.SortOrder;
 
+import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.service.BusService;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
@@ -37,14 +38,16 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 
 		@Override
 		protected int count() throws Exception {
-			return (int) getBusService().count();
+			//return (int) getBusService().count();
+			return (int) getBusService().count(BssType.TEMPLITE);
 		}
 
 		@Override
 		protected List<Bus> aload(int first, int pageSize,
 				String sortField, SortOrder sortOrder,
 				Map<String, String> filters) throws Exception {
-			return getBusService().getAllEntities(first, pageSize);
+			//return getBusService().getAllEntities(first, pageSize);
+			return getBusService().getAllEntities(BssType.TEMPLITE);
 		}
 
 		@Override
