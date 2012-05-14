@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
-	
+
 	<secured attributes="ROLE_USER" />
 
 	<var name="raceEditWFControl" class="pk.home.busterminal.web.jsf.webflow.RaceEditWFControl" />
@@ -25,8 +25,7 @@
 	</decision-state>
 
 	<action-state id="newEdited">
-		<evaluate expression="raceEditWFControl.newEdited()"
-			result="raceEditWFControl.edited" />
+		<evaluate expression="raceEditWFControl.newEdited()" result="raceEditWFControl.edited" />
 		<transition to="addEditDel"></transition>
 	</action-state>
 
@@ -54,9 +53,9 @@
 
 	<view-state id="raceEdit">
 		<on-entry>
-			<evaluate expression="raceEditWFControl.init()"/>
+			<evaluate expression="raceEditWFControl.init()" />
 		</on-entry>
-	
+
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
@@ -64,12 +63,27 @@
 			<set name="id" value="raceEditWFControl.edited.id" type="java.lang.Long" />
 		</transition>
 		<transition on="editComplite" to="raceEdit" />
+		<transition on="selectBus" to="selectBus" />
 		<transition on="editCompliteAndClose" to="end" />
 		<transition on="delComplite" to="end"></transition>
 
 		<transition on="error" to="raceEdit"></transition>
 		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
 	</view-state>
+
+
+	<!-- SELECT BUS STOP -->
+
+
+	<subflow-state id="selectBus" subflow="buses/selectOne">
+		<transition to="raceEdit">
+			<evaluate
+				expression="raceEditWFControl.setBus(currentEvent.attributes.selectedId)" />
+		</transition>
+	</subflow-state>
+
+
+	<!-- END -->
 
 
 	<decision-state id="end">
@@ -79,8 +93,8 @@
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
 	</end-state>
-	
-	
+
+
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
 </flow>

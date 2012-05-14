@@ -3,12 +3,12 @@ package pk.home.busterminal.web.jsf.webflow;
 import java.io.Serializable;
 
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.service.BusService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
 /**
- * JSF edit control class for entity class: Race
- * Race - рейс
+ * JSF edit control class for entity class: Race Race - рейс
  */
 public class RaceEditWFControl extends AWFControl<Race, Long> implements
 		Serializable {
@@ -32,6 +32,10 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 		return (RaceService) findBean("raceService");
 	}
 
+	public BusService getBusService() {
+		return (BusService) findBean("busService");
+	}
+
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		edited = getRaceService().persist(edited);
@@ -51,10 +55,17 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
 	}
-	
-	
-	
-	
+
+	// actions
+	// -------------------------------------------------------------------------------------------------
+
+	public String selectBus() {
+		return "selectBus";
+	}
+
+	public void setBus(long id) throws Exception {
+		edited.setBus(getBusService().find(id));
+	}
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------

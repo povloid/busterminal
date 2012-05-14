@@ -36,13 +36,18 @@
 					<h:outputText value="#{raceEditWFControl.edited.id}"
 						rendered="#{raceEditWFControl.edited.id != null}" />
 
+					<h:outputText value="Автобус"></h:outputText>
+					<h:panelGroup>
+						<p:commandButton action="#{raceEditWFControl.selectBus}"
+							value="Выбрать..."></p:commandButton>
+						<h:outputText value="#{raceEditWFControl.edited.bus.keyName}"></h:outputText>
+					</h:panelGroup>
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{raceEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
 				</h:panelGrid>
 
 				<br />
