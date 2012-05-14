@@ -22,6 +22,42 @@
 	<ui:define name="header">
 		<pk:pk_dialog_caption_text add_view="#{add}" edit_view="#{edit}"
 			del_view="#{del}" caption="рейс" />
+
+		<script language="javascript">
+			PrimeFaces.locales['ru'] = {
+				closeText : 'Закрыть',
+				prevText : 'Назад',
+				nextText : 'Вперёд',
+				monthNames : [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май',
+						'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь',
+						'Ноябрь', 'Декабрь' ],
+				monthNamesShort : [ 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+						'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+				dayNames : [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
+						'Четверг', 'Пятница', 'Субота' ],
+				dayNamesShort : [ 'Воск', 'Пон', 'Вт', 'Ср', 'Четв', 'Пят',
+						'Суб' ],
+				dayNamesMin : [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
+				weekHeader : 'Неделя',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Только время',
+				timeText : 'Время',
+				hourText : 'Час',
+				minuteText : 'Минута',
+				secondText : 'Секунда',
+				currentText : 'Сегодня',
+				ampm : false,
+				month : 'Месяц',
+				week : 'неделя',
+				day : 'День',
+				allDayText : 'Весь день'
+			};
+		</script>
+
+
 	</ui:define>
 
 	<ui:define name="content">
@@ -50,10 +86,11 @@
 							value="Выбрать..."></p:commandButton>
 						<h:outputText value="#{raceEditWFControl.edited.busRoute.keyName}"></h:outputText>
 					</h:panelGroup>
-					
+
 					<h:outputText value="Время отправления:"></h:outputText>
-					<p:calendar value="#{raceEditWFControl.edited.dTime}" pattern="dd.MM.yyyy HH:mm" locale="ru"/>  
-					
+					<p:calendar value="#{raceEditWFControl.edited.dTime}"
+						pattern="dd.MM.yyyy HH:mm" locale="ru" />
+
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
