@@ -72,7 +72,7 @@ public class RaceService extends ABaseService<Race> {
 	public Race merge(Race o) throws Exception {
 		o = super.merge(o);
 		o.getBus().setRace(o);
-		busService.merge(o.getBus());
+		busService.merge(o.getBus()); // Так как он уже существует
 		return o;
 	}
 
