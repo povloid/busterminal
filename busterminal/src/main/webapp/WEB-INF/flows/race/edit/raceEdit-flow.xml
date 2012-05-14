@@ -64,6 +64,7 @@
 		</transition>
 		<transition on="editComplite" to="raceEdit" />
 		<transition on="selectBus" to="selectBus" />
+		<transition on="selectBusRoute" to="selectBusRoute" />
 		<transition on="editCompliteAndClose" to="end" />
 		<transition on="delComplite" to="end"></transition>
 
@@ -80,7 +81,22 @@
 			<evaluate
 				expression="raceEditWFControl.setBus(currentEvent.attributes.selectedId)" />
 		</transition>
+		<transition on-exception="java.lang.Exception" to="raceEdit" />
 	</subflow-state>
+
+
+
+	<!-- SELECT BUSROUTE STOP -->
+
+
+	<subflow-state id="selectBusRoute" subflow="busRoute/selectOne">
+		<transition to="raceEdit">
+			<evaluate
+				expression="raceEditWFControl.setBusRoute(currentEvent.attributes.selectedId)" />
+		</transition>
+		<transition on-exception="java.lang.Exception" to="raceEdit" />
+	</subflow-state>
+
 
 
 	<!-- END -->

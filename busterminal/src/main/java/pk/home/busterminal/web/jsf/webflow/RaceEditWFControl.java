@@ -2,7 +2,9 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 
+import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.service.BusRouteService;
 import pk.home.busterminal.service.BusService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
@@ -36,6 +38,10 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 		return (BusService) findBean("busService");
 	}
 
+	public BusRouteService getBusRouteService() {
+		return (BusRouteService) findBean("busRouteService");
+	}
+
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		edited = getRaceService().persist(edited);
@@ -59,13 +65,27 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 	// actions
 	// -------------------------------------------------------------------------------------------------
 
+	// Bus
 	public String selectBus() {
 		return "selectBus";
 	}
 
 	public void setBus(long id) throws Exception {
-		edited.setBus(getBusService().find(id));
+		Bus templite = getBusService().find(id);
+		edited.setBus(getBusService().createWorkCopyFromTemplite(templite));
 	}
+
+	// ...
+
+	// BusRoute
+	public String selectBusRoute() {
+		return "selectBusRoute";
+	}
+
+	public void setBusRoute(long id) throws Exception {
+		edited.setBusRoute(getBusRouteService().find(id));
+	}
+	// ...
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------

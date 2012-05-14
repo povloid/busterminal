@@ -233,25 +233,27 @@ public class BusService extends ABaseService<Bus> {
 	@ExceptionHandler(Exception.class)
 	@Transactional(readOnly = true, rollbackFor = Exception.class)
 	public Bus createBusCopy(Bus templite) throws Exception {
-		Bus busWorkCopy = new Bus();
+		templite = findWithLazy(templite.getId()); // !
+
+		Bus busCopy = new Bus();
 
 		// Копируем простые поля
-		busWorkCopy.setBssType(templite.getBssType());
-		busWorkCopy.setDescription(templite.getDescription());
-		busWorkCopy.setGosNum(templite.getGosNum());
-		busWorkCopy.setKeyName(templite.getKeyName());
-		busWorkCopy.setTemplite(templite.getTemplite());
+		busCopy.setBssType(templite.getBssType());
+		busCopy.setDescription(templite.getDescription());
+		busCopy.setGosNum(templite.getGosNum());
+		busCopy.setKeyName(templite.getKeyName());
+		busCopy.setTemplite(templite.getTemplite());
 
-		busWorkCopy.setSchemes(new HashSet<Schema>());
+		busCopy.setSchemes(new HashSet<Schema>());
 
 		// Копируем колекции
 		for (Schema schema : templite.getSchemas()) {
 			Schema schemaCopy = schemaService.createSchemaCopy(schema);
-			schemaCopy.setBus(busWorkCopy);
-			busWorkCopy.getSchemas().add(schemaCopy);
+			schemaCopy.setBus(busCopy);
+			busCopy.getSchemas().add(schemaCopy);
 		}
 
-		return busWorkCopy;
+		return busCopy;
 	}
 
 	/**
@@ -281,6 +283,7 @@ public class BusService extends ABaseService<Bus> {
 		return copy;
 	}
 
+	
 	/**
 	 * Создание рабочей копии
 	 * 
