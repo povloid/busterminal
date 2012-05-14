@@ -10,8 +10,7 @@ import pk.home.busterminal.service.RaceService;
 import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
- * JSF view control class for entity class: Race
- * Race - рейс
+ * JSF view control class for entity class: Race Race - рейс
  */
 public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 		Serializable {
@@ -27,32 +26,35 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 
 	@Override
 	protected void aInit() throws Exception {
-		
+
 		SingularAttribute<Race, ?> orderByAttribute = Race_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Race_.id;
-		} 
-		
+		}
+
+		if (csortField != null && csortField.equals("dTime")) {
+			orderByAttribute = Race_.dTime;
+		}
+
 		dataModel = getRaceService().getAllEntities((page - 1) * rows, rows,
 				orderByAttribute, getSortOrderType());
 	}
 
 	@Override
-	protected long initAllRowsCount() throws Exception {		
+	protected long initAllRowsCount() throws Exception {
 		return getRaceService().count();
 	}
-	
-	
-	public String add(){
+
+	public String add() {
 		return "add";
 	}
-	
-	public String edit(){
+
+	public String edit() {
 		return "edit";
 	}
-	
-	public String del(){
+
+	public String del() {
 		return "del";
 	}
-	
+
 }

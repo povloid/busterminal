@@ -24,8 +24,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{raceViewControl.init}" />
+			<f:event type="preRenderView" listener="#{raceViewControl.init}" />
 			<f:viewParam name="ppage" value="#{raceViewControl.page}" />
 			<f:viewParam name="prows" value="#{raceViewControl.prows}" />
 			<f:viewParam name="pcsortField"
@@ -38,9 +37,9 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-			<pk:pk_add_button_wf add_action="#{raceViewControl.add}"/>
+			<pk:pk_add_button_wf add_action="#{raceViewControl.add}" />
 
-			<p:dataTable id="table1" var="row" 
+			<p:dataTable id="table1" var="row"
 				value="#{raceViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
 
@@ -65,15 +64,37 @@
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
-				<p:column headerText="Описание" >
-					<h:outputText value="#{row.description}" />
+				<p:column style="width: 210px; text-align: left;">
+					<f:facet name="header">
+						<pk:pktsortorder field="dTime"
+							csortOrder="#{raceViewControl.csortOrder}"
+							csortField="#{raceViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.dTime}"
+						style="font-weight: bold; font-size:large">
+						<f:convertDateTime type="both" />
+					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Действие" style="width: 100px; text-align: center;">
+
+				<p:column headerText="Описание">
+
+					<h:outputText value="Маршрут: " style="font-weight: bold" />
+					<h:outputText value="#{row.busRoute.keyName}" />
+					<br />
+					<h:outputText value="Автобус: " style="font-weight: bold" />
+					<h:outputText value="#{row.bus.keyName} - #{row.bus.gosNum}" />
+					<br />
+					<h:outputText value="Пометки: " style="font-weight: bold" />
+					<h:outputText value="#{row.description}" />
+
+				</p:column>
+
+				<p:column headerText="Действие"
+					style="width: 100px; text-align: center;">
 					<pk:pktable_crud_column_buttons_wf
 						edit_action="#{raceViewControl.edit}"
-						del_action="#{raceViewControl.del}"
-						show_view_button="true"
+						del_action="#{raceViewControl.del}" show_view_button="true"
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{raceViewControl.selected}" row="#{row}" />
 				</p:column>
@@ -109,8 +130,7 @@
 
 					<h:outputText value="Description:" />
 					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText
-							value="#{raceViewControl.selected.description}"
+						<h:outputText value="#{raceViewControl.selected.description}"
 							escape="false" />
 					</p:scrollPanel>
 
