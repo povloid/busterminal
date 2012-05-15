@@ -81,6 +81,10 @@ public class Seat implements Serializable {
 	// Цена
 	private BigDecimal price;
 
+	// Тип места
+	@ManyToOne
+	private SeatType seatType;
+
 	public Long getId() {
 		return id;
 	}
@@ -151,6 +155,14 @@ public class Seat implements Serializable {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public SeatType getSeatType() {
+		return seatType;
+	}
+
+	public void setSeatType(SeatType seatType) {
+		this.seatType = seatType;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -655,6 +656,8 @@ public class TestBusService extends BaseTest {
 		seat1.setSx((short) 1);
 		seat1.setSy((short) 1);
 		seat1.setSchema(schema1);
+		seat1.setMasterProcent(10);
+		seat1.setPrice(new BigDecimal(8000));
 		seat1 = seatService.persist(seat1);
 
 		seat2 = new Seat();
@@ -662,6 +665,8 @@ public class TestBusService extends BaseTest {
 		seat2.setSx((short) 1);
 		seat2.setSy((short) 2);
 		seat2.setSchema(schema1);
+		seat2.setMasterProcent(101);
+		seat2.setPrice(new BigDecimal(8001));
 		seat2 = seatService.persist(seat2);
 
 		schema1 = schemaService.refresh(schema1);
@@ -715,6 +720,8 @@ public class TestBusService extends BaseTest {
 				assertEquals(as.getNum().shortValue(), bs.getNum().shortValue());
 				assertEquals(as.getSx().shortValue(), bs.getSx().shortValue());
 				assertEquals(as.getSy().shortValue(), bs.getSy().shortValue());
+				assertEquals(as.getPrice(), bs.getPrice());
+				assertEquals(as.getMasterProcent(), bs.getMasterProcent());
 
 				assertFalse(as.getId() == bs.getId());
 			}
@@ -731,12 +738,14 @@ public class TestBusService extends BaseTest {
 		assertTrue(workCopy.getSchemas().size() == busTemplite.getSchemas()
 				.size());
 		assertTrue(workCopy.getSchemas().size() > 0);
-		
-		
+
 		assertNotNull(workCopy.getSchemas().iterator().next().getSeats());
-		assertNotNull(workCopy.getSchemas().iterator().next().getSeats().iterator());
-		assertNotNull(workCopy.getSchemas().iterator().next().getSeats().iterator().next());
-		//System.out.println(">>>" + busWork1.getSchemas().iterator().next().getSeats().size());
+		assertNotNull(workCopy.getSchemas().iterator().next().getSeats()
+				.iterator());
+		assertNotNull(workCopy.getSchemas().iterator().next().getSeats()
+				.iterator().next());
+		// System.out.println(">>>" +
+		// busWork1.getSchemas().iterator().next().getSeats().size());
 
 	}
 

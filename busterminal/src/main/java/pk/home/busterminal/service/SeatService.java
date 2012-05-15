@@ -168,6 +168,9 @@ public class SeatService extends ABaseService<Seat> {
 		seatCopy.setSx(seat.getSx());
 		seatCopy.setSy(seat.getSy());
 		seatCopy.setSchema(seat.getSchema());
+		seatCopy.setSeatType(seat.getSeatType());
+		seatCopy.setMasterProcent(seat.getMasterProcent());
+		seatCopy.setPrice(seat.getPrice());
 
 		return seatCopy;
 	}
