@@ -24,8 +24,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{seatTypeViewControl.init}" />
+			<f:event type="preRenderView" listener="#{seatTypeViewControl.init}" />
 			<f:viewParam name="ppage" value="#{seatTypeViewControl.page}" />
 			<f:viewParam name="prows" value="#{seatTypeViewControl.prows}" />
 			<f:viewParam name="pcsortField"
@@ -39,9 +38,9 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
 
-			<pk:pk_add_button_wf add_action="#{seatTypeViewControl.add}"/>
+			<pk:pk_add_button_wf add_action="#{seatTypeViewControl.add}" />
 
-			<p:dataTable id="table1" var="row" 
+			<p:dataTable id="table1" var="row"
 				value="#{seatTypeViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
 
@@ -75,15 +74,21 @@
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 
-				<p:column headerText="Описание" >
+
+				<p:column headerText="Продаваемое">
+					<h:outputText
+						value="#{empty row.sold or row.sold eq false ? 'нет' : 'да'}" />
+				</p:column>
+
+				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />
 				</p:column>
 
-				<p:column headerText="Действие" style="width: 100px; text-align: center;">
+				<p:column headerText="Действие"
+					style="width: 100px; text-align: center;">
 					<pk:pktable_crud_column_buttons_wf
 						edit_action="#{seatTypeViewControl.edit}"
-						del_action="#{seatTypeViewControl.del}"
-						show_view_button="true"
+						del_action="#{seatTypeViewControl.del}" show_view_button="true"
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{seatTypeViewControl.selected}" row="#{row}" />
 				</p:column>
@@ -123,8 +128,7 @@
 
 					<h:outputText value="Description:" />
 					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText
-							value="#{seatTypeViewControl.selected.description}"
+						<h:outputText value="#{seatTypeViewControl.selected.description}"
 							escape="false" />
 					</p:scrollPanel>
 

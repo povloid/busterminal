@@ -42,6 +42,12 @@
 						title="Username" readonly="#{del}" required="true"
 						requiredMessage="The username field is required." />
 
+
+					<h:outputLabel value="Продаваемое:" />
+					<p:selectBooleanCheckbox
+						value="#{seatTypeEditWFControl.edited.sold}" readonly="#{del}" />
+
+
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{seatTypeEditWFControl.edited.description}"
