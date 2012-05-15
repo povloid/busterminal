@@ -6,12 +6,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import pk.home.libs.combine.dao.ABaseDAO;
-import pk.home.libs.combine.service.ABaseService;
 import pk.home.busterminal.dao.RaceDAO;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Race;
+import pk.home.libs.combine.dao.ABaseDAO;
+import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: Race Race - рейс
@@ -79,8 +79,30 @@ public class RaceService extends ABaseService<Race> {
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void remove(Race object) throws Exception {
-		super.remove(object);
+	public void remove(Race race) throws Exception {
+		//race = find(race.getId());
+
+		Bus bus = race.getBus();
+
+		/*
+		 * List<Race> list = getAllEntities(); for(Race r: list){
+		 * if(bus.equals(r.getBus())){ System.out.println("1>>>>>>>>>>>>>>>>" +
+		 * r); } }
+		 */
+
+		bus.setRace(null);
+		bus = busService.merge(bus);
+
+		super.remove(race);
+
+		/*
+		 * list = getAllEntities(); for(Race r: list){
+		 * if(bus.equals(r.getBus())){ System.out.println("2>>>>>>>>>>>>>>>>" +
+		 * r); } }
+		 */
+
+		busService.remove(bus);
+
 	}
 
 }

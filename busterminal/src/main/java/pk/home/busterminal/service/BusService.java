@@ -110,7 +110,24 @@ public class BusService extends ABaseService<Bus> {
 				throw new Exception(
 						"У шаблонов поля keyName и gosNum должно быть уникальным");
 		}
+	}
 
+	/**
+	 * Удаление - рекурсивное
+	 */
+	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void remove(Bus object) throws Exception {
+		if (object.getSchemas() != null)
+			for (Schema schema : object.getSchemas()) {
+				if (schema.getSeats() != null)
+					for (Seat seat : schema.getSeats()) {
+						seatService.remove(seat);
+					}
+				schemaService.remove(schema);
+			}
+		super.remove(object);
 	}
 
 	// SELECT
@@ -283,7 +300,6 @@ public class BusService extends ABaseService<Bus> {
 		return copy;
 	}
 
-	
 	/**
 	 * Создание рабочей копии
 	 * 

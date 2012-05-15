@@ -423,7 +423,7 @@ public class TestRaceService extends BaseTest {
 
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
-		race.setBus(busWork1);
+		race.setBus(busWork2);
 		race.setBusRoute(busRoute1);
 		race = service.persist(race);
 
