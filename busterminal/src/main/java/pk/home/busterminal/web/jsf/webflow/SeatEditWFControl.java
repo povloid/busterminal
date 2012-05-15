@@ -1,6 +1,7 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
@@ -16,15 +17,14 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	private Long schemaId;
 	private Schema schema;
-	
+
 	private boolean blockXY;
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
 	}
@@ -33,8 +33,6 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 		return (SchemaService) findBean("schemaService");
 	}
 
-	
-
 	@Override
 	public Seat findEdited(Long id) throws Exception {
 		return getSeatService().find(id);
@@ -42,10 +40,12 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	@Override
 	public Seat newEdited() throws Exception {
-		return new Seat();
+		Seat seat = new Seat();
+		seat.setMasterProcent(100);
+		seat.setPrice(new BigDecimal(0));
+		return seat;
 	}
 
-	
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		edited.setSchema(schema);
@@ -54,7 +54,7 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	@Override
 	protected void confirmEditImpl() throws Exception {
-		//edited.setSchema(schema);
+		// edited.setSchema(schema);
 		edited = getSeatService().merge(edited);
 	}
 
@@ -66,9 +66,9 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	// init
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
-		if(schemaId != null)
+		if (schemaId != null)
 			schema = getSchemaService().find(schemaId);
-		else if(edited != null && edited.getSchema() != null) {
+		else if (edited != null && edited.getSchema() != null) {
 			schema = edited.getSchema();
 		}
 	}
@@ -99,9 +99,5 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	public void setBlockXY(boolean blockXY) {
 		this.blockXY = blockXY;
 	}
-	
-	
-	
-	
 
 }

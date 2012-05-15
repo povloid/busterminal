@@ -56,6 +56,15 @@
 					<p:spinner value="#{seatEditWFControl.edited.sy}"
 						readonly="#{seatEditWFControl.blockXY}" min="0" />
 
+					<h:outputLabel value="Мастер процент:" />
+					<p:spinner value="#{seatEditWFControl.edited.masterProcent}"
+						suffix="%" readonly="#{seatEditWFControl.blockXY}" min="0" />
+
+					<h:outputLabel value="Цена:" />
+					<p:spinner value="#{seatEditWFControl.edited.price}" suffix=" у.е."
+						readonly="#{seatEditWFControl.blockXY}" min="0" />
+
+
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{seatEditWFControl.edited.description}"
