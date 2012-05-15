@@ -44,22 +44,23 @@
 
 					<h:outputLabel for="pwd1" value="Password 1: *" />
 					<p:password id="pwd1" value="#{userAccountWFControl.password}"
-						match="pwd2" label="Password 1" required="#{add}" readonly="#{del}"/>
+						feedback="true" match="pwd2" label="Password 1" required="#{add}"
+						readonly="#{del}" />
 
 					<h:outputLabel for="pwd2" value="Password 2: *" />
 					<p:password id="pwd2" value="#{userAccountWFControl.password}"
-						label="Password 2" required="#{add}" readonly="#{del}"/>
-							
+						feedback="true" label="Password 2" required="#{add}"
+						readonly="#{del}" />
+
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{userAccountWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
+
 					<h:outputLabel value="Roles:" />
 					<p:pickList value="#{userAccountWFControl.roles}" var="role"
-						readonly="#{del}" itemLabel="#{role}"
-						itemValue="#{role}" />
+						readonly="#{del}" itemLabel="#{role}" itemValue="#{role}" />
 
 				</h:panelGrid>
 

@@ -1,6 +1,7 @@
 package pk.home.busterminal.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,6 +75,11 @@ public class Seat implements Serializable {
 	private Short sx;
 	private Short sy;
 
+	// Мастер процент
+	private Integer masterProcent;
+
+	// Цена
+	private BigDecimal price;
 
 	public Long getId() {
 		return id;
@@ -129,6 +135,22 @@ public class Seat implements Serializable {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public Integer getMasterProcent() {
+		return masterProcent;
+	}
+
+	public void setMasterProcent(Integer masterProcent) {
+		this.masterProcent = masterProcent;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	@Override
