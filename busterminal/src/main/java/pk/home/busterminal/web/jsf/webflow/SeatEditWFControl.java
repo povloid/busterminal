@@ -2,11 +2,14 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.domain.SeatType;
 import pk.home.busterminal.service.SchemaService;
 import pk.home.busterminal.service.SeatService;
+import pk.home.busterminal.service.SeatTypeService;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
 /**
@@ -27,6 +30,10 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
+	}
+
+	public SeatTypeService getSeatTypeService() {
+		return (SeatTypeService) findBean("seatTypeService");
 	}
 
 	public SchemaService getSchemaService() {
@@ -71,6 +78,17 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 		else if (edited != null && edited.getSchema() != null) {
 			schema = edited.getSchema();
 		}
+
+		initSeatTypes();
+	}
+
+	// ------
+
+	private List<SeatType> seatTypes;
+	private long seatTypeId;
+
+	private void initSeatTypes() throws Exception {
+		seatTypes = getSeatTypeService().getAllEntities();
 	}
 
 	// gets and sets
@@ -98,6 +116,22 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	public void setBlockXY(boolean blockXY) {
 		this.blockXY = blockXY;
+	}
+
+	public List<SeatType> getSeatTypes() {
+		return seatTypes;
+	}
+
+	public void setSeatTypes(List<SeatType> seatTypes) {
+		this.seatTypes = seatTypes;
+	}
+
+	public long getSeatTypeId() {
+		return seatTypeId;
+	}
+
+	public void setSeatTypeId(long seatTypeId) {
+		this.seatTypeId = seatTypeId;
 	}
 
 }
