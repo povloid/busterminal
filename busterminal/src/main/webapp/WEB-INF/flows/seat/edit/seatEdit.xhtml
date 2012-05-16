@@ -55,10 +55,14 @@
 					<h:outputLabel value="y:" />
 					<p:spinner value="#{seatEditWFControl.edited.sy}"
 						readonly="#{seatEditWFControl.blockXY}" min="0" />
-						
+
 					<h:outputLabel value="тип места:" />
-					
-						
+					<p:selectOneMenu value="#{seatEditWFControl.seatTypeId}"
+						rendered="true">
+						<f:selectItems value="#{seatEditWFControl.seatTypes}" var="row"
+							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					</p:selectOneMenu>
+
 
 					<h:outputLabel value="Мастер процент:" />
 					<p:spinner value="#{seatEditWFControl.edited.masterProcent}"

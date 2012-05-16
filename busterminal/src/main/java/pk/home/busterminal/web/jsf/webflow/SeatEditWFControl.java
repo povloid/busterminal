@@ -85,10 +85,24 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	// ------
 
 	private List<SeatType> seatTypes;
-	private long seatTypeId;
 
 	private void initSeatTypes() throws Exception {
 		seatTypes = getSeatTypeService().getAllEntities();
+	}
+
+	public long getSeatTypeId() {
+		if (edited != null && edited.getSeatType() != null)
+			return edited.getSeatType().getId();
+		else
+			return 0;
+	}
+
+	public void setSeatTypeId(long seatTypeId) {
+		try {
+			this.edited.setSeatType(getSeatTypeService().find(seatTypeId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// gets and sets
@@ -124,14 +138,6 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	public void setSeatTypes(List<SeatType> seatTypes) {
 		this.seatTypes = seatTypes;
-	}
-
-	public long getSeatTypeId() {
-		return seatTypeId;
-	}
-
-	public void setSeatTypeId(long seatTypeId) {
-		this.seatTypeId = seatTypeId;
 	}
 
 }
