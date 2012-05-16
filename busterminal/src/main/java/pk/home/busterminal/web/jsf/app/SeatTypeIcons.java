@@ -80,8 +80,8 @@ public class SeatTypeIcons {
 	 * @param seat
 	 * @return
 	 */
-	public String getIconFromSeat(Seat seat, String suffix) {
-		if (seat.getSeatType() != null)
+	public static String getIconFromSeat(Seat seat, String suffix) {
+		if (seat != null && seat.getSeatType() != null)
 			return getIconFromSeatType(seat.getSeatType(), suffix);
 		else
 			return "not icon";
@@ -93,7 +93,7 @@ public class SeatTypeIcons {
 	 * @param seatType
 	 * @return
 	 */
-	public String getIconFromSeatType(SeatType seatType, String suffix) {
+	public static String getIconFromSeatType(SeatType seatType, String suffix) {
 		if (seatType.getSeatIcon() != null)
 			return picsFiles.get(seatType.getSeatIcon()) + suffix;
 		else

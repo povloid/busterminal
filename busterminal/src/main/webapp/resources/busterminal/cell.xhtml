@@ -25,18 +25,18 @@
 
 </cc:interface>
 <cc:implementation>
-	<table
-		style="width: 150px; height: 20px; border-spacing: 0px;"
-		 border="0">
+	<table style="width: 128px; height: 20px; border-spacing: 0px;"
+		border="0">
 		<tr>
-			<td valign="top" ><b><h:outputText
+			<td valign="top"><b><h:outputText
 						value="#{cc.attrs.cell.index}" /></b> <h:outputText
 					value=" - x=#{cc.attrs.cell.x} y=#{cc.attrs.cell.y}" /></td>
 		</tr>
 	</table>
 	<table
-		style="width: 150px; height: 130px; border-spacing: 0px; border-radius: 20px"
-		bgcolor="#{cc.attrs.cell.seat != null ? '#777' : '#fff'}" border="0">
+		style="width: 128px; height: 112px; border-spacing: 0px; border-radius: 20px; 
+		background-image: url(#{request.contextPath}#{cc.attrs.cell.icon})"
+		border="0">
 		<tr>
 			<td valign="top" align="left"><p:commandButton
 					rendered="#{cc.attrs.cell.seat == null}" icon="ui-icon add"
@@ -69,9 +69,12 @@
 			<td valign="middle" height="100%"><h:panelGrid columns="2"
 					rendered="#{cc.attrs.cell.seat != null}">
 					<h:outputText value="№:" style="font-size: 24px; color: white"></h:outputText>
-					<h:outputText value="#{cc.attrs.cell.seat.num}" style="font-size: 24px; ; color: white"></h:outputText>
-					<h:outputText value="Цена:" style="font-size: 16px; ; color: yellow"></h:outputText>
-					<h:outputText value="1000 у.е." style="font-size: 16px; ; color: yellow"></h:outputText>
+					<h:outputText value="#{cc.attrs.cell.seat.num}"
+						style="font-size: 24px; ; color: white"></h:outputText>
+					<h:outputText value="Цена:"
+						style="font-size: 16px; ; color: yellow"></h:outputText>
+					<h:outputText value="1000 у.е."
+						style="font-size: 16px; ; color: yellow"></h:outputText>
 				</h:panelGrid></td>
 		</tr>
 	</table>
