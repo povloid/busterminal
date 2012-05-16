@@ -7,8 +7,7 @@ import pk.home.busterminal.service.SeatTypeService;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
 /**
- * JSF edit control class for entity class: SeatType
- * SeatType - тип места
+ * JSF edit control class for entity class: SeatType SeatType - тип места
  */
 public class SeatTypeEditWFControl extends AWFControl<SeatType, Long> implements
 		Serializable {
@@ -52,7 +51,6 @@ public class SeatTypeEditWFControl extends AWFControl<SeatType, Long> implements
 	protected void init0() throws Exception {
 	}
 
-	// gets and sets
-	// ---------------------------------------------------------------------------------------------------
+	
 
 }

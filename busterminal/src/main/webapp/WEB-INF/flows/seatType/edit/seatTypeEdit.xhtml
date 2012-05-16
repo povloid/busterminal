@@ -47,6 +47,20 @@
 					<p:selectBooleanCheckbox
 						value="#{seatTypeEditWFControl.edited.sold}" readonly="#{del}" />
 
+					<h:outputLabel value="Иконка:" />
+					<h:panelGroup>
+						<p:graphicImage id="avatar"
+							value="#{seatTypeIcons.getIconFromSeatType(seatTypeEditWFControl.edited,'_32.png')}"
+							width="32" height="32" />
+						<p:selectOneMenu value="#{seatTypeEditWFControl.edited.seatIcon}"
+							effect="fade">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{seatTypeIcons.getPics()}" var="row2"
+								itemLabel="#{row2}" itemValue="#{row2}" />
+							<p:ajax event="change" update="@form" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"

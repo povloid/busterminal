@@ -35,6 +35,8 @@ public class SeatType implements Serializable {
 
 	private Boolean sold;
 
+	private String seatIcon;
+
 	public SeatType() {
 		super();
 	}
@@ -70,6 +72,14 @@ public class SeatType implements Serializable {
 
 	public void setSold(Boolean sold) {
 		this.sold = sold;
+	}
+
+	public String getSeatIcon() {
+		return seatIcon;
+	}
+
+	public void setSeatIcon(String seatIcon) {
+		this.seatIcon = seatIcon;
 	}
 
 	@Override
