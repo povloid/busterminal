@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang.NotImplementedException;
 
 import pk.home.busterminal.domain.Bus;
@@ -14,7 +17,6 @@ import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
 public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		implements Serializable {
-
 
 	/**
 	 * 
@@ -52,7 +54,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 
 	@Override
 	protected void init0() throws Exception {
-		System.out.println("1111111");
+		System.out.println(">>>init()");
 
 		handleSchemaChange();
 	}
@@ -91,7 +93,6 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 * @return
 	 */
 	public String addNewSchema() {
-		System.out.println("*****");
 		return "addNewSchema";
 	}
 
@@ -190,6 +191,25 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return "delFromCell";
 	}
 
+	/**
+	 * Проставить цену согласно мастер проценту
+	 * 
+	 * @return
+	 */
+	public String calcAndSetPrice() {
+		try {
+			edited = service().getBusService().calcAndSetPrice(edited);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+		}
+
+		return "calcAndSetPrice";
+	}
+
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
 
@@ -216,7 +236,5 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	public void setSelectedCell(Cell selectedCell) {
 		this.selectedCell = selectedCell;
 	}
-	
-	
-	
+
 }

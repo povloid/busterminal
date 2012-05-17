@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 
@@ -322,6 +323,38 @@ public class BusService extends ABaseService<Bus> {
 		work.setBssType(BssType.WORK);
 
 		return persistCopy(work);
+	}
+
+	private static final BigDecimal ROUND_VALUE = new BigDecimal(100);
+
+	/**
+	 * Вычислить и установить цену
+	 * 
+	 * @param bus
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Bus calcAndSetPrice(Bus bus) throws Exception {
+
+		bus = findWithLazy(bus.getId());
+
+		for (Schema schema : bus.getSchemas()) {
+			for (Seat seat : schema.getSeats()) {
+				BigDecimal bd = seat.getPrice().multiply(
+						(new BigDecimal((seat.getMasterProcent()))).divide(
+								new BigDecimal(100), 2, BigDecimal.ROUND_DOWN));
+
+				seat.setPrice(bd.divide(ROUND_VALUE, 0, BigDecimal.ROUND_DOWN)
+						.multiply(ROUND_VALUE));
+				seat = seatService.merge(seat);
+			}
+
+			schema = schemaService.refresh(schema);
+		}
+
+		return bus;
 	}
 
 }

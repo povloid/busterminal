@@ -29,7 +29,7 @@
 
 		<transition on="addNewSchema" to="addNewSchema">
 		</transition>
-		
+
 		<transition on="delSelectedSchema" to="delSelectedSchema">
 		</transition>
 
@@ -45,12 +45,14 @@
 			<set name="flashScope.sX" value="btmWFControl.selectedCell.x" />
 			<set name="flashScope.sY" value="btmWFControl.selectedCell.y" />
 		</transition>
-		
-		<transition on="editInCell" to="editInCell"/>
-		
-		<transition on="delFromCell" to="delFromCell"/>
 
-		<transition on="error" to="btmEdit"/>
+		<transition on="editInCell" to="editInCell" />
+
+		<transition on="delFromCell" to="delFromCell" />
+
+		<transition on="calcAndSetPrice" to="btmEdit" />
+
+		<transition on="error" to="btmEdit" />
 	</view-state>
 
 
@@ -61,15 +63,15 @@
 
 		<transition to="init" />
 	</subflow-state>
-	
+
 	<subflow-state id="delSelectedSchema" subflow="schema/edit">
 		<input name="mode" value="'del'" />
 		<input name="id" value="btmWFControl.selectedScheme.id" />
 
 		<transition to="init" />
 	</subflow-state>
-	
-	
+
+
 
 	<subflow-state id="editSelectedSchema" subflow="schema/edit">
 		<input name="mode" value="modes" />
@@ -97,8 +99,8 @@
 
 		<transition to="init" />
 	</subflow-state>
-	
-	
+
+
 	<subflow-state id="delFromCell" subflow="busTempliteMaster/delFromCell">
 		<input name="id" value="btmWFControl.selectedCell.seat.id" />
 		<transition to="init" />

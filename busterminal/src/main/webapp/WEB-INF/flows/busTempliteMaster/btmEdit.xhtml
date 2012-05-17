@@ -67,20 +67,23 @@
 				<pk:pk_add_button_wf add_action="#{btmWFControl.addNewSchema}" />
 
 
-				<h:panelGrid columns="3">
-					<h:outputText value="Схема: " rendered="#{!empty btmWFControl.edited.schemas}"/>
+				<h:panelGrid columns="4">
+					<h:outputText value="Схема: "
+						rendered="#{!empty btmWFControl.edited.schemas}" />
 					<p:selectOneButton value="#{btmWFControl.selectedSchemeId}">
 						<f:selectItems value="#{btmWFControl.edited.schemas}" var="row"
 							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
 						<p:ajax event="change" update="@form"
 							listener="#{btmWFControl.handleSchemaChange}" />
 					</p:selectOneButton>
+
+
 				</h:panelGrid>
 
 
 				<h:panelGrid columns="3"
 					rendered="#{!empty btmWFControl.selectedScheme}">
-					
+
 					<h:outputText
 						value="#{btmWFControl.selectedScheme.keyName} - #{btmWFControl.selectedScheme.xSize}x#{btmWFControl.selectedScheme.ySize}" />
 
@@ -94,7 +97,8 @@
 						selected="#{btmWFControl.selectedScheme}"
 						row="#{btmWFControl.selectedScheme}" />
 
-
+					<p:commandButton value="Проставить цену"
+						action="#{btmWFControl.calcAndSetPrice}"></p:commandButton>
 
 				</h:panelGrid>
 
@@ -102,9 +106,9 @@
 
 			<br />
 
-			<h:panelGroup 
+			<h:panelGroup
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
-				<table  border="1" cellspacing="15px" style="border-radius: 20px">
+				<table border="1" cellspacing="15px" style="border-radius: 20px">
 					<ui:repeat var="y" value="#{btmWFControl.cells}">
 						<tr>
 							<ui:repeat var="x" value="#{y}">
@@ -122,7 +126,8 @@
 			</h:panelGroup>
 
 
-			<bt:seat_info_dialog ids="rowDitailDialog" cell="#{btmWFControl.selectedCell}" />
+			<bt:seat_info_dialog ids="rowDitailDialog"
+				cell="#{btmWFControl.selectedCell}" />
 		</h:form>
 
 
