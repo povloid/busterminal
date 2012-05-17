@@ -85,7 +85,16 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 	public void setBusRoute(long id) throws Exception {
 		edited.setBusRoute(getBusRouteService().find(id));
 	}
+
 	// ...
+
+	// Edit work bus
+
+	public String busTempliteMasterEdit() {
+		return "busTempliteMaster";
+	}
+
+	// ..
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------

@@ -67,6 +67,7 @@
 		<transition on="selectBusRoute" to="selectBusRoute" />
 		<transition on="editCompliteAndClose" to="end" />
 		<transition on="delComplite" to="end"></transition>
+		<transition on="busTempliteMaster" to="busTempliteMaster"></transition>
 
 		<transition on="error" to="raceEdit"></transition>
 		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
@@ -96,6 +97,15 @@
 		</transition>
 		<transition on-exception="java.lang.Exception" to="raceEdit" />
 	</subflow-state>
+
+	<!-- EDIT WORK BUS -->
+
+	<subflow-state id="busTempliteMaster" subflow="busTempliteMaster">
+		<input name="id" value="raceEditWFControl.edited.bus.id" />
+
+		<transition to="raceEdit" />
+	</subflow-state>
+
 
 
 

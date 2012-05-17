@@ -75,13 +75,16 @@
 
 					<h:outputText value="Время отправления:"></h:outputText>
 					<p:calendar value="#{raceEditWFControl.edited.dTime}"
-						pattern="dd.MM.yyyy HH:mm" locale="ru" required="true"/>
+						pattern="dd.MM.yyyy HH:mm" locale="ru" required="true" />
 
 					<h:outputText value="Автобус"></h:outputText>
 					<h:panelGroup>
 						<p:commandButton action="#{raceEditWFControl.selectBus}"
 							value="Выбрать..."></p:commandButton>
 						<h:outputText value="#{raceEditWFControl.edited.bus.keyName}"></h:outputText>
+						<p:commandButton rendered="#{!empty raceEditWFControl.edited.bus}"
+							value="Ред."
+							action="#{raceEditWFControl.busTempliteMasterEdit()}"></p:commandButton>
 					</h:panelGroup>
 
 					<h:outputText value="Маршрут"></h:outputText>
