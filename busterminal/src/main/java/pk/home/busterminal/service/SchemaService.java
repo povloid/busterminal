@@ -47,6 +47,7 @@ public class SchemaService extends ABaseService<Schema> {
 		return s;
 	}
 
+	@Transactional(readOnly = true)
 	public List<Schema> getAllEntities(Bus bus, int firstResult,
 			int maxResults, SingularAttribute<Schema, ?> orderByAttribute,
 			SortOrderType sortOrder) throws Exception {
@@ -63,6 +64,7 @@ public class SchemaService extends ABaseService<Schema> {
 				orderByAttribute, sortOrder, cb, cq, t);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Schema> getAllEntities(Bus bus) throws Exception {
 
 		CriteriaBuilder cb = schemaDAO.getEntityManager().getCriteriaBuilder();
@@ -77,6 +79,7 @@ public class SchemaService extends ABaseService<Schema> {
 				cq, t);
 	}
 
+	@Transactional(readOnly = true)
 	public long count(Bus bus) throws Exception {
 
 		CriteriaBuilder cb = schemaDAO.getEntityManager().getCriteriaBuilder();

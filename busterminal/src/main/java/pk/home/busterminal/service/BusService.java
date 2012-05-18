@@ -342,19 +342,32 @@ public class BusService extends ABaseService<Bus> {
 
 		for (Schema schema : bus.getSchemas()) {
 			for (Seat seat : schema.getSeats()) {
-				BigDecimal bd = seat.getPrice().multiply(
+				BigDecimal bd = bus.getBasePrice().multiply(
 						(new BigDecimal((seat.getMasterProcent()))).divide(
 								new BigDecimal(100), 2, BigDecimal.ROUND_DOWN));
 
 				seat.setPrice(bd.divide(ROUND_VALUE, 0, BigDecimal.ROUND_DOWN)
 						.multiply(ROUND_VALUE));
+
 				seat = seatService.merge(seat);
 			}
-
-			schema = schemaService.refresh(schema);
 		}
 
 		return bus;
+	}
+
+	/**
+	 * Сохранить состояние автобуса и пересчитать цены
+	 * 
+	 * @param bus
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Bus mergeBusAndCalcAndSetPrice(Bus bus) throws Exception {
+		bus = merge(bus);
+		return calcAndSetPrice(bus);
 	}
 
 }

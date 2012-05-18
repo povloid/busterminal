@@ -2,6 +2,9 @@ package pk.home.busterminal.service;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,12 +102,11 @@ public class SeatService extends ABaseService<Seat> {
 	public void check(Seat o) throws Exception {
 
 		Bus b = busService.find(o.getSchema().getBus().getId());
-		busService.refresh(b);
 
-		for (Schema sh : b.getSchemas()) {
+		for (Schema sh : schemaService.getAllEntities(b)) {
 			schemaService.refresh(sh);
 
-			for (Seat st : sh.getSeats()) {
+			for (Seat st : getAllEntities(sh)) {
 
 				if (!o.equals(st)) {
 					if (o.getNum().equals(st.getNum())) {
@@ -126,6 +128,26 @@ public class SeatService extends ABaseService<Seat> {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Получить список мест схемы
+	 * @param schema
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Seat> getAllEntities(Schema schema) throws Exception {
+
+		CriteriaBuilder cb = seatDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Seat> cq = cb.createQuery(Seat.class);
+		Root<Seat> t = cq.from(Seat.class);
+
+		// parent param ---------------------------------------
+		cq.where(cb.equal(t.get(Seat_.schema), schema));
+
+		return seatDAO.getAllEntities(Seat_.num, SortOrderType.ASC, cb, cq, t);
 	}
 
 	/**

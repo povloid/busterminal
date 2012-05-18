@@ -1,6 +1,7 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,6 +192,8 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return "delFromCell";
 	}
 
+	private BigDecimal basePrice;
+
 	/**
 	 * Проставить цену согласно мастер проценту
 	 * 
@@ -198,7 +201,9 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 */
 	public String calcAndSetPrice() {
 		try {
-			edited = service().getBusService().calcAndSetPrice(edited);
+			edited.setBasePrice(basePrice);
+			edited = service().getBusService().mergeBusAndCalcAndSetPrice(
+					edited);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(
@@ -235,6 +240,14 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 
 	public void setSelectedCell(Cell selectedCell) {
 		this.selectedCell = selectedCell;
+	}
+
+	public BigDecimal getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(BigDecimal basePrice) {
+		this.basePrice = basePrice;
 	}
 
 }

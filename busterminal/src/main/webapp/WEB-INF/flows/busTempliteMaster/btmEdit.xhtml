@@ -97,12 +97,43 @@
 						selected="#{btmWFControl.selectedScheme}"
 						row="#{btmWFControl.selectedScheme}" />
 
-					<p:commandButton value="Проставить цену"
-						action="#{btmWFControl.calcAndSetPrice}"></p:commandButton>
+					<p:commandButton
+						value="расч./расст. цену (#{btmWFControl.edited.basePrice})"
+						oncomplete="setPriceDialog.show()" update="price_spinner">
+						<f:setPropertyActionListener
+							value="#{btmWFControl.edited.basePrice}"
+							target="#{btmWFControl.basePrice}" />
+					</p:commandButton>
 
 				</h:panelGrid>
 
 			</h:panelGrid>
+
+			<!-- set price dialog -->
+			<p:confirmDialog id="setPriceDialog" message="Пересчитать цены? "
+				width="400" modal="true" showEffect="explode" hideEffect="explode"
+				header="Confirm" severity="alert" widgetVar="setPriceDialog">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4"
+					style="margin:0 auto;">
+
+					<h:outputText value="Базовая цена"></h:outputText>
+					<p:spinner id="price_spinner" value="#{btmWFControl.basePrice}" min="0"></p:spinner>
+
+				</h:panelGrid>
+				<br />
+				<p:commandButton value="Да" update="@form" ajax="true"
+					oncomplete="setPriceDialog.hide()"
+					action="#{btmWFControl.calcAndSetPrice}" />
+				<p:commandButton value="Отмена" onclick="setPriceDialog.hide()"
+					type="button" />
+
+			</p:confirmDialog>
+
+			<!-- ... -->
+
+
+
 
 			<br />
 
@@ -128,6 +159,12 @@
 
 			<bt:seat_info_dialog ids="rowDitailDialog"
 				cell="#{btmWFControl.selectedCell}" />
+
+
+
+
+
+
 		</h:form>
 
 
