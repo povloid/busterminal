@@ -1,6 +1,7 @@
 package pk.home.busterminal.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -75,6 +76,8 @@ public class Bus implements Serializable {
 
 	@ManyToOne
 	private Race race;
+
+	private BigDecimal basePrice;
 
 	// check
 	// -----------------------------------------------------------------------------------------------------------
@@ -166,6 +169,14 @@ public class Bus implements Serializable {
 
 	public void setRace(Race race) {
 		this.race = race;
+	}
+
+	public BigDecimal getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(BigDecimal basePrice) {
+		this.basePrice = basePrice;
 	}
 
 	@Override

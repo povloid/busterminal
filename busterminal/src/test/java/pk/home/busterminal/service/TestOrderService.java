@@ -96,7 +96,7 @@ public class TestOrderService extends BaseTest {
 	}
 
 	@Transactional
-	public Order createNewOrder() throws Exception {
+	public Order _createNewOrder() throws Exception {
 		Order order = new Order();
 		order.setOrderType(OrderType.TICKET_SALE);
 		order.setOpTime(new Date());
@@ -105,7 +105,8 @@ public class TestOrderService extends BaseTest {
 		order.setBusRouteStopA(busRouteStop12);
 		order.setBusRouteStopB(busRouteStop15);
 
-		//System.out.println(">>>" + busWork1.getSchemas().iterator().next().getSeats().size());
+		// System.out.println(">>>" +
+		// busWork1.getSchemas().iterator().next().getSeats().size());
 
 		order.setSeat(busWork1.getSchemas().iterator().next().getSeats()
 				.iterator().next());
@@ -115,8 +116,13 @@ public class TestOrderService extends BaseTest {
 
 		order.setActualPrice(new BigDecimal(1000));
 
-		order = service.createTicketSaleOrder(order);
 		return order;
+	}
+
+	@Transactional
+	public Order createNewOrder() throws Exception {
+
+		return service.createTicketSaleOrder(_createNewOrder());
 	}
 
 	/**
@@ -672,6 +678,76 @@ public class TestOrderService extends BaseTest {
 		}
 
 		order.setBusRouteStopB(busRouteStop12);
+
+	}
+
+	/**
+	 * Тест ограничений отрезков
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Rollback(true)
+	public void otrezkiTest() throws Exception {
+		createTestEntitys();
+
+		createNewOrder();
+
+		try {
+
+			createNewOrder();
+
+			assertTrue("Допущено 2 клиента на одно место!", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		try {
+
+			Order o = _createNewOrder();
+			o.setBusRouteStopA(busRouteStop11);
+			o.setBusRouteStopB(busRouteStop13);
+
+			o = service.createTicketSaleOrder(o);
+
+			assertTrue("Допущено 2 клиента на одно место!", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		try {
+
+			Order o = _createNewOrder();
+			o.setBusRouteStopA(busRouteStop13);
+			o.setBusRouteStopB(busRouteStop14);
+
+			o = service.createTicketSaleOrder(o);
+
+			assertTrue("Допущено 2 клиента на одно место!", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		try {
+
+			Order o = _createNewOrder();
+			o.setBusRouteStopA(busRouteStop13);
+			o.setBusRouteStopB(busRouteStop16);
+
+			o = service.createTicketSaleOrder(o);
+
+			assertTrue("Допущено 2 клиента на одно место!", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
 
 	}
 
