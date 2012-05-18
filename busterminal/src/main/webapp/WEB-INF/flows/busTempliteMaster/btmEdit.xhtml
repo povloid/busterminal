@@ -118,7 +118,8 @@
 					style="margin:0 auto;">
 
 					<h:outputText value="Базовая цена"></h:outputText>
-					<p:spinner id="price_spinner" value="#{btmWFControl.basePrice}" min="0"></p:spinner>
+					<p:spinner id="price_spinner" value="#{btmWFControl.basePrice}"
+						min="0"></p:spinner>
 
 				</h:panelGrid>
 				<br />
@@ -139,20 +140,26 @@
 
 			<h:panelGroup
 				rendered="#{btmWFControl.selectedScheme.xSize gt 0 and btmWFControl.selectedScheme.ySize gt 0}">
-				<table border="1" cellspacing="15px" style="border-radius: 20px">
-					<ui:repeat var="y" value="#{btmWFControl.cells}">
-						<tr>
-							<ui:repeat var="x" value="#{y}">
-								<td><bt:cell cell="#{x}"
-										selectedCell="#{btmWFControl.selectedCell}"
-										add_to_cell_action="#{btmWFControl.addToCell}"
-										del_from_cell_action="#{btmWFControl.delFromCell}"
-										edit_in_cell_action="#{btmWFControl.editInCell}"
-										view_button_oncomplete="rowDitailDialog.show()"
-										show_view_button="true" selected="#{btmWFControl.selected}" /></td>
-							</ui:repeat>
-						</tr>
-					</ui:repeat>
+				<table border="10" cellspacing="15px" style="border-radius: 20px">
+					<tr>
+						<td style="border: 0px">
+							<table border="0" >
+								<ui:repeat var="y" value="#{btmWFControl.cells}">
+									<tr>
+										<ui:repeat var="x" value="#{y}">
+											<td style="border: 1px dotted black;"><bt:cell cell="#{x}"
+													selectedCell="#{btmWFControl.selectedCell}"
+													add_to_cell_action="#{btmWFControl.addToCell}"
+													del_from_cell_action="#{btmWFControl.delFromCell}"
+													edit_in_cell_action="#{btmWFControl.editInCell}"
+													view_button_oncomplete="rowDitailDialog.show()"
+													show_view_button="true" selected="#{btmWFControl.selected}" /></td>
+										</ui:repeat>
+									</tr>
+								</ui:repeat>
+							</table>
+						</td>
+					</tr>
 				</table>
 			</h:panelGroup>
 
