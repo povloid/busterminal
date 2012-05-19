@@ -18,6 +18,8 @@
 		<class>pk.home.busterminal.domain.Order</class>
 		<class>pk.home.busterminal.domain.Items</class>
 		<class>pk.home.busterminal.domain.Customer</class>
+		<class>pk.home.busterminal.domain.DocumentType</class>
+		<class>pk.home.busterminal.domain.Driver</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/busterminal" />
 			<property name="javax.persistence.jdbc.user" value="busterminal" />
