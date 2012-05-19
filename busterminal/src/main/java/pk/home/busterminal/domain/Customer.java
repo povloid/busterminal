@@ -46,6 +46,9 @@ public class Customer implements Serializable {
 
 	private String description;
 
+	@ManyToOne
+	private DocumentType docupentType;
+
 	public Customer() {
 		super();
 	}
@@ -97,6 +100,14 @@ public class Customer implements Serializable {
 
 	public void setmName(String mName) {
 		this.mName = mName;
+	}
+
+	public DocumentType getDocupentType() {
+		return docupentType;
+	}
+
+	public void setDocupentType(DocumentType docupentType) {
+		this.docupentType = docupentType;
 	}
 
 	@Override

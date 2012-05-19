@@ -36,17 +36,39 @@
 					<h:outputText value="#{customerEditWFControl.edited.id}"
 						rendered="#{customerEditWFControl.edited.id != null}" />
 
-					<h:outputLabel value="KeyName:" />
+
+					<h:outputLabel value="Тип документ:" />
+					<p:selectOneMenu value="#{customerEditWFControl.documentTypeId}"
+						rendered="true">
+						<f:selectItems value="#{customerEditWFControl.documentTypes}"
+							var="row" itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					</p:selectOneMenu>
+
+					<h:outputLabel value="Номер документа:" />
 					<p:inputText value="#{customerEditWFControl.edited.keyName}"
 						title="Username" readonly="#{del}" required="true"
-						requiredMessage="The keyName field is required." />
+						requiredMessage="The document field is required." />
+
+
+					<h:outputLabel value="Фамилия:" />
+					<p:inputText value="#{customerEditWFControl.edited.fName}"
+						title="Username" readonly="#{del}" />
+
+					<h:outputLabel value="Имя:" />
+					<p:inputText value="#{customerEditWFControl.edited.nName}"
+						title="Username" readonly="#{del}" />
+
+					<h:outputLabel value="Отчество:" />
+					<p:inputText value="#{customerEditWFControl.edited.mName}"
+						title="Username" readonly="#{del}" />
+
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{customerEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
+
 				</h:panelGrid>
 
 				<br />
