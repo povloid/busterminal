@@ -56,6 +56,14 @@
 					<h:outputLabel value="Description:" />
 					<h:outputText value="#{btmWFControl.edited.description}" />
 
+					<h:outputLabel value="Водитель 1:" />
+					<h:outputText
+						value="#{btmWFControl.edited.driver1.fName}  #{btmWFControl.edited.driver1.nName}  #{btmWFControl.edited.driver1.mName}" />
+
+					<h:outputLabel value="Водитель 2:" />
+					<h:outputText
+						value="#{btmWFControl.edited.driver2.fName}  #{btmWFControl.edited.driver2.nName}  #{btmWFControl.edited.driver2.mName}" />
+
 				</h:panelGrid>
 			</p:fieldset>
 		</h:form>
@@ -143,12 +151,12 @@
 				<table border="10" cellspacing="25px" style="border-radius: 50px">
 					<tr>
 						<td style="border: 0px">
-							<table border="0" >
+							<table border="0">
 								<ui:repeat var="y" value="#{btmWFControl.cells}">
 									<tr>
 										<ui:repeat var="x" value="#{y}">
-											<td style="border: 1px dotted black;"><bt:cell cell="#{x}"
-													selectedCell="#{btmWFControl.selectedCell}"
+											<td style="border: 1px dotted black;"><bt:cell
+													cell="#{x}" selectedCell="#{btmWFControl.selectedCell}"
 													add_to_cell_action="#{btmWFControl.addToCell}"
 													del_from_cell_action="#{btmWFControl.delFromCell}"
 													edit_in_cell_action="#{btmWFControl.editInCell}"

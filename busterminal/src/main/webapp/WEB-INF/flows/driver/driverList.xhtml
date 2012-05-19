@@ -74,6 +74,11 @@
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 
+				<p:column headerText="Ф.И.О." >
+					<h:outputText value="#{row.fName} #{row.nName} #{row.mName}" />
+				</p:column>
+				
+
 				<p:column headerText="Описание" >
 					<h:outputText value="#{row.description}" />
 				</p:column>
