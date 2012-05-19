@@ -30,7 +30,7 @@
 
 			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
-			
+
 			<p:panel header="Детали:" style="margin-top:10px">
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
 
@@ -53,6 +53,20 @@
 					<p:inputTextarea readonly="#{del}"
 						value="#{busEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
+
+					<h:outputLabel value="Водитель 1:" />
+					<p:selectOneMenu value="#{busEditWFControl.driver1Id}"
+						rendered="true">
+						<f:selectItems value="#{busEditWFControl.drivers}" var="row"
+							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					</p:selectOneMenu>
+
+					<h:outputLabel value="Водитель 2:" />
+					<p:selectOneMenu value="#{busEditWFControl.driver2Id}"
+						rendered="true">
+						<f:selectItems value="#{busEditWFControl.drivers}" var="row"
+							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					</p:selectOneMenu>
 
 
 				</h:panelGrid>

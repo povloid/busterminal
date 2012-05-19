@@ -79,6 +79,12 @@ public class Bus implements Serializable {
 
 	private BigDecimal basePrice;
 
+	@ManyToOne
+	private Driver driver1;
+
+	@ManyToOne
+	private Driver driver2;
+
 	// check
 	// -----------------------------------------------------------------------------------------------------------
 
@@ -177,6 +183,22 @@ public class Bus implements Serializable {
 
 	public void setBasePrice(BigDecimal basePrice) {
 		this.basePrice = basePrice;
+	}
+
+	public Driver getDriver1() {
+		return driver1;
+	}
+
+	public void setDriver1(Driver driver1) {
+		this.driver1 = driver1;
+	}
+
+	public Driver getDriver2() {
+		return driver2;
+	}
+
+	public void setDriver2(Driver driver2) {
+		this.driver2 = driver2;
 	}
 
 	@Override
