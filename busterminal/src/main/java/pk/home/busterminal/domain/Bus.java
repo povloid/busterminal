@@ -100,6 +100,9 @@ public class Bus implements Serializable {
 		} else if (bssType == BssType.WORK && templite == null) {
 			throw new Exception("WORK должен иметь родителя в поле templite!");
 		}
+
+		if (driver1 != null && driver2 != null && driver1.equals(driver2))
+			throw new Exception("Водители должны быть разные!");
 	}
 
 	// get's and set's

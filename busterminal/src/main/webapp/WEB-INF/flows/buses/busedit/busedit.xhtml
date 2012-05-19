@@ -57,6 +57,7 @@
 					<h:outputLabel value="Водитель 1:" />
 					<p:selectOneMenu value="#{busEditWFControl.driver1Id}"
 						rendered="true">
+						<f:selectItem itemLabel="Выбрать водителя..." itemValue="" />
 						<f:selectItems value="#{busEditWFControl.drivers}" var="row"
 							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
 					</p:selectOneMenu>
@@ -64,6 +65,7 @@
 					<h:outputLabel value="Водитель 2:" />
 					<p:selectOneMenu value="#{busEditWFControl.driver2Id}"
 						rendered="true">
+						<f:selectItem itemLabel="Выбрать водителя..." itemValue="" />
 						<f:selectItems value="#{busEditWFControl.drivers}" var="row"
 							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
 					</p:selectOneMenu>
