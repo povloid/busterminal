@@ -36,7 +36,10 @@ import org.hibernate.validator.constraints.Length;
 		@NamedQuery(name = "Seat.findByBusAndSchema.count", query = "select count(a) from Seat a where a.schema.bus = ?1 and a.schema = ?2"),
 
 		@NamedQuery(name = "Seat.findNoMarkedBySchema", query = "select a from Seat a join a.schema s  where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) "),
-		@NamedQuery(name = "Seat.findNoMarkedBySchema.count", query = "select count(a) from Seat a join a.schema s where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) ")
+		@NamedQuery(name = "Seat.findNoMarkedBySchema.count", query = "select count(a) from Seat a join a.schema s where a.schema = ?1 and (a.sx is null or a.sy is null or a.sx = 0 or a.sy = 0 or a.sx > s.xSize or a.sy > s.ySize) "),
+
+		@NamedQuery(name = "Seat.findNumInSchema.min", query = "select min(a.num) from Seat a where a.schema = ?1"),
+		@NamedQuery(name = "Seat.findNumInSchema.max", query = "select max(a.num) from Seat a where a.schema = ?1")
 
 })
 public class Seat implements Serializable {
@@ -52,7 +55,15 @@ public class Seat implements Serializable {
 	@PrePersist
 	@PreUpdate
 	public void check() throws Exception {
+		if (seatType != null && seatType.getSold() != null
+				&& seatType.getSold() && num < 0)
+			throw new Exception(
+					"У продаваемых мест номер должен быть положительным!");
 
+		if (seatType != null && seatType.getSold() != null
+				&& !seatType.getSold() && num > 0)
+			throw new Exception(
+					"У НЕ продаваемых мест номер должен быть отрицательным!");
 	}
 
 	@ManyToOne
@@ -82,7 +93,9 @@ public class Seat implements Serializable {
 	private BigDecimal price;
 
 	// Тип места
+	@NotNull
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private SeatType seatType;
 
 	public Long getId() {

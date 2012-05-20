@@ -32,6 +32,7 @@ import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.domain.SeatType;
 import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -637,36 +638,43 @@ public class TestBusService extends BaseTest {
 	@Rollback(true)
 	public void createBusCopy() throws Exception {
 		// Создаем шаблон ----------------------------------------
-		busTemplite = new Bus();
+		Bus busTemplite = new Bus();
 		busTemplite.setKeyName("Тестовый автобус 2");
 		busTemplite.setGosNum("TEST NUM 2");
 		busTemplite.setBssType(BssType.TEMPLITE);
 		busTemplite = busService.persist(busTemplite);
 
 		// -------------------------------------------------------
-		schema1 = new Schema();
+		Schema schema1 = new Schema();
 		schema1.setKeyName("Тестовая схема 1");
 		schema1.setBus(busTemplite);
 		schema1.setxSize((short) 1);
 		schema1.setySize((short) 2);
 		schema1 = schemaService.persist(schema1);
 
-		seat1 = new Seat();
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
+
+		Seat seat1 = new Seat();
 		seat1.setNum((short) 1);
 		seat1.setSx((short) 1);
 		seat1.setSy((short) 1);
 		seat1.setSchema(schema1);
 		seat1.setMasterProcent(10);
 		seat1.setPrice(new BigDecimal(8000));
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
-		seat2 = new Seat();
+		Seat seat2 = new Seat();
 		seat2.setNum((short) 2);
 		seat2.setSx((short) 1);
 		seat2.setSy((short) 2);
 		seat2.setSchema(schema1);
 		seat2.setMasterProcent(101);
 		seat2.setPrice(new BigDecimal(8001));
+		seat2.setSeatType(seatType);
 		seat2 = seatService.persist(seat2);
 
 		schema1 = schemaService.refresh(schema1);

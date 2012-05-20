@@ -25,6 +25,7 @@ import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.domain.SeatType;
 import pk.home.busterminal.domain.Seat_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -41,6 +42,9 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 public class TestSeatService {
 
 	private SchemaService schemaService;
+
+	@Autowired
+	private SeatTypeService seatTypeService;
 
 	@Autowired
 	public void setSchemaDAO(SchemaService schemaService) {
@@ -120,11 +124,17 @@ public class TestSeatService {
 
 		System.out.println(">>>" + bus.getSchemas());
 
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
+
 		long index = seatService.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setSchema(schema);
 			seat1.setNum((short) i);
+			seat1.setSeatType(seatType);
 			seatService.persist(seat1);
 			index++;
 		}
@@ -158,12 +168,18 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		long index = seatService.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			seatService.persist(seat1);
 			index++;
 		}
@@ -202,12 +218,18 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			seatService.persist(seat1);
 			// index++;
 		}
@@ -240,12 +262,18 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			seatService.persist(seat1);
 			// index++;
 		}
@@ -285,12 +313,18 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		long index = seatService.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			seatService.persist(seat1);
 			index++;
 		}
@@ -345,9 +379,15 @@ public class TestSeatService {
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
 
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
+		
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		long id = seat1.getId();
@@ -378,12 +418,18 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		long index = seatService.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			seatService.persist(seat1);
 			index++;
 		}
@@ -412,10 +458,16 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		long id = seat1.getId();
@@ -447,10 +499,16 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		long id = seat1.getId();
@@ -490,10 +548,16 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		long id = seat1.getId();
@@ -533,10 +597,16 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
+		
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		long id = seat1.getId();
@@ -566,6 +636,11 @@ public class TestSeatService {
 		bus.setGosNum("#Test num");
 		bus = busService.persist(bus);
 
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
+		
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
@@ -581,6 +656,7 @@ public class TestSeatService {
 		seat1.setSchema(schema);
 		seat1.setSx((short) 1);
 		seat1.setSy((short) 1);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		long id = seat1.getId();
@@ -596,6 +672,7 @@ public class TestSeatService {
 			Seat seat3 = new Seat();
 			seat3.setNum((short) 100);
 			seat3.setSchema(schema);
+			seat3.setSeatType(seatType);
 			seat3 = seatService.persist(seat3);
 
 			assertTrue(
@@ -611,6 +688,7 @@ public class TestSeatService {
 			Seat seat3 = new Seat();
 			seat3.setNum((short) 100);
 			seat3.setSchema(schema2);
+			seat3.setSeatType(seatType);
 			seat3 = seatService.persist(seat3);
 
 			assertTrue(
@@ -626,6 +704,7 @@ public class TestSeatService {
 			Seat seat3 = new Seat();
 			seat3.setNum((short) 101); // !
 			seat3.setSchema(schema);
+			seat3.setSeatType(seatType);
 			seat3.setSx((short) 1);
 			seat3.setSy((short) 1);
 
@@ -644,16 +723,18 @@ public class TestSeatService {
 			Seat seat3 = new Seat();
 			seat3.setNum((short) 101); // !
 			seat3.setSchema(schema2);
+			seat3.setSeatType(seatType);
 			seat3.setSx((short) 1);
 			seat3.setSy((short) 1);
 
 			seat3 = seatService.persist(seat3);
 
-			assertTrue(
-					true);
+			assertTrue(true);
 
 		} catch (Exception e) {
-			assertTrue("Допускаются одниаковые x y в пределах автобуса, так как они надодятся в разных схемах",false);
+			assertTrue(
+					"Допускаются одниаковые x y в пределах автобуса, так как они надодятся в разных схемах",
+					false);
 		}
 
 	}

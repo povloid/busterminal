@@ -109,7 +109,8 @@ public class SeatService extends ABaseService<Seat> {
 			for (Seat st : getAllEntities(sh)) {
 
 				if (!o.equals(st)) {
-					if (o.getNum().equals(st.getNum())) {
+					if (o.getNum() != null && st.getNum() != null
+							&& o.getNum().equals(st.getNum())) {
 						throw new Exception(
 								"Номера мест в пределах одного автобуса должны бвть уникальными!");
 					}
@@ -132,6 +133,7 @@ public class SeatService extends ABaseService<Seat> {
 
 	/**
 	 * Получить список мест схемы
+	 * 
 	 * @param schema
 	 * @return
 	 * @throws Exception
@@ -195,6 +197,46 @@ public class SeatService extends ABaseService<Seat> {
 		seatCopy.setPrice(seat.getPrice());
 
 		return seatCopy;
+	}
+
+	/**
+	 * Получить минимальный автоматический номер для декораций
+	 * 
+	 * @param seat
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	public short createDecoratorMinNum(Seat seat) throws Exception {
+
+		short min = (Short) seatDAO.executeQueryByNameSingleResultO(
+				"Seat.findNumInSchema.min", seat.getSchema());
+
+		if (min >= 0)
+			min = (short) 0;
+
+		return --min;
+	}
+
+	/**
+	 * Получить максимальный автоматический номер для декораций
+	 * 
+	 * @param seat
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, rollbackFor = Exception.class)
+	public short createDecoratorMaxNum(Seat seat) throws Exception {
+
+		short max = (Short) seatDAO.executeQueryByNameSingleResultO(
+				"Seat.findNumInSchema.max", seat.getSchema());
+
+		if (max < 0)
+			max = (short) 0;
+
+		return ++max;
 	}
 
 }

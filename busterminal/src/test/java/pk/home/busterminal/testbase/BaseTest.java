@@ -15,6 +15,7 @@ import pk.home.busterminal.domain.Customer;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.domain.SeatType;
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.service.BusRouteService;
 import pk.home.busterminal.service.BusRouteStopService;
@@ -24,6 +25,7 @@ import pk.home.busterminal.service.CustomerService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.busterminal.service.SchemaService;
 import pk.home.busterminal.service.SeatService;
+import pk.home.busterminal.service.SeatTypeService;
 import pk.home.busterminal.service.security.UserAccountService;
 
 @Transactional
@@ -58,9 +60,14 @@ public class BaseTest {
 
 	@Autowired
 	protected SeatService seatService;
+	
+	@Autowired
+	protected SeatTypeService seatTypeService;
 
 	// Переменные
 	// -------------------------------------------------------------------------------
+	protected SeatType seatType;
+	
 	protected Bus busWork1, busWork2, busTemplite;
 	protected Schema schema1, schema2, schema3, schema4;
 	protected Seat seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8;
@@ -92,6 +99,11 @@ public class BaseTest {
 		busTemplite.setGosNum("TEST NUM 2");
 		busTemplite.setBssType(BssType.TEMPLITE);
 		busTemplite = busService.persist(busTemplite);
+		
+		seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeService.persist(seatType);
 
 		// 1 -------------------------------------------------------
 		schema1 = new Schema();
@@ -106,6 +118,7 @@ public class BaseTest {
 		seat1.setSx((short) 1);
 		seat1.setSy((short) 1);
 		seat1.setSchema(schema1);
+		seat1.setSeatType(seatType);
 		seat1 = seatService.persist(seat1);
 
 		seat2 = new Seat();
@@ -113,6 +126,7 @@ public class BaseTest {
 		seat2.setSx((short) 1);
 		seat2.setSy((short) 2);
 		seat2.setSchema(schema1);
+		seat2.setSeatType(seatType);
 		seat2 = seatService.persist(seat2);
 
 		// 2 -------------------------------
@@ -129,6 +143,7 @@ public class BaseTest {
 		seat8.setSx((short) 1);
 		seat8.setSy((short) 1);
 		seat8.setSchema(schema2);
+		seat8.setSeatType(seatType);
 		seat8 = seatService.persist(seat8);
 
 		// ..

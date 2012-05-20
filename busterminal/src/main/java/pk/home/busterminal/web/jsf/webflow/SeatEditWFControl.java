@@ -55,7 +55,6 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 
 	@Override
 	protected void confirmAddImpl() throws Exception {
-		edited.setSchema(schema);
 		edited = getSeatService().persist(edited);
 	}
 
@@ -73,9 +72,10 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	// init
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
-		if (schemaId != null)
+		if (schemaId != null) {
 			schema = getSchemaService().find(schemaId);
-		else if (edited != null && edited.getSchema() != null) {
+			edited.setSchema(schema);
+		} else if (edited != null && edited.getSchema() != null) {
 			schema = edited.getSchema();
 		}
 
@@ -100,6 +100,13 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	public void setSeatTypeId(long seatTypeId) {
 		try {
 			this.edited.setSeatType(getSeatTypeService().find(seatTypeId));
+			if (!edited.getSeatType().getSold()) {
+				edited.setNum(getSeatService().createDecoratorMinNum(
+						this.edited));
+			} else if (edited.getSeatType().getSold()
+					&& (this.edited.getNum() == null || this.edited.getNum() < 0)) {
+				edited.setNum(getSeatService().createDecoratorMaxNum(edited));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

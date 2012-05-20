@@ -25,6 +25,7 @@ import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.domain.SeatType;
 import pk.home.busterminal.domain.Seat_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -53,6 +54,9 @@ public class TestSeatDAO {
 	public void setBusDAO(BusDAO busDAO) {
 		this.busDAO = busDAO;
 	}
+
+	@Autowired
+	private SeatTypeDAO seatTypeDAO;
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -118,11 +122,19 @@ public class TestSeatDAO {
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
 
+		System.out.println(">>>" + bus.getSchemas());
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setSchema(schema);
 			seat1.setNum((short) i);
+			seat1.setSeatType(seatType);
 			dataStore.persist(seat1);
 			index++;
 		}
@@ -151,18 +163,23 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
-		
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			dataStore.persist(seat1);
 			index++;
 		}
@@ -195,17 +212,23 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			dataStore.persist(seat1);
 			// index++;
 		}
@@ -233,17 +256,23 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			dataStore.persist(seat1);
 			// index++;
 		}
@@ -278,17 +307,23 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			dataStore.persist(seat1);
 			index++;
 		}
@@ -337,15 +372,21 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
 
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
+
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = dataStore.persist(seat1);
 
 		long id = seat1.getId();
@@ -371,17 +412,23 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Seat seat1 = new Seat();
 			seat1.setNum((short) i);
 			seat1.setSchema(schema);
+			seat1.setSeatType(seatType);
 			dataStore.persist(seat1);
 			index++;
 		}
@@ -405,15 +452,21 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
 
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
+
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = dataStore.persist(seat1);
 
 		long id = seat1.getId();
@@ -440,16 +493,21 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
-		
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = dataStore.persist(seat1);
 
 		long id = seat1.getId();
@@ -484,16 +542,21 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
-		
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = dataStore.persist(seat1);
 
 		long id = seat1.getId();
@@ -528,16 +591,21 @@ public class TestSeatDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaDAO.persist(schema);
-		
+
+		SeatType seatType = new SeatType();
+		seatType.setKeyName("Тест - Пассажирское");
+		seatType.setSold(true);
+		seatType = seatTypeDAO.persist(seatType);
 
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
+		seat1.setSeatType(seatType);
 		seat1 = dataStore.persist(seat1);
 
 		long id = seat1.getId();
