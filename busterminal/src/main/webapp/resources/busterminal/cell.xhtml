@@ -67,7 +67,7 @@
 		<tr>
 
 			<td valign="middle" height="100%"><h:panelGroup
-					rendered="#{cc.attrs.cell.seat != null}">
+					rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold}">
 					<table width="100%">
 						<tr>
 							<td colspan="2" align="center"
