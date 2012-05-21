@@ -103,6 +103,7 @@ public class Order implements Serializable {
 
 	/**
 	 * Проверка
+	 * 
 	 * @throws Exception
 	 */
 	@PrePersist
@@ -158,6 +159,15 @@ public class Order implements Serializable {
 			throw new Exception(
 					"Остановка начала пути не может быть позже остановки конца пути");
 		}
+
+		// (5)
+		if (seat != null && seat.getNum() < 0)
+			throw new Exception(
+					"Нельзя продавать места с отрицательными номерами!");
+
+		// (6)
+		if (seat != null && !seat.getSeatType().getSold())
+			throw new Exception("Нельзя продавать места с непродажными типами!");
 
 	}
 
