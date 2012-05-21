@@ -22,5 +22,10 @@ public class UserAccountService extends ABaseService<UserAccount> {
 	public ABaseDAO<UserAccount> getAbstractBasicDAO() {
 		return userAccountDAO;
 	}
+	
+	//@Transactional(propagation = Propagation.REQUIRED ,readOnly = true)
+	//public UserAccount findUserAccountByUserName(String username) 
+	
+	
 
 }
