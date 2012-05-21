@@ -52,15 +52,27 @@
 
 					<h:outputLabel value="Фамилия:" />
 					<p:inputText value="#{customerEditWFControl.edited.fName}"
-						title="Username" readonly="#{del}" />
+						title="Фамилия" readonly="#{del}" />
 
 					<h:outputLabel value="Имя:" />
 					<p:inputText value="#{customerEditWFControl.edited.nName}"
-						title="Username" readonly="#{del}" />
+						title="Имя" readonly="#{del}" />
 
 					<h:outputLabel value="Отчество:" />
 					<p:inputText value="#{customerEditWFControl.edited.mName}"
-						title="Username" readonly="#{del}" />
+						title="Отчество" readonly="#{del}" />
+
+					<h:outputLabel value="Телефон 1:" />
+					<p:inputMask value="#{customerEditWFControl.edited.pfone1}"
+						mask="(999) 999-9999" title="контактный телефон" readonly="#{del}" />
+
+					<h:outputLabel value="Телефон 2:" />
+					<p:inputMask value="#{customerEditWFControl.edited.pfone2}"
+						mask="(999) 999-9999" title="контактный телефон" readonly="#{del}" />
+
+					<h:outputLabel value="Телефон 3:" />
+					<p:inputMask value="#{customerEditWFControl.edited.pfone3}"
+						mask="(999) 999-9999" title="контактный телефон" readonly="#{del}" />
 
 
 					<h:outputLabel value="Description:" />
