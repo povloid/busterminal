@@ -10,6 +10,7 @@ import pk.home.busterminal.domain.security.UserAccount;
 @StaticMetamodel(Order.class)
 public abstract class Order_ {
 
+	public static volatile SingularAttribute<Order, BusRouteStop> busRouteStopA;
 	public static volatile SingularAttribute<Order, Date> opTime;
 	public static volatile SingularAttribute<Order, BusRouteStop> busRouteStopB;
 	public static volatile SingularAttribute<Order, OrderType> orderType;
@@ -22,7 +23,6 @@ public abstract class Order_ {
 	public static volatile SingularAttribute<Order, String> description;
 	public static volatile SingularAttribute<Order, Order> previousOrder;
 	public static volatile SingularAttribute<Order, UserAccount> userAccount;
-	public static volatile SingularAttribute<Order, BusRouteStop> busRouteStopA;
 
 }
 
