@@ -44,6 +44,24 @@ public class Customer implements Serializable {
 	@Column(length = 20)
 	private String mName;
 
+	// Телефоны
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone1;
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone2;
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone3;
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone4;
+
 	private String description;
 
 	@ManyToOne
@@ -108,6 +126,38 @@ public class Customer implements Serializable {
 
 	public void setDocupentType(DocumentType docupentType) {
 		this.docupentType = docupentType;
+	}
+
+	public String getPfone1() {
+		return pfone1;
+	}
+
+	public void setPfone1(String pfone1) {
+		this.pfone1 = pfone1;
+	}
+
+	public String getPfone2() {
+		return pfone2;
+	}
+
+	public void setPfone2(String pfone2) {
+		this.pfone2 = pfone2;
+	}
+
+	public String getPfone3() {
+		return pfone3;
+	}
+
+	public void setPfone3(String pfone3) {
+		this.pfone3 = pfone3;
+	}
+
+	public String getPfone4() {
+		return pfone4;
+	}
+
+	public void setPfone4(String pfone4) {
+		this.pfone4 = pfone4;
 	}
 
 	@Override
