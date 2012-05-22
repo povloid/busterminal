@@ -93,11 +93,18 @@
 
 		<p:submenu label="Операции" icon="ui-icon-pencil">
 			<p:column>
+				<p:submenu label="Информация">
+					<p:menuitem value="Ордера" icon="ui-icon addbk" url="/mvc/order" />
+				</p:submenu>
+			</p:column>
+		</p:submenu>
+
+		<p:submenu label="Диспетчеризация" icon="ui-icon-pencil">
+			<p:column>
 				<p:submenu label="План">
 					<p:menuitem value="Рейсы" icon="ui-icon addbk" url="/mvc/race" />
 				</p:submenu>
 			</p:column>
-
 		</p:submenu>
 
 		<p:submenu label="Справочники" icon="ui-icon-pencil">
@@ -123,6 +130,10 @@
 						url="/mvc/documentType" />
 					<p:menuitem value="Клиенты" icon="ui-icon addbk"
 						url="/mvc/customer" />
+				</p:submenu>
+				<p:submenu label="Организация">
+					<p:menuitem value="Отделения" icon="ui-icon addbk"
+						url="/mvc/division" />
 				</p:submenu>
 			</p:column>
 			<p:column>
