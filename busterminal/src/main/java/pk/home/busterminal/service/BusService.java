@@ -261,6 +261,9 @@ public class BusService extends ABaseService<Bus> {
 		busCopy.setGosNum(templite.getGosNum());
 		busCopy.setKeyName(templite.getKeyName());
 		busCopy.setTemplite(templite.getTemplite());
+		busCopy.setDriver1(templite.getDriver1());
+		busCopy.setDriver2(templite.getDriver2());
+		
 
 		busCopy.setSchemes(new HashSet<Schema>());
 

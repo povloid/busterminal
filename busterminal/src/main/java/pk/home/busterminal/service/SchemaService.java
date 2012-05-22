@@ -118,6 +118,7 @@ public class SchemaService extends ABaseService<Schema> {
 			Seat seatCopy = seatService.createSeatCopy(seat);
 			seatCopy.setSchema(schemaCopy);
 			schemaCopy.getSeats().add(seatCopy);
+			//System.out.println(">>>>>>>>" + seat.getNum() + " ----> " + seatCopy.getNum());
 		}
 
 		return schemaCopy;
