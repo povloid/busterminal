@@ -1,5 +1,12 @@
 package pk.home.busterminal.service;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -9,8 +16,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import pk.home.busterminal.dao.RaceDAO;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
+import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.domain.Race_;
+import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.domain.Seat_;
 import pk.home.libs.combine.dao.ABaseDAO;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
 
 /**
@@ -80,7 +92,7 @@ public class RaceService extends ABaseService<Race> {
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void remove(Race race) throws Exception {
-		//race = find(race.getId());
+		// race = find(race.getId());
 
 		Bus bus = race.getBus();
 
@@ -103,6 +115,33 @@ public class RaceService extends ABaseService<Race> {
 
 		busService.remove(bus);
 
+	}
+
+	/**
+	 * Поиск рейсов
+	 * 
+	 * @param busRoute
+	 * @param all
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Race> selectRaces(BusRoute busRoute, boolean allDates, Date date)
+			throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Race> cq = cb.createQuery(Race.class);
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		if (!allDates) {
+			cq.where(cb.between(t.get(Race_.dTime), new Date(date.getTime()),
+					new Date(date.getTime() + 1000 * 60 * 60 * 24)));
+		}
+
+		return raceDAO
+				.getAllEntities(Race_.dTime, SortOrderType.ASC, cb, cq, t);
 	}
 
 }
