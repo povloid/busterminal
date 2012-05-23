@@ -690,6 +690,7 @@ public class TestBusService extends BaseTest {
 		assertFalse(busTemplite.getId() == busCopy.getId());
 		assertEquals(busTemplite.getDriver1(), busCopy.getDriver1());
 		assertEquals(busTemplite.getDriver2(), busCopy.getDriver2());
+		assertEquals(busTemplite.getBasePrice(), busCopy.getBasePrice());
 
 		assertTrue(busTemplite.getSchemas().size() == busCopy.getSchemas()
 				.size());
