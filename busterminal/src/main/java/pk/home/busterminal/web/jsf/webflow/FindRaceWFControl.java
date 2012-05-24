@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.primefaces.event.DateSelectEvent;
 import org.primefaces.model.SortOrder;
 
 import pk.home.busterminal.domain.BusRoute;
@@ -67,6 +68,24 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	 */
 	public void setBusRoute2(Long id) throws Exception {
 		findRaceModel2.setBusRoute(getBusRouteService().find(id));
+	}
+
+	/**
+	 * Смена даты 1
+	 * 
+	 * @param event
+	 */
+	public void handleDateSelect1(DateSelectEvent event) {
+		System.out.println("handleDateSelect1");
+	}
+
+	/**
+	 * Смена даты 2
+	 * 
+	 * @param event
+	 */
+	public void handleDateSelect2(DateSelectEvent event) {
+		System.out.println("handleDateSelect2");
 	}
 
 	// ------------------------------------------------------------------------------------

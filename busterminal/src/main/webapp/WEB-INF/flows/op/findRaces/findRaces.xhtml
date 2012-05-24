@@ -87,7 +87,11 @@
 						<h:panelGrid columns="6">
 							<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
 								showButtonPanel="true" navigator="true"
-								value="#{findRaceWFControl.findRaceModel1.date}"></p:calendar>
+								value="#{findRaceWFControl.findRaceModel1.date}">
+								<p:ajax event="dateSelect"
+									listener="#{findRaceWFControl.handleDateSelect1}"
+									update="@form" />
+							</p:calendar>
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:panel>
@@ -106,11 +110,16 @@
 						<h:panelGrid columns="4">
 							<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
 								showButtonPanel="true" navigator="true"
-								value="#{findRaceWFControl.findRaceModel2.date}"></p:calendar>
+								value="#{findRaceWFControl.findRaceModel2.date}">
+								<p:ajax event="dateSelect"
+									listener="#{findRaceWFControl.handleDateSelect2}"
+									update="@form" />
+							</p:calendar>
 							<h:outputText value="дней: " />
 							<h:panelGroup>
 								<p:commandButton value="-"></p:commandButton>
-								<p:spinner id="spinnerDay" min="0" value="#{findRaceWFControl.days}">
+								<p:spinner id="spinnerDay" min="0"
+									value="#{findRaceWFControl.days}">
 								</p:spinner>
 								<p:commandButton value="+"></p:commandButton>
 							</h:panelGroup>
