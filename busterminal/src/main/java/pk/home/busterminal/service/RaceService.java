@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,6 @@ import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
-import pk.home.busterminal.domain.Seat;
-import pk.home.busterminal.domain.Seat_;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
@@ -118,15 +117,21 @@ public class RaceService extends ABaseService<Race> {
 	}
 
 	/**
-	 * Поиск рейсов
+	 * поиск рейсов
 	 * 
 	 * @param busRoute
-	 * @param all
+	 * @param allDates
 	 * @param date
+	 * @param firstResult
+	 * @param maxResults
+	 * @param orderByAttribute
+	 * @param sortOrder
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Race> selectRaces(BusRoute busRoute, boolean allDates, Date date)
+	public List<Race> selectRaces(BusRoute busRoute, boolean allDates,
+			Date date, int firstResult, int maxResults,
+			SingularAttribute<Race, ?> orderByAttribute, SortOrderType sortOrder)
 			throws Exception {
 
 		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
@@ -136,12 +141,12 @@ public class RaceService extends ABaseService<Race> {
 
 		// parent param ---------------------------------------
 		if (!allDates) {
-			cq.where(cb.between(t.get(Race_.dTime), new Date(date.getTime()),
+			cq.where(cb.between(t.get(Race_.dTime), date,
 					new Date(date.getTime() + 1000 * 60 * 60 * 24)));
 		}
 
-		return raceDAO
-				.getAllEntities(Race_.dTime, SortOrderType.ASC, cb, cq, t);
+		return raceDAO.getAllEntities(false, firstResult, maxResults,
+				orderByAttribute, sortOrder, cb, cq, t);
 	}
 
 }

@@ -2,6 +2,7 @@ package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -77,8 +78,7 @@ public class TestRaceService extends BaseTest {
 	public void tearDown() throws Exception {
 	}
 
-	
-	/**                                                                                                           
+	/**
 	 * Test method for
 	 * {@link pk.home.libs.combine.dao.ABaseDAO#getAllEntities()}.
 	 * 
@@ -464,6 +464,39 @@ public class TestRaceService extends BaseTest {
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
+	}
+
+	@Test
+	@Rollback(true)
+	public void testSelectRaces() throws Exception {
+		createTestEntitys();
+
+		Date d1 = createUniqueDate();
+
+		// long index = service.count();
+		for (int i = 0; i < 100; i++) {
+			Race race = new Race();
+			race.setdTime(createUniqueDate());
+			race.setBus(busWork1);
+			race.setBusRoute(busRoute1);
+			service.persist(race);
+			// index++;
+		}
+
+		List<Race> list = service.selectRaces(busRoute1, false, d1, 10, 20,
+				Race_.dTime, SortOrderType.ASC);
+
+		assertTrue(list != null);
+		assertTrue(list.size() > 0);
+		assertTrue(list.size() == 20);
+
+		list = service.selectRaces(busRoute1, true, d1, 10, 20, Race_.dTime,
+				SortOrderType.ASC);
+
+		assertTrue(list != null);
+		assertTrue(list.size() > 0);
+		assertTrue(list.size() == 20);
+
 	}
 
 }
