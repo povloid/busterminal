@@ -473,14 +473,14 @@ public class TestRaceService extends BaseTest {
 
 		Date d1 = createUniqueDate();
 
-		// long index = service.count();
+		long index = 0;
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
 			race.setdTime(createUniqueDate());
 			race.setBus(busWork1);
 			race.setBusRoute(busRoute1);
 			service.persist(race);
-			// index++;
+			++index;
 		}
 
 		List<Race> list = service.selectRaces(busRoute1, false, d1, 10, 20,
@@ -496,6 +496,12 @@ public class TestRaceService extends BaseTest {
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == 20);
+
+		long count = service.selectRacesCount(busRoute1, false, d1);
+
+		assertTrue(count > 0);
+		System.out.println("count: " + (count) + " -- index: " + index);
+		assertTrue(count == index);
 
 	}
 

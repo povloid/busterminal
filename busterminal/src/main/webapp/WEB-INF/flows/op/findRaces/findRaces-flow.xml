@@ -7,10 +7,38 @@
 
 	<secured attributes="ROLE_USER" />
 
-	<view-state id="findRaces">
+	<var name="findRaceWFControl" class="pk.home.busterminal.web.jsf.webflow.FindRaceWFControl" />
 
+	<view-state id="findRaces">
+		<on-entry>
+			<evaluate expression="findRaceWFControl.init()" />
+		</on-entry>
+	
+	
+		<transition on="end" to="end"></transition>
+		
+		<transition on="selectBusRoute1" to="selectBusRoute1" />
+		<transition on="selectBusRoute2" to="selectBusRoute2" />
 	</view-state>
 
+
+	<subflow-state id="selectBusRoute1" subflow="busRoute/selectOne">
+		<transition to="findRaces">
+			<evaluate
+				expression="findRaceWFControl.setBusRoute1(currentEvent.attributes.selectedId)" />
+		</transition>
+		<transition on-exception="java.lang.Exception" to="findRaces" />
+	</subflow-state>
+
+	<subflow-state id="selectBusRoute2" subflow="busRoute/selectOne">
+		<transition to="findRaces">
+			<evaluate
+				expression="findRaceWFControl.setBusRoute2(currentEvent.attributes.selectedId)" />
+		</transition>
+		<transition on-exception="java.lang.Exception" to="findRaces" />
+	</subflow-state>
+
+	<!-- END -->
 
 	<decision-state id="end">
 		<if test="retUrl == null" then="end0" else="end1" />

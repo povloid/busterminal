@@ -3,6 +3,7 @@ package pk.home.busterminal.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -116,6 +117,8 @@ public class RaceService extends ABaseService<Race> {
 
 	}
 
+	public static final int DAY = 1000 * 60 * 60 * 24;
+
 	/**
 	 * поиск рейсов
 	 * 
@@ -129,6 +132,8 @@ public class RaceService extends ABaseService<Race> {
 	 * @return
 	 * @throws Exception
 	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Race> selectRaces(BusRoute busRoute, boolean allDates,
 			Date date, int firstResult, int maxResults,
 			SingularAttribute<Race, ?> orderByAttribute, SortOrderType sortOrder)
@@ -140,13 +145,54 @@ public class RaceService extends ABaseService<Race> {
 		Root<Race> t = cq.from(Race.class);
 
 		// parent param ---------------------------------------
-		if (!allDates) {
-			cq.where(cb.between(t.get(Race_.dTime), date,
-					new Date(date.getTime() + 1000 * 60 * 60 * 24)));
+		cq.where(cb.equal(t.get(Race_.busRoute), busRoute));
+
+		if (allDates) {
+			cq.where(cb.equal(t.get(Race_.busRoute), busRoute));
+		} else {
+			cq.where(
+					cb.between(t.get(Race_.dTime), date,
+							new Date(date.getTime() + DAY)),
+					cb.equal(t.get(Race_.busRoute), busRoute));
 		}
 
 		return raceDAO.getAllEntities(false, firstResult, maxResults,
 				orderByAttribute, sortOrder, cb, cq, t);
+	}
+
+	/**
+	 * Получить полное количество
+	 * 
+	 * @param busRoute
+	 * @param allDates
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public long selectRacesCount(BusRoute busRoute, boolean allDates, Date date)
+			throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object> cq = cb.createQuery();
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		cq.select(cb.count(t));
+
+		if (allDates) {
+			cq.where(cb.equal(t.get(Race_.busRoute), busRoute));
+		} else {
+			cq.where(
+					cb.between(t.get(Race_.dTime), date,
+							new Date(date.getTime() + DAY)),
+					cb.equal(t.get(Race_.busRoute), busRoute));
+		}
+
+		Query q = raceDAO.getEntityManager().createQuery(cq);
+		return ((Long) q.getSingleResult()).longValue();
 	}
 
 }

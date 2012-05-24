@@ -19,45 +19,107 @@
 
 	<ui:define name="header">
          Поиск рейса
-    </ui:define>
+         
+<style type="text/css">
+.searchPanel {
+	height: 180px;
+}
+</style>
+
+	</ui:define>
 
 	<ui:define name="content">
+
+		<script language="javascript">
+			PrimeFaces.locales['ru'] = {
+				closeText : 'Закрыть',
+				prevText : 'Назад',
+				nextText : 'Вперёд',
+				monthNames : [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май',
+						'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь',
+						'Ноябрь', 'Декабрь' ],
+				monthNamesShort : [ 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+						'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+				dayNames : [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
+						'Четверг', 'Пятница', 'Субота' ],
+				dayNamesShort : [ 'Воск', 'Пон', 'Вт', 'Ср', 'Четв', 'Пят',
+						'Суб' ],
+				dayNamesMin : [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
+				weekHeader : 'Неделя',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Только время',
+				timeText : 'Время',
+				hourText : 'Час',
+				minuteText : 'Минута',
+				secondText : 'Секунда',
+				currentText : 'Сегодня',
+				ampm : false,
+				month : 'Месяц',
+				week : 'неделя',
+				day : 'День',
+				allDayText : 'Весь день'
+			};
+		</script>
+
+
 		<h:form id="form">
 
-			<h:panelGrid columns="1" width="100%">
+			<p:growl id="msgs" showDetail="true" />
 
-				<p:panel header="Поиск">
+			<p:messages showDetail="true" autoUpdate="true" />
+			<h:panelGrid columns="2" width="100%">
 
+				<p:panel header="Туда" footer="Visca el Barca!"
+					styleClass="searchPanel">
+					<h:panelGrid columns="2">
+
+						<h:outputText value="Маршрут"></h:outputText>
+						<h:panelGrid columns="2">
+							<p:commandButton value="Выбрать" action="selectBusRoute1"></p:commandButton>
+							<h:outputText
+								value="#{findRaceWFControl.findRaceModel1.busRoute.keyName}"></h:outputText>
+						</h:panelGrid>
+
+						<h:outputText value="Дата:"></h:outputText>
+						<h:panelGrid columns="6">
+							<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
+								showButtonPanel="true" navigator="true"
+								value="#{findRaceWFControl.findRaceModel1.date}"></p:calendar>
+						</h:panelGrid>
+					</h:panelGrid>
 				</p:panel>
 
-				<h:panelGrid columns="2" width="100%">
-					<p:panel header="Туда" footer="Visca el Barca!">
+				<p:panel header="Обратно" footer="Visca el Barca!"
+					styleClass="searchPanel">
+					<h:panelGrid columns="2">
+						<h:outputText value="Маршрут"></h:outputText>
 						<h:panelGrid columns="2">
-							<h:outputText value="Маршрут"></h:outputText>
-							<h:outputText value="Тараз - Алмата"></h:outputText>
-
-							<h:outputText value="Дата:"></h:outputText>
-							<h:panelGrid columns="2">
-								<p:calendar></p:calendar>
-							</h:panelGrid>
+							<p:commandButton value="Выбрать" action="selectBusRoute2"></p:commandButton>
+							<h:outputText
+								value="#{findRaceWFControl.findRaceModel2.busRoute.keyName}"></h:outputText>
 						</h:panelGrid>
 
-
-					</p:panel>
-
-					<p:panel header="Обратно" footer="Visca el Barca!">
-						<h:panelGrid columns="2">
-							<h:outputText value="Маршрут"></h:outputText>
-							<h:outputText value="Тараз - Алмата"></h:outputText>
-
-							<h:outputText value="Дата:"></h:outputText>
-							<p:calendar></p:calendar>
+						<h:outputText value="Дата:"></h:outputText>
+						<h:panelGrid columns="4">
+							<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
+								showButtonPanel="true" navigator="true"
+								value="#{findRaceWFControl.findRaceModel2.date}"></p:calendar>
+							<h:outputText value="дней: " />
+							<h:panelGroup>
+								<p:commandButton value="-"></p:commandButton>
+								<p:spinner id="spinnerDay" min="0" value="#{findRaceWFControl.days}">
+								</p:spinner>
+								<p:commandButton value="+"></p:commandButton>
+							</h:panelGroup>
 						</h:panelGrid>
+					</h:panelGrid>
 
-					</p:panel>
-				</h:panelGrid>
-
+				</p:panel>
 			</h:panelGrid>
+
 
 		</h:form>
 	</ui:define>
