@@ -132,8 +132,87 @@
 					</h:panelGrid>
 
 				</p:panel>
-			</h:panelGrid>
 
+
+
+				<p:dataTable var="row" value="#{findRaceWFControl.findRaceModel1}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" id="findRaceModeltable1"
+					selectionMode="single" selection="#{findRaceWFControl.selected1}">
+
+
+					<p:column headerText="№">
+
+						<h:outputText value="#{row.id}" />
+					</p:column>
+
+					<p:column headerText="Время"
+						style="width: 210px; text-align: left;">
+						<h:outputText value="#{row.dTime}"
+							style="font-weight: bold; font-size:large">
+							<f:convertDateTime type="both" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Описание">
+
+						<h:outputText value="Маршрут: " style="font-weight: bold" />
+						<h:outputText value="#{row.busRoute.keyName}" />
+						<br />
+						<h:outputText value="Автобус: " style="font-weight: bold" />
+						<h:outputText value="#{row.bus.keyName} - #{row.bus.gosNum}" />
+						<br />
+						<h:outputText value="Пометки: " style="font-weight: bold" />
+						<h:outputText value="#{row.description}" />
+
+					</p:column>
+
+
+
+				</p:dataTable>
+
+
+
+				<p:dataTable var="row" value="#{findRaceWFControl.findRaceModel2}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" id="findRaceModeltable2"
+					selectionMode="single" selection="#{findRaceWFControl.selected2}">
+
+
+					<p:column headerText="№">
+
+						<h:outputText value="#{row.id}" />
+					</p:column>
+
+					<p:column headerText="Время"
+						style="width: 210px; text-align: left;">
+						<h:outputText value="#{row.dTime}"
+							style="font-weight: bold; font-size:large">
+							<f:convertDateTime type="both" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Описание">
+
+						<h:outputText value="Маршрут: " style="font-weight: bold" />
+						<h:outputText value="#{row.busRoute.keyName}" />
+						<br />
+						<h:outputText value="Автобус: " style="font-weight: bold" />
+						<h:outputText value="#{row.bus.keyName} - #{row.bus.gosNum}" />
+						<br />
+						<h:outputText value="Пометки: " style="font-weight: bold" />
+						<h:outputText value="#{row.description}" />
+
+					</p:column>
+
+
+
+				</p:dataTable>
+			</h:panelGrid>
 
 		</h:form>
 	</ui:define>

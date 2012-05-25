@@ -6,7 +6,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.model.SortOrder;
 
@@ -41,6 +40,9 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 
 	private FindRaceModel findRaceModel1 = new FindRaceModel();
 	private FindRaceModel findRaceModel2 = new FindRaceModel();
+
+	private Race selected1;
+	private Race selected2;
 
 	private int days = 1;
 
@@ -242,6 +244,22 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 
 	public void setDays(int days) {
 		this.days = days;
-	};
+	}
+
+	public Race getSelected1() {
+		return selected1;
+	}
+
+	public void setSelected1(Race selected1) {
+		this.selected1 = selected1;
+	}
+
+	public Race getSelected2() {
+		return selected2;
+	}
+
+	public void setSelected2(Race selected2) {
+		this.selected2 = selected2;
+	}
 
 }
