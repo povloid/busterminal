@@ -148,9 +148,8 @@
 					</p:column>
 
 					<p:column headerText="Время"
-						style="width: 210px; text-align: left;">
-						<h:outputText value="#{row.dTime}"
-							style="font-weight: bold; font-size:large">
+						style="width: 120px; text-align: left;">
+						<h:outputText value="#{row.dTime}" style="font-weight: bold;">
 							<f:convertDateTime type="both" />
 						</h:outputText>
 					</p:column>
@@ -169,6 +168,10 @@
 
 					</p:column>
 
+					<p:column headerText="Действие"
+						style="width: 100px; text-align: center;">
+
+					</p:column>
 
 
 				</p:dataTable>
@@ -188,9 +191,8 @@
 					</p:column>
 
 					<p:column headerText="Время"
-						style="width: 210px; text-align: left;">
-						<h:outputText value="#{row.dTime}"
-							style="font-weight: bold; font-size:large">
+						style="width: 120px; text-align: left;">
+						<h:outputText value="#{row.dTime}" style="font-weight: bold; ">
 							<f:convertDateTime type="both" />
 						</h:outputText>
 					</p:column>
@@ -206,6 +208,12 @@
 						<br />
 						<h:outputText value="Пометки: " style="font-weight: bold" />
 						<h:outputText value="#{row.description}" />
+
+					</p:column>
+
+
+					<p:column headerText="Действие"
+						style="width: 100px; text-align: center;">
 
 					</p:column>
 
