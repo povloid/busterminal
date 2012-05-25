@@ -117,11 +117,16 @@
 							</p:calendar>
 							<h:outputText value="дней: " />
 							<h:panelGroup>
-								<p:commandButton value="-"></p:commandButton>
-								<p:spinner id="spinnerDay" min="0"
+								<p:commandButton value="-" action="#{findRaceWFControl.decDay}"
+									ajax="true" update="@form"></p:commandButton>
+								<p:spinner id="spinnerDay" min="1"
 									value="#{findRaceWFControl.days}">
+									<p:ajax update="@form" process="@this"
+										listener="#{findRaceWFControl.handleSpinnerSelect}" />
 								</p:spinner>
-								<p:commandButton value="+"></p:commandButton>
+								<p:commandButton value="+" action="#{findRaceWFControl.incDay}"
+									ajax="true" update="@form">
+								</p:commandButton>
 							</h:panelGroup>
 						</h:panelGrid>
 					</h:panelGrid>

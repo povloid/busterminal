@@ -2,9 +2,11 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+import org.primefaces.component.calendar.Calendar;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.model.SortOrder;
 
@@ -40,7 +42,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	private FindRaceModel findRaceModel1 = new FindRaceModel();
 	private FindRaceModel findRaceModel2 = new FindRaceModel();
 
-	private int days;
+	private int days = 1;
 
 	// actions
 	// ------------------------------------------------------------------------------------
@@ -70,6 +72,8 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		findRaceModel2.setBusRoute(getBusRouteService().find(id));
 	}
 
+	private final static int DAY = 1000 * 60 * 60 * 24;
+
 	/**
 	 * Смена даты 1
 	 * 
@@ -77,6 +81,10 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	 */
 	public void handleDateSelect1(DateSelectEvent event) {
 		System.out.println("handleDateSelect1");
+
+		Date eDate = event.getDate();
+
+		findRaceModel2.setDate(new Date(eDate.getTime() + (days - 1) * DAY));
 	}
 
 	/**
@@ -86,6 +94,43 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	 */
 	public void handleDateSelect2(DateSelectEvent event) {
 		System.out.println("handleDateSelect2");
+
+		Date eDate = event.getDate();
+
+		System.out
+				.println(eDate.getTime() - findRaceModel1.getDate().getTime());
+
+		days = (int) ((eDate.getTime() - findRaceModel1.getDate().getTime()) / DAY) + 1;
+		System.out.println(days);
+	}
+
+	/**
+	 * Установка разности дней спинером
+	 */
+	public void handleSpinnerSelect() {
+		System.out.println("handleSpinnerSelect");
+		findRaceModel2.setDate(new Date(findRaceModel1.getDate().getTime()
+				+ (days - 1) * DAY));
+		// System.out.println(new Date(findRaceModel1.getDate().getTime() + days
+		// * DAY));
+	}
+
+	/**
+	 * Прибавить день на 1
+	 */
+	public void incDay() {
+		++days;
+		handleSpinnerSelect();
+	}
+
+	/**
+	 * Уменьшить день на 1
+	 */
+	public void decDay() {
+		if (days > 1)
+			--days;
+
+		handleSpinnerSelect();
 	}
 
 	// ------------------------------------------------------------------------------------
@@ -99,8 +144,18 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	public class FindRaceModel extends WFLazyDataModel<Race> implements
 			Serializable {
 
-		private Date date = new Date();
+		private Date date;
 		private BusRoute busRoute;
+
+		{
+			java.util.Calendar cal = GregorianCalendar.getInstance();
+			// Получаем полночь
+			cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
+			cal.set(java.util.Calendar.MINUTE, 0);
+			cal.set(java.util.Calendar.SECOND, 0);
+			cal.set(java.util.Calendar.MILLISECOND, 0);
+			date = cal.getTime();
+		}
 
 		/**
 		 * 
