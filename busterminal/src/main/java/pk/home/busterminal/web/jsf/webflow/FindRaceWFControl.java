@@ -186,16 +186,18 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 
 		@Override
 		public Race getRowData(String rowKey) {
-			for (Race rd : getDataList()) {
-				if (rd.getId() == Long.parseLong(rowKey))
-					return rd;
-			}
+			if (getDataList() != null)
+				for (Race rd : getDataList()) {
+					if (rd.getId() == Long.parseLong(rowKey))
+						return rd;
+				}
 			return null;
 		}
 
 		@Override
 		public Object getRowKey(Race object) {
-			return object.getId();
+
+			return object != null ? object.getId() : null;
 		}
 
 		// get's and set's
