@@ -13,12 +13,15 @@
 		<on-entry>
 			<evaluate expression="findRaceWFControl.init()" />
 		</on-entry>
-	
-	
+
+
 		<transition on="end" to="end"></transition>
-		
+
 		<transition on="selectBusRoute1" to="selectBusRoute1" />
 		<transition on="selectBusRoute2" to="selectBusRoute2" />
+
+		<transition on="sale1" to="sale1" />
+		<transition on="sale2" to="sale2" />
 	</view-state>
 
 
@@ -37,6 +40,20 @@
 		</transition>
 		<transition on-exception="java.lang.Exception" to="findRaces" />
 	</subflow-state>
+
+
+
+	<!-- SALE -->
+	<subflow-state id="sale1" subflow="op/sale">
+		<input name="raceId" value="findRaceWFControl.selected1.id" />
+		<transition to="findRaces" />
+	</subflow-state>
+	
+	<subflow-state id="sale2" subflow="op/sale">
+		<input name="raceId" value="findRaceWFControl.selected2.id" />
+		<transition to="findRaces" />
+	</subflow-state>
+
 
 	<!-- END -->
 

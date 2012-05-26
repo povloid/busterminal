@@ -170,7 +170,10 @@
 
 					<p:column headerText="Действие"
 						style="width: 100px; text-align: center;">
-
+						<p:commandButton value="Продать" action="sale1">
+							<f:setPropertyActionListener value="#{row}"
+								target="#{findRaceWFControl.selected1}" />
+						</p:commandButton>
 					</p:column>
 
 
@@ -214,7 +217,10 @@
 
 					<p:column headerText="Действие"
 						style="width: 100px; text-align: center;">
-
+						<p:commandButton value="Продать" action="sale2">
+							<f:setPropertyActionListener value="#{row}"
+								target="#{findRaceWFControl.selected2}" />
+						</p:commandButton>
 					</p:column>
 
 
