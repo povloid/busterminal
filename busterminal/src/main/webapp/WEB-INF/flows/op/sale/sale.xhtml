@@ -10,7 +10,10 @@
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
-        Продажа билета на рейс №#{raceId} - 
+        Продажа билета на рейс №#{raceId} - <h:outputText
+			value="#{oPSaleWFControl.race.dTime}" >
+			<f:convertDateTime type="both" />
+		</h:outputText>  #{oPSaleWFControl.race.busRoute.keyName} 
     </ui:define>
 
 	<ui:define name="header_icon">
@@ -18,13 +21,16 @@
 	</ui:define>
 
 	<ui:define name="header">
-        Продажа билета на рейс №#{raceId} -
+        Продажа билета на рейс №#{raceId} - <h:outputText
+			value="#{oPSaleWFControl.race.dTime}" style="font-weight: bold; ">
+			<f:convertDateTime type="both" />
+		</h:outputText>  #{oPSaleWFControl.race.busRoute.keyName}
     </ui:define>
 
 	<ui:define name="content">
 		<h:form id="form">
 			<pk:pk_close_button action="end" />
-			
+
 		</h:form>
 	</ui:define>
 

@@ -7,8 +7,15 @@
 
 	<secured attributes="ROLE_USER" />
 
-	<input name="raceId" type="java.lang.Long" required="true"/>
+	<var name="oPSaleWFControl" class="pk.home.busterminal.web.jsf.webflow.OPSaleWFControl" />
+
+	<input name="raceId" type="java.lang.Long" required="true" />
 	<input name="retUrl" type="java.lang.String" />
+
+
+	<on-start>
+		<evaluate expression="oPSaleWFControl.findRace(raceId)" />
+	</on-start>
 
 
 	<view-state id="sale">
