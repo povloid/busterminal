@@ -6,12 +6,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
         Продажа билета на рейс №#{raceId} - <h:outputText
-			value="#{oPSaleWFControl.race.dTime}" >
+			value="#{oPSaleWFControl.race.dTime}">
 			<f:convertDateTime type="both" />
 		</h:outputText>  #{oPSaleWFControl.race.busRoute.keyName} 
     </ui:define>
@@ -30,6 +31,90 @@
 	<ui:define name="content">
 		<h:form id="form">
 			<pk:pk_close_button action="end" />
+
+			<p:growl id="msgs" showDetail="true" />
+			<p:messages showDetail="true" autoUpdate="true" />
+
+			<br />
+			<br />
+			<p:fieldset
+				legend="Автобус: #{oPSaleWFControl.race.bus.keyName} - #{btmWFControl.edited.gosNum}"
+				toggleable="true" toggleSpeed="500" collapsed="true">
+				<h:panelGrid id="detail" columns="2">
+
+					<h:outputText value="№:" />
+					<h:outputText value="#{oPSaleWFControl.race.bus.id}" />
+
+					<h:outputLabel value="KeyName:" />
+					<h:outputText value="#{oPSaleWFControl.race.bus.keyName}" />
+
+					<h:outputLabel value="gosNum:" />
+					<h:outputText value="#{oPSaleWFControl.race.bus.gosNum}" />
+
+					<h:outputLabel value="Description:" />
+					<h:outputText value="#{oPSaleWFControl.race.bus.description}" />
+
+					<h:outputLabel value="Водитель 1:" />
+					<h:outputText
+						value="#{oPSaleWFControl.race.bus.driver1.fName}  #{oPSaleWFControl.race.bus.driver1.nName}  
+						#{oPSaleWFControl.race.bus.driver1.mName}" />
+
+					<h:outputLabel value="Водитель 2:" />
+					<h:outputText
+						value="#{oPSaleWFControl.race.bus.driver2.fName}  #{oPSaleWFControl.race.bus.driver2.nName}  
+						#{oPSaleWFControl.race.bus.driver2.mName}" />
+
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+		<h:form id="form2">
+
+
+			<h:panelGrid columns="4">
+				<h:outputText value="Схема: "
+					rendered="#{!empty oPSaleWFControl.race.bus.schemas}" />
+				<p:selectOneButton value="#{oPSaleWFControl.selectedSchemeId}">
+					<f:selectItems value="#{oPSaleWFControl.race.bus.schemas}"
+						var="row" itemLabel="#{row.keyName}" itemValue="#{row.id}" />
+					<p:ajax event="change" update="@form"
+						listener="#{oPSaleWFControl.handleSchemaChange}" />
+				</p:selectOneButton>
+			</h:panelGrid>
+
+
+
+			<br />
+
+			<h:panelGroup
+				rendered="#{oPSaleWFControl.selectedScheme.xSize gt 0 and oPSaleWFControl.selectedScheme.ySize gt 0}">
+				<table border="10" cellspacing="25px" style="border-radius: 50px">
+					<tr>
+						<td style="border: 0px">
+							<table border="0">
+								<ui:repeat var="y" value="#{oPSaleWFControl.cells}">
+									<tr>
+										<ui:repeat var="x" value="#{y}">
+											<td style="border: 1px dotted black;"><bt:cell
+													cell="#{x}" selectedCell="#{oPSaleWFControl.selectedCell}"
+													show_op_batton_group="true"
+													sale_cell_action="#{oPSaleWFControl.sale}"
+													view_button_oncomplete="rowDitailDialog.show()"
+													show_view_button="true" /></td>
+										</ui:repeat>
+									</tr>
+								</ui:repeat>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</h:panelGroup>
+
+			<bt:seat_info_dialog ids="rowDitailDialog"
+				cell="#{oPSaleWFControl.selectedCell}" />
+
+
+
+
 
 		</h:form>
 	</ui:define>

@@ -19,6 +19,10 @@
 
 
 	<view-state id="sale">
+		<on-entry>
+			<evaluate expression="oPSaleWFControl.init()" />
+		</on-entry>
+
 		<transition on="end" to="end"></transition>
 	</view-state>
 

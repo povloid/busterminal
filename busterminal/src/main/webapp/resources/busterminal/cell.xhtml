@@ -20,6 +20,12 @@
 		method-signature="java.lang.String action()" />
 
 
+	<cc:attribute name="sale_cell_action"
+		method-signature="java.lang.String action()" />
+
+	<cc:attribute name="show_rb_batton_group" type="boolean" default="false"></cc:attribute>
+	<cc:attribute name="show_op_batton_group" type="boolean" default="false"></cc:attribute>
+
 	<cc:attribute name="show_view_button"></cc:attribute>
 	<cc:attribute name="view_button_oncomplete" default=""></cc:attribute>
 
@@ -37,26 +43,38 @@
 		style="width: 128px; height: 112px; border-spacing: 0px; border-radius: 20px; background-image: url(#{request.contextPath}#{cc.attrs.cell.icon}); background-repeat: no-repeat"
 		border="0">
 		<tr>
-			<td valign="top" align="left"><p:commandButton
-					rendered="#{cc.attrs.cell.seat == null}" icon="ui-icon add"
-					ajax="false" action="#{cc.attrs.add_to_cell_action}"
-					title="Добавить посадочное место в ячейку">
+			<td valign="top" align="left"><h:panelGroup rendered="#{cc.attrs.show_rb_batton_group}">
+					<p:commandButton rendered="#{cc.attrs.cell.seat == null}"
+						icon="ui-icon add" ajax="false"
+						action="#{cc.attrs.add_to_cell_action}"
+						title="Добавить посадочное место в ячейку">
 
-					<f:setPropertyActionListener value="#{cc.attrs.cell}"
-						target="#{cc.attrs.selectedCell}" />
-				</p:commandButton> <p:commandButton rendered="#{cc.attrs.cell.seat != null}"
-					icon="ui-icon edit" ajax="false"
-					action="#{cc.attrs.edit_in_cell_action}"
-					title="Редактировать посадочное место в ячейку">
-					<f:setPropertyActionListener value="#{cc.attrs.cell}"
-						target="#{cc.attrs.selectedCell}" />
-				</p:commandButton> <p:commandButton rendered="#{cc.attrs.cell.seat != null}"
-					icon="ui-icon del" ajax="false"
-					action="#{cc.attrs.del_from_cell_action}"
-					title="Удалить посадочное место в ячейку">
-					<f:setPropertyActionListener value="#{cc.attrs.cell}"
-						target="#{cc.attrs.selectedCell}" />
-				</p:commandButton> <p:commandButton update="@form"
+						<f:setPropertyActionListener value="#{cc.attrs.cell}"
+							target="#{cc.attrs.selectedCell}" />
+					</p:commandButton>
+					<p:commandButton rendered="#{cc.attrs.cell.seat != null}"
+						icon="ui-icon edit" ajax="false"
+						action="#{cc.attrs.edit_in_cell_action}"
+						title="Редактировать посадочное место в ячейку">
+						<f:setPropertyActionListener value="#{cc.attrs.cell}"
+							target="#{cc.attrs.selectedCell}" />
+					</p:commandButton>
+					<p:commandButton rendered="#{cc.attrs.cell.seat != null}"
+						icon="ui-icon del" ajax="false"
+						action="#{cc.attrs.del_from_cell_action}"
+						title="Удалить посадочное место в ячейку">
+						<f:setPropertyActionListener value="#{cc.attrs.cell}"
+							target="#{cc.attrs.selectedCell}" />
+					</p:commandButton>
+
+				</h:panelGroup> <h:panelGroup rendered="#{cc.attrs.show_op_batton_group}">
+					<p:commandButton rendered="#{cc.attrs.cell.seat != null}"
+						ajax="false" action="#{cc.attrs.sale_cell_action}"
+						title="Продать место">
+						<f:setPropertyActionListener value="#{cc.attrs.cell}"
+							target="#{cc.attrs.selectedCell}" />
+					</p:commandButton>
+				</h:panelGroup> <p:commandButton update="@form"
 					rendered="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true' and cc.attrs.cell.seat != null}"
 					oncomplete="#{cc.attrs.view_button_oncomplete}"
 					icon="ui-icon ui-icon-search" title="View row">
@@ -71,28 +89,30 @@
 					<table width="100%">
 						<tr>
 							<td colspan="2" align="center"
-								style="background: #333; border: 1px solid #333; opacity: 0.5; filter: alpha(Opacity =       50);"><b><h:outputText
-									value="#{cc.attrs.cell.seat.num}"
-									style="font-size: 20px; color: white; "></h:outputText></b></td>
+								style="background: #333; border: 1px solid #333; opacity: 0.5; filter: alpha(Opacity =         50);"><b><h:outputText
+										value="#{cc.attrs.cell.seat.num}"
+										style="font-size: 20px; color: white; "></h:outputText></b></td>
 						</tr>
 						<tr>
 							<td width="10px"
-								style="background: #222; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =       80);">
-							<h:outputText value="Мастер процент:"	style="font-size: 10px; ; color: #00FFFF"></h:outputText>	
-								</td>
+								style="background: #222; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =         80);">
+								<h:outputText value="Мастер процент:"
+									style="font-size: 10px; ; color: #00FFFF"></h:outputText>
+							</td>
 							<td align="right"
-								style="background: #222; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =       80);"><h:outputText
+								style="background: #222; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =         80);"><h:outputText
 									value="#{cc.attrs.cell.seat.masterProcent}%"
 									style="font-size: 12px; color: #00FFFF"></h:outputText></td>
 						</tr>
 
 						<tr>
 							<td
-								style="background: #111; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =       80);">
-								<h:outputText value="Цена:"	style="font-size: 10px; ; color: yellow"></h:outputText>
-								</td>
+								style="background: #111; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =         80);">
+								<h:outputText value="Цена:"
+									style="font-size: 10px; ; color: yellow"></h:outputText>
+							</td>
 							<td align="right"
-								style="background: #111; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =       80);"><h:outputText
+								style="background: #111; border: 1px solid #333; opacity: 0.8; filter: alpha(Opacity =         80);"><h:outputText
 									value="#{cc.attrs.cell.seat.price}"
 									style="font-size: 14px; color: yellow"></h:outputText></td>
 						</tr>
