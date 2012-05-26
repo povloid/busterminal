@@ -62,13 +62,13 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 	/**
 	 * Продать место
+	 * 
 	 * @return
 	 */
 	public String sale() {
 		return "sale";
 	}
-	
-	
+
 	// Schemas
 	// -------------------------------------------------------------------------------------------
 
@@ -100,6 +100,10 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 			}
 		}
 	}
+
+	// CELL OPERATIONS
+	// ---------------------------------------------------------------------------------
+	private Cell selectedCell;
 
 	/**
 	 * Формирование коллекций для отрисовки схемы
@@ -146,10 +150,6 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 		return ylist;
 	}
-
-	// CELL OPERATIONS
-	// ---------------------------------------------------------------------------------
-	private Cell selectedCell;
 
 	// get's and set's
 	// -------------------------------------------------------------------------------------------
