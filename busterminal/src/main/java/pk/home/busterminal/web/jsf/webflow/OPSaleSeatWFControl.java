@@ -1,0 +1,128 @@
+package pk.home.busterminal.web.jsf.webflow;
+
+import java.io.Serializable;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.service.CustomerService;
+import pk.home.busterminal.service.OrderService;
+import pk.home.busterminal.service.SeatService;
+import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
+
+/**
+ * Продажа билета
+ * 
+ * @author povloid
+ * 
+ */
+public class OPSaleSeatWFControl extends AWFBasicControl implements
+		Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6802892297395121858L;
+
+	// SERVICES
+	// -------------------------------------------------------------------------------------------
+
+	public SeatService getSeatService() {
+		return (SeatService) findBean("seatService");
+	}
+	
+	public OrderService getOrderService() {
+		return (OrderService) findBean("orderService");
+	}
+
+	public CustomerService getCustomerService() {
+		return (CustomerService) findBean("customerService");
+	}
+
+	// Переменные 
+	
+	private Seat seat;
+	private Order order;
+
+	// actions
+	// -------------------------------------------------------------------------------------------
+
+	/**
+	 * Поиск места
+	 * @param id
+	 * @throws Exception
+	 */
+	public void findSeat(long id) throws Exception{
+		this.seat = getSeatService().find(id);
+		
+		if(this.seat == null){
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: Операция продажи не возможна! ", "Продаваемого места по коду " + id + "не найдено."));
+		}
+	}
+	
+	/**
+	 * Создание продажного ордера
+	 * @throws Exception
+	 */
+	public void createSaleOrder() throws Exception {
+		this.order = new Order();
+		this.order.setOrderType(OrderType.TICKET_SALE);
+		this.order.setSeat(seat);
+	}
+
+	/**
+	 * Инициализация
+	 */
+	@Override
+	protected void init0() throws Exception {
+
+	}
+
+	/**
+	 * Установить выбранного клиента
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void setCustomer(long id) throws Exception {
+
+	}
+
+	/**
+	 * Продажа места
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String saleSeat() throws Exception {
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+			throw new Exception(e);
+		}
+
+		return "saleSeat";
+	}
+
+	// get's and set's
+	// -------------------------------------------------------------------------------------------
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+}
