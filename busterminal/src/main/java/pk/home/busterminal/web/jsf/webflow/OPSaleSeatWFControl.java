@@ -7,9 +7,11 @@ import javax.faces.context.FacesContext;
 
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.service.CustomerService;
 import pk.home.busterminal.service.OrderService;
+import pk.home.busterminal.service.RaceService;
 import pk.home.busterminal.service.SeatService;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 
@@ -30,6 +32,10 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	// SERVICES
 	// -------------------------------------------------------------------------------------------
 
+	public RaceService getRaceService() {
+		return (RaceService) findBean("raceService");
+	}
+
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
 	}
@@ -44,11 +50,29 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	// Переменные
 
+	private Race race;
 	private Seat seat;
 	private Order order;
 
 	// actions
 	// -------------------------------------------------------------------------------------------
+
+	/**
+	 * Поиск рейса
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void findRace(long id) throws Exception {
+		this.race = getRaceService().find(id);
+		if (this.race == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Error: Операция продажи не возможна! ",
+							"Рейса по коду " + id + " не найдено."));
+		}
+	}
 
 	/**
 	 * Поиск места
@@ -66,7 +90,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 							new FacesMessage(FacesMessage.SEVERITY_ERROR,
 									"Error: Операция продажи не возможна! ",
 									"Продаваемого места по коду " + id
-											+ "не найдено."));
+											+ " не найдено."));
 		}
 	}
 
@@ -129,6 +153,22 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
+	}
+
+	public Seat getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Seat seat) {
+		this.seat = seat;
 	}
 
 }

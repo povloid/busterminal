@@ -7,20 +7,23 @@
 
 	<secured attributes="ROLE_USER" />
 
+	<var name="oPSaleSeatWFControl" class="pk.home.busterminal.web.jsf.webflow.OPSaleSeatWFControl" />
+
 	<input name="raceId" type="java.lang.Long" required="true" />
 	<input name="seatId" type="java.lang.Long" required="true" />
 	<input name="retUrl" type="java.lang.String" />
 
 
-	<!-- <on-start> -->
-	<!-- <evaluate expression="oPSaleWFControl.findRace(raceId)" /> -->
-	<!-- </on-start> -->
+	<on-start>
+		<evaluate expression="oPSaleSeatWFControl.findRace(raceId)" />
+		<evaluate expression="oPSaleSeatWFControl.findSeat(seatId)" />
+	</on-start>
 
 
 	<view-state id="sale-seat">
-		<!-- <on-entry> -->
-		<!-- <evaluate expression="oPSaleWFControl.init()" /> -->
-		<!-- </on-entry> -->
+		<on-entry>
+			<evaluate expression="oPSaleSeatWFControl.init()" />
+		</on-entry>
 
 		<transition on="end" to="end"></transition>
 	</view-state>
