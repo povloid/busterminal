@@ -40,18 +40,39 @@
 					<h:outputText value="Клиент"></h:outputText>
 					<h:panelGrid columns="2">
 						<p:commandButton value="Выбрать" action="selectCustomer"></p:commandButton>
-						<h:outputText rendered="#{!empty oPSaleSeatWFControl.order.customer}"
-							value="#{oPSaleSeatWFControl.order.customer.keyName} - #{oPSaleSeatWFControl.order.customer.fName} #{oPSaleSeatWFControl.order.customer.nName} #{oPSaleSeatWFControl.order.customer.mName}"></h:outputText>
+						<h:outputText
+							rendered="#{!empty oPSaleSeatWFControl.order.customer}"
+							value="#{oPSaleSeatWFControl.order.customer.keyName} 
+							- #{oPSaleSeatWFControl.order.customer.fName} #{oPSaleSeatWFControl.order.customer.nName} #{oPSaleSeatWFControl.order.customer.mName}"></h:outputText>
 					</h:panelGrid>
 
 					<h:outputText value="Цена:"></h:outputText>
-					<h:outputText value="1000"></h:outputText>
+					<p:spinner value="#{oPSaleSeatWFControl.order.actualPrice}"
+						suffix=" у.е." min="#{oPSaleSeatWFControl.seat.price}"
+						max="#{oPSaleSeatWFControl.seat.price}" />
+
 
 					<h:outputText value="Остановка отправления:"></h:outputText>
-					<h:outputText value="Клиент:"></h:outputText>
+					<p:selectOneMenu value="#{oPSaleSeatWFControl.busRouteStopAId}"
+						rendered="true" required="true"
+						requiredMessage="Необходимо указать остановку отправления">
+						<f:selectItem itemLabel="Выбрать остановку отправления"
+							itemValue="0" />
+						<f:selectItems value="#{oPSaleSeatWFControl.stops1}" var="row"
+							itemLabel="#{row.busStop.keyName}" itemValue="#{row.id}" />
+						<p:ajax event="change" update="@form"
+							listener="#{oPSaleSeatWFControl.initStops}" />
+					</p:selectOneMenu>
 
 					<h:outputText value="Остановка прибытия:"></h:outputText>
-					<h:outputText value="Клиент:"></h:outputText>
+					<p:selectOneMenu value="#{oPSaleSeatWFControl.busRouteStopBId}"
+						rendered="true" required="true"
+						requiredMessage="Необходимо указать остановку прибытия">
+						<f:selectItem itemLabel="Выбрать остановку прибытия" itemValue="0" />
+						<f:selectItems value="#{oPSaleSeatWFControl.stops2}" var="row"
+							itemLabel="#{row.busStop.keyName}" itemValue="#{row.id}" />
+						<p:ajax event="change" update="@form" />
+					</p:selectOneMenu>
 
 
 					<h:outputLabel value="Пометки при продаже:" />

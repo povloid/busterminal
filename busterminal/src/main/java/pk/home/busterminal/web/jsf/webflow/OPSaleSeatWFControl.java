@@ -1,14 +1,19 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Seat;
+import pk.home.busterminal.service.BusRouteService;
+import pk.home.busterminal.service.BusRouteStopService;
 import pk.home.busterminal.service.CustomerService;
 import pk.home.busterminal.service.OrderService;
 import pk.home.busterminal.service.RaceService;
@@ -31,6 +36,14 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	// SERVICES
 	// -------------------------------------------------------------------------------------------
+
+	public BusRouteService getBusRouteService() {
+		return (BusRouteService) findBean("busRouteService");
+	}
+
+	public BusRouteStopService getBusRouteStopService() {
+		return (BusRouteStopService) findBean("busRouteStopService");
+	}
 
 	public RaceService getRaceService() {
 		return (RaceService) findBean("raceService");
@@ -98,7 +111,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	 */
 	@Override
 	protected void init0() throws Exception {
-
+		initStops();
 	}
 
 	/**
@@ -133,6 +146,71 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	}
 
 	/**
+	 * Выбор участка пути
+	 */
+
+	private List<BusRouteStop> stops1;
+	private List<BusRouteStop> stops2;
+
+	/**
+	 * Инициализация первого списка остановок
+	 * 
+	 * @throws Exception
+	 */
+	public void initStops() throws Exception {
+
+		if (stops1 == null) {
+			stops1 = getBusRouteService().findWithLazy(
+					race.getBusRoute().getId()).getBusRouteStops();
+		}
+
+		System.out.println(order.getBusRouteStopA());
+
+		stops2 = new ArrayList<BusRouteStop>();
+		for (BusRouteStop brs : stops1) {
+			if (order.getBusRouteStopA() == null
+					|| brs.getOrId() > order.getBusRouteStopA().getOrId()) {
+				stops2.add(brs);
+			}
+		}
+
+		order.setBusRouteStopB(null);
+
+	}
+
+	public long getBusRouteStopAId() {
+		if (order.getBusRouteStopA() != null)
+			return order.getBusRouteStopA().getId();
+		else
+			return 0;
+	}
+
+	public long getBusRouteStopBId() {
+		if (order.getBusRouteStopB() != null)
+			return order.getBusRouteStopB().getId();
+		else
+			return 0;
+	}
+
+	public void setBusRouteStopAId(long id) {
+		try {
+			this.order.setBusRouteStopA(getBusRouteStopService().find(id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setBusRouteStopBId(long id) {
+		try {
+			this.order.setBusRouteStopB(getBusRouteStopService().find(id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+
+	/**
 	 * Создание продажного ордера
 	 * 
 	 * @throws Exception
@@ -142,6 +220,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		this.order.setOrderType(OrderType.TICKET_SALE);
 		this.order.setSeat(seat);
 		this.order.setRace(race);
+		this.order.setActualPrice(this.seat.getPrice());
 	}
 
 	// get's and set's
@@ -169,6 +248,22 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	public void setSeat(Seat seat) {
 		this.seat = seat;
+	}
+
+	public List<BusRouteStop> getStops1() {
+		return stops1;
+	}
+
+	public void setStops1(List<BusRouteStop> stops1) {
+		this.stops1 = stops1;
+	}
+
+	public List<BusRouteStop> getStops2() {
+		return stops2;
+	}
+
+	public void setStops2(List<BusRouteStop> stops2) {
+		this.stops2 = stops2;
 	}
 
 }
