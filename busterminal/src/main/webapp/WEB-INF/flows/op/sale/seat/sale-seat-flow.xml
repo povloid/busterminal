@@ -17,6 +17,7 @@
 	<on-start>
 		<evaluate expression="oPSaleSeatWFControl.findRace(raceId)" />
 		<evaluate expression="oPSaleSeatWFControl.findSeat(seatId)" />
+		<evaluate expression="oPSaleSeatWFControl.createSaleOrder()" />
 	</on-start>
 
 
@@ -26,7 +27,22 @@
 		</on-entry>
 
 		<transition on="end" to="end"></transition>
+		<transition on="selectCustomer" to="selectCustomer" />
+
 	</view-state>
+
+	<!-- select customer -->
+
+	<subflow-state id="selectCustomer" subflow="customer/selectOne">
+		<transition to="sale-seat">
+			<evaluate
+				expression="oPSaleSeatWFControl.setCustomer(currentEvent.attributes.selectedId)" />
+		</transition>
+		<transition on-exception="java.lang.Exception" to="sale-seat" />
+	</subflow-state>
+
+	<!-- sale seat questuon -->
+
 
 
 	<!-- END -->

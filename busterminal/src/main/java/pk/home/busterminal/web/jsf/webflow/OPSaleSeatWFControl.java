@@ -49,7 +49,6 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	}
 
 	// Переменные
-
 	private Race race;
 	private Seat seat;
 	private Order order;
@@ -95,17 +94,6 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	}
 
 	/**
-	 * Создание продажного ордера
-	 * 
-	 * @throws Exception
-	 */
-	public void createSaleOrder() throws Exception {
-		this.order = new Order();
-		this.order.setOrderType(OrderType.TICKET_SALE);
-		this.order.setSeat(seat);
-	}
-
-	/**
 	 * Инициализация
 	 */
 	@Override
@@ -120,7 +108,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	 * @throws Exception
 	 */
 	public void setCustomer(long id) throws Exception {
-
+		this.order.setCustomer(getCustomerService().find(id));
 	}
 
 	/**
@@ -142,6 +130,18 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		}
 
 		return "saleSeat";
+	}
+
+	/**
+	 * Создание продажного ордера
+	 * 
+	 * @throws Exception
+	 */
+	public void createSaleOrder() throws Exception {
+		this.order = new Order();
+		this.order.setOrderType(OrderType.TICKET_SALE);
+		this.order.setSeat(seat);
+		this.order.setRace(race);
 	}
 
 	// get's and set's

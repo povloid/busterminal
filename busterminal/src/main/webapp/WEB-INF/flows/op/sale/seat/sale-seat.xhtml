@@ -11,7 +11,10 @@
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
-       Продажа билета на место №#{seatId}
+       Продажа билета на место №#{oPSaleSeatWFControl.seat.num} - рейс №#{raceId} - <h:outputText
+			value="#{oPSaleSeatWFControl.race.dTime}">
+			<f:convertDateTime type="both" />
+		</h:outputText>  #{oPSaleSeatWFControl.race.busRoute.keyName} 
     </ui:define>
 
 	<ui:define name="header_icon">
@@ -19,17 +22,46 @@
 	</ui:define>
 
 	<ui:define name="header">
-        Продажа билета на место №#{seatId}
+        Продажа билета на место №#{oPSaleSeatWFControl.seat.num} - рейс №#{raceId} - <h:outputText
+			value="#{oPSaleSeatWFControl.race.dTime}">
+			<f:convertDateTime type="both" />
+		</h:outputText>  #{oPSaleSeatWFControl.race.busRoute.keyName} 
     </ui:define>
 
 	<ui:define name="content">
 		<h:form id="form">
-			<pk:pk_close_button action="end" />
+
 
 			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
 
-			Продажа билета
+			<p:panel header="Детально:">
+				<h:panelGrid columns="2">
+					<h:outputText value="Клиент"></h:outputText>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Выбрать" action="selectCustomer"></p:commandButton>
+						<h:outputText rendered="#{!empty oPSaleSeatWFControl.order.customer}"
+							value="#{oPSaleSeatWFControl.order.customer.keyName} - #{oPSaleSeatWFControl.order.customer.fName} #{oPSaleSeatWFControl.order.customer.nName} #{oPSaleSeatWFControl.order.customer.mName}"></h:outputText>
+					</h:panelGrid>
+
+					<h:outputText value="Цена:"></h:outputText>
+					<h:outputText value="1000"></h:outputText>
+
+					<h:outputText value="Остановка отправления:"></h:outputText>
+					<h:outputText value="Клиент:"></h:outputText>
+
+					<h:outputText value="Остановка прибытия:"></h:outputText>
+					<h:outputText value="Клиент:"></h:outputText>
+
+
+					<h:outputLabel value="Пометки при продаже:" />
+					<p:inputTextarea value="#{oPSaleSeatWFControl.order.description}"
+						style="width:300px;height:100px;" title="Description" />
+
+				</h:panelGrid>
+
+				<pk:pk_close_button action="end" />
+			</p:panel>
 
 		</h:form>
 	</ui:define>
