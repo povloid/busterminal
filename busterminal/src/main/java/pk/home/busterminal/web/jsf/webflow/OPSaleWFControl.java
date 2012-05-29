@@ -65,8 +65,8 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 	 * 
 	 * @return
 	 */
-	public String sale() {
-		return "sale";
+	public String saleSeat() {
+		return "saleSeat";
 	}
 
 	// Schemas

@@ -33,7 +33,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
 	}
-	
+
 	public OrderService getOrderService() {
 		return (OrderService) findBean("orderService");
 	}
@@ -42,8 +42,8 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		return (CustomerService) findBean("customerService");
 	}
 
-	// Переменные 
-	
+	// Переменные
+
 	private Seat seat;
 	private Order order;
 
@@ -52,21 +52,27 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	/**
 	 * Поиск места
+	 * 
 	 * @param id
 	 * @throws Exception
 	 */
-	public void findSeat(long id) throws Exception{
+	public void findSeat(long id) throws Exception {
 		this.seat = getSeatService().find(id);
-		
-		if(this.seat == null){
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: Операция продажи не возможна! ", "Продаваемого места по коду " + id + "не найдено."));
+
+		if (this.seat == null) {
+			FacesContext.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									"Error: Операция продажи не возможна! ",
+									"Продаваемого места по коду " + id
+											+ "не найдено."));
 		}
 	}
-	
+
 	/**
 	 * Создание продажного ордера
+	 * 
 	 * @throws Exception
 	 */
 	public void createSaleOrder() throws Exception {

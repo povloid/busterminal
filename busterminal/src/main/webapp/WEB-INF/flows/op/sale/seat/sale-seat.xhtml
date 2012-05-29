@@ -11,10 +11,7 @@
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
-        Продажа билета на рейс №#{raceId} - <h:outputText
-			value="#{oPSaleWFControl.race.dTime}">
-			<f:convertDateTime type="both" />
-		</h:outputText>  #{oPSaleWFControl.race.busRoute.keyName} 
+       Продажа билета на место №#{seatId}
     </ui:define>
 
 	<ui:define name="header_icon">
@@ -22,10 +19,7 @@
 	</ui:define>
 
 	<ui:define name="header">
-        Продажа билета на рейс №#{raceId} - <h:outputText
-			value="#{oPSaleWFControl.race.dTime}" style="font-weight: bold; ">
-			<f:convertDateTime type="both" />
-		</h:outputText>  #{oPSaleWFControl.race.busRoute.keyName}
+        Продажа билета на место №#{seatId}
     </ui:define>
 
 	<ui:define name="content">
@@ -35,7 +29,7 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:messages showDetail="true" autoUpdate="true" />
 
-			Продажа
+			Продажа билета
 
 		</h:form>
 	</ui:define>

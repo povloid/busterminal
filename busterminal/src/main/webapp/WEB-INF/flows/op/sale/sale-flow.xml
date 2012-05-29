@@ -23,8 +23,19 @@
 			<evaluate expression="oPSaleWFControl.init()" />
 		</on-entry>
 
-		<transition on="end" to="end"></transition>
+		<transition on="end" to="end" />
+
+		<transition on="saleSeat" to="saleSeat" />
 	</view-state>
+
+
+	<!-- SALE SEAT -->
+
+	<subflow-state id="saleSeat" subflow="op/sale/seat">
+		<input name="raceId" value="oPSaleWFControl.race.id" />
+		<input name="seatId" value="oPSaleWFControl.selectedCell.seat.id" />
+		<transition to="sale" />
+	</subflow-state>
 
 
 	<!-- END -->
