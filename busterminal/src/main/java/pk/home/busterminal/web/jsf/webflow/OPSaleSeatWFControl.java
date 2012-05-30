@@ -167,14 +167,22 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		System.out.println(order.getBusRouteStopA());
 
 		stops2 = new ArrayList<BusRouteStop>();
+		boolean cleanB = false;
 		for (BusRouteStop brs : stops1) {
 			if (order.getBusRouteStopA() == null
 					|| brs.getOrId() > order.getBusRouteStopA().getOrId()) {
 				stops2.add(brs);
+
+				if (!cleanB) {
+					cleanB = order.getBusRouteStopB() != null
+							&& order.getBusRouteStopB().getId() == brs.getId();
+				}
 			}
+
 		}
 
-		order.setBusRouteStopB(null);
+		if (cleanB)
+			order.setBusRouteStopB(null);
 
 	}
 
@@ -211,6 +219,41 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	// -----------------------------------------------------------------------------------------------------------------
 
 	/**
+	 * На диалог подтверждения операции - функция служит для проверки формы
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String qSaleSeat() throws Exception {
+
+		if (order.getCustomer() == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ",
+							"Не указан клиент!"));
+			throw new Exception("Не указан клиент");
+		}
+
+		if (order.getBusRouteStopA() == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ",
+							"Не указана остановка отправления!"));
+			throw new Exception("Не указана остановка отправления!");
+		}
+
+		if (order.getBusRouteStopB() == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ",
+							"Не указана остановка прибытия!"));
+			throw new Exception("Не указана остановка прибытия!");
+		}
+
+		return "qsale-seat";
+	}
+
+	/**
 	 * Создание продажного ордера
 	 * 
 	 * @throws Exception
@@ -221,6 +264,17 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		this.order.setSeat(seat);
 		this.order.setRace(race);
 		this.order.setActualPrice(this.seat.getPrice());
+
+	}
+
+	/**
+	 * Выполнить операцию продажи билета
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String executeSaleOp() throws Exception {
+		return "success";
 	}
 
 	// get's and set's

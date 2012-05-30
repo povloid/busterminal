@@ -81,7 +81,12 @@
 
 				</h:panelGrid>
 
-				<pk:pk_close_button action="end" />
+				<h:panelGrid columns="2">
+
+					<pk:pk_close_button action="end" />
+					<p:commandButton action="#{oPSaleSeatWFControl.qSaleSeat}"
+						value="Продать"></p:commandButton>
+				</h:panelGrid>
 			</p:panel>
 
 		</h:form>

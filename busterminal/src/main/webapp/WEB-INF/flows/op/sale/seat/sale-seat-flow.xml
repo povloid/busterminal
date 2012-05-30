@@ -28,7 +28,10 @@
 
 		<transition on="end" to="end"></transition>
 		<transition on="selectCustomer" to="selectCustomer" />
+		<transition on="qsale-seat" to="qsale-seat" />
 
+
+		<transition on-exception="java.lang.Exception" to="sale-seat" />
 	</view-state>
 
 	<!-- select customer -->
@@ -43,6 +46,28 @@
 
 	<!-- sale seat questuon -->
 
+
+
+	<!-- QSALE-SEAT ? -->
+
+	<view-state id="qsale-seat">
+
+		<transition on="end" to="end"></transition>
+		<transition on="no" to="sale-seat"></transition>
+		
+		<transition on="success" to="sale-seat-op-report" />
+
+		<transition on-exception="java.lang.Exception" to="qsale-seat" />
+	</view-state>
+	
+
+
+
+	<!-- SALE-REPORT -->
+	
+	<view-state id="sale-seat-op-report">
+		<transition on="ok" to="end"></transition>
+	</view-state>
 
 
 	<!-- END -->
