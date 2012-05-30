@@ -13,6 +13,7 @@
 		</resource-bundle>
 
 
+
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 
 
@@ -23,22 +24,22 @@
 		</resource-bundle>
 
 
-	
+
 
 
 
 	</application>
-	
-	
+
+
 	<converter>
-        <converter-id>string1</converter-id>
-        <converter-class>pk.home.busterminal.web.jsf.app.StringConverter</converter-class>
-    </converter>
+		<converter-id>string1</converter-id>
+		<converter-class>pk.home.busterminal.web.jsf.app.StringConverter</converter-class>
+	</converter>
 
 
 
 	<lifecycle>
-        <phase-listener>pk.home.busterminal.web.jsf.security.LoginErrorPhaseListener</phase-listener>
-    </lifecycle>
+		<phase-listener>pk.home.busterminal.web.jsf.security.LoginErrorPhaseListener</phase-listener>
+	</lifecycle>
 
 </faces-config>

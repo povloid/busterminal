@@ -132,7 +132,8 @@
 
 	<context:component-scan base-package="pk.home.busterminal.web.mvc" />
 
-
+	
+	<import resource="classpath:jasper-views.xml" />
 
 
 
@@ -140,6 +141,9 @@
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">
 			<list>
+				<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+    					<property name="basename" value="views"/>
+				</bean>
 				<bean
 					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 					<property name="prefix">
@@ -155,13 +159,12 @@
 					<property name="prefix" value="/WEB-INF/flows/" />
 					<property name="suffix" value=".xhtml" />
 				</bean>
-				<bean class="org.springframework.web.servlet.view.XmlViewResolver">
-					<property name="location" value="classpath:jasper-views.xml" />
-					<property name="order" value="0" />
-				</bean>
+
 			</list>
 		</property>
 	</bean>
+
+
 
 
 

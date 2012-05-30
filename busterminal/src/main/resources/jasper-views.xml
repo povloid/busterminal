@@ -11,6 +11,16 @@
 	<!--here all the url value should contains the valid path for the jrxml 
 		file -->
 
+	<bean id="orderXlsReport"
+		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
+		p:url="classpath:reports/order.jrxml" p:reportDataKey="datasource">
+	</bean>
+
+	<bean id="orderPdfReport"
+		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:reports/order.jrxml" p:reportDataKey="datasource">
+	</bean>
+
 	<bean id="orderHtmlReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView"
 		p:url="classpath:reports/order.jrxml" p:reportDataKey="datasource">
@@ -24,6 +34,11 @@
 		</property>
 
 	</bean>
+
+
+
+
+
 
 
 
