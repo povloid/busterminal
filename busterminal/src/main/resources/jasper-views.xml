@@ -13,7 +13,17 @@
 
 	<bean id="orderHtmlReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView"
-		p:url="classpath:reports/order.jrxml" p:reportDataKey="datasource" />
+		p:url="classpath:reports/order.jrxml" p:reportDataKey="datasource">
+		<property name="exporterParameters">
+			<map>
+				<entry
+					key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI">
+					<value>/busterminal/images/report/</value>
+				</entry>
+			</map>
+		</property>
+
+	</bean>
 
 
 
