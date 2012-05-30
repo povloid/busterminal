@@ -8,6 +8,7 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="capton_params" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -15,17 +16,19 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="70" splitType="Stretch">
+		<band height="76" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="263" height="33"/>
+				<reportElement style="Title" x="0" y="13" width="294" height="33"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Leaf Gray Title]]></text>
+				<text><![CDATA[Отчет]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="SubTitle" x="117" y="46" width="157" height="22"/>
-				<textElement/>
-				<text><![CDATA[Leaf Gray SubTitle]]></text>
-			</staticText>
+			<textField>
+				<reportElement x="0" y="56" width="555" height="20"/>
+				<textElement>
+					<font isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{capton_params}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

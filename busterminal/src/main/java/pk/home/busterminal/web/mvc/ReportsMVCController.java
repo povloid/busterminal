@@ -30,6 +30,7 @@ public class ReportsMVCController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", "pdf");
+		parameterMap.put("capton_params", "Privet - Привет");
 
 		List<String> list = new ArrayList<String>();
 		list.add("2222222");
