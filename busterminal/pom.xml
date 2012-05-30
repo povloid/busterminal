@@ -358,6 +358,16 @@
 	<!-- <version>1.1.1.Final</version> -->
 	<!-- </dependency> -->
 
+	<dependency>
+		<groupId>net.sf.jasperreports</groupId>
+		<artifactId>jasperreports</artifactId>
+		<version>4.5.1</version>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.jasperreports</groupId>
+		<artifactId>jasperreports-fonts</artifactId>
+		<version>4.0.0</version>
+	</dependency>
 	</dependencies>
 
 	<repositories>
