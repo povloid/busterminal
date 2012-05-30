@@ -24,58 +24,46 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/report/")
 public class ReportsMVCController {
 
-	@RequestMapping(method = RequestMethod.GET, value = "html")
-	public ModelAndView generateHtmlReport(ModelAndView modelAndView) {
-
-		System.out.println("REPORT START");
-
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-
-		List<String> list = new ArrayList<String>();
-		list.add("2222222");
-
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
-
-		parameterMap.put("datasource", JRdataSource);
-
-		// orderHtmlReport bean has ben declared in the jasper-views.xml file
-		modelAndView = new ModelAndView("orderHtmlReport", parameterMap);
-
-		System.out.println("REPORT END");
-
-		return modelAndView;
-
-	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "xls")
-	public ModelAndView generateXlsReport(ModelAndView modelAndView) {
-
-		System.out.println("REPORT START XLS");
-
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-
-		List<String> list = new ArrayList<String>();
-		list.add("2222222");
-
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
-
-		parameterMap.put("datasource", JRdataSource);
-
-		// orderXlsReport bean has ben declared in the jasper-views.xml file
-		modelAndView = new ModelAndView("orderXlsReport", parameterMap);
-
-		System.out.println("REPORT END XLS");
-
-		return modelAndView;
-
-	}
-
 	@RequestMapping(method = RequestMethod.GET, value = "pdf")
 	public ModelAndView generatePdfReport(ModelAndView modelAndView)
 			throws Exception {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", "pdf");
+
+		List<String> list = new ArrayList<String>();
+		list.add("2222222");
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		modelAndView = new ModelAndView("orderReport", parameterMap);
+
+		return modelAndView;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "xls")
+	public ModelAndView generateXlsReport(ModelAndView modelAndView)
+			throws Exception {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", "xls");
+
+		List<String> list = new ArrayList<String>();
+		list.add("2222222");
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		modelAndView = new ModelAndView("orderReport", parameterMap);
+
+		return modelAndView;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "html")
+	public ModelAndView generateHtmlReport(ModelAndView modelAndView)
+			throws Exception {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", "html");
 
 		List<String> list = new ArrayList<String>();
 		list.add("2222222");
