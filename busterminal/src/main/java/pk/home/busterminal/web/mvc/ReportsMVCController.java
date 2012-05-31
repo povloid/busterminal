@@ -31,6 +31,7 @@ import org.springframework.web.util.WebUtils;
 
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.service.OrderService;
+import pk.home.libs.combine.fileutils.FileUtils;
 
 /**
  * Контроллер отчетов
@@ -111,10 +112,10 @@ public final class ReportsMVCController {
 	 * @param response
 	 * @throws Exception
 	 */
-	private void renderReport(String format, JasperReport report,
-			Map<String, Object> parameterMap, JRDataSource JRdataSource,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	private void renderReport(String format, String htmlImageUniqueSuffix,
+			JasperReport report, Map<String, Object> parameterMap,
+			JRDataSource JRdataSource, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		OutputStream out = response.getOutputStream();
 
@@ -122,23 +123,32 @@ public final class ReportsMVCController {
 
 		try {
 			if (format.equals("html")) {
+
 				Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
 
 				String root = request.getSession().getServletContext()
 						.getRealPath("/");
+
+				String uriPref = "images/report/"
+						+ FileUtils.getCurentTimeDirsPath()
+						+ htmlImageUniqueSuffix;
+				String undir = root + uriPref;
+
+				FileUtils.mkDirs(undir);
+
 				parameters
-				.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR,
-						true);
-				
+						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR,
+								true);
+
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_DIR,
-								new File(root + "images/report/"));
+								new File(undir));
 
-				System.out.println(root + "images/report/");
+				System.out.println(undir);
 
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI,
-								"/busterminal/images/report/");
+								"/busterminal/" + uriPref + "/");
 
 				JasperReportsUtils.renderAsHtml(report, parameterMap,
 						JRdataSource, wr, parameters);
@@ -190,6 +200,7 @@ public final class ReportsMVCController {
 		// list.add(orderService.find(Long.parseLong(id)));
 
 		Order o = new Order();
+		o.setId(Long.parseLong(id));
 		o.setDescription("Описание................................");
 
 		list.add(o);
@@ -206,7 +217,7 @@ public final class ReportsMVCController {
 				.getFile().getAbsolutePath());
 
 		// OUT
-		renderReport(format, report, parameterMap, JRdataSource, request,
+		renderReport(format, "order_" + id, report, parameterMap, JRdataSource, request,
 				response);
 
 	}

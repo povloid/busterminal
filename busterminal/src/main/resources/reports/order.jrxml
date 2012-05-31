@@ -13,7 +13,7 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="description" class="java.lang.String"/>
-	<field name="id" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,8 +33,9 @@
 			</textField>
 			<componentElement>
 				<reportElement x="294" y="0" width="259" height="56"/>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="USPS" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA[999999999]]></jr:codeExpression>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="USD3" drawText="true" checksumRequired="true">
+					<jr:codeExpression><![CDATA[$F{id}]]></jr:codeExpression>
+					<jr:applicationIdentifierExpression><![CDATA[$F{id}]]></jr:applicationIdentifierExpression>
 				</jr:barbecue>
 			</componentElement>
 		</band>
@@ -67,7 +68,9 @@
 			</textField>
 			<staticText>
 				<reportElement x="0" y="15" width="134" height="18"/>
-				<textElement/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="7" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Пометки по операции]]></text>
 			</staticText>
 		</band>
