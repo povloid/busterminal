@@ -1,5 +1,6 @@
 package pk.home.busterminal.web.mvc;
 
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -112,28 +113,39 @@ public final class ReportsMVCController {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		Writer wr = new OutputStreamWriter(response.getOutputStream());
+		OutputStream out = response.getOutputStream();
 
-		if (format.equals("html")) {
-			Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
-			parameters
-					.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI,
-							"/busterminal/images/report/");
+		Writer wr = new OutputStreamWriter(out);
 
-			JasperReportsUtils.renderAsHtml(report, parameterMap, JRdataSource,
-					wr, parameters);
-		} else if (format.equals("pdf")) {
-			JasperReportsUtils.renderAsPdf(report, parameterMap, JRdataSource,
-					response.getOutputStream());
-		} else if (format.equals("xls")) {
-			JasperReportsUtils.renderAsXls(report, parameterMap, JRdataSource,
-					response.getOutputStream());
-		} else if (format.equals("csv")) {
-			JasperReportsUtils.renderAsCsv(report, parameterMap, JRdataSource,
-					wr);
+		try {
+			if (format.equals("html")) {
+				Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
+				parameters
+						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI,
+								"/busterminal/images/report/");
+
+				JasperReportsUtils.renderAsHtml(report, parameterMap,
+						JRdataSource, wr, parameters);
+			} else if (format.equals("pdf")) {
+				JasperReportsUtils.renderAsPdf(report, parameterMap,
+						JRdataSource, out);
+			} else if (format.equals("xls")) {
+				JasperReportsUtils.renderAsXls(report, parameterMap,
+						JRdataSource, out);
+			} else if (format.equals("csv")) {
+				JasperReportsUtils.renderAsCsv(report, parameterMap,
+						JRdataSource, wr);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+
+			if (wr != null)
+				wr.close();
+
+			if (out != null)
+				out.close();
 		}
-
-		wr.close();
 
 	}
 
@@ -155,18 +167,17 @@ public final class ReportsMVCController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", format);
-		
+
 		parameterMap.put("capton_params", "Сведения по ордеру №" + id);
 
 		List<Order> list = new ArrayList<Order>();
-		//list.add(orderService.find(Long.parseLong(id)));
-		
+		// list.add(orderService.find(Long.parseLong(id)));
+
 		Order o = new Order();
 		o.setDescription("Описание................................");
-		
+
 		list.add(o);
-		
-		
+
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
 		parameterMap.put("datasource", JRdataSource);
 
