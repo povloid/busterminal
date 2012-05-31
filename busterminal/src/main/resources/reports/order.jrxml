@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Leaf Gray" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.zoom" value="1.610510000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -13,15 +13,16 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="description" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="76" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="294" height="33"/>
+				<reportElement style="Title" x="0" y="0" width="294" height="35"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Отчет]]></text>
+				<text><![CDATA[Отчет1]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="56" width="555" height="20"/>
@@ -30,6 +31,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{capton_params}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement x="294" y="0" width="259" height="56"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="USPS" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[999999999]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
 		</band>
 	</title>
 	<pageHeader>
