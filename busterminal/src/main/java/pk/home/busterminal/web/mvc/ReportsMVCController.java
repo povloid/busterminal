@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
 
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.service.OrderService;
@@ -129,7 +127,7 @@ public final class ReportsMVCController {
 				String root = request.getSession().getServletContext()
 						.getRealPath("/");
 
-				String uriPref = "images/report/";
+				String uriPref = "images/report";
 
 				if (htmlImageUniqueSuffix != null) {
 					uriPref += FileUtils.getCurentTimeDirsPath()

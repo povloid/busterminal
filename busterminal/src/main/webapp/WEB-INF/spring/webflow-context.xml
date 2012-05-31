@@ -133,7 +133,7 @@
 	<context:component-scan base-package="pk.home.busterminal.web.mvc" />
 
 	
-	<import resource="classpath:jasper-views.xml" />
+<!-- 	<import resource="classpath:jasper-views.xml" /> -->
 
 
 
@@ -141,9 +141,9 @@
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">
 			<list>
-				<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-    					<property name="basename" value="views"/>
-				</bean>
+<!-- 				<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver"> -->
+<!--     					<property name="basename" value="views"/> -->
+<!-- 				</bean> -->
 				<bean
 					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 					<property name="prefix">
