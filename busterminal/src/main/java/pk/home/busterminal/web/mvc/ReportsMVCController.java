@@ -159,7 +159,14 @@ public final class ReportsMVCController {
 		parameterMap.put("capton_params", "Сведения по ордеру №" + id);
 
 		List<Order> list = new ArrayList<Order>();
-		list.add(orderService.find(Long.parseLong(id)));
+		//list.add(orderService.find(Long.parseLong(id)));
+		
+		Order o = new Order();
+		o.setDescription("Описание................................");
+		
+		list.add(o);
+		
+		
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
 		parameterMap.put("datasource", JRdataSource);
 
