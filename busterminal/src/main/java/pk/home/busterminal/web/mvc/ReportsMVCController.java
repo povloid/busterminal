@@ -129,9 +129,13 @@ public final class ReportsMVCController {
 				String root = request.getSession().getServletContext()
 						.getRealPath("/");
 
-				String uriPref = "images/report/"
-						+ FileUtils.getCurentTimeDirsPath()
-						+ htmlImageUniqueSuffix;
+				String uriPref = "images/report/";
+
+				if (htmlImageUniqueSuffix != null) {
+					uriPref += FileUtils.getCurentTimeDirsPath()
+							+ htmlImageUniqueSuffix;
+				}
+
 				String undir = root + uriPref;
 
 				FileUtils.mkDirs(undir);
@@ -217,8 +221,8 @@ public final class ReportsMVCController {
 				.getFile().getAbsolutePath());
 
 		// OUT
-		renderReport(format, "order_" + id, report, parameterMap, JRdataSource, request,
-				response);
+		renderReport(format, "order_" + id, report, parameterMap, JRdataSource,
+				request, response);
 
 	}
 
