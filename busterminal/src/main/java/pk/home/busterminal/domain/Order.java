@@ -44,7 +44,7 @@ public class Order implements Serializable {
 	private OrderType orderType;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Index(name = "order_idx2")
 	@NotNull
 	private Date opTime;

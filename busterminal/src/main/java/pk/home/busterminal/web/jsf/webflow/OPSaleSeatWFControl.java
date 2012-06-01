@@ -18,6 +18,7 @@ import pk.home.busterminal.service.CustomerService;
 import pk.home.busterminal.service.OrderService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.busterminal.service.SeatService;
+import pk.home.busterminal.web.jsf.security.TerminalCurrentUser;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 
 /**
@@ -59,6 +60,10 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	public CustomerService getCustomerService() {
 		return (CustomerService) findBean("customerService");
+	}
+
+	public TerminalCurrentUser getTerminalCurrentUser() {
+		return (TerminalCurrentUser) findBean("terminalCurrentUser");
 	}
 
 	// Переменные
@@ -264,6 +269,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		this.order.setSeat(seat);
 		this.order.setRace(race);
 		this.order.setActualPrice(this.seat.getPrice());
+		this.order.setUserAccount(getTerminalCurrentUser().getUserAccount());
 
 	}
 
@@ -274,6 +280,27 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	 * @throws Exception
 	 */
 	public String executeSaleOp() throws Exception {
+		try {
+			
+			getOrderService().createTicketSaleOrder(order);
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Операция проведена успешно, создан ордер №"
+									+ order.getId(), "Было продано место №"
+									+ order.getSeat().getNum() + " на рейс № "
+									+ order.getRace().getId()));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+			throw new Exception(e);
+		}
+
 		return "success";
 	}
 

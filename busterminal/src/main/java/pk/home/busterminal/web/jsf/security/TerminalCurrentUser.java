@@ -2,17 +2,17 @@ package pk.home.busterminal.web.jsf.security;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.service.security.UserAccountService;
 
-@ManagedBean(name = "terminalCurrentUser")
-@SessionScoped
+
+@Scope("session")
+@Component("terminalCurrentUser")
 public class TerminalCurrentUser implements Serializable {
 
 	@Autowired

@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.NotSupportedException;
@@ -95,6 +96,9 @@ public class OrderService extends ABaseService<Order> {
 		if (o.getOrderType() != OrderType.TICKET_SALE) {
 			throw new Exception("Не TICKET_SALE тип!");
 		}
+
+		// Время присваивает текущее сам сервисный уровень !!!
+		o.setOpTime(new Date());
 
 		check(o);
 

@@ -99,7 +99,7 @@ public class TestOrderService extends BaseTest {
 	public Order _createNewOrder() throws Exception {
 		Order order = new Order();
 		order.setOrderType(OrderType.TICKET_SALE);
-		order.setOpTime(new Date());
+		//order.setOpTime(new Date());
 
 		order.setRace(race);
 		order.setBusRouteStopA(busRouteStop12);
