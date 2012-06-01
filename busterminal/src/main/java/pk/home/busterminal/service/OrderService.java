@@ -98,6 +98,7 @@ public class OrderService extends ABaseService<Order> {
 		}
 
 		// Время присваивает текущее сам сервисный уровень !!!
+		o.setId(null);
 		o.setOpTime(new Date());
 
 		check(o);

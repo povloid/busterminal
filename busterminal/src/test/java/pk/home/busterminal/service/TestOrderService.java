@@ -1,10 +1,11 @@
 package pk.home.busterminal.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -99,7 +100,7 @@ public class TestOrderService extends BaseTest {
 	public Order _createNewOrder() throws Exception {
 		Order order = new Order();
 		order.setOrderType(OrderType.TICKET_SALE);
-		//order.setOpTime(new Date());
+		// order.setOpTime(new Date());
 
 		order.setRace(race);
 		order.setBusRouteStopA(busRouteStop12);
@@ -240,6 +241,13 @@ public class TestOrderService extends BaseTest {
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
+
+		list = service
+				.getAllEntities(false, 0, 1, Order_.id, SortOrderType.ASC);
+
+		assertTrue(list != null);
+		assertTrue(list.size() > 0);
+
 		assertTrue(list.size() == 1);
 
 	}

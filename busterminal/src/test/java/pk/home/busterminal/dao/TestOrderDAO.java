@@ -227,6 +227,13 @@ public class TestOrderDAO extends BaseTest {
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
+
+		list = dataStore.getAllEntities(false, 0, 1, Order_.id,
+				SortOrderType.ASC);
+
+		assertTrue(list != null);
+		assertTrue(list.size() > 0);
+
 		assertTrue(list.size() == 1);
 
 	}
