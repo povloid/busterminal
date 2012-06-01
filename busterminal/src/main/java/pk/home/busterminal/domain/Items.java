@@ -33,8 +33,6 @@ public class Items implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String description;
-
 	// -----------------------------------------------------------------------------------------------
 
 	@ManyToOne
@@ -44,11 +42,13 @@ public class Items implements Serializable {
 	private Order order;
 
 	@ManyToOne
+	@Index(name = "items_idx2")
 	@JoinColumn(name = "race_id", nullable = false)
 	@NotNull
 	private Race race;
 
 	@ManyToOne
+	@Index(name = "items_idx3")
 	@JoinColumn(name = "seat_id", nullable = false)
 	@NotNull
 	private Seat seat;
@@ -98,14 +98,6 @@ public class Items implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Order getOrder() {

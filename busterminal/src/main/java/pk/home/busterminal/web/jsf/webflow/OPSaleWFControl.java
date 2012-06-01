@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.service.BusTempliteMasterService;
+import pk.home.busterminal.service.ItemsService;
 import pk.home.busterminal.service.RaceService;
+import pk.home.busterminal.web.jsf.webflow.Cell.OP_TYPE;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 
 /**
@@ -28,6 +31,10 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 	// SERVICES
 	// -------------------------------------------------------------------------------------------
+
+	public ItemsService getItemsService() {
+		return (ItemsService) findBean("itemsService");
+	}
 
 	public RaceService getRaceService() {
 		return (RaceService) findBean("raceService");
@@ -105,6 +112,23 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 	// ---------------------------------------------------------------------------------
 	private Cell selectedCell;
 
+	private void buidProgress(List<Items> ilist, Cell cell) {
+		boolean isSale = false;
+		for (Items i : ilist) {
+
+			if (cell.getSeat().equals(i.getSeat())) {
+				cell.addProgressPoint(1, "...");
+				isSale = true;
+			} else {
+				cell.addProgressPoint(0, "Незанято");
+			}
+		}
+
+		if (isSale) {
+			cell.setOpType(OP_TYPE.SALE);
+		}
+	}
+
 	/**
 	 * Формирование коллекций для отрисовки схемы
 	 * 
@@ -115,6 +139,9 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 		List<List<Cell>> ylist = new ArrayList<List<Cell>>();
 
 		try {
+
+			List<Items> ilist = getItemsService().findAllItemsForRace(race);
+
 			if (selectedScheme != null) {
 
 				selectedScheme = service().getSchemaService().findAllLazy(
@@ -135,6 +162,10 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 						}
 
 						Cell cell = new Cell(pCell, seat, x, y);
+						buidProgress(ilist, cell);
+						// Для проверки, все сделает красным
+						// /cell.setOpType(Cell.OP_TYPE.SALE);
+
 						xList.add(cell);
 						// ----------
 						pCell = cell;

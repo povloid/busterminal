@@ -3,6 +3,9 @@ package pk.home.busterminal.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.NotSupportedException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +14,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import pk.home.libs.combine.dao.ABaseDAO;
-import pk.home.libs.combine.service.ABaseService;
 import pk.home.busterminal.dao.BusRouteStopDAO;
 import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.domain.Order_;
+import pk.home.busterminal.domain.Race;
+import pk.home.libs.combine.dao.ABaseDAO;
+import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: Order Order - ордер - операция
@@ -88,7 +93,31 @@ public class OrderService extends ABaseService<Order> {
 		throw new NotSupportedException();
 	}
 
+	// Запросы
+	// *****************************************************************************************************************
+
+	/**
+	 * Найти все ордера, связанные с данным рейсом
+	 * 
+	 * @param race
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Order> findAllOrdersForRace(Race race) throws Exception {
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+		Root<Order> t = cq.from(Order.class);
+
+		// parent param ---------------------------------------
+		cq.where(cb.equal(t.get(Order_.race), race));
+
+		return orderDAO.getAllEntities(cb, cq, t);
+	}
+
 	// Операции
+	// *****************************************************************************************************************
 
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

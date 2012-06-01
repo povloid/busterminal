@@ -17,8 +17,10 @@ import pk.home.busterminal.domain.SeatType;
 @ApplicationScoped
 public class SeatTypeIcons {
 
-	public static final String ICON_FOLDER = "/images/seats/all/";
+	public static final String ICON_FOLDER = "/images/seats/";
 
+	public static final String RED_SEAT_KEY = "RED_SEAT_KEY";
+	public static final String RED_SEAT = ICON_FOLDER + "op/seat_red";
 	public static final String RED_SEAT_32 = ICON_FOLDER + "op/seat_red_32.png";
 	public static final String RED_SEAT_64 = ICON_FOLDER + "op/seat_red_64.png";
 	public static final String RED_SEAT_128 = ICON_FOLDER
@@ -26,6 +28,8 @@ public class SeatTypeIcons {
 	public static final String RED_SEAT_256 = ICON_FOLDER
 			+ "op/seat_red_256.png";
 
+	public static final String YELLOW_SEAT_KEY = "YELLOW_SEAT_KEY";
+	public static final String YELLOW_SEAT = ICON_FOLDER + "op/seat_yellow";
 	public static final String YELLOW_SEAT_32 = ICON_FOLDER
 			+ "op/seat_yellow_32.png";
 	public static final String YELLOW_SEAT_64 = ICON_FOLDER
@@ -48,7 +52,7 @@ public class SeatTypeIcons {
 		String root = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath("/");
 
-		foolIconsFolderPath = root + ICON_FOLDER;
+		foolIconsFolderPath = root + ICON_FOLDER + "all/";
 
 		System.out.println(">>>>" + foolIconsFolderPath);
 
@@ -62,8 +66,10 @@ public class SeatTypeIcons {
 					.replace("_256.png", "");
 
 			if (!picsFiles.containsValue(fileName))
-				picsFiles.put(fileName, ICON_FOLDER + fileName);
+				picsFiles.put(fileName, ICON_FOLDER + "all/" + fileName);
 		}
+		picsFiles.put(RED_SEAT_KEY, RED_SEAT);
+		picsFiles.put(YELLOW_SEAT_KEY, YELLOW_SEAT);
 
 	}
 
@@ -101,18 +107,28 @@ public class SeatTypeIcons {
 	}
 
 	/**
+	 * Получить путь к картинке по ключу
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static String getIcon(String key) {
+		return picsFiles.get(key);
+	}
+
+	/**
 	 * Получить список иконок по суффиксу
 	 * 
-	 * @param suffix
 	 * @return
 	 */
 	public static List<String> getPics() {
 		List<String> list = new ArrayList<String>();
 
 		for (String s : picsFiles.keySet()) {
-			// if (s.contains(suffix)) {
-			list.add(s);
-			// }
+			// System.out.println(s);
+			if (!s.equals(RED_SEAT_KEY) && !s.equals(YELLOW_SEAT_KEY)) {
+				list.add(s);
+			}
 		}
 
 		return list;
