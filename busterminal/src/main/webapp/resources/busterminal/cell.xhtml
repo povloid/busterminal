@@ -46,7 +46,7 @@
 
 	<h:panelGroup rendered="#{cc.attrs.show_op_batton_group}">
 		<h:panelGroup rendered="#{!empty cc.attrs.cell.progress}">
-			<table style="width: 128px; height: 8px; border-spacing: 0px;">
+			<table style="width: 128px; height: 8px; border-spacing: 0px; border: 1px solid #383838;">
 				<tr>
 					<ui:repeat var="point" value="#{cc.attrs.cell.progress}">
 						<td bgcolor="#{point.color}"></td>

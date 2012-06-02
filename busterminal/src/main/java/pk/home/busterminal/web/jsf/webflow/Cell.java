@@ -76,7 +76,7 @@ public class Cell implements Serializable {
 				return "red";
 
 			default:
-				return "green";
+				return "#00FF00";
 			}
 		}
 
