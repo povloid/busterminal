@@ -2,8 +2,12 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import pk.home.busterminal.domain.BusRouteStop;
+import pk.home.busterminal.domain.Items;
+import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.web.jsf.app.SeatTypeIcons;
 
@@ -66,11 +70,21 @@ public class Cell implements Serializable {
 			this.text = text;
 		}
 
+		public String getColor() {
+			switch (v) {
+			case 1:
+				return "red";
+
+			default:
+				return "green";
+			}
+		}
+
 	}
 
 	private List<ProgressPoint> progress = new ArrayList<ProgressPoint>();
-	
-	public void addProgressPoint(int v, String text){
+
+	public void addProgressPoint(int v, String text) {
 		progress.add(new ProgressPoint(v, text));
 	}
 
@@ -102,6 +116,63 @@ public class Cell implements Serializable {
 		}
 
 		return icon;
+	}
+
+	/**
+	 * Продано ли место на отъезд от этой остановки
+	 * 
+	 * @param ilist
+	 * @param cell
+	 * @param brs
+	 * @return
+	 */
+	private boolean isContain(List<Items> ilist, Cell cell, BusRouteStop brs) {
+
+		for (Items items : ilist) {
+			if (items.getSeat().equals(cell.getSeat())) {
+				if (brs.equals(items.getBrst1())) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Построить прогресс
+	 * 
+	 * @param race
+	 * @param ilist
+	 * @param cell
+	 */
+	public void buidProgress(Race race, List<Items> ilist, Cell cell) {
+
+		// Не строить для непродаваемых мест
+		if (!seat.getSeatType().getSold())
+			return;
+
+		boolean isSale = false;
+
+		Iterator<BusRouteStop> it = race.getBusRoute().getBusRouteStops()
+				.iterator();
+
+		while (it.hasNext()) {
+			BusRouteStop brs = it.next();
+
+			if (it.hasNext()) {
+				if (isContain(ilist, cell, brs)) {
+					cell.addProgressPoint(1, "Занято");
+					isSale = true;
+				} else {
+					cell.addProgressPoint(0, "Незанято");
+				}
+			}
+		}
+
+		if (isSale) {
+			cell.setOpType(OP_TYPE.SALE);
+		}
 	}
 
 	public void setIcon(String icon) {
