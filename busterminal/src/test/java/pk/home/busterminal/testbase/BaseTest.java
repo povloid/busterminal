@@ -303,6 +303,9 @@ public class BaseTest {
 		userAccount.setUsername("testuser1");
 		userAccount.setPassword(passwordEncoder
 				.encodePassword("password", null));
+		userAccount.setfName("Фамилия - ТЕСТ");
+		userAccount.setnName("Имя - ТЕСТ");
+		userAccount.setmName("Отчество - ТЕСТ");
 
 		userAccount = userAccountService.persist(userAccount);
 

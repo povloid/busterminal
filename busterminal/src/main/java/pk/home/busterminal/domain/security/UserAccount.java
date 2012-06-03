@@ -50,18 +50,15 @@ public class UserAccount implements UserDetails, Serializable {
 	private boolean enabled = true;
 	
 	@Size(max = 20)
-	@Column(length = 20,nullable = false)
-	@NotNull
+	@Column(length = 20)
 	private String fName;
 
 	@Size(max = 20)
-	@Column(length = 20,nullable = false)
-	@NotNull
+	@Column(length = 20)
 	private String nName;
 
 	@Size(max = 20)
-	@Column(length = 20,nullable = false)
-	@NotNull
+	@Column(length = 20)
 	private String mName;
 
 	// Телефоны
