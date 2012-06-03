@@ -38,6 +38,10 @@
 					<jr:applicationIdentifierExpression><![CDATA[$F{id}]]></jr:applicationIdentifierExpression>
 				</jr:barbecue>
 			</componentElement>
+			<image>
+				<reportElement x="216" y="0" width="78" height="76"/>
+				<imageExpression><![CDATA["reports/bus.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

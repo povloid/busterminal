@@ -2,10 +2,8 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Schema;
@@ -14,7 +12,6 @@ import pk.home.busterminal.service.BusRouteService;
 import pk.home.busterminal.service.BusTempliteMasterService;
 import pk.home.busterminal.service.ItemsService;
 import pk.home.busterminal.service.RaceService;
-import pk.home.busterminal.web.jsf.webflow.Cell.OP_TYPE;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 
 /**
