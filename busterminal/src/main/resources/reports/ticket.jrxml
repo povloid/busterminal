@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.7715610000000044"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band/>
+	</background>
+	<detail>
+		<band height="246">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="392" y="171" width="163" height="17"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[128746]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="89" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="339" y="171" width="53" height="17"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ПТ №]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="0" width="302" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Калюка Юрий - начальник штаба дивизии тяжелых сканеров штрихкодов. Имеет право ношения на правой и левой стороне груди всех извесных орденов и медалей а также блестящих предметов. Является трижды героем Тараза. телефон 8 701 993 8400"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="49" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+				<text><![CDATA[маршрут:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="21" width="41" height="24"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="12"/>
+				</textElement>
+				<text><![CDATA[Время]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="30" width="302" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Тараз - Иссык-куль"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="351" y="0" width="61" height="21"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="12"/>
+				</textElement>
+				<text><![CDATA[Рейс №]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="412" y="0" width="143" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[128]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="21" width="163" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["20.06.2012 21:15"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="75" width="49" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+				<text><![CDATA[автобус:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="75" width="160" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Setra"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="209" y="75" width="63" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+				<text><![CDATA[гос. номер:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="272" y="75" width="79" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["H 333 TRZ"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="45" width="143" height="45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="32" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[12]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="105" width="101" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[Ф.И.О. пассажира:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="91" width="101" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[документ:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="101" y="91" width="235" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Удостоверение личности РК"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="336" y="90" width="15" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[№]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="351" y="91" width="204" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA["37658926384769582735"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="105" width="454" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Абу Али Ибн Саид"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="119" width="115" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[стоимость билета:]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="118" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="115" y="119" width="440" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[5000]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="131" width="74" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[примечание:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="74" y="131" width="481" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["щимдерек щимдерек...."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="144" width="74" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[кассир]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="74" y="144" width="265" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Синицина А. А."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="339" y="144" width="53" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[подпись:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="144" width="163" height="13"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="392" y="158" width="163" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA["20.06.2012"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="339" y="158" width="53" height="13"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[дата:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="158" width="339" height="88"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["В случае опаздания на поездку вы имеете право хранить молчание. Все что вы скажете будет использовано против вас в суде. Вы имеете право на адвоката....."]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="339" y="188" width="216" height="58"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="true" checksumRequired="true">
+					<jr:codeExpression><![CDATA["1287469604564"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="245" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="351" y="45" width="61" height="44"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Место №]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="45" width="19" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[от:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="19" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[до:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="45" width="332" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Жд вокзал"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="60" width="332" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Центр отдыха Каприз"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="351" y="0" width="1" height="89"/>
+			</line>
+			<image scaleImage="RealSize">
+				<reportElement x="0" y="0" width="43" height="30"/>
+				<imageExpression><![CDATA["/home/povloid/projects/git/busterminal/busterminal/src/main/resources/reports/LogoNV64.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>
