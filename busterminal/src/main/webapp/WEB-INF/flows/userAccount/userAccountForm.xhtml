@@ -52,6 +52,30 @@
 						feedback="true" label="Password 2" required="#{add}"
 						readonly="#{del}" />
 
+					<h:outputLabel value="Фамилия:" />
+					<p:inputText value="#{userAccountWFControl.edited.fName}"
+						title="Фамилия" readonly="#{del}" />
+
+					<h:outputLabel value="Имя:" />
+					<p:inputText value="#{userAccountWFControl.edited.nName}"
+						title="Имя" readonly="#{del}" />
+
+					<h:outputLabel value="Отчество:" />
+					<p:inputText value="#{userAccountWFControl.edited.mName}"
+						title="Отчество" readonly="#{del}" />
+
+					<h:outputLabel value="Телефон 1:" />
+					<p:inputMask value="#{userAccountWFControl.edited.pfone1}"
+						mask="(999) 999-9999" title="контактный телефон" readonly="#{del}" />
+
+					<h:outputLabel value="Телефон 2:" />
+					<p:inputMask value="#{userAccountWFControl.edited.pfone2}"
+						mask="(999) 999-9999" title="контактный телефон" readonly="#{del}" />
+
+					<h:outputLabel value="Телефон 3:" />
+					<p:inputMask value="#{userAccountWFControl.edited.pfone3}"
+						mask="(999) 999-9999" title="контактный телефон" readonly="#{del}" />
+
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"

@@ -1,15 +1,26 @@
 package pk.home.busterminal.domain.security;
 
-import org.hibernate.validator.constraints.Email;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "USER_ACCOUNT")
@@ -37,6 +48,41 @@ public class UserAccount implements UserDetails, Serializable {
 
 	@Column(nullable = false)
 	private boolean enabled = true;
+	
+	@Size(max = 20)
+	@Column(length = 20,nullable = false)
+	@NotNull
+	private String fName;
+
+	@Size(max = 20)
+	@Column(length = 20,nullable = false)
+	@NotNull
+	private String nName;
+
+	@Size(max = 20)
+	@Column(length = 20,nullable = false)
+	@NotNull
+	private String mName;
+
+	// Телефоны
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone1;
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone2;
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone3;
+
+	@Size(max = 20)
+	@Column(length = 20)
+	private String pfone4;
+	
+	
 
 	private String description;
 
@@ -174,4 +220,65 @@ public class UserAccount implements UserDetails, Serializable {
 	public String getPassword() {
 		return password;
 	}
+
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public String getnName() {
+		return nName;
+	}
+
+	public void setnName(String nName) {
+		this.nName = nName;
+	}
+
+	public String getmName() {
+		return mName;
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
+
+	public String getPfone1() {
+		return pfone1;
+	}
+
+	public void setPfone1(String pfone1) {
+		this.pfone1 = pfone1;
+	}
+
+	public String getPfone2() {
+		return pfone2;
+	}
+
+	public void setPfone2(String pfone2) {
+		this.pfone2 = pfone2;
+	}
+
+	public String getPfone3() {
+		return pfone3;
+	}
+
+	public void setPfone3(String pfone3) {
+		this.pfone3 = pfone3;
+	}
+
+	public String getPfone4() {
+		return pfone4;
+	}
+
+	public void setPfone4(String pfone4) {
+		this.pfone4 = pfone4;
+	}
+	
+	
+	
+	
+	
 }

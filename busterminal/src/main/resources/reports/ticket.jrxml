@@ -20,6 +20,10 @@
 	<field name="customer.mName" class="java.lang.String"/>
 	<field name="customer.docupentType.keyName" class="java.lang.String"/>
 	<field name="actualPrice" class="java.math.BigDecimal"/>
+	<field name="userAccount.username" class="java.lang.String"/>
+	<field name="userAccount.fName" class="java.lang.String"/>
+	<field name="userAccount.nName" class="java.lang.String"/>
+	<field name="userAccount.mName" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -206,14 +210,14 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<text><![CDATA[кассир]]></text>
+				<text><![CDATA[кассир:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="74" y="144" width="265" height="13"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Синицина А. А."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{userAccount.fName}+" "+$F{userAccount.nName}+" "+$F{userAccount.mName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="339" y="144" width="53" height="13"/>
