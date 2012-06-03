@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pk.home.busterminal.application.Config;
 import pk.home.busterminal.domain.Order;
+import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.service.OrderService;
 import pk.home.libs.combine.fileutils.FileUtils;
 
@@ -278,16 +279,25 @@ public final class ReportsMVCController {
 
 	}
 
-	private ClassPathResource resource = new ClassPathResource(
+	private ClassPathResource resourceOrderReport = new ClassPathResource(
 			"reports/order.jrxml");
 
+	private ClassPathResource resourceTicket = new ClassPathResource(
+			"reports/ticket.jrxml");
+
 	private JasperReport orderReport;
+	private JasperReport ticketReport;
 
 	{
 
 		try {
-			orderReport = JasperCompileManager.compileReport(resource.getFile()
-					.getAbsolutePath());
+			orderReport = JasperCompileManager
+					.compileReport(resourceOrderReport.getFile()
+							.getAbsolutePath());
+
+			ticketReport = JasperCompileManager.compileReport(resourceTicket
+					.getFile().getAbsolutePath());
+
 		} catch (JRException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -334,6 +344,53 @@ public final class ReportsMVCController {
 		renderReport(format, "order_" + id, orderReport, parameterMap,
 				JRdataSource, request, response);
 
+	}
+
+	/**
+	 * Вывод билета
+	 * 
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/ticket/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	public void generateTicket(@PathVariable Long id,
+			@PathVariable String file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// Запрос данных
+		Order o = orderService.find(id);
+
+		// Проверка на корректность
+		if (o == null) {
+			throw new Exception("Ордер №" + id + " не найден!");
+		} else if (o.getOrderType() != OrderType.TICKET_SALE) {
+			throw new Exception(
+					"Ордер №"
+							+ id
+							+ " не является продажным, выдать билет по непродажному ордеру невохможно!");
+		}
+
+		// Параметры отчета
+		// Формат вывода
+		String format = file.substring(file.lastIndexOf(".") + 1);
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", format);
+
+		// Формирование набора данных
+		List<Order> list = new ArrayList<Order>();
+		list.add(o);
+
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		// Compile the report
+		// OUT
+		renderReport(format, "order_" + id, ticketReport, parameterMap,
+				JRdataSource, request, response);
 	}
 
 }

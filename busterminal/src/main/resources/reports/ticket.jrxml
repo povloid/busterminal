@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.7715610000000044"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="opTime" class="java.sql.Timestamp"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="seat.num" class="java.lang.Short"/>
+	<field name="race.dTime" class="java.sql.Timestamp"/>
+	<field name="race.id" class="java.lang.Long"/>
+	<field name="race.busRoute.keyName" class="java.lang.String"/>
+	<field name="race.bus.keyName" class="java.lang.String"/>
+	<field name="race.bus.gosNum" class="java.lang.String"/>
+	<field name="busRouteStopA.busStop.keyName" class="java.lang.String"/>
+	<field name="busRouteStopB.busStop.keyName" class="java.lang.String"/>
+	<field name="customer.keyName" class="java.lang.String"/>
+	<field name="customer.fName" class="java.lang.String"/>
+	<field name="customer.nName" class="java.lang.String"/>
+	<field name="customer.mName" class="java.lang.String"/>
+	<field name="customer.docupentType.keyName" class="java.lang.String"/>
+	<field name="actualPrice" class="java.math.BigDecimal"/>
 	<background>
 		<band/>
 	</background>
@@ -13,7 +30,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[128746]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="89" width="555" height="1"/>
@@ -52,7 +69,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Тараз - Иссык-куль"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{race.busRoute.keyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="351" y="0" width="61" height="21"/>
@@ -67,14 +84,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[128]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{race.id}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd.MM.yyyy HH.mm.ss">
 				<reportElement x="392" y="21" width="163" height="24"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="13" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["20.06.2012 21:15"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{race.dTime}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="75" width="49" height="15"/>
@@ -88,7 +105,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Setra"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{race.bus.keyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="209" y="75" width="63" height="15"/>
@@ -102,14 +119,14 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["H 333 TRZ"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{race.bus.gosNum}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="412" y="45" width="143" height="45"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans Mono" size="32" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" size="32" isBold="true" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[12]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="105" width="101" height="14"/>
@@ -130,7 +147,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Удостоверение личности РК"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{customer.docupentType.keyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="336" y="90" width="15" height="15"/>
@@ -144,14 +161,14 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA["37658926384769582735"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{customer.keyName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="101" y="105" width="454" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Абу Али Ибн Саид"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{customer.fName}+" "+$F{customer.nName}+" "+$F{customer.mName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="119" width="115" height="12"/>
@@ -163,12 +180,12 @@
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="118" width="555" height="1"/>
 			</line>
-			<textField>
+			<textField pattern="#,##0.00 тенге">
 				<reportElement x="115" y="119" width="440" height="12"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA[5000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{actualPrice}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="131" width="74" height="13"/>
@@ -182,7 +199,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["щимдерек щимдерек...."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="144" width="74" height="13"/>
@@ -215,12 +232,12 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd.MM.yyyy HH.mm.ss">
 				<reportElement x="392" y="158" width="163" height="13"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
-				<textFieldExpression><![CDATA["20.06.2012"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{opTime}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="339" y="158" width="53" height="13"/>
@@ -239,7 +256,7 @@
 			<componentElement>
 				<reportElement x="339" y="188" width="216" height="58"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="true" checksumRequired="true">
-					<jr:codeExpression><![CDATA["1287469604564"]]></jr:codeExpression>
+					<jr:codeExpression><![CDATA[$F{id}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<line>
@@ -275,21 +292,21 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Жд вокзал"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{busRouteStopA.busStop.keyName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="19" y="60" width="332" height="15"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Центр отдыха Каприз"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{busRouteStopB.busStop.keyName}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="351" y="0" width="1" height="89"/>
 			</line>
 			<image scaleImage="RealSize">
 				<reportElement x="0" y="0" width="43" height="30"/>
-				<imageExpression><![CDATA["/home/povloid/projects/git/busterminal/busterminal/src/main/resources/reports/LogoNV64.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["reports/LogoNV64.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</detail>
