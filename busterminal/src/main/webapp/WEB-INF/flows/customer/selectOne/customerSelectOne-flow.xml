@@ -15,9 +15,20 @@
 	<view-state id="customerSelectOne">
 		<transition on="select" to="end" />
 		<transition on="cancel" to="end" />
+		<transition on="addNewCustomer" to="addNewCustomer" />
 		<transition on-exception="java.lang.Exception" to="customerSelectOne" />
 	</view-state>
 
+	<!-- ADD NEW -->
+
+	<subflow-state id="addNewCustomer" subflow="customer/edit">
+		<input name="mode" value="'add'" />
+
+		<transition to="end">
+			<evaluate
+				expression="customerSelectOneWFControl.setSelectedId(currentEvent.attributes.editedId)" />
+		</transition>
+	</subflow-state>
 
 	<!-- END -->
 
@@ -27,12 +38,12 @@
 
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
-		<output name="selectedId" value="customerSelectOneWFControl.selectedId"/>
+		<output name="selectedId" value="customerSelectOneWFControl.selectedId" />
 	</end-state>
 
 
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
-		<output name="selectedId" value="customerSelectOneWFControl.selectedId"/>
+		<output name="selectedId" value="customerSelectOneWFControl.selectedId" />
 	</end-state>
 
 </flow>

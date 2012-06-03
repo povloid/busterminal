@@ -4,10 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
-	
+
 	<secured attributes="ROLE_USER" />
 
-	<var name="customerEditWFControl" class="pk.home.busterminal.web.jsf.webflow.CustomerEditWFControl" />
+	<var name="customerEditWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.CustomerEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
@@ -54,9 +55,9 @@
 
 	<view-state id="customerEdit">
 		<on-entry>
-			<evaluate expression="customerEditWFControl.init()"/>
+			<evaluate expression="customerEditWFControl.init()" />
 		</on-entry>
-	
+
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
@@ -78,9 +79,11 @@
 
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+		<output name="editedId" value="id" />
 	</end-state>
-	
-	
+
+
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+		<output name="editedId" value="id" />
 	</end-state>
 </flow>

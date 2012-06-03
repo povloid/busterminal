@@ -84,6 +84,15 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 		return "select";
 	}
 
+	/**
+	 * Добавить нового пользователя
+	 * 
+	 * @return
+	 */
+	public String addNewCustomer() {
+		return "addNewCustomer";
+	}
+
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
 
@@ -101,6 +110,20 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 
 	public void setModel(WFLazyDataModel<Customer> model) {
 		this.model = model;
+	}
+
+	public void setSelectedId(Long id) {
+		try {
+			this.selected = getCustomerService().find(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+		}
 	}
 
 	public Long getSelectedId() {

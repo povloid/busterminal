@@ -30,6 +30,8 @@
 			<p:growl id="msgs" showDetail="true" />
 
 			<p:messages showDetail="true" autoUpdate="true" />
+			
+			<pk:pk_add_button_wf add_action="#{customerSelectOneWFControl.addNewCustomer}"/>
 
 			<p:dataTable var="row" value="#{customerSelectOneWFControl.model}"
 				paginator="true" rows="10"
