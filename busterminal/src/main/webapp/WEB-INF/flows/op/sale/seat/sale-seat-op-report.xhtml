@@ -39,6 +39,10 @@
 		</script>
 
 		<style type="text/css">
+.reportPanel {
+	background-color: gray
+}
+
 .reportPanel p {
 	display: block;
 	-webkit-margin-before: 0em;
@@ -65,8 +69,13 @@
 					<p:printer target="reportPanel" />
 				</h:commandButton>
 
-				<h:panelGroup id="reportPanel">
-					<div id="contentArea" class="reportPanel"></div>
+				<h:panelGroup id="reportPanel" style="width:90%">
+
+					<div class="reportPanel">
+						<br />
+						<div id="contentArea" class="reportPanel"></div>
+						<br />
+					</div>
 				</h:panelGroup>
 
 				<p:commandButton action="ok" value="Далее"></p:commandButton>
