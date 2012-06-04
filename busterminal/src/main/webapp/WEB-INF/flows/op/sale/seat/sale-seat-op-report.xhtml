@@ -25,8 +25,29 @@
         Продажа билета на место №#{oPSaleSeatWFControl.seat.num} - рейс №#{raceId} - <h:outputText
 			value="#{oPSaleSeatWFControl.race.dTime}">
 			<f:convertDateTime type="both" />
-		</h:outputText>  #{oPSaleSeatWFControl.race.busRoute.keyName} 
-    </ui:define>
+		</h:outputText>  #{oPSaleSeatWFControl.race.busRoute.keyName}
+		
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+								$('#contentArea')
+										.load(
+												'#{request.contextPath}/mvc/report/ticket/#{oPSaleSeatWFControl.order.id}/order-#{oPSaleSeatWFControl.order.id}.html');
+
+							});
+		</script>
+
+		<style type="text/css">
+.reportPanel p {
+	display: block;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+</style>
+	</ui:define>
 
 	<ui:define name="content">
 		<h:form id="form">
@@ -40,8 +61,15 @@
 					Операция проведена успешно
 				</h:panelGrid>
 
-				<p:commandButton action="ok"
-						value="Далее"></p:commandButton>
+				<h:commandButton value="Print" type="button" icon="ui-icon-print">
+					<p:printer target="reportPanel" />
+				</h:commandButton>
+
+				<h:panelGroup id="reportPanel">
+					<div id="contentArea" class="reportPanel"></div>
+				</h:panelGroup>
+
+				<p:commandButton action="ok" value="Далее"></p:commandButton>
 			</p:panel>
 
 		</h:form>
