@@ -170,6 +170,64 @@
 		!important;
 }
 
+.docs16 {
+	background-image: url(#{request.contextPath}/images/icons/docs_16.png)
+		!important;
+}
+
+.print16 {
+	background-image: url(#{request.contextPath}/images/icons/print_16.png)
+		!important;
+}
+
+.pdf16 {
+	background-image: url(#{request.contextPath}/images/mimetypes/pdf16.png)
+		!important;
+}
+
+.excel16 {
+	background-image:
+		url(#{request.contextPath}/images/mimetypes/excel16.png) !important;
+}
+
+.html16 {
+	background-image:
+		url(#{request.contextPath}/images/mimetypes/html16.png) !important;
+}
+
+.text16 {
+	background-image:
+		url(#{request.contextPath}/images/mimetypes/text16.png) !important;
+}
+
+.pdf48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/pdf.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
+.excel48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/excel.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
+.html48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/html.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
+.text48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/text.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
 .ui-datatable .ui-datatable-footer {
 	text-align: left;
 }
@@ -204,9 +262,7 @@
 											<td valign="top"><img
 												src="#{request.contextPath}/images/icons/user_16.png" /> Вы
 												зашли как пользователь: #{app.authentication.name} -
-												#{terminalCurrentUser.userAccount.description}
-												
-												</td>
+												#{terminalCurrentUser.userAccount.description}</td>
 											<td align="right" valign="top"><img
 												src="#{request.contextPath}/images/icons/hist_16.png"></img>
 												Время: <h:outputText value="#{app.date}">
@@ -326,8 +382,7 @@
 						<tr>
 							<td width="30%">
 								<p class="copyright">
-									©&nbsp;&nbsp;2012 &nbsp;•&nbsp; <a
-										href="http://www.vta.kz">www.vta.kz</a>.
+									©&nbsp;&nbsp;2012 &nbsp;•&nbsp; <a href="http://www.vta.kz">www.vta.kz</a>.
 								</p>
 							</td>
 							<td><ui:insert name="footer">

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
+<cc:interface>
+
+	<cc:attribute name="report" required="true" />
+	<cc:attribute name="purl" required="true" />
+	<cc:attribute name="filename" required="true" />
+
+</cc:interface>
+<cc:implementation>
+
+	<style type="text/css">
+.reportPanel {
+	background-color: gray
+}
+
+.reportPanel p {
+	display: block;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+</style>
+
+
+	<p:commandButton value="Печать" type="button" icon="ui-icon print16">
+		<p:printer target="reportPanel" />
+	</p:commandButton>
+
+	<bt:report_buttons report="#{cc.attrs.report}" purl="#{cc.attrs.purl}"
+		filename="#{cc.attrs.filename}" />
+
+	<h:panelGroup id="reportPanel" style="width:90%">
+
+		<div class="reportPanel">
+			<br />
+			<div id="contentArea" class="reportPanel"></div>
+			<br />
+		</div>
+	</h:panelGroup>
+
+
+
+</cc:implementation>
+</html>

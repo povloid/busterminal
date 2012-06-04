@@ -38,19 +38,6 @@
 							});
 		</script>
 
-		<style type="text/css">
-.reportPanel {
-	background-color: gray
-}
-
-.reportPanel p {
-	display: block;
-	-webkit-margin-before: 0em;
-	-webkit-margin-after: 0em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
-}
-</style>
 	</ui:define>
 
 	<ui:define name="content">
@@ -65,18 +52,8 @@
 					Операция проведена успешно
 				</h:panelGrid>
 
-				<h:commandButton value="Print" type="button" icon="ui-icon-print">
-					<p:printer target="reportPanel" />
-				</h:commandButton>
-
-				<h:panelGroup id="reportPanel" style="width:90%">
-
-					<div class="reportPanel">
-						<br />
-						<div id="contentArea" class="reportPanel"></div>
-						<br />
-					</div>
-				</h:panelGroup>
+				<bt:report report="ticket" purl="/#{oPSaleSeatWFControl.order.id}/"
+					filename="ticket_#{oPSaleSeatWFControl.order.id}" />
 
 				<p:commandButton action="ok" value="Далее"></p:commandButton>
 			</p:panel>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+
+	<cc:attribute name="report" required="true" />
+	<cc:attribute name="purl" required="true" />
+	<cc:attribute name="filename" required="true" />
+
+	<cc:attribute name="width" default="1000" />
+	<cc:attribute name="height" default="700" />
+
+</cc:interface>
+<cc:implementation>
+
+	<h:outputText value="Экспорт"></h:outputText>
+	<p:button icon="ui-icon html16" value="HTML"
+		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.html', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); "></p:button>
+	<p:button icon="ui-icon pdf16" value="PDF"
+		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.pdf', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); "></p:button>
+	<p:button icon="ui-icon excel16" value="XLS"
+		href="/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.xls"></p:button>
+	<p:button icon="ui-icon text16" value="CSV"
+		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.csv', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); "></p:button>
+
+</cc:implementation>
+</html>
