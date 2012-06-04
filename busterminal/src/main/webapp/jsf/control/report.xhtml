@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/css/jsfdefault_1.css" />
+	<title>Отчет - #{report.filename}</title>
+
+	<style type="text/css">
+.print16 {
+	background-image: url(#{request.contextPath}/images/icons/print_16.png)
+		!important;
+}
+
+.pdf16 {
+	background-image: url(#{request.contextPath}/images/mimetypes/pdf16.png)
+		!important;
+}
+
+.excel16 {
+	background-image:
+		url(#{request.contextPath}/images/mimetypes/excel16.png) !important;
+}
+
+.html16 {
+	background-image:
+		url(#{request.contextPath}/images/mimetypes/html16.png) !important;
+}
+
+.text16 {
+	background-image:
+		url(#{request.contextPath}/images/mimetypes/text16.png) !important;
+}
+
+.pdf48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/pdf.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
+.excel48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/excel.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
+.html48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/html.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+
+.text48 {
+	background-image: url(#{request.contextPath}/images/mimetypes/text.png)
+		!important;
+	width: 48px;
+	height: 48px;
+}
+</style>
+
+</h:head>
+<h:body>
+
+	<f:metadata>
+		<f:viewParam name="report" value="#{report.report}" />
+		<f:viewParam name="purl" value="#{report.purl}" />
+		<f:viewParam name="filename" value="#{report.filename}" />
+	</f:metadata>
+
+	<h:form>
+
+		<p:messages showDetail="true" autoUpdate="true" />
+
+
+		<bt:report report="#{report.report}" purl="#{report.purl}"
+			filename="#{report.filename}" />
+
+
+
+	</h:form>
+</h:body>
+</html>
