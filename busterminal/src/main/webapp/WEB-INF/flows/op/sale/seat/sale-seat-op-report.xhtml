@@ -27,16 +27,7 @@
 			<f:convertDateTime type="both" />
 		</h:outputText>  #{oPSaleSeatWFControl.race.busRoute.keyName}
 		
-		<script type="text/javascript">
-			$(document)
-					.ready(
-							function() {
-								$('#contentArea')
-										.load(
-												'#{request.contextPath}/mvc/report/ticket/#{oPSaleSeatWFControl.order.id}/order-#{oPSaleSeatWFControl.order.id}.html');
-
-							});
-		</script>
+		
 
 	</ui:define>
 

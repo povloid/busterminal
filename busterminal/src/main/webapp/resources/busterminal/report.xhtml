@@ -31,6 +31,17 @@
 </style>
 
 
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$('#contentArea')
+									.load(
+											'#{request.contextPath}/mvc/report/ticket/#{oPSaleSeatWFControl.order.id}/order-#{oPSaleSeatWFControl.order.id}.html');
+
+						});
+	</script>
+
 	<p:commandButton value="Печать" type="button" icon="ui-icon print16">
 		<p:printer target="reportPanel" />
 	</p:commandButton>
