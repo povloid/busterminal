@@ -92,10 +92,13 @@
 
 				<p:column headerText="Действие"
 					style="width: 100px; text-align: center;">
-					<pk:pktable_crud_column_buttons_wf show_edit_button="false"
-						show_del_button="false" show_view_button="true"
-						view_button_oncomplete="rowDitailDialog.show()"
-						selected="#{orderViewControl.selected}" row="#{row}" />
+					<p:commandButton update=":form:display"
+						oncomplete="rowDitailDialog.show()" icon="ui-icon ui-icon-search"
+						title="Сведения по ордеру">
+						<f:setPropertyActionListener value="#{row}"
+							target="#{orderViewControl.selected}" />
+					</p:commandButton>
+					<bt:order_report order="#{row}" />
 				</p:column>
 
 

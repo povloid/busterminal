@@ -16,9 +16,9 @@
 <cc:implementation>
 
 	<h:panelGroup rendered="#{cc.attrs.order.orderType == 'TICKET_SALE'}">
-		
+		<p:commandButton icon="ui-icon docs16" ajax="true" title="Билет"
+			onclick="window.open ('#{request.contextPath}/faces/jsf/control/report.xhtml?report=ticket&amp;purl=/#{cc.attrs.order.id}/&amp;filename=order_#{cc.attrs.order.id}', 'Билет №#{cc.attrs.order.id}', 'height=600,width=800'); " />
 	</h:panelGroup>
-
 
 </cc:implementation>
 </html>
