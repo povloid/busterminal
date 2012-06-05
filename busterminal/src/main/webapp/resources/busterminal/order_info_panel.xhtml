@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
+<cc:interface>
+	<cc:attribute name="order" required="true" type="java.lang.Object" />
+</cc:interface>
+<cc:implementation>
+
+	<p:fieldset legend="Ордер №#{cc.attrs.order.id}">
+
+		<h:panelGrid columns="2">
+
+			<h:outputText value="№" />
+			<h:outputText value="#{cc.attrs.order.id}" />
+
+			<h:outputText value="тип:" />
+			<bt:order_type order="#{cc.attrs.order}"></bt:order_type>
+
+			<h:outputText value="время операции:" />
+			<h:outputText value="#{cc.attrs.order.opTime}">
+				<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+			</h:outputText>
+
+		</h:panelGrid>
+
+		<p:separator></p:separator>
+		<h:panelGrid columns="2">
+
+			<h:outputText value="рейс №" />
+			<h:outputText value="#{cc.attrs.order.race.id}" />
+
+			<h:outputText value="маршрут:" />
+			<h:outputText value="#{cc.attrs.order.race.busRoute.keyName}" />
+
+			<h:outputText value="время отправления:" />
+			<h:outputText value="#{cc.attrs.order.race.dTime}">
+				<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+			</h:outputText>
+
+			<h:outputText value="остановка отправления:" />
+			<h:outputText value="#{cc.attrs.order.busRouteStopA.busStop.keyName}" />
+
+			<h:outputText value="остановка прибытия:" />
+			<h:outputText value="#{cc.attrs.order.busRouteStopB.busStop.keyName}" />
+
+		</h:panelGrid>
+
+		<p:separator></p:separator>
+
+		<h:panelGrid columns="2">
+
+			<h:outputText value="автобус:" />
+			<h:outputText value="#{cc.attrs.order.race.bus.keyName}" />
+
+			<h:outputText value="гос. номер:" />
+			<h:outputText value="#{cc.attrs.order.race.bus.gosNum}" />
+
+			<h:outputText value="место №" />
+			<h:outputText value="#{cc.attrs.order.seat.num}" />
+
+		</h:panelGrid>
+
+		<p:separator></p:separator>
+		<h:panelGrid columns="2">
+			<h:outputText value="тип документа:" />
+			<h:outputText value="#{cc.attrs.order.customer.docupentType.keyName}" />
+
+			<h:outputText value="документ №" />
+			<h:outputText value="#{cc.attrs.order.customer.keyName}" />
+
+			<h:outputText value="Ф.И.О.:" />
+			<h:outputText
+				value="#{cc.attrs.order.customer.fName} #{cc.attrs.order.customer.nName} #{cc.attrs.order.customer.mName}" />
+
+			<h:outputText value="цена:" />
+			<h:outputText value="#{cc.attrs.order.actualPrice}" />
+			
+			<h:outputText value="примечания:" />
+			<h:outputText value="#{cc.attrs.order.description}" />
+
+		</h:panelGrid>
+
+		<p:separator></p:separator>
+		<h:panelGrid columns="2">
+			<h:outputText value="пользователь:" />
+			<h:outputText value="#{cc.attrs.order.userAccount.username}" />
+		</h:panelGrid>
+
+
+
+
+
+	</p:fieldset>
+
+</cc:implementation>
+</html>

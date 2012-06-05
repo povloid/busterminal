@@ -125,15 +125,7 @@
 
 					</f:facet>
 
-					<h:outputText value="id:" />
-					<h:outputText value="#{orderViewControl.selected.id}"
-						style="font-weight:bold" />
-
-					<h:outputText value="Description:" />
-					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText value="#{orderViewControl.selected.description}"
-							escape="false" />
-					</p:scrollPanel>
+					<bt:order_info_panel order="#{orderViewControl.selected}"></bt:order_info_panel>
 
 					<f:facet name="footer">
 						<p:outputPanel layout="block" style="text-align:right">

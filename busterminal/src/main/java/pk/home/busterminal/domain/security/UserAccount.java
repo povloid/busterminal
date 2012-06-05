@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -48,7 +47,7 @@ public class UserAccount implements UserDetails, Serializable {
 
 	@Column(nullable = false)
 	private boolean enabled = true;
-	
+
 	@Size(max = 20)
 	@Column(length = 20)
 	private String fName;
@@ -78,8 +77,6 @@ public class UserAccount implements UserDetails, Serializable {
 	@Size(max = 20)
 	@Column(length = 20)
 	private String pfone4;
-	
-	
 
 	private String description;
 
@@ -273,9 +270,5 @@ public class UserAccount implements UserDetails, Serializable {
 	public void setPfone4(String pfone4) {
 		this.pfone4 = pfone4;
 	}
-	
-	
-	
-	
-	
+
 }

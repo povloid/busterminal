@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.service.security.UserAccountService;
 
-
 @Scope("session")
 @Component("terminalCurrentUser")
 public class TerminalCurrentUser implements Serializable {
@@ -38,6 +37,14 @@ public class TerminalCurrentUser implements Serializable {
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
+	}
+
+	public UserAccountService getUserAccountService() {
+		return userAccountService;
+	}
+
+	public void setUserAccountService(UserAccountService userAccountService) {
+		this.userAccountService = userAccountService;
 	}
 
 }

@@ -36,25 +36,24 @@
 						ajax="false" value="Поиск"></p:commandButton>
 				</h:panelGrid>
 
-				<p:separator />
-				<h:panelGrid columns="2"
-					rendered="#{!empty oPReturnWFControl.order}">
-					<h:outputText value="Найден ордер №"></h:outputText>
-					<h:outputText value="#{oPReturnWFControl.order.id}"></h:outputText>
-				</h:panelGrid>
-
-				<p:separator />
-
-				<h:panelGrid columns="2"
-					rendered="#{!empty oPReturnWFControl.order}">
-					<h:outputText value="Ордер №"></h:outputText>
-					<p:inputTextarea readonly="#{del}"
-						value="#{oPReturnWFControl.retOrder.description}"
-						style="width:300px;height:100px;" title="Description" />
-
-				</h:panelGrid>
 
 
+				<h:panelGroup rendered="#{!empty oPReturnWFControl.order}">
+					<p:separator />
+					<bt:order_info_panel order="#{oPReturnWFControl.order}"></bt:order_info_panel>
+
+					<p:separator />
+
+					<h:panelGrid columns="2"
+						rendered="#{!empty oPReturnWFControl.order}">
+						<h:outputText value="Ордер №"></h:outputText>
+						<p:inputTextarea readonly="#{del}"
+							value="#{oPReturnWFControl.retOrder.description}"
+							style="width:300px;height:100px;" title="Description" />
+
+					</h:panelGrid>
+
+				</h:panelGroup>
 
 
 			</p:panel>
