@@ -29,12 +29,39 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:panel header="Поиск ордера:">
+				<h:panelGrid columns="3">
+					<h:outputText value="Ордер №"></h:outputText>
+					<p:spinner min="0" value="#{oPReturnWFControl.orderId}"></p:spinner>
+					<p:commandButton action="#{oPReturnWFControl.findOrder}"
+						ajax="false" value="Поиск"></p:commandButton>
+				</h:panelGrid>
+
+				<p:separator />
+				<h:panelGrid columns="2"
+					rendered="#{!empty oPReturnWFControl.order}">
+					<h:outputText value="Найден ордер №"></h:outputText>
+					<h:outputText value="#{oPReturnWFControl.order.id}"></h:outputText>
+				</h:panelGrid>
+
+				<p:separator />
+
+				<h:panelGrid columns="2"
+					rendered="#{!empty oPReturnWFControl.order}">
+					<h:outputText value="Ордер №"></h:outputText>
+					<p:inputTextarea readonly="#{del}"
+						value="#{oPReturnWFControl.retOrder.description}"
+						style="width:300px;height:100px;" title="Description" />
+
+				</h:panelGrid>
+
+
+
 
 			</p:panel>
 
 			<br />
 			<br />
-			<pk:pk_wiz_buttons_wf close_action="#{oPReturnWFControl.close}" 
+			<pk:pk_wiz_buttons_wf close_action="#{oPReturnWFControl.close}"
 				next_action="#{oPReturnWFControl.next}" step="1" lstep="3" />
 
 		</h:form>

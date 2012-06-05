@@ -14,6 +14,8 @@
 
 	<view-state id="find-order">
 
+		<transition on="findOrder" to="find-order" />
+
 		<transition on="close" to="end" />
 		<transition on="next" to="qreturn" />
 
@@ -26,6 +28,7 @@
 		<transition on="close" to="end" />
 
 		<transition on="next" to="return-op-report">
+			<evaluate expression="oPReturnWFControl.executeReturn()" />
 		</transition>
 
 		<transition on="back" to="find-order" />
