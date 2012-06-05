@@ -50,6 +50,9 @@ public class TestOrderService extends BaseTest {
 	 */
 	private OrderService service;
 
+	@Autowired
+	private ItemsService itemsService;
+
 	/**
 	 * Method to allow Spring to inject the DAO that will be tested
 	 * 
@@ -751,6 +754,54 @@ public class TestOrderService extends BaseTest {
 			o = service.createTicketSaleOrder(o);
 
 			assertTrue("Допущено 2 клиента на одно место!", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+	}
+
+	/**
+	 * Тест ограничений
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Rollback(true)
+	public void returnTest() throws Exception {
+		createTestEntitys();
+
+		long icount1 = itemsService.count();
+
+		Order order = createNewOrder();
+		long icountt = itemsService.count();
+
+		assertTrue(icountt > icount1);
+		assertTrue(icountt == icount1 + order.getItems().size());
+
+		long count1 = service.count();
+
+		Order retOrder = new Order();
+		retOrder.setOrderType(OrderType.TICKET_RETURN);
+		retOrder.setPreviousOrder(order);
+		retOrder.setUserAccount(userAccount);
+
+		retOrder = service.createTicketReturnOrder(retOrder);
+
+		long count2 = service.count();
+		long icount2 = itemsService.count();
+
+		assertTrue(count2 > count1);
+		assertTrue(count2 - 1 == count1);
+		assertTrue(icount2 == icount1);
+
+		try {
+
+			retOrder.setUserAccount(null);
+			retOrder = service.createTicketReturnOrder(retOrder);
+
+			assertTrue("Допущена вставка без указания пользователя", false);
 
 		} catch (Exception e) {
 			System.out.println(e);

@@ -10,8 +10,10 @@
 
 
 	<cc:attribute name="close_action"
-		method-signature="java.lang.String action()"/>
+		method-signature="java.lang.String action()" />
 	<cc:attribute name="close_button_value" default="Закрыть" />
+	<cc:attribute name="close_action_button" type="java.lang.Boolean"
+		default="true" />
 
 	<!--  -->
 
@@ -20,6 +22,8 @@
 
 	<cc:attribute name="back_button_value" default="Назад" />
 	<cc:attribute name="back_button_title" default="Вернуться назад" />
+	<cc:attribute name="back_action_button" type="java.lang.Boolean"
+		default="true" />
 
 	<!--  -->
 
@@ -28,34 +32,34 @@
 
 	<cc:attribute name="next_button_value" default="Далее" />
 	<cc:attribute name="next_button_title" default="Продолжить далее" />
-	
+
 	<!-- Wizart steps -->
-	<cc:attribute name="step" type="short" default="0"/>
-	<cc:attribute name="lstep" type="short" default="0"/>
-	
+	<cc:attribute name="step" type="short" default="0" />
+	<cc:attribute name="lstep" type="short" default="0" />
+
 
 </cc:interface>
 <cc:implementation>
-	<p:commandButton id="closeButton" 
-		icon="ui-icon close" immediate="true"
-		action="#{cc.attrs.close_action}"
+	<p:commandButton id="closeButton"
+		rendered="#{cc.attrs.close_action_button}" icon="ui-icon close"
+		immediate="true" action="#{cc.attrs.close_action}"
 		value="#{cc.attrs.close_button_value}" ajax="false"
 		title="Закрыть и вернуться назад" />
 
-	<p:commandButton id="backButton" 
-		icon="ui-icon back16" ajax="false"
-		rendered="#{cc.attrs.step gt 1}"
+	<p:commandButton id="backButton" icon="ui-icon back16" ajax="false"
+		rendered="#{cc.attrs.step gt 1 and cc.attrs.back_action_button}"
 		action="#{cc.attrs.back_action}" title="#{cc.attrs.back_button_title}"
 		value="#{cc.attrs.back_button_value}" />
 
-	<p:commandButton id="nextButton" 
-		rendered="#{cc.attrs.step lt cc.attrs.lstep}"
-		icon="ui-icon forwd16" ajax="false"
-		action="#{cc.attrs.next_action}" title="#{cc.attrs.next_button_title}" value="#{cc.attrs.next_button_value}" />
-		
-	<p:commandButton id="finishButton" 
-		rendered="#{cc.attrs.step eq cc.attrs.lstep }"
-		icon="ui-icon go16" ajax="false"
-		action="#{cc.attrs.next_action}" title="Завершить" value="Завершить" />
+	<p:commandButton id="nextButton"
+		rendered="#{cc.attrs.step lt cc.attrs.lstep}" icon="ui-icon forwd16"
+		ajax="false" action="#{cc.attrs.next_action}"
+		title="#{cc.attrs.next_button_title}"
+		value="#{cc.attrs.next_button_value}" />
+
+	<p:commandButton id="finishButton"
+		rendered="#{cc.attrs.step eq cc.attrs.lstep }" icon="ui-icon go16"
+		ajax="false" action="#{cc.attrs.next_action}" title="Завершить"
+		value="Завершить" />
 </cc:implementation>
 </html>

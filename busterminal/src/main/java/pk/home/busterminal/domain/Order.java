@@ -55,6 +55,7 @@ public class Order implements Serializable {
 
 	@ManyToOne
 	@NotNull
+	@JoinColumn(nullable = false)
 	private Race race;
 
 	@ManyToOne
@@ -63,6 +64,7 @@ public class Order implements Serializable {
 	// рейсе автобуса при продаже
 	// в сервисном уровне
 	@NotNull
+	@JoinColumn(nullable = false)
 	private Seat seat;
 
 	@ManyToOne
@@ -70,6 +72,7 @@ public class Order implements Serializable {
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
 	@NotNull
+	@JoinColumn(nullable = false)
 	private BusRouteStop busRouteStopA;
 
 	@ManyToOne
@@ -77,9 +80,11 @@ public class Order implements Serializable {
 	// Проверка содержания данной остановки в списке становок маршрута размещена
 	// в сервисном уровне
 	@NotNull
+	@JoinColumn(nullable = false)
 	private BusRouteStop busRouteStopB;
 
 	@NotNull
+	@Column(nullable = false)
 	private BigDecimal actualPrice;
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
@@ -127,10 +132,43 @@ public class Order implements Serializable {
 		}
 
 		// (1) Проверка по типу ордера --------------------------
+		if (orderType != null && orderType == OrderType.TICKET_SALE
+				&& opTime != null
+				&& opTime.getTime() > race.getdTime().getTime()) {
+			throw new Exception("Нльзя продать билет на старый рейс!");
+		}
+
 		if (orderType != null && orderType == OrderType.TICKET_RETURN
 				&& previousOrder == null) {
 			throw new Exception(
 					"Возвратный ордер должен иметь родительский ордер!");
+		}
+
+		if (orderType != null && orderType == OrderType.TICKET_RETURN
+				&& previousOrder != null) {
+
+			if (seat != null && !seat.equals(previousOrder.getSeat()))
+				throw new Exception(
+						"Место в возвратном ордере должно совпадать с местом в родительском ордере!");
+
+			if (race != null && !race.equals(previousOrder.getRace()))
+				throw new Exception(
+						"Рейс в возвратном ордере должно совпадать с рейсом в родительском ордере!");
+
+			if (customer != null
+					&& !customer.equals(previousOrder.getCustomer()))
+				throw new Exception(
+						"Клиент в возвратном ордере должно совпадать с клиентом в родительском ордере!");
+
+			if (busRouteStopA != null
+					&& !busRouteStopA.equals(previousOrder.getBusRouteStopA()))
+				throw new Exception(
+						"Остановка отправления в возвратном ордере должно совпадать с остановкой отправления в родительском ордере!");
+
+			if (busRouteStopB != null
+					&& !busRouteStopB.equals(previousOrder.getBusRouteStopB()))
+				throw new Exception(
+						"Остановка прибытия в возвратном ордере должно совпадать с остановкой прибытия в родительском ордере!");
 		}
 
 		// (2) Проверки по введенному рейсу ---------------------

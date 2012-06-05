@@ -119,6 +119,13 @@ public class OrderService extends ABaseService<Order> {
 	// Операции
 	// *****************************************************************************************************************
 
+	/**
+	 * Создать продажный ордер
+	 * 
+	 * @param o
+	 * @return
+	 * @throws Exception
+	 */
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Order createTicketSaleOrder(Order o) throws Exception {
@@ -129,6 +136,7 @@ public class OrderService extends ABaseService<Order> {
 		// Время присваивает текущее сам сервисный уровень !!!
 		o.setId(null);
 		o.setOpTime(new Date());
+		o.setOrderType(OrderType.TICKET_SALE);
 
 		check(o);
 
@@ -202,6 +210,53 @@ public class OrderService extends ABaseService<Order> {
 		}
 
 		return super.refresh(o);
+	}
+
+	/**
+	 * Создать возвратный ордер
+	 * 
+	 * Данная процедура удаляет Items родительского ордера и пишит свой,
+	 * подчиненный ордер
+	 * 
+	 * @param o
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Order createTicketReturnOrder(Order o) throws Exception {
+
+		if (o.getOrderType() != OrderType.TICKET_RETURN) {
+			throw new Exception("Не TICKET_RETURN тип!");
+		}
+
+		if (o.getPreviousOrder() == null) {
+			throw new Exception("Не указан возврантный ордер!");
+		}
+
+		Order order = find(o.getPreviousOrder().getId());
+
+		// Время присваивает текущее сам сервисный уровень !!!
+		o.setId(null);
+		o.setOpTime(new Date());
+
+		o.setOrderType(OrderType.TICKET_RETURN);
+		o.setSeat(order.getSeat());
+		o.setRace(order.getRace());
+		o.setBusRouteStopA(order.getBusRouteStopA());
+		o.setBusRouteStopB(order.getBusRouteStopB());
+		o.setCustomer(order.getCustomer());
+		o.setActualPrice(order.getActualPrice());
+
+		check(o);
+
+		o = super.persist(o);
+
+		for (Items items : order.getItems()) {
+			itemsService.remove(items);
+		}
+
+		return o;
 	}
 
 }

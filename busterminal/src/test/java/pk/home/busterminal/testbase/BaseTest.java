@@ -60,14 +60,14 @@ public class BaseTest {
 
 	@Autowired
 	protected SeatService seatService;
-	
+
 	@Autowired
 	protected SeatTypeService seatTypeService;
 
 	// Переменные
 	// -------------------------------------------------------------------------------
 	protected SeatType seatType;
-	
+
 	protected Bus busWork1, busWork2, busTemplite;
 	protected Schema schema1, schema2, schema3, schema4;
 	protected Seat seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8;
@@ -99,7 +99,7 @@ public class BaseTest {
 		busTemplite.setGosNum("TEST NUM 2");
 		busTemplite.setBssType(BssType.TEMPLITE);
 		busTemplite = busService.persist(busTemplite);
-		
+
 		seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -295,7 +295,8 @@ public class BaseTest {
 		race = new Race();
 		race.setBus(busWork1);
 		race.setBusRoute(busRoute1);
-		race.setdTime(createUniqueDate());
+		race.setdTime(new Date(createUniqueDate().getTime() + 1000 * 60 * 60
+				* 24));
 		race = raceService.persist(race);
 
 		// Создаем пользователя -----------------------------------

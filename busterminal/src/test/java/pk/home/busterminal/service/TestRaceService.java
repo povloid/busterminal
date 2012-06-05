@@ -473,6 +473,8 @@ public class TestRaceService extends BaseTest {
 
 		Date d1 = createUniqueDate();
 
+		long count0 = service.selectRacesCount(busRoute1, false, d1);
+
 		long index = 0;
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
@@ -501,7 +503,7 @@ public class TestRaceService extends BaseTest {
 
 		assertTrue(count > 0);
 		System.out.println("count: " + (count) + " -- index: " + index);
-		assertTrue(count == index);
+		assertTrue(count == index + count0);
 
 	}
 

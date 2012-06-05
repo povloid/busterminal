@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="find-order">
+
+	<secured attributes="ROLE_USER" />
+
+	<var name="oPReturnWFControl" class="pk.home.busterminal.web.jsf.webflow.OPReturnWFControl" />
+
+
+	<input name="retUrl" type="java.lang.String" />
+
+	<view-state id="find-order">
+
+		<transition on="close" to="end" />
+		<transition on="next" to="qreturn" />
+
+		<transition on="error" to="find-order" />
+
+		<transition on-exception="java.lang.Exception" to="find-order" />
+	</view-state>
+
+	<view-state id="qreturn">
+		<transition on="close" to="end" />
+
+		<transition on="next" to="return-op-report">
+		</transition>
+
+		<transition on="back" to="find-order" />
+
+		<transition on-exception="java.lang.Exception" to="qreturn" />
+	</view-state>
+
+	<view-state id="return-op-report">
+		<transition on="close" to="end" />
+
+		<transition on="next" to="end">
+		</transition>
+
+		<transition on="back" to="qreturn" />
+	</view-state>
+
+	<!-- END -->
+
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+	</end-state>
+
+</flow>
