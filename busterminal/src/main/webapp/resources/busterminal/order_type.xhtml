@@ -18,5 +18,11 @@
 		<h:outputText value="Продажа билета"></h:outputText>
 	</h:panelGrid>
 
+	<h:panelGrid rendered="#{cc.attrs.order.orderType == 'TICKET_RETURN'}"
+		columns="2" styleClass="actions">
+		<h:graphicImage url="/images/icons/remov_16.png"></h:graphicImage>
+		<h:outputText value="Возвтрат билета"></h:outputText>
+	</h:panelGrid>
+
 </cc:implementation>
 </html>
