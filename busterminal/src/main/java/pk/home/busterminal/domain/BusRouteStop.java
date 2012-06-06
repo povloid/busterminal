@@ -1,6 +1,7 @@
 package pk.home.busterminal.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -57,6 +58,8 @@ public class BusRouteStop implements Serializable {
 
 	@ManyToOne
 	private BusRouteStop nBRStop;
+
+	private Date addTime;
 
 	/**
 	 * Проверка были ли изменения в защищенных полях
@@ -161,6 +164,14 @@ public class BusRouteStop implements Serializable {
 
 	public void setnBRStop(BusRouteStop nBRStop) {
 		this.nBRStop = nBRStop;
+	}
+
+	public Date getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}
 
 	@Override

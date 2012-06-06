@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -246,7 +247,7 @@ public class OrderService extends ABaseService<Order> {
 		o.setBusRouteStopA(order.getBusRouteStopA());
 		o.setBusRouteStopB(order.getBusRouteStopB());
 		o.setCustomer(order.getCustomer());
-		o.setActualPrice(order.getActualPrice());
+		o.setActualPrice(order.getActualPrice().multiply(new BigDecimal(-1)));
 
 		check(o);
 

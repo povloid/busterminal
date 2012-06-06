@@ -169,6 +169,17 @@ public class Order implements Serializable {
 					&& !busRouteStopB.equals(previousOrder.getBusRouteStopB()))
 				throw new Exception(
 						"Остановка прибытия в возвратном ордере должно совпадать с остановкой прибытия в родительском ордере!");
+
+			if (actualPrice != null && actualPrice.doubleValue() > 0)
+				throw new Exception(
+						"При возврате цена должна быть отрицательной!");
+
+			if (actualPrice != null
+					&& !actualPrice.abs()
+							.equals(previousOrder.getActualPrice()))
+				throw new Exception(
+						"При возврате цена должна совпадать с ценой в продажном ордере!");
+
 		}
 
 		// (2) Проверки по введенному рейсу ---------------------

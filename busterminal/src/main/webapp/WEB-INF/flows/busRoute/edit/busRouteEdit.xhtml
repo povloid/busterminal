@@ -70,7 +70,8 @@
 
 						<p:column headerText="Действие"
 							style="width: 100px; text-align: center;">
-							<pk:pktable_crud_column_buttons_wf show_edit_button="false"
+							<pk:pktable_crud_column_buttons_wf show_edit_button="true"
+								edit_action="#{busRouteEditWFControl.busRouteStopEdit}"
 								del_action="#{busRouteEditWFControl.delBusStop}" show_view_button="true"
 								view_button_oncomplete="rowDitailDialog.show()"
 								selected="#{busRouteEditWFControl.selectedBusRouteStop}" row="#{row}" />

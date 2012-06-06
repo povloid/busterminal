@@ -75,6 +75,17 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 	public String selectBusStop() {
 		return "selectBusStop";
 	}
+	
+	
+	/**
+	 * Редактировать
+	 * 
+	 * @return
+	 */
+	public String busRouteStopEdit() {
+		return "busRouteStopEdit";
+	}
+	
 
 	private BusRouteStop selectedBusRouteStop;
 

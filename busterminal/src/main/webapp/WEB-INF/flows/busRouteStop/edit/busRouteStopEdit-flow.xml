@@ -4,11 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
-
+	
 	<secured attributes="ROLE_USER" />
 
-	<var name="busRouteEditWFControl"
-		class="pk.home.busterminal.web.jsf.webflow.BusRouteEditWFControl" />
+	<var name="busRouteStopEditWFControl" class="pk.home.busterminal.web.jsf.webflow.BusRouteStopEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
 	<input name="mode" required="true" type="java.lang.String" />
@@ -26,14 +25,14 @@
 	</decision-state>
 
 	<action-state id="newEdited">
-		<evaluate expression="busRouteEditWFControl.newEdited()"
-			result="busRouteEditWFControl.edited" />
+		<evaluate expression="busRouteStopEditWFControl.newEdited()"
+			result="busRouteStopEditWFControl.edited" />
 		<transition to="addEditDel"></transition>
 	</action-state>
 
 	<action-state id="findEdited">
-		<evaluate expression="busRouteEditWFControl.findEdited(id)"
-			result="busRouteEditWFControl.edited" />
+		<evaluate expression="busRouteStopEditWFControl.findEdited(id)"
+			result="busRouteStopEditWFControl.edited" />
 
 		<transition to="addEditDel"></transition>
 	</action-state>
@@ -48,55 +47,29 @@
 			<evaluate expression="mode eq 'del'" result="flowScope.del"
 				result-type="java.lang.Boolean" />
 		</on-entry>
-		<set name="id" value="busRouteEditWFControl.edited.id" type="java.lang.Long" />
-		<transition to="busRouteEdit" />
+		<set name="id" value="busRouteStopEditWFControl.edited.id" type="java.lang.Long" />
+		<transition to="busRouteStopEdit" />
 	</action-state>
 
 
-	<view-state id="busRouteEdit">
+	<view-state id="busRouteStopEdit">
 		<on-entry>
-			<evaluate expression="busRouteEditWFControl.init()" />
+			<evaluate expression="busRouteStopEditWFControl.init()"/>
 		</on-entry>
-
+	
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
 			<set name="mode" value="'edit'" type="java.lang.String" />
-			<set name="id" value="busRouteEditWFControl.edited.id" type="java.lang.Long" />
+			<set name="id" value="busRouteStopEditWFControl.edited.id" type="java.lang.Long" />
 		</transition>
-		<transition on="editComplite" to="busRouteEdit" />
+		<transition on="editComplite" to="busRouteStopEdit" />
 		<transition on="editCompliteAndClose" to="end" />
 		<transition on="delComplite" to="end"></transition>
-		<transition on="selectBusStop" to="selectBusStop" />
 
-		<transition on="busRouteStopEdit" to="busRouteStopEdit" />
-
-		<transition on="error" to="busRouteEdit"></transition>
+		<transition on="error" to="busRouteStopEdit"></transition>
 		<!-- <transition on-exception="java.lang.Exception" to="busedit"/> -->
 	</view-state>
-
-	<!-- SELECT BUS STOP -->
-
-
-	<subflow-state id="selectBusStop" subflow="busStop/selectOne">
-		<transition to="busRouteEdit">
-			<evaluate
-				expression="busRouteEditWFControl.addBusStop(currentEvent.attributes.selectedId)" />
-		</transition>
-	</subflow-state>
-
-
-	<!-- Edit -->
-
-	<subflow-state id="busRouteStopEdit" subflow="busRouteStop/edit">
-		<input name="mode" value="'edit'" />
-		<input name="id" value="busRouteEditWFControl.selectedBusRouteStop.id" />
-
-		<transition to="busRouteEdit" />
-	</subflow-state>
-
-
-	<!-- END -->
 
 
 	<decision-state id="end">
@@ -106,8 +79,8 @@
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
 	</end-state>
-
-
+	
+	
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
 </flow>
