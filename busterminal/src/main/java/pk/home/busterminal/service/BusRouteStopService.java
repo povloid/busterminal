@@ -48,22 +48,58 @@ public class BusRouteStopService extends ABaseService<BusRouteStop> {
 					"Менять значения полей o.getpBRStop() и o.getnBRStop() нельзя");
 
 		// Проверка упорядоченности ------------------------------------------
-		if ((o.getpBRStop() == null && o.getnBRStop() == null)
-				|| (o.getpBRStop() == null || o.getpBRStop().getOrId() < o
-						.getOrId())
-				&& (o.getnBRStop() == null || o.getnBRStop().getOrId() > o
-						.getOrId())
-				&& (o.getpBRStop() != null && o.getnBRStop() != null
-						&& !o.getpBRStop().equals(o.getnBRStop())
-						&& !o.getpBRStop().equals(this) && !o.getnBRStop()
-						.equals(this))) {
-			// Выполнение данного условия считается нормальным
-			// System.out.println(">>> OK");
+		// if ((o.getpBRStop() == null && o.getnBRStop() == null)
+		// || (o.getpBRStop() == null || o.getpBRStop().getOrId() < o
+		// .getOrId())
+		// && (o.getnBRStop() == null || o.getnBRStop().getOrId() > o
+		// .getOrId())
+		// && (o.getpBRStop() != null && o.getnBRStop() != null
+		// && !o.getpBRStop().equals(o.getnBRStop())
+		// && !o.getpBRStop().equals(this) && !o.getnBRStop()
+		// .equals(this))) {
+		// // Выполнение данного условия считается нормальным
+		// // System.out.println(">>> OK");
+		// } else {
+		// throw new Exception("Нарушение упорядоченности");
+		// }
+
+		if (o.getpBRStop() == null && o.getnBRStop() == null) {
+			System.out.println("BusRouteStop.check - OK1");
+		} else if (o.getpBRStop() != null && o.getnBRStop() != null
+				&& !o.getpBRStop().equals(o.getnBRStop())
+				&& !o.getpBRStop().equals(this) && !o.getnBRStop().equals(this)
+				&& o.getpBRStop().getOrId() < o.getOrId()
+				&& o.getnBRStop().getOrId() > o.getOrId()) {
+			System.out.println("BusRouteStop.check - OK2");
+		} else if (o.getnBRStop() == null && o.getpBRStop() != null
+				&& o.getpBRStop().getOrId() < o.getOrId()) {
+			System.out.println("BusRouteStop.check - OK3");
+		} else if (o.getpBRStop() == null && o.getnBRStop() != null
+				&& o.getnBRStop().getOrId() > o.getOrId()) {
+			System.out.println("BusRouteStop.check - OK4");
 		} else {
 			throw new Exception("Нарушение упорядоченности");
 		}
 
 		o.check();
+
+		print(o);
+	}
+
+	/**
+	 * Печать - отладочная
+	 * 
+	 * @param brs
+	 */
+	private void print(BusRouteStop brs) {
+
+		String pOrId = brs.getpBRStop() != null ? brs.getpBRStop().getOrId()
+				+ "" : "null";
+		String nOrId = brs.getnBRStop() != null ? brs.getnBRStop().getOrId()
+				+ "" : "null";
+
+		System.out.println("BusRouteStop id:" + brs.getId() + "     " + pOrId
+				+ " - " + brs.getOrId() + " - " + nOrId);
 	}
 
 }

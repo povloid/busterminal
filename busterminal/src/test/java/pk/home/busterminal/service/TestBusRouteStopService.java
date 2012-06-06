@@ -667,18 +667,9 @@ public class TestBusRouteStopService {
 		busRouteStop2.setnBRStop(null);
 
 		assertTrue(busRouteStop2.isProtectionFieldUpdated(busRouteStop3));
-		
-		
-		
-		
+
 		// ---------------------------------------------------------------------
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	@Test
@@ -722,22 +713,24 @@ public class TestBusRouteStopService {
 		busRouteStop2.setpBRStop(busRouteStop1);
 		busRouteStop2.setnBRStop(busRouteStop3);
 		busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
-		
+
 		System.out.println(busRouteStop2.getOrId());
 		System.out.println(busRouteStop2.getpBRStop());
 		System.out.println(busRouteStop2.getnBRStop());
 
 		try {
+			print(busRouteStop2);
 			busRouteStop2.setOrId(1);
+			print(busRouteStop2);
 			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
+			print(busRouteStop2);
 
 			assertTrue("Допущено нарушение порядка", false);
 
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-		
+
 		try {
 			busRouteStop2.setOrId(3);
 			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
@@ -747,13 +740,12 @@ public class TestBusRouteStopService {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-		
+
 		try {
 			busRouteStop2.setOrId(2);
 			busRouteStop2.setpBRStop(busRouteStop3);
 			busRouteStop2.setnBRStop(busRouteStop3);
-			
+
 			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
 
 			assertTrue("Допущено нарушение порядка", false);
@@ -761,13 +753,12 @@ public class TestBusRouteStopService {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-		
+
 		try {
 			busRouteStop2.setOrId(2);
 			busRouteStop2.setpBRStop(busRouteStop2);
 			busRouteStop2.setnBRStop(busRouteStop3);
-			
+
 			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
 
 			assertTrue("Допущено нарушение порядка", false);
@@ -775,13 +766,12 @@ public class TestBusRouteStopService {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-		
+
 		try {
 			busRouteStop2.setOrId(2);
 			busRouteStop2.setpBRStop(busRouteStop1);
 			busRouteStop2.setnBRStop(busRouteStop2);
-			
+
 			busRouteStop2 = busRouteStopStopService.merge(busRouteStop2);
 
 			assertTrue("Допущено нарушение порядка", false);
@@ -789,10 +779,21 @@ public class TestBusRouteStopService {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-		
-		
 
+	}
+
+	/**
+	 * Печать - отладочная
+	 * @param brs
+	 */
+	private void print(BusRouteStop brs) {
+
+		String pOrId = brs.getpBRStop() != null ? brs.getpBRStop().getOrId()
+				+ "" : "null";
+		String nOrId = brs.getnBRStop() != null ? brs.getnBRStop().getOrId()
+				+ "" : "null";
+
+		System.out.println(pOrId + " - " + brs.getOrId() + " - " + nOrId);
 	}
 
 }
