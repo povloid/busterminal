@@ -92,7 +92,7 @@
 		<input name="mode" value="'edit'" />
 		<input name="id" value="busRouteEditWFControl.selectedBusRouteStop.id" />
 
-		<transition to="busRouteEdit" />
+		<transition to="findEdited" />
 	</subflow-state>
 
 
