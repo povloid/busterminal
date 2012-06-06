@@ -220,6 +220,28 @@ public class Order implements Serializable {
 
 	}
 
+	// Сервисные функции
+
+	// @Transient
+	// private Date seatTime;
+
+	/**
+	 * Получение времени посадки с вприбавлением по смещению от посадочной
+	 * остановки маршрута
+	 * 
+	 * @return
+	 */
+	public Date getSeatTime() {
+		long d = race.getdTime().getTime();
+
+		d = busRouteStopA.getAddTime() != null ? d
+				+ busRouteStopA.getAddTime().getTime() : d;
+		d = busRouteStopA.getAddDay() != null ? d + busRouteStopA.getAddDay()
+				* 1000 * 60 * 60 * 24 : d;
+
+		return new Date(d);
+	}
+
 	// -----------------------------------------------------------------------------------------------------------------
 
 	public Order() {

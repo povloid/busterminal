@@ -24,6 +24,7 @@
 	<field name="userAccount.fName" class="java.lang.String"/>
 	<field name="userAccount.nName" class="java.lang.String"/>
 	<field name="userAccount.mName" class="java.lang.String"/>
+	<field name="seatTime" class="java.util.Date"/>
 	<background>
 		<band/>
 	</background>
@@ -96,7 +97,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{race.dTime}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{seatTime}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="75" width="49" height="14"/>
