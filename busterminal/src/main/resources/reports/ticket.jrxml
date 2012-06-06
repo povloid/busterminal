@@ -48,7 +48,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Калюка Юрий - начальник штаба дивизии тяжелых сканеров штрихкодов. Имеет право ношения на правой и левой стороне груди всех извесных орденов и медалей а также блестящих предметов. Является трижды героем Тараза. телефон 8 701 993 8400"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["ТОО 'Туристская компания New Voyage' адрес: РК, город Тараз, пр-т Абая 129 www.vta.kz   e-mail:517102@mail.ru тел: +7 (7262)517102, Настя +7 775 4767569, Юрий +7 7019938400"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="31" width="49" height="14"/>
@@ -271,10 +271,10 @@
 			</staticText>
 			<textField>
 				<reportElement x="0" y="157" width="339" height="88"/>
-				<textElement>
+				<textElement verticalAlignment="Top">
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["В случае опаздания на поездку вы имеете право хранить молчание. Все что вы скажете будет использовано против вас в суде. Вы имеете право на адвоката....."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Пассажир обязан своевременно прибыть к месту отправления автобуса не позднее, чем за 30 минут до времени отъезда, указанного в билете. В случае опоздания на посадку билет аннулируется, стоимость не возмещается Все пассажиры должны иметь при себе соответствующие документы для прохождения границы. Посадка производится согласно билета по документам удостоверяющим личность!"]]></textFieldExpression>
 			</textField>
 			<componentElement>
 				<reportElement x="339" y="188" width="216" height="57"/>
