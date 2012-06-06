@@ -44,7 +44,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	private Race selected1;
 	private Race selected2;
 
-	private int days = 1;
+	private int days = 0;
 
 	// actions
 	// ------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 
 		Date eDate = event.getDate();
 
-		findRaceModel2.setDate(new Date(eDate.getTime() + (days - 1) * DAY));
+		findRaceModel2.setDate(new Date(eDate.getTime() + (days) * DAY));
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		System.out
 				.println(eDate.getTime() - findRaceModel1.getDate().getTime());
 
-		days = (int) ((eDate.getTime() - findRaceModel1.getDate().getTime()) / DAY) + 1;
+		days = (int) ((eDate.getTime() - findRaceModel1.getDate().getTime()) / DAY);
 		System.out.println(days);
 	}
 
@@ -112,7 +112,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	public void handleSpinnerSelect() {
 		System.out.println("handleSpinnerSelect");
 		findRaceModel2.setDate(new Date(findRaceModel1.getDate().getTime()
-				+ (days - 1) * DAY));
+				+ (days) * DAY));
 		// System.out.println(new Date(findRaceModel1.getDate().getTime() + days
 		// * DAY));
 	}
@@ -129,7 +129,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	 * Уменьшить день на 1
 	 */
 	public void decDay() {
-		if (days > 1)
+		if (days > 0)
 			--days;
 
 		handleSpinnerSelect();
