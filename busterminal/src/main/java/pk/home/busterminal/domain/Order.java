@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -232,14 +233,23 @@ public class Order implements Serializable {
 	 * @return
 	 */
 	public Date getSeatTime() {
-		long d = race.getdTime().getTime();
 
-		d = busRouteStopA.getAddTime() != null ? d
-				+ busRouteStopA.getAddTime().getTime() : d;
-		d = busRouteStopA.getAddDay() != null ? d + busRouteStopA.getAddDay()
-				* 1000 * 60 * 60 * 24 : d;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(race.getdTime());
 
-		return new Date(d);
+		if (busRouteStopA.getAddDay() != null) {
+			cal.add(Calendar.DAY_OF_YEAR, busRouteStopA.getAddDay().intValue());
+		}
+
+		if (busRouteStopA.getAddTime() != null) {
+			Calendar calTime = Calendar.getInstance();
+			calTime.setTime(busRouteStopA.getAddTime());
+
+			cal.add(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+			cal.add(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+		}
+
+		return cal.getTime();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
