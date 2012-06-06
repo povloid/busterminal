@@ -73,10 +73,11 @@
 						</p:column>
 
 						<p:column headerText="Добавочное время c начала пути">
-							<h:panelGrid columns="2" styleClass="actions">
+							<h:panelGrid columns="3" styleClass="actions">
 								<h:graphicImage url="/images/icons/hist_16.png"></h:graphicImage>
-								<h:outputText value="#{row.addTime}">
-									<f:convertDateTime pattern="суток dd времени HH:mm" />
+								<h:outputText value="+ суток #{row.addDay}" rendered="#{!empty row.addDay}"/>
+								<h:outputText value="#{row.addTime}" rendered="#{!empty row.addTime}">
+									<f:convertDateTime pattern=" + времени HH:mm" />
 								</h:outputText>
 							</h:panelGrid>
 						</p:column>

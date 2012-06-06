@@ -59,6 +59,7 @@ public class BusRouteStop implements Serializable {
 	@ManyToOne
 	private BusRouteStop nBRStop;
 
+	private Integer addDay;
 	private Date addTime;
 
 	/**
@@ -172,6 +173,14 @@ public class BusRouteStop implements Serializable {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public Integer getAddDay() {
+		return addDay;
+	}
+
+	public void setAddDay(Integer addDay) {
+		this.addDay = addDay;
 	}
 
 	@Override

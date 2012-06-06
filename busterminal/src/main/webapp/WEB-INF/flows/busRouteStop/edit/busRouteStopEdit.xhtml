@@ -35,20 +35,25 @@
 						rendered="#{busRouteStopEditWFControl.edited.id != null}" />
 					<h:outputText value="#{busRouteStopEditWFControl.edited.id}"
 						rendered="#{busRouteStopEditWFControl.edited.id != null}" />
-						
+
 					<h:outputLabel value="Добавочное время:" />
 					<h:panelGroup>
-						
-					
+						<h:outputText value="суток "></h:outputText>
+						<p:spinner min="0"
+							value="#{busRouteStopEditWFControl.edited.addDay}"></p:spinner>
+						<h:outputText value=" + времени "></h:outputText>
+						<p:calendar value="#{busRouteStopEditWFControl.edited.addTime}"
+							pattern="HH:mm" timeOnly="true" />
+
 					</h:panelGroup>
-					
+
 
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{busRouteStopEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
+
 				</h:panelGrid>
 
 				<br />
@@ -58,8 +63,8 @@
 					add_action="#{busRouteStopEditWFControl.confirmAdd}"
 					edit_action_and_close="#{busRouteStopEditWFControl.confirmEditAndClose}"
 					edit_action="#{busRouteStopEditWFControl.confirmEdit}"
-					del_action="#{busRouteStopEditWFControl.confirmDel}" add_view="#{add}"
-					edit_view="#{edit}" del_view="#{del}" />
+					del_action="#{busRouteStopEditWFControl.confirmDel}"
+					add_view="#{add}" edit_view="#{edit}" del_view="#{del}" />
 			</p:panel>
 		</h:form>
 	</ui:define>
