@@ -3,8 +3,15 @@ package pk.home.busterminal.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Index;
+
+import pk.home.busterminal.domain.security.UserAccount;
 
 /**
  * Entity class: Balance Balance - баланс
@@ -27,14 +34,58 @@ public class Balance implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
-	@Column(unique = true, nullable = false)
-	private String keyName;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@Index(name = "balance_idx2")
+	private BalanceType balanceType;
 
 	@ManyToOne
 	private Division division;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+	@Index(name = "balance_idx1")
+	@NotNull
+	private Date opTime;
+
 	private String description;
+
+	@NotNull
+	@Column(nullable = false)
+	private BigDecimal actualSumm;
+
+	@ManyToOne
+	@Index(name = "order_idx3")
+	@JoinColumn(nullable = false)
+	@NotNull
+	private UserAccount userAccount;
+
+	/**
+	 * Проверка
+	 * 
+	 * @throws Exception
+	 */
+	@PrePersist
+	@PreUpdate
+	public void check() throws Exception {
+
+		if (balanceType != null && balanceType == BalanceType.PLUS) {
+
+			if (actualSumm != null && actualSumm.doubleValue() <= 0)
+				throw new Exception(
+						"Баланс PLUS - сумма должена быть положительной!");
+
+		}
+
+		if (balanceType != null && balanceType == BalanceType.MINUS) {
+
+			if (actualSumm != null && actualSumm.doubleValue() >= 0)
+				throw new Exception(
+						"Баланс MINUS - сумма должена быть отрицательной!");
+
+		}
+
+	}
 
 	public Balance() {
 		super();
@@ -46,15 +97,6 @@ public class Balance implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getKeyName() {
-		return this.keyName;
-	}
-
-	public void setKeyName(String keyName) {
-		System.out.println(keyName);
-		this.keyName = keyName;
 	}
 
 	public String getDescription() {
@@ -71,6 +113,38 @@ public class Balance implements Serializable {
 
 	public void setDivision(Division division) {
 		this.division = division;
+	}
+
+	public Date getOpTime() {
+		return opTime;
+	}
+
+	public void setOpTime(Date opTime) {
+		this.opTime = opTime;
+	}
+
+	public BalanceType getBalanceType() {
+		return balanceType;
+	}
+
+	public void setBalanceType(BalanceType balanceType) {
+		this.balanceType = balanceType;
+	}
+
+	public BigDecimal getActualSumm() {
+		return actualSumm;
+	}
+
+	public void setActualSumm(BigDecimal actualSumm) {
+		this.actualSumm = actualSumm;
+	}
+
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	@Override

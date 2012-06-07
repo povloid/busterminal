@@ -12,6 +12,7 @@ import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.BusStop;
 import pk.home.busterminal.domain.Customer;
+import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
@@ -22,6 +23,7 @@ import pk.home.busterminal.service.BusRouteStopService;
 import pk.home.busterminal.service.BusService;
 import pk.home.busterminal.service.BusStopService;
 import pk.home.busterminal.service.CustomerService;
+import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.busterminal.service.SchemaService;
 import pk.home.busterminal.service.SeatService;
@@ -64,6 +66,9 @@ public class BaseTest {
 	@Autowired
 	protected SeatTypeService seatTypeService;
 
+	@Autowired
+	protected DivisionService divisionService;
+
 	// Переменные
 	// -------------------------------------------------------------------------------
 	protected SeatType seatType;
@@ -87,6 +92,8 @@ public class BaseTest {
 	protected Customer customer1, customer2;
 
 	protected UserAccount userAccount;
+
+	protected Division division;
 
 	// ------------------------------------------------------------------------------------------
 
@@ -300,6 +307,10 @@ public class BaseTest {
 		race = raceService.persist(race);
 
 		// Создаем пользователя -----------------------------------
+		division = new Division();
+		division.setKeyName("Тестовое отделение - 1");
+		division = divisionService.persist(division);
+
 		userAccount = new UserAccount();
 		userAccount.setUsername("testuser1");
 		userAccount.setPassword(passwordEncoder

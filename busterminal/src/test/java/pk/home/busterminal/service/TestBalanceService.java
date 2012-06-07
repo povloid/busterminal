@@ -1,6 +1,8 @@
 package pk.home.busterminal.service;
 
 import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,12 +20,13 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.Balance;
+import pk.home.busterminal.domain.BalanceType;
 import pk.home.busterminal.domain.Balance_;
+import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test service class for entity class: Balance
- * Balance - баланс
+ * JUnit test service class for entity class: Balance Balance - баланс
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -31,7 +34,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
-public class TestBalanceService {
+public class TestBalanceService extends BaseTest {
 
 	/**
 	 * The DAO being tested, injected by Spring
@@ -85,11 +88,17 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testGetAllEntities() throws Exception {
+		createTestEntitys();
 
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			index++;
 		}
@@ -112,15 +121,23 @@ public class TestBalanceService {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			index++;
 		}
 
-		List<Balance> list = service.getAllEntities(Balance_.id, SortOrderType.ASC);
+		List<Balance> list = service.getAllEntities(Balance_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -142,11 +159,17 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testGetAllEntitiesIntInt() throws Exception {
+		createTestEntitys();
 
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			// index++;
 		}
@@ -169,10 +192,17 @@ public class TestBalanceService {
 	@Rollback(true)
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+
 		// long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			// index++;
 		}
@@ -202,10 +232,17 @@ public class TestBalanceService {
 	@Rollback(true)
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			index++;
 		}
@@ -248,9 +285,15 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testFind() throws Exception {
+		createTestEntitys();
 
 		Balance balance = new Balance();
-		balance.setKeyName("key " + 999);
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.PLUS);
+		balance.setActualSumm(new BigDecimal(1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
 		balance = service.persist(balance);
 
 		long id = balance.getId();
@@ -259,7 +302,7 @@ public class TestBalanceService {
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 
 	}
 
@@ -271,10 +314,17 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testCount() throws Exception {
+		createTestEntitys();
+
 		long index = service.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			index++;
 		}
@@ -293,8 +343,15 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testPersist() throws Exception {
+		createTestEntitys();
+
 		Balance balance = new Balance();
-		balance.setKeyName("key " + 999);
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.PLUS);
+		balance.setActualSumm(new BigDecimal(1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
 		balance = service.persist(balance);
 
 		long id = balance.getId();
@@ -303,7 +360,7 @@ public class TestBalanceService {
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 	}
 
 	/**
@@ -315,8 +372,15 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
+		createTestEntitys();
+
 		Balance balance = new Balance();
-		balance.setKeyName("key " + 999);
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.PLUS);
+		balance.setActualSumm(new BigDecimal(1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
 		balance = service.persist(balance);
 
 		long id = balance.getId();
@@ -325,14 +389,13 @@ public class TestBalanceService {
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 
-		balance2.setKeyName("key 65535");
 		balance2 = service.refresh(balance2);
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 
 	}
 
@@ -345,8 +408,15 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
+		createTestEntitys();
+
 		Balance balance = new Balance();
-		balance.setKeyName("key " + 999);
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.PLUS);
+		balance.setActualSumm(new BigDecimal(1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
 		balance = service.persist(balance);
 
 		long id = balance.getId();
@@ -355,16 +425,15 @@ public class TestBalanceService {
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 
-		balance2.setKeyName("key 65535");
 		balance2 = service.merge(balance2);
 
 		balance = service.refresh(balance);
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 	}
 
 	/**
@@ -376,8 +445,15 @@ public class TestBalanceService {
 	@Test
 	@Rollback(true)
 	public void testRemove() throws Exception {
+		createTestEntitys();
+
 		Balance balance = new Balance();
-		balance.setKeyName("key " + 999);
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.PLUS);
+		balance.setActualSumm(new BigDecimal(1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
 		balance = service.persist(balance);
 
 		long id = balance.getId();
@@ -386,7 +462,7 @@ public class TestBalanceService {
 
 		assertEquals(balance, balance2);
 		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getKeyName(), balance2.getKeyName());
+		assertEquals(balance.getOpTime(), balance2.getOpTime());
 
 		service.remove(balance);
 
@@ -394,19 +470,23 @@ public class TestBalanceService {
 		assertTrue(balance3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
+		createTestEntitys();
 
 		long index = service.count();
 		for (int i = 200; i < 210; i++) {
 			Balance balance = new Balance();
-			balance.setKeyName("key " + i);
+			balance.setOpTime(createUniqueDate());
+			balance.setBalanceType(BalanceType.PLUS);
+			balance.setActualSumm(new BigDecimal(1000));
+			balance.setDivision(division);
+			balance.setUserAccount(userAccount);
+
 			service.persist(balance);
 			index++;
 		}
@@ -417,6 +497,5 @@ public class TestBalanceService {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }
