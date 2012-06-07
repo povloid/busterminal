@@ -82,6 +82,12 @@
 						value="#{userAccountWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
 
+					<h:outputText value="Отделение"></h:outputText>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Выбрать" action="selectDivision"></p:commandButton>
+						<h:outputText value="#{userAccountWFControl.edited.division.keyName}"></h:outputText>
+					</h:panelGrid>
+
 					<h:outputLabel value="Roles:" />
 					<p:pickList value="#{userAccountWFControl.roles}" var="role"
 						readonly="#{del}" itemLabel="#{role}" itemValue="#{role}" />

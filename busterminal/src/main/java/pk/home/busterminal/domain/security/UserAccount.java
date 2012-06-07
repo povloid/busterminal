@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,6 +21,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import pk.home.busterminal.domain.Division;
 
 @Entity
 @Table(name = "USER_ACCOUNT")
@@ -92,6 +95,9 @@ public class UserAccount implements UserDetails, Serializable {
 	@ManyToMany
 	private Set<UserGroup> groups = new HashSet<UserGroup>();
 
+	@ManyToOne
+	private Division division;
+
 	public Long getId() {
 		return id;
 	}
@@ -150,6 +156,14 @@ public class UserAccount implements UserDetails, Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Division getDivision() {
+		return division;
+	}
+
+	public void setDivision(Division division) {
+		this.division = division;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.domain.security.UserAuthority;
+import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.security.UserAccountService;
 import pk.home.busterminal.service.security.UserAuthorityService;
 
@@ -43,13 +44,16 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		return (UserAuthorityService) findBean("userAuthorityService");
 	}
 
+	public DivisionService getDivisionService() {
+		return (DivisionService) findBean("divisionService");
+	}
+
 	public PasswordEncoder getPasswordEncoder() {
 		return (PasswordEncoder) findBean("passwordEncoder");
 	}
 
 	@Override
 	protected void confirmAddImpl() throws Exception {
-		
 
 		if (password != null && password.length() > 0) {
 			edited.setPassword(getPasswordEncoder().encodePassword(password,
@@ -59,9 +63,9 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		}
 
 		edited = getUserAccountService().persist(edited);
-		
+
 		populateEditedresortTypes();
-		
+
 		edited = getUserAccountService().merge(edited);
 	}
 
@@ -84,7 +88,6 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		getUserAccountService().remove(edited);
 	}
 
-	
 	// init
 	// ----------------------------------------------------------------------------------------------
 	protected void init0() throws Exception {
@@ -134,6 +137,10 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		}
 	}
 
+	public void setDivisionId(Long id) throws Exception {
+		this.edited.setDivision(getDivisionService().find(id));
+	}
+
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
 
@@ -152,9 +159,5 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 	public void setRoles(DualListModel<String> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
-	
 
 }
