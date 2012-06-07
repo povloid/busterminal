@@ -492,9 +492,66 @@ public class TestBalanceService extends BaseTest {
 	@Rollback(true)
 	public void testLogical() throws Exception {
 		createTestEntitys();
-		
-		
-		
+
+		Number balanceAll1 = service.getBalanceForAllTime();
+
+		Balance balance = new Balance();
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.PLUS);
+		balance.setActualSumm(new BigDecimal(1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
+		balance = service.persist(balance);
+
+		Number balanceAll2 = service.getBalanceForAllTime();
+
+		assertTrue(balanceAll2.doubleValue() == balanceAll1.doubleValue() + 1000);
+
+		balance = new Balance();
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.MINUS);
+		balance.setActualSumm(new BigDecimal(-1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
+		balance = service.persist(balance);
+
+		Number balanceAll3 = service.getBalanceForAllTime();
+
+		assertTrue(balanceAll1.doubleValue() == balanceAll3.doubleValue());
+
+		balance = new Balance();
+		balance.setOpTime(createUniqueDate());
+		balance.setBalanceType(BalanceType.MINUS);
+		balance.setActualSumm(new BigDecimal(-1000));
+		balance.setDivision(division);
+		balance.setUserAccount(userAccount);
+
+		try {
+			balance.setActualSumm(new BigDecimal(1000));
+			balance = service.persist(balance);
+
+			assertTrue("Допущено положительное значение при MINUS", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+
+		}
+
+		balance.setActualSumm(new BigDecimal(-1000));
+
+		try {
+
+			balance.setBalanceType(BalanceType.PLUS);
+			balance = service.persist(balance);
+
+			assertTrue("Допущено отрицательное значение при PLUS", false);
+
+		} catch (Exception e) {
+			assertTrue(true);
+
+		}
 
 	}
 

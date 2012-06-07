@@ -21,7 +21,10 @@ import pk.home.busterminal.domain.security.UserAccount;
 @Table(schema = "public", name = "Balance")
 @NamedQueries({
 		@NamedQuery(name = "Balance.findAll", query = "select a from Balance a order by a.id"),
-		@NamedQuery(name = "Balance.findByPrimaryKey", query = "select a from Balance a where a.id = ?1") })
+		@NamedQuery(name = "Balance.findByPrimaryKey", query = "select a from Balance a where a.id = ?1"),
+
+		@NamedQuery(name = "Balance.getAllBalance", query = "select sum(a.actualSumm) from Balance a"),
+		@NamedQuery(name = "Balance.getAllBalanceForDivision", query = "select sum(a.actualSumm) from Balance a where a.division = ?1") })
 public class Balance implements Serializable {
 
 	/**
