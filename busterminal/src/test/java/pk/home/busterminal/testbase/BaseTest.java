@@ -1,5 +1,6 @@
 package pk.home.busterminal.testbase;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,8 @@ public class BaseTest {
 		seat1.setSy((short) 1);
 		seat1.setSchema(schema1);
 		seat1.setSeatType(seatType);
+		seat1.setPrice(new BigDecimal(1000));
+
 		seat1 = seatService.persist(seat1);
 
 		seat2 = new Seat();
@@ -134,6 +137,7 @@ public class BaseTest {
 		seat2.setSy((short) 2);
 		seat2.setSchema(schema1);
 		seat2.setSeatType(seatType);
+		seat2.setPrice(new BigDecimal(1000));
 		seat2 = seatService.persist(seat2);
 
 		// 2 -------------------------------
@@ -151,6 +155,7 @@ public class BaseTest {
 		seat8.setSy((short) 1);
 		seat8.setSchema(schema2);
 		seat8.setSeatType(seatType);
+		seat8.setPrice(new BigDecimal(1000));
 		seat8 = seatService.persist(seat8);
 
 		// ..

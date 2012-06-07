@@ -655,6 +655,69 @@ public class TestOrderService extends BaseTest {
 		order.setBusRouteStopA(busRouteStop11);
 		order.setBusRouteStopB(busRouteStop12);
 
+		// Ценовые проверки
+
+		// Вначале тест без кидки
+		try {
+			order.setActualPrice(new BigDecimal(1001));
+			order = service.merge(order);
+
+			assertTrue("Допущена превышение цены при торговле без скидок",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setActualPrice(new BigDecimal(1000));
+
+		try {
+			order.setActualPrice(new BigDecimal(999));
+			order = service.merge(order);
+
+			assertTrue("Допущена уменьшение цены при торговле без скидок",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setActualPrice(new BigDecimal(1000));
+
+		// теперь тест со скидкой
+		order.getSeat().setDiscount(true);
+		order.getSeat().setDiscountPotsent(90);
+
+		try {
+			order.setActualPrice(new BigDecimal(1001));
+			order = service.merge(order);
+
+			assertTrue("Допущена превышение цены при торговле со скидокой",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setActualPrice(new BigDecimal(1000));
+
+		try {
+			order.setActualPrice(new BigDecimal(800));
+			order = service.merge(order);
+
+			assertTrue("Допущена уменьшение цены при торговле со скидокой",
+					false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.setActualPrice(new BigDecimal(1000));
+
 		// Сервисные проверки
 		// --------------------------------------------------------------------------------
 

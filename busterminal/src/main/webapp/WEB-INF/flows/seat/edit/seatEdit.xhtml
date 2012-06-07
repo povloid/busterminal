@@ -47,9 +47,10 @@
 
 					<h:outputLabel value="тип места:" />
 					<p:selectOneMenu value="#{seatEditWFControl.seatTypeId}"
-						rendered="true" required="true" requiredMessage="Необходимо указать тип места">
+						rendered="true" required="true"
+						requiredMessage="Необходимо указать тип места">
 						<p:ajax event="change" update="numSpiner" />
-						<f:selectItem itemLabel="Выбрать тип места" itemValue="0" />  
+						<f:selectItem itemLabel="Выбрать тип места" itemValue="0" />
 						<f:selectItems value="#{seatEditWFControl.seatTypes}" var="row"
 							itemLabel="#{row.keyName}" itemValue="#{row.id}" />
 					</p:selectOneMenu>
@@ -67,7 +68,7 @@
 					<p:spinner value="#{seatEditWFControl.edited.sy}"
 						readonly="#{seatEditWFControl.blockXY}" min="0" />
 
-					
+
 
 
 					<h:outputLabel value="Мастер процент:" />
@@ -77,6 +78,14 @@
 					<h:outputLabel value="Цена:" />
 					<p:spinner value="#{seatEditWFControl.edited.price}" suffix=" у.е."
 						readonly="#{seatEditWFControl.blockXY}" min="0" />
+
+					<h:outputLabel value="Скидка:" />
+					<p:selectBooleanCheckbox 
+						value="#{seatEditWFControl.edited.discount}"></p:selectBooleanCheckbox>
+
+					<h:outputLabel value="Процент скидки:" />
+					<p:spinner value="#{seatEditWFControl.edited.discountPotsent}"
+						suffix=" %" min="0" max="100"/>
 
 
 					<h:outputLabel value="Description:" />

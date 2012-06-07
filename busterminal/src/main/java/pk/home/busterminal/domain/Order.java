@@ -133,11 +133,43 @@ public class Order implements Serializable {
 		}
 
 		// (1) Проверка по типу ордера --------------------------
+		// Продажа
 		if (orderType != null && orderType == OrderType.TICKET_SALE
 				&& opTime != null
 				&& opTime.getTime() > race.getdTime().getTime()) {
-			throw new Exception("Нльзя продать билет на старый рейс!");
+			throw new Exception("Нельзя продать билет на старый рейс!");
 		}
+
+		if (orderType != null && orderType == OrderType.TICKET_SALE
+				&& seat != null && seat.getSeatType().getSold()) {
+
+			if (seat.getDiscount() != null && seat.getDiscount()
+					&& seat.getDiscountPotsent() != null) {
+				if (seat.getPrice().compareTo(actualPrice) == -1) {
+					throw new Exception(
+							"При продаже со скидкой цена продажи не может быть больше максимальной цены места!");
+				}
+
+				BigDecimal minPrice = seat
+						.getPrice()
+						.divide(new BigDecimal(100))
+						.multiply(
+								new BigDecimal(100 - seat.getDiscountPotsent()));
+
+				if (minPrice.compareTo(actualPrice) == 1) {
+					throw new Exception(
+							"При продаже со скидкой цена продажи не может быть меньше минимальной цены места!");
+				}
+
+			} else {
+				if (seat.getPrice().compareTo(actualPrice) != 0) {
+					throw new Exception(
+							"При продаже без скидки цена продажи не может отлицаться от цены места!");
+				}
+			}
+		}
+
+		// Возврат
 
 		if (orderType != null && orderType == OrderType.TICKET_RETURN
 				&& previousOrder == null) {

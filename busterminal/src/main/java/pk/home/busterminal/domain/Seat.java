@@ -92,6 +92,9 @@ public class Seat implements Serializable {
 	// Цена
 	private BigDecimal price;
 
+	private Boolean discount;
+	private Integer discountPotsent;
+
 	// Тип места
 	@NotNull
 	@ManyToOne
@@ -176,6 +179,22 @@ public class Seat implements Serializable {
 
 	public void setSeatType(SeatType seatType) {
 		this.seatType = seatType;
+	}
+
+	public Boolean getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Boolean discount) {
+		this.discount = discount;
+	}
+
+	public Integer getDiscountPotsent() {
+		return discountPotsent;
+	}
+
+	public void setDiscountPotsent(Integer discountPotsent) {
+		this.discountPotsent = discountPotsent;
 	}
 
 	@Override

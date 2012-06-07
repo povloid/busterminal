@@ -50,6 +50,7 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 		Seat seat = new Seat();
 		seat.setMasterProcent(100);
 		seat.setPrice(new BigDecimal(0));
+		seat.setDiscountPotsent(0);
 		return seat;
 	}
 
