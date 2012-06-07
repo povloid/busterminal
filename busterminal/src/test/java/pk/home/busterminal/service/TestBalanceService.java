@@ -1,9 +1,11 @@
 package pk.home.busterminal.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +21,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
 import pk.home.busterminal.domain.Balance;
 import pk.home.busterminal.domain.BalanceType;
 import pk.home.busterminal.domain.Balance_;
@@ -408,32 +411,44 @@ public class TestBalanceService extends BaseTest {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
-		createTestEntitys();
 
-		Balance balance = new Balance();
-		balance.setOpTime(createUniqueDate());
-		balance.setBalanceType(BalanceType.PLUS);
-		balance.setActualSumm(new BigDecimal(1000));
-		balance.setDivision(division);
-		balance.setUserAccount(userAccount);
+		// createTestEntitys();
+		//
+		// Balance balance = new Balance();
+		// balance.setOpTime(createUniqueDate());
+		// balance.setBalanceType(BalanceType.PLUS);
+		// balance.setActualSumm(new BigDecimal(1000));
+		// balance.setDivision(division);
+		// balance.setUserAccount(userAccount);
+		//
+		// balance = service.persist(balance);
+		//
+		// long id = balance.getId();
+		//
+		// Balance balance2 = service.find(id);
+		//
+		// assertEquals(balance, balance2);
+		// assertTrue(balance.getId() == balance2.getId());
+		// assertEquals(balance.getOpTime(), balance2.getOpTime());
+		//
+		// balance2 = service.merge(balance2);
+		//
+		// balance = service.refresh(balance);
+		//
+		// assertEquals(balance, balance2);
+		// assertTrue(balance.getId() == balance2.getId());
+		// assertEquals(balance.getOpTime(), balance2.getOpTime());
 
-		balance = service.persist(balance);
+		try {
+			Balance balance = new Balance();
+			balance = service.persist(balance);
 
-		long id = balance.getId();
+			assertTrue("работает метод merge, он работать не должен", false);
 
-		Balance balance2 = service.find(id);
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 
-		assertEquals(balance, balance2);
-		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getOpTime(), balance2.getOpTime());
-
-		balance2 = service.merge(balance2);
-
-		balance = service.refresh(balance);
-
-		assertEquals(balance, balance2);
-		assertTrue(balance.getId() == balance2.getId());
-		assertEquals(balance.getOpTime(), balance2.getOpTime());
 	}
 
 	/**
@@ -468,6 +483,18 @@ public class TestBalanceService extends BaseTest {
 
 		Balance balance3 = service.find(id);
 		assertTrue(balance3 == null);
+
+	}
+
+	// тест логики
+	// -----------------------------------------------------------------------------------------------------------------
+	@Test
+	@Rollback(true)
+	public void testLogical() throws Exception {
+		createTestEntitys();
+		
+		
+		
 
 	}
 

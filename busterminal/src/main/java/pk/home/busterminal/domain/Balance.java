@@ -40,6 +40,7 @@ public class Balance implements Serializable {
 	private BalanceType balanceType;
 
 	@ManyToOne
+	@Index(name = "order_idx4")
 	private Division division;
 
 	@Temporal(TemporalType.TIMESTAMP)

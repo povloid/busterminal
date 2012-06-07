@@ -31,9 +31,7 @@ public class BalanceViewWFControl extends AWFBaseLazyLoadTableView<Balance> impl
 		SingularAttribute<Balance, ?> orderByAttribute = Balance_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Balance_.id;
-		} else if (csortField != null && csortField.equals("keyName")) {
-			orderByAttribute = Balance_.keyName;
-		}
+		} 
 
 		dataModel = getBalanceService().getAllEntities((page - 1) * rows, rows,
 				orderByAttribute, getSortOrderType());
