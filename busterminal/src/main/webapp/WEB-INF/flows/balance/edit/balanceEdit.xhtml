@@ -36,11 +36,6 @@
 					<h:outputText value="#{balanceEditWFControl.edited.id}"
 						rendered="#{balanceEditWFControl.edited.id != null}" />
 
-					<h:outputLabel value="KeyName:" />
-					<p:inputText value="#{balanceEditWFControl.edited.keyName}"
-						title="Username" readonly="#{del}" required="true"
-						requiredMessage="The keyName field is required." />
-
 					<h:outputLabel value="Description:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{balanceEditWFControl.edited.description}"
