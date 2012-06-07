@@ -6,15 +6,15 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Division_;
+import pk.home.busterminal.service.BalanceService;
 import pk.home.busterminal.service.DivisionService;
 import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
- * JSF view control class for entity class: Division
- * Division - отделение
+ * JSF view control class for entity class: Division Division - отделение
  */
-public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division> implements
-		Serializable {
+public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
+		implements Serializable {
 
 	/**
 	 * 
@@ -25,9 +25,13 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division> im
 		return (DivisionService) findBean("divisionService");
 	}
 
+	public BalanceService getBalanceService() {
+		return (BalanceService) findBean("balanceService");
+	}
+
 	@Override
 	protected void aInit() throws Exception {
-		
+
 		SingularAttribute<Division, ?> orderByAttribute = Division_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Division_.id;
@@ -35,26 +39,29 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division> im
 			orderByAttribute = Division_.keyName;
 		}
 
-		dataModel = getDivisionService().getAllEntities((page - 1) * rows, rows,
-				orderByAttribute, getSortOrderType());
+		dataModel = getDivisionService().getAllEntities((page - 1) * rows,
+				rows, orderByAttribute, getSortOrderType());
 	}
 
 	@Override
-	protected long initAllRowsCount() throws Exception {		
+	protected long initAllRowsCount() throws Exception {
 		return getDivisionService().count();
 	}
-	
-	
-	public String add(){
+
+	public Number getBalance(Division division) throws Exception {
+		return getBalanceService().getBalance(division);
+	}
+
+	public String add() {
 		return "add";
 	}
-	
-	public String edit(){
+
+	public String edit() {
 		return "edit";
 	}
-	
-	public String del(){
+
+	public String del() {
 		return "del";
 	}
-	
+
 }

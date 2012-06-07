@@ -77,6 +77,10 @@
 				<p:column headerText="Описание" >
 					<h:outputText value="#{row.description}" />
 				</p:column>
+				
+				<p:column headerText="Баланс" >
+					<h:outputText value="#{divisionViewControl.getBalance(row)}" />
+				</p:column>
 
 				<p:column headerText="Действие" style="width: 100px; text-align: center;">
 					<pk:pktable_crud_column_buttons_wf

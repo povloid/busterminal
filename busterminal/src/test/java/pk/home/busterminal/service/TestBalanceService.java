@@ -494,6 +494,7 @@ public class TestBalanceService extends BaseTest {
 		createTestEntitys();
 
 		Number balanceAll1 = service.getBalanceForAllTime();
+		Number balanceDivision1 = service.getBalance(division);
 
 		Balance balance = new Balance();
 		balance.setOpTime(createUniqueDate());
@@ -505,8 +506,11 @@ public class TestBalanceService extends BaseTest {
 		balance = service.persist(balance);
 
 		Number balanceAll2 = service.getBalanceForAllTime();
+		Number balanceDivision2 = service.getBalance(division);
 
 		assertTrue(balanceAll2.doubleValue() == balanceAll1.doubleValue() + 1000);
+		assertTrue(balanceDivision2.doubleValue() == balanceDivision1
+				.doubleValue() + 1000);
 
 		balance = new Balance();
 		balance.setOpTime(createUniqueDate());
@@ -518,8 +522,11 @@ public class TestBalanceService extends BaseTest {
 		balance = service.persist(balance);
 
 		Number balanceAll3 = service.getBalanceForAllTime();
+		Number balanceDivision3 = service.getBalance(division);
 
 		assertTrue(balanceAll1.doubleValue() == balanceAll3.doubleValue());
+		assertTrue(balanceDivision1.doubleValue() == balanceDivision3
+				.doubleValue());
 
 		balance = new Balance();
 		balance.setOpTime(createUniqueDate());

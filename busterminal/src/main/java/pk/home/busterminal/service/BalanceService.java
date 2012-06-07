@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import pk.home.busterminal.dao.BalanceDAO;
 import pk.home.busterminal.domain.Balance;
+import pk.home.busterminal.domain.Division;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
 
@@ -59,7 +60,22 @@ public class BalanceService extends ABaseService<Balance> {
 				.executeQueryByNameSingleResultO("Balance.getAllBalance");
 
 		return n != null ? n : 0;
-
 	}
+	
+	
+	/**
+	 * Баланс подразделения
+	 * @param division
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public Number getBalance(Division division) throws Exception {
+		Number n = (Number) balanceDAO
+				.executeQueryByNameSingleResultO("Balance.getAllBalanceForDivision", division);
+
+		return n != null ? n : 0;
+	}
+	
 
 }
