@@ -43,7 +43,7 @@ public class Balance implements Serializable {
 	private BalanceType balanceType;
 
 	@ManyToOne
-	@Index(name = "order_idx4")
+	@Index(name = "balance_idx4")
 	private Division division;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -59,7 +59,7 @@ public class Balance implements Serializable {
 	private BigDecimal actualSumm;
 
 	@ManyToOne
-	@Index(name = "order_idx3")
+	@Index(name = "balance_idx3")
 	@JoinColumn(nullable = false)
 	@NotNull
 	private UserAccount userAccount;
