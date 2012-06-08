@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import pk.home.busterminal.domain.security.UserAccount;
@@ -29,7 +30,22 @@ public class TerminalCurrentUser implements Serializable {
 		if (this.userAccount == null) {
 			Object principal = SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
-			this.userAccount = (UserAccount) principal;
+
+			System.out.println(">>>>>>>" + principal.getClass());
+
+			if (principal instanceof User) {
+
+				org.springframework.security.core.userdetails.User u = (User) principal;
+
+				this.userAccount = new UserAccount();
+
+				this.userAccount.setUsername(u.getUsername());
+				this.userAccount.setDescription("служебный пользователь");
+
+			} else {
+
+				this.userAccount = (UserAccount) principal;
+			}
 		}
 
 		return userAccount;

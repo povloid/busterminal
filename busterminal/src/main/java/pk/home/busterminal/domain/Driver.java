@@ -35,12 +35,13 @@ public class Driver implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String keyName;
 
+	@NotNull
 	@Size(max = 20)
-	@Column(length = 20)
+	@Column(length = 20, nullable = false)
 	private String fName;
 
 	@Size(max = 20)
-	@Column(length = 20)
+	@Column(length = 20, nullable = false)
 	private String nName;
 
 	@Size(max = 20)

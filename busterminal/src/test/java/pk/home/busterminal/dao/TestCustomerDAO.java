@@ -90,6 +90,9 @@ public class TestCustomerDAO {
 		for (int i = 0; i < 100; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			index++;
 		}
@@ -116,6 +119,9 @@ public class TestCustomerDAO {
 		for (int i = 0; i < 100; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			index++;
 		}
@@ -147,6 +153,9 @@ public class TestCustomerDAO {
 		for (int i = 0; i < 100; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			// index++;
 		}
@@ -173,6 +182,9 @@ public class TestCustomerDAO {
 		for (int i = 0; i < 100; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			// index++;
 		}
@@ -206,6 +218,9 @@ public class TestCustomerDAO {
 		for (int i = 0; i < 100; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			index++;
 		}
@@ -251,6 +266,9 @@ public class TestCustomerDAO {
 
 		Customer customer = new Customer();
 		customer.setKeyName("key " + 999);
+		customer.setfName("Фамилия - ТЕСТ");
+		customer.setnName("Имя - ТЕСТ");
+		customer.setmName("Отчество - ТЕСТ");
 		customer = dataStore.persist(customer);
 
 		long id = customer.getId();
@@ -275,6 +293,9 @@ public class TestCustomerDAO {
 		for (int i = 0; i < 100; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			index++;
 		}
@@ -295,6 +316,9 @@ public class TestCustomerDAO {
 	public void testPersist() throws Exception {
 		Customer customer = new Customer();
 		customer.setKeyName("key " + 999);
+		customer.setfName("Фамилия - ТЕСТ");
+		customer.setnName("Имя - ТЕСТ");
+		customer.setmName("Отчество - ТЕСТ");
 		customer = dataStore.persist(customer);
 
 		long id = customer.getId();
@@ -317,6 +341,9 @@ public class TestCustomerDAO {
 	public void testRefresh() throws Exception {
 		Customer customer = new Customer();
 		customer.setKeyName("key " + 999);
+		customer.setfName("Фамилия - ТЕСТ");
+		customer.setnName("Имя - ТЕСТ");
+		customer.setmName("Отчество - ТЕСТ");
 		customer = dataStore.persist(customer);
 
 		long id = customer.getId();
@@ -347,6 +374,9 @@ public class TestCustomerDAO {
 	public void testMerge() throws Exception {
 		Customer customer = new Customer();
 		customer.setKeyName("key " + 999);
+		customer.setfName("Фамилия - ТЕСТ");
+		customer.setnName("Имя - ТЕСТ");
+		customer.setmName("Отчество - ТЕСТ");
 		customer = dataStore.persist(customer);
 
 		long id = customer.getId();
@@ -378,6 +408,9 @@ public class TestCustomerDAO {
 	public void testRemove() throws Exception {
 		Customer customer = new Customer();
 		customer.setKeyName("key " + 999);
+		customer.setfName("Фамилия - ТЕСТ");
+		customer.setnName("Имя - ТЕСТ");
+		customer.setmName("Отчество - ТЕСТ");
 		customer = dataStore.persist(customer);
 
 		long id = customer.getId();
@@ -407,6 +440,9 @@ public class TestCustomerDAO {
 		for (int i = 200; i < 210; i++) {
 			Customer customer = new Customer();
 			customer.setKeyName("key " + i);
+			customer.setfName("Фамилия - ТЕСТ");
+			customer.setnName("Имя - ТЕСТ");
+			customer.setmName("Отчество - ТЕСТ");
 			dataStore.persist(customer);
 			index++;
 		}

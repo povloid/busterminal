@@ -90,6 +90,9 @@ public class TestDriverService {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			index++;
 		}
@@ -116,6 +119,9 @@ public class TestDriverService {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			index++;
 		}
@@ -147,6 +153,9 @@ public class TestDriverService {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			// index++;
 		}
@@ -173,6 +182,9 @@ public class TestDriverService {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			// index++;
 		}
@@ -206,6 +218,9 @@ public class TestDriverService {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			index++;
 		}
@@ -251,6 +266,9 @@ public class TestDriverService {
 
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = service.persist(driver);
 
 		long id = driver.getId();
@@ -275,6 +293,9 @@ public class TestDriverService {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			index++;
 		}
@@ -295,6 +316,9 @@ public class TestDriverService {
 	public void testPersist() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = service.persist(driver);
 
 		long id = driver.getId();
@@ -317,6 +341,9 @@ public class TestDriverService {
 	public void testRefresh() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = service.persist(driver);
 
 		long id = driver.getId();
@@ -347,6 +374,9 @@ public class TestDriverService {
 	public void testMerge() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = service.persist(driver);
 
 		long id = driver.getId();
@@ -378,6 +408,9 @@ public class TestDriverService {
 	public void testRemove() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = service.persist(driver);
 
 		long id = driver.getId();
@@ -407,6 +440,9 @@ public class TestDriverService {
 		for (int i = 200; i < 210; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			service.persist(driver);
 			index++;
 		}

@@ -22,8 +22,7 @@ import pk.home.busterminal.domain.Driver_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test DAO class for entity class: Driver
- * Driver - водитель
+ * JUnit test DAO class for entity class: Driver Driver - водитель
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -90,6 +89,9 @@ public class TestDriverDAO {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			index++;
 		}
@@ -116,11 +118,15 @@ public class TestDriverDAO {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			index++;
 		}
 
-		List<Driver> list = dataStore.getAllEntities(Driver_.id, SortOrderType.ASC);
+		List<Driver> list = dataStore.getAllEntities(Driver_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -147,6 +153,9 @@ public class TestDriverDAO {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			// index++;
 		}
@@ -173,6 +182,9 @@ public class TestDriverDAO {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			// index++;
 		}
@@ -206,6 +218,9 @@ public class TestDriverDAO {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			index++;
 		}
@@ -251,6 +266,9 @@ public class TestDriverDAO {
 
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = dataStore.persist(driver);
 
 		long id = driver.getId();
@@ -275,6 +293,9 @@ public class TestDriverDAO {
 		for (int i = 0; i < 100; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			index++;
 		}
@@ -295,6 +316,9 @@ public class TestDriverDAO {
 	public void testPersist() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = dataStore.persist(driver);
 
 		long id = driver.getId();
@@ -317,6 +341,9 @@ public class TestDriverDAO {
 	public void testRefresh() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = dataStore.persist(driver);
 
 		long id = driver.getId();
@@ -347,6 +374,9 @@ public class TestDriverDAO {
 	public void testMerge() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = dataStore.persist(driver);
 
 		long id = driver.getId();
@@ -378,6 +408,9 @@ public class TestDriverDAO {
 	public void testRemove() throws Exception {
 		Driver driver = new Driver();
 		driver.setKeyName("key " + 999);
+		driver.setfName("Фамилия - ТЕСТ");
+		driver.setnName("Имя - ТЕСТ");
+		driver.setmName("Отчество - ТЕСТ");
 		driver = dataStore.persist(driver);
 
 		long id = driver.getId();
@@ -394,11 +427,9 @@ public class TestDriverDAO {
 		assertTrue(driver3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
@@ -407,6 +438,9 @@ public class TestDriverDAO {
 		for (int i = 200; i < 210; i++) {
 			Driver driver = new Driver();
 			driver.setKeyName("key " + i);
+			driver.setfName("Фамилия - ТЕСТ");
+			driver.setnName("Имя - ТЕСТ");
+			driver.setmName("Отчество - ТЕСТ");
 			dataStore.persist(driver);
 			index++;
 		}
@@ -417,6 +451,5 @@ public class TestDriverDAO {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }

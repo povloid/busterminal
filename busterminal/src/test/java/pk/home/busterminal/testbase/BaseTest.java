@@ -329,10 +329,16 @@ public class BaseTest {
 		// Создаем клиента -----------------------------------------
 		customer1 = new Customer();
 		customer1.setKeyName("Дядя Вася");
+		customer1.setfName("Фамилия - ТЕСТ");
+		customer1.setnName("Имя - ТЕСТ");
+		customer1.setmName("Отчество - ТЕСТ");
 		customer1 = customerService.persist(customer1);
 
 		customer2 = new Customer();
 		customer2.setKeyName("Дядя Петя");
+		customer2.setfName("Фамилия - ТЕСТ");
+		customer2.setnName("Имя - ТЕСТ");
+		customer2.setmName("Отчество - ТЕСТ");
 		customer2 = customerService.persist(customer2);
 
 	}

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -51,16 +52,19 @@ public class UserAccount implements UserDetails, Serializable {
 	@Column(nullable = false)
 	private boolean enabled = true;
 
+	@NotNull
 	@Size(max = 20)
-	@Column(length = 20)
+	@Column(length = 20, nullable = false)
 	private String fName;
 
+	@NotNull
 	@Size(max = 20)
-	@Column(length = 20)
+	@Column(length = 20, nullable = false)
 	private String nName;
 
+	@NotNull
 	@Size(max = 20)
-	@Column(length = 20)
+	@Column(length = 20, nullable = false)
 	private String mName;
 
 	// Телефоны
