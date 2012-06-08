@@ -120,6 +120,9 @@ public class BusService extends ABaseService<Bus> {
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void remove(Bus object) throws Exception {
+
+		object = busDAO.find(object.getId());
+
 		if (object.getSchemas() != null)
 			for (Schema schema : object.getSchemas()) {
 				if (schema.getSeats() != null)
@@ -264,7 +267,6 @@ public class BusService extends ABaseService<Bus> {
 		busCopy.setDriver1(templite.getDriver1());
 		busCopy.setDriver2(templite.getDriver2());
 		busCopy.setBasePrice(templite.getBasePrice());
-		
 
 		busCopy.setSchemes(new HashSet<Schema>());
 
