@@ -58,7 +58,7 @@
 					<h:outputLabel value="num:" />
 					<p:spinner value="#{seatEditWFControl.edited.num}" required="true"
 						id="numSpiner" min="0"
-						readonly="#{seatEditWFControl.edited.seatType.sold}" />
+						readonly="#{!seatEditWFControl.edited.seatType.sold}" />
 
 					<h:outputLabel value="x:" />
 					<p:spinner value="#{seatEditWFControl.edited.sx}"
