@@ -66,31 +66,14 @@ public class RaceService extends ABaseService<Race> {
 			throw new Exception("Автобус должен иметь тип TEMPLITE");
 		// Проверка в items
 
-		List<Items> items = itemsService.findAllItemsForRace(race);
-		List<Long> bitems = new ArrayList<Long>();
-
-		for (Items i : items) {
-			if (!i.getRace().getBus().equals(busTemplite)
-					&& !bitems.contains(i.getOrder().getId())) {
-				bitems.add(i.getOrder().getId());
-			}
-		}
-
-		if (bitems.size() > 0) {
-			String es = "Сменить схему невозможно, по данному рейсу имеются "
-					+ "привязвнные к старому автобусу следующие невозвращенные ордера: ";
-			for (Long i : bitems)
-				es += " №" + i + " ";
-
-			throw new Exception(es);
-
-		}
-
+		checkBusWorkCopy(race, busTemplite);
 		// ....
 
 		Bus busWorkCopy = busService.createWorkCopyFromTemplite(busTemplite);
 
 		race.setBus(busWorkCopy);
+
+		check(race);
 
 		return race;
 	}
@@ -111,31 +94,96 @@ public class RaceService extends ABaseService<Race> {
 	public Race merge(Race o) throws Exception {
 
 		// Проверка в items
+		check(o);
 
-		List<Items> items = itemsService.findAllItemsForRace(o);
+		o = super.merge(o);
+		o.getBus().setRace(o);
+		busService.merge(o.getBus()); // Так как он уже существует
+		return o;
+	}
+
+	/**
+	 * Проверка при установке рабочей копии, вынесена туда чтобы не захламлять
+	 * базу пустыми копиями
+	 * 
+	 * @param race
+	 * @param busTemplite
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public void checkBusWorkCopy(Race race, Bus busTemplite) throws Exception {
+		List<Items> items = itemsService.findAllItemsForRace(race);
 		List<Long> bitems = new ArrayList<Long>();
 
 		for (Items i : items) {
-			if (!i.getBrst1().getBusRoute().equals(o.getBusRoute())
+			if (!i.getRace().getBus().equals(busTemplite)
 					&& !bitems.contains(i.getOrder().getId())) {
 				bitems.add(i.getOrder().getId());
 			}
 		}
 
 		if (bitems.size() > 0) {
-			String es = "Сменить маршрут невозможно, по данному рейсу имеются "
-					+ "привязвнные к старому маршруту следующие невозвращенные ордера: ";
+			String es = "Сменить схему невозможно, по данному рейсу имеются "
+					+ "привязвнные к старому автобусу следующие невозвращенные ордера: ";
 			for (Long i : bitems)
 				es += " №" + i + " ";
 
 			throw new Exception(es);
 
 		}
+	}
 
-		o = super.merge(o);
-		o.getBus().setRace(o);
-		busService.merge(o.getBus()); // Так как он уже существует
-		return o;
+	/**
+	 * Проверка при обновлении
+	 * 
+	 * @param race
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public void check(Race race) throws Exception {
+		{
+			List<Items> items = itemsService.findAllItemsForRace(race);
+			List<Long> bitems = new ArrayList<Long>();
+
+			for (Items i : items) {
+				if (!i.getRace().getBus().equals(race.getBus())
+						&& !bitems.contains(i.getOrder().getId())) {
+					bitems.add(i.getOrder().getId());
+				}
+			}
+
+			if (bitems.size() > 0) {
+				String es = "Сменить схему невозможно, по данному рейсу имеются "
+						+ "привязвнные к старому автобусу следующие невозвращенные ордера: ";
+				for (Long i : bitems)
+					es += " №" + i + " ";
+
+				throw new Exception(es);
+
+			}
+		}
+
+		{
+			List<Items> items = itemsService.findAllItemsForRace(race);
+			List<Long> bitems = new ArrayList<Long>();
+
+			for (Items i : items) {
+				if (!i.getBrst1().getBusRoute().equals(race.getBusRoute())
+						&& !bitems.contains(i.getOrder().getId())) {
+					bitems.add(i.getOrder().getId());
+				}
+			}
+
+			if (bitems.size() > 0) {
+				String es = "Сменить маршрут невозможно, по данному рейсу имеются "
+						+ "привязвнные к старому маршруту следующие невозвращенные ордера: ";
+				for (Long i : bitems)
+					es += " №" + i + " ";
+
+				throw new Exception(es);
+
+			}
+		}
 	}
 
 	@Override
