@@ -109,6 +109,29 @@ public class RaceService extends ABaseService<Race> {
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Race merge(Race o) throws Exception {
+
+		// Проверка в items
+
+		List<Items> items = itemsService.findAllItemsForRace(o);
+		List<Long> bitems = new ArrayList<Long>();
+
+		for (Items i : items) {
+			if (!i.getBrst1().getBusRoute().equals(o.getBusRoute())
+					&& !bitems.contains(i.getOrder().getId())) {
+				bitems.add(i.getOrder().getId());
+			}
+		}
+
+		if (bitems.size() > 0) {
+			String es = "Сменить маршрут невозможно, по данному рейсу имеются "
+					+ "привязвнные к старому маршруту следующие невозвращенные ордера: ";
+			for (Long i : bitems)
+				es += " №" + i + " ";
+
+			throw new Exception(es);
+
+		}
+
 		o = super.merge(o);
 		o.getBus().setRace(o);
 		busService.merge(o.getBus()); // Так как он уже существует
