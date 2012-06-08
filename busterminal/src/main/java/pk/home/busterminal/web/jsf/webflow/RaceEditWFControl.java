@@ -2,6 +2,9 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.service.BusRouteService;
@@ -71,8 +74,18 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 	}
 
 	public void setBus(long id) throws Exception {
-		Bus templite = getBusService().find(id);
-		edited = getRaceService().setBusWorkCopy(edited, templite);
+		try {
+			Bus templite = getBusService().find(id);
+			edited = getRaceService().setBusWorkCopy(edited, templite);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+			throw new Exception(e);
+		}
 	}
 
 	// ...

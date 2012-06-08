@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import pk.home.busterminal.dao.RaceDAO;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.BusRoute;
+import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
 import pk.home.libs.combine.dao.ABaseDAO;
@@ -37,6 +39,9 @@ public class RaceService extends ABaseService<Race> {
 
 	@Autowired
 	private BusService busService;
+
+	@Autowired
+	private ItemsService itemsService;
 
 	@Override
 	public ABaseDAO<Race> getAbstractBasicDAO() {
@@ -59,6 +64,28 @@ public class RaceService extends ABaseService<Race> {
 					"Bus == null or Bus.id == null or Bus.id == 0 !");
 		if (busTemplite.getBssType() != BssType.TEMPLITE)
 			throw new Exception("Автобус должен иметь тип TEMPLITE");
+		// Проверка в items
+
+		List<Items> items = itemsService.findAllItemsForRace(race);
+		List<Long> bitems = new ArrayList<Long>();
+
+		for (Items i : items) {
+			if (!i.getRace().getBus().equals(busTemplite)
+					&& !bitems.contains(i.getOrder().getId())) {
+				bitems.add(i.getOrder().getId());
+			}
+		}
+
+		if (bitems.size() > 0) {
+			String es = "Сменить схему невозможно, по данному рейсу имеются "
+					+ "привязвнные к старому автобусу следующие невозвращенные ордера: ";
+			for (Long i : bitems)
+				es += " №" + i + " ";
+
+			throw new Exception(es);
+
+		}
+
 		// ....
 
 		Bus busWorkCopy = busService.createWorkCopyFromTemplite(busTemplite);

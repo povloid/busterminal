@@ -91,6 +91,6 @@ public class ItemsService extends ABaseService<Items> {
 		cq.orderBy(cb.asc(t.get(Items_.id)));
 
 		return itemsDAO.getAllEntities(cb, cq, t);
-	}
-
+	}	
+	
 }
