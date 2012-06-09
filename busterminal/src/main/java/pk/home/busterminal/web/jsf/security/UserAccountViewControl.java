@@ -33,6 +33,8 @@ public class UserAccountViewControl extends ABaseLazyLoadTableView<UserAccount>
 			orderByAttribute = UserAccount_.id;
 		} else if (csortField != null && csortField.equals("username")) {
 			orderByAttribute = UserAccount_.username;
+		} else if (csortField != null && csortField.equals("division")) {
+			orderByAttribute = UserAccount_.division;
 		}
 
 		dataModel = userAccountService.getAllEntities((page - 1) * rows, rows,

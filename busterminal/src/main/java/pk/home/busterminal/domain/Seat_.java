@@ -14,7 +14,9 @@ public abstract class Seat_ {
 	public static volatile SingularAttribute<Seat, SeatType> seatType;
 	public static volatile SingularAttribute<Seat, Integer> masterProcent;
 	public static volatile SingularAttribute<Seat, String> description;
+	public static volatile SingularAttribute<Seat, Integer> discountPotsent;
 	public static volatile SingularAttribute<Seat, Short> sy;
+	public static volatile SingularAttribute<Seat, Boolean> discount;
 	public static volatile SingularAttribute<Seat, Short> sx;
 	public static volatile SingularAttribute<Seat, Integer> version;
 

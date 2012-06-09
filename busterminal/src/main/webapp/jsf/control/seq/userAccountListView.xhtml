@@ -74,8 +74,18 @@
 							csortOrder="#{userAccountViewControl.csortOrder}"
 							csortField="#{userAccountViewControl.csortField}" />
 					</f:facet>
-					<h:graphicImage  value="/images/icons/user_24.png" />
+					<h:graphicImage value="/images/icons/user_24.png" />
 					<h:outputText value="#{row.username}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<pk:pktsortorder field="division"
+							csortOrder="#{userAccountViewControl.csortOrder}"
+							csortField="#{userAccountViewControl.csortField}" />
+					</f:facet>
+					<h:graphicImage value="/images/icons/group_24.png" />
+					<h:outputText value="#{row.division.keyName}" />
 				</p:column>
 
 				<p:column headerText="Описание">
@@ -130,7 +140,8 @@
 					<h:outputText value="Description:" />
 					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
 						<h:outputText
-							value="#{userAccountViewControl.selected.description}" escape="false" />
+							value="#{userAccountViewControl.selected.description}"
+							escape="false" />
 					</p:scrollPanel>
 
 					<f:facet name="footer">

@@ -3,6 +3,7 @@ package pk.home.busterminal.domain.security;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import pk.home.busterminal.domain.Division;
 
 @StaticMetamodel(UserAccount.class)
 public abstract class UserAccount_ {
@@ -18,6 +19,7 @@ public abstract class UserAccount_ {
 	public static volatile SetAttribute<UserAccount, UserAuthority> userAuthorities;
 	public static volatile SingularAttribute<UserAccount, Long> id;
 	public static volatile SingularAttribute<UserAccount, String> username;
+	public static volatile SingularAttribute<UserAccount, Division> division;
 	public static volatile SingularAttribute<UserAccount, String> email;
 	public static volatile SingularAttribute<UserAccount, String> description;
 	public static volatile SingularAttribute<UserAccount, String> mName;
