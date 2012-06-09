@@ -52,6 +52,11 @@
 
 		<transition on="calcAndSetPrice" to="btmEdit" />
 
+		<transition on="setAllSeatsDiscount" to="btmEdit" />
+
+		<transition on="setAllSeatsBlock" to="btmEdit" />
+		<transition on="setAllSeatsUnBlock" to="btmEdit" />
+
 		<transition on="error" to="btmEdit" />
 	</view-state>
 

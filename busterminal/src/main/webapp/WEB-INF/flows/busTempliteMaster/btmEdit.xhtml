@@ -70,6 +70,28 @@
 
 		<h:form id="setkaForm">
 
+			<p:commandButton
+				value="расч./расст. цену (#{btmWFControl.edited.basePrice})"
+				oncomplete="setPriceDialog.show()" update="price_spinner">
+				<f:setPropertyActionListener
+					value="#{btmWFControl.edited.basePrice}"
+					target="#{btmWFControl.basePrice}" />
+			</p:commandButton>
+
+			<p:commandButton value="Установть скидку"
+				oncomplete="setAllSeatsDiscountDialog.show()"
+				update="discount_cb txt1">
+			</p:commandButton>
+
+			<p:commandButton value="Заблокировать все"
+				oncomplete="setAllSeatsBlockDialog.show()" update="discount_cb txt1">
+			</p:commandButton>
+
+			<p:commandButton value="Разблокировать все"
+				oncomplete="setAllSeatsUnBlockDialog.show()"
+				update="discount_cb txt1">
+			</p:commandButton>
+
 			<h:panelGrid columns="3" style="margin-bottom:10px; " cellpadding="5">
 
 				<pk:pk_add_button_wf add_action="#{btmWFControl.addNewSchema}" />
@@ -89,7 +111,7 @@
 				</h:panelGrid>
 
 
-				<h:panelGrid columns="3"
+				<h:panelGrid columns="5"
 					rendered="#{!empty btmWFControl.selectedScheme}">
 
 					<h:outputText
@@ -104,14 +126,6 @@
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{btmWFControl.selectedScheme}"
 						row="#{btmWFControl.selectedScheme}" />
-
-					<p:commandButton
-						value="расч./расст. цену (#{btmWFControl.edited.basePrice})"
-						oncomplete="setPriceDialog.show()" update="price_spinner">
-						<f:setPropertyActionListener
-							value="#{btmWFControl.edited.basePrice}"
-							target="#{btmWFControl.basePrice}" />
-					</p:commandButton>
 
 				</h:panelGrid>
 
@@ -140,6 +154,89 @@
 			</p:confirmDialog>
 
 			<!-- ... -->
+
+
+
+			<!-- set discount dialog -->
+			<p:confirmDialog id="setAllSeatsDiscountDialog"
+				message="Проставить скидку по всем местам? " width="400"
+				modal="true" showEffect="explode" hideEffect="explode"
+				header="Confirm" severity="alert"
+				widgetVar="setAllSeatsDiscountDialog">
+
+				<h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+					<h:outputText value="Разрешить скидку"></h:outputText>
+					<p:selectBooleanCheckbox value="#{btmWFControl.discount}"
+						id="discount_cb">
+					</p:selectBooleanCheckbox>
+
+					<h:outputLabel value="Процент скидки:" />
+
+					<h:panelGrid columns="1" style="margin-bottom:10px">
+						<p:spinner id="txt1" value="#{btmWFControl.discountPotsent}"
+							min="0" max="100" suffix=" %" />
+					</h:panelGrid>
+
+				</h:panelGrid>
+				<br />
+				<p:commandButton value="Да" update="@form" ajax="true"
+					oncomplete="setAllSeatsDiscountDialog.hide()"
+					action="#{btmWFControl.setAllSeatsDiscount}" />
+				<p:commandButton value="Отмена"
+					onclick="setAllSeatsDiscountDialog.hide()" type="button" />
+
+			</p:confirmDialog>
+
+			<!-- ... -->
+
+
+
+			<!-- set block dialog -->
+			<p:confirmDialog id="setAllSeatsBlockDialog"
+				message="Заблокировать все? " width="400" modal="true"
+				showEffect="explode" hideEffect="explode" header="Confirm"
+				severity="alert" widgetVar="setAllSeatsBlockDialog">
+
+				<h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+					<h:outputText value="Произвести блокировку всех мест!"></h:outputText>
+
+				</h:panelGrid>
+				<br />
+				<p:commandButton value="Да" update="@form" ajax="true"
+					oncomplete="setAllSeatsBlockDialog.hide()"
+					action="#{btmWFControl.setAllSeatsBlock}" />
+				<p:commandButton value="Отмена"
+					onclick="setAllSeatsBlockDialog.hide()" type="button" />
+
+			</p:confirmDialog>
+
+			<p:confirmDialog id="setAllSeatsUnBlockDialog"
+				message="Разблокировать все? " width="400" modal="true"
+				showEffect="explode" hideEffect="explode" header="Confirm"
+				severity="alert" widgetVar="setAllSeatsUnBlockDialog">
+
+				<h:panelGrid columns="2" cellpadding="4" style="margin:0 auto;">
+
+					<h:outputText value="Произвести разблокировку всех мест!"></h:outputText>
+
+				</h:panelGrid>
+				<br />
+				<p:commandButton value="Да" update="@form" ajax="true"
+					oncomplete="setAllSeatsUnBlockDialog.hide()"
+					action="#{btmWFControl.setAllSeatsUnBlock}" />
+				<p:commandButton value="Отмена"
+					onclick="setAllSeatsUnBlockDialog.hide()" type="button" />
+
+			</p:confirmDialog>
+
+
+			<!-- ... -->
+
+
+
+
 
 
 

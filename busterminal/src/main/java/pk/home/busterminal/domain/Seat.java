@@ -101,6 +101,8 @@ public class Seat implements Serializable {
 	@JoinColumn(nullable = false)
 	private SeatType seatType;
 
+	private Boolean block;
+
 	public Long getId() {
 		return id;
 	}
@@ -195,6 +197,14 @@ public class Seat implements Serializable {
 
 	public void setDiscountPotsent(Integer discountPotsent) {
 		this.discountPotsent = discountPotsent;
+	}
+
+	public Boolean getBlock() {
+		return block;
+	}
+
+	public void setBlock(Boolean block) {
+		this.block = block;
 	}
 
 	@Override

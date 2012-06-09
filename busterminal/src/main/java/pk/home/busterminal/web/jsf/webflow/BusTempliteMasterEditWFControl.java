@@ -215,6 +215,69 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return "calcAndSetPrice";
 	}
 
+	private boolean discount;
+	private int discountPotsent;
+
+	/**
+	 * Мастер группового проставления сведений по скидкам
+	 * 
+	 * @return
+	 */
+	public String setAllSeatsDiscount() {
+		try {
+			service().getBusService().setAllSeatsDiscount(edited, discount,
+					discountPotsent);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+		}
+
+		return "setAllSeatsDiscount";
+	}
+
+	/**
+	 * Заблокировать все
+	 * 
+	 * @return
+	 */
+	public String setAllSeatsBlock() {
+
+		try {
+			service().getBusService().setAllSeatsBlock(edited, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+		}
+
+		return "setAllSeatsBlock";
+	}
+
+	/**
+	 * Разблокировать все
+	 * 
+	 * @return
+	 */
+	public String setAllSeatsUnBlock() {
+
+		try {
+			service().getBusService().setAllSeatsBlock(edited, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", e
+							.getMessage()));
+		}
+
+		return "setAllSeatsUnBlock";
+	}
+
 	// get's and set's
 	// -------------------------------------------------------------------------------------------------
 
@@ -249,5 +312,23 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	public void setBasePrice(BigDecimal basePrice) {
 		this.basePrice = basePrice;
 	}
+
+	public boolean isDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(boolean discount) {
+		this.discount = discount;
+	}
+
+	public int getDiscountPotsent() {
+		return discountPotsent;
+	}
+
+	public void setDiscountPotsent(int discountPotsent) {
+		this.discountPotsent = discountPotsent;
+	}
+
+	
 
 }

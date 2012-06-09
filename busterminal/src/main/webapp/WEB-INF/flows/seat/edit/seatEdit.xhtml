@@ -32,6 +32,10 @@
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
 
+
+					<h:outputText value="Заблокировано"></h:outputText>
+					<p:selectBooleanCheckbox value="#{seatEditWFControl.edited.block}" />
+
 					<h:outputText value="Bus:" />
 					<h:outputText
 						value="#{seatEditWFControl.schema.bus.keyName} - #{seatEditWFControl.schema.bus.gosNum}" />

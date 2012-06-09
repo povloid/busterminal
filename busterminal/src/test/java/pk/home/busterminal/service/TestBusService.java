@@ -642,6 +642,9 @@ public class TestBusService extends BaseTest {
 		busTemplite.setKeyName("Тестовый автобус 2");
 		busTemplite.setGosNum("TEST NUM 2");
 		busTemplite.setBssType(BssType.TEMPLITE);
+		
+		busTemplite.setBasePrice(new BigDecimal(1000));
+		
 		busTemplite = busService.persist(busTemplite);
 
 		// -------------------------------------------------------
@@ -665,6 +668,10 @@ public class TestBusService extends BaseTest {
 		seat1.setMasterProcent(10);
 		seat1.setPrice(new BigDecimal(8000));
 		seat1.setSeatType(seatType);
+		seat1.setDiscount(true);
+		seat1.setDiscountPotsent(50);
+		seat1.setBlock(true);
+
 		seat1 = seatService.persist(seat1);
 
 		Seat seat2 = new Seat();
@@ -675,6 +682,9 @@ public class TestBusService extends BaseTest {
 		seat2.setMasterProcent(101);
 		seat2.setPrice(new BigDecimal(8001));
 		seat2.setSeatType(seatType);
+		seat2.setDiscount(false);
+		seat2.setDiscountPotsent(60);
+		seat2.setBlock(false);
 		seat2 = seatService.persist(seat2);
 
 		schema1 = schemaService.refresh(schema1);
@@ -733,6 +743,10 @@ public class TestBusService extends BaseTest {
 				assertEquals(as.getSy().shortValue(), bs.getSy().shortValue());
 				assertEquals(as.getPrice(), bs.getPrice());
 				assertEquals(as.getMasterProcent(), bs.getMasterProcent());
+
+				assertEquals(as.getDiscount(), bs.getDiscount());
+				assertEquals(as.getDiscountPotsent(), bs.getDiscountPotsent());
+				assertEquals(as.getBlock(), bs.getBlock());
 
 				assertFalse(as.getId() == bs.getId());
 			}

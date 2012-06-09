@@ -376,4 +376,52 @@ public class BusService extends ABaseService<Bus> {
 		return calcAndSetPrice(bus);
 	}
 
+	/**
+	 * Мастер группового проставления сведений по скидкам
+	 * 
+	 * @param bus
+	 * @param discount
+	 * @param discountPercent
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Bus setAllSeatsDiscount(Bus bus, boolean discount,
+			int discountPercent) throws Exception {
+		bus = findWithLazy(bus.getId());
+
+		for (Schema schema : bus.getSchemas()) {
+			for (Seat seat : schema.getSeats()) {
+				seat.setDiscount(discount);
+				seat.setDiscountPotsent(discountPercent);
+
+				seat = seatService.merge(seat);
+			}
+		}
+
+		return bus;
+	}
+
+	/**
+	 * Мастер группового проставления сведений по скидкам
+	 * 
+	 * @param bus
+	 * @param block
+	 * @return
+	 * @throws Exception
+	 */
+	public Bus setAllSeatsBlock(Bus bus, boolean block) throws Exception {
+		bus = findWithLazy(bus.getId());
+
+		for (Schema schema : bus.getSchemas()) {
+			for (Seat seat : schema.getSeats()) {
+				seat.setBlock(block);
+				seat = seatService.merge(seat);
+			}
+		}
+
+		return bus;
+	}
+
 }
