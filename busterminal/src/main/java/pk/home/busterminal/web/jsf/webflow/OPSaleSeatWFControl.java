@@ -1,11 +1,14 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.event.SlideEndEvent;
 
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.Order;
@@ -71,8 +74,31 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	private Seat seat;
 	private Order order;
 
+	// Интерфейсные переменные
+	private int percent;
+
 	// actions
 	// -------------------------------------------------------------------------------------------
+
+	private final static BigDecimal ROUND_VALUE = new BigDecimal(10);
+
+	public void onSlideEnd(SlideEndEvent event) {
+		// FacesMessage msg = new FacesMessage("Slide Ended", "Value: " +
+		// event.getValue());
+		// FacesContext.getCurrentInstance().addMessage(null, msg);
+		percent = event.getValue();
+
+		BigDecimal bd = seat.getPrice().add(
+				(seat.getPrice()).divide(new BigDecimal(100), 2,
+						BigDecimal.ROUND_DOWN).multiply(
+						new BigDecimal(-percent)));
+		bd.setScale(20, BigDecimal.ROUND_UP);
+
+		bd = bd.divide(ROUND_VALUE, 0, BigDecimal.ROUND_DOWN).multiply(
+				ROUND_VALUE);
+
+		order.setActualPrice(bd);
+	}
 
 	/**
 	 * Поиск рейса
@@ -281,7 +307,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	 */
 	public String executeSaleOp() throws Exception {
 		try {
-			
+
 			getOrderService().createTicketSaleOrder(order);
 
 			FacesContext.getCurrentInstance().addMessage(
@@ -347,4 +373,11 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		this.stops2 = stops2;
 	}
 
+	public int getPercent() {
+		return percent;
+	}
+
+	public void setPercent(int percent) {
+		this.percent = percent;
+	}
 }

@@ -80,12 +80,16 @@
 						readonly="#{seatEditWFControl.blockXY}" min="0" />
 
 					<h:outputLabel value="Скидка:" />
-					<p:selectBooleanCheckbox 
+					<p:selectBooleanCheckbox
 						value="#{seatEditWFControl.edited.discount}"></p:selectBooleanCheckbox>
 
 					<h:outputLabel value="Процент скидки:" />
-					<p:spinner value="#{seatEditWFControl.edited.discountPotsent}"
-						suffix=" %" min="0" max="100"/>
+
+					<h:panelGrid columns="1" style="margin-bottom:10px">
+						<p:inputText id="txt1"
+							value="#{seatEditWFControl.edited.discountPotsent}" />
+						<p:slider for="txt1" minValue="0" maxValue="100" />
+					</h:panelGrid>
 
 
 					<h:outputLabel value="Description:" />

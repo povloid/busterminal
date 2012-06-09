@@ -47,9 +47,22 @@
 					</h:panelGrid>
 
 					<h:outputText value="Цена:"></h:outputText>
-					<p:spinner value="#{oPSaleSeatWFControl.order.actualPrice}"
-						suffix=" у.е." min="#{oPSaleSeatWFControl.seat.price}"
-						max="#{oPSaleSeatWFControl.seat.price}" />
+					<h:panelGroup>
+						<h:outputText id="actualPrice"
+							value="#{oPSaleSeatWFControl.order.actualPrice}"></h:outputText>
+						<h:panelGrid columns="1" style="margin-bottom:10px"
+							rendered="#{oPSaleSeatWFControl.seat.discount}">
+							<p:inputText id="txt1" value="#{oPSaleSeatWFControl.percent}" />
+							<p:slider for="txt1"
+								maxValue="#{oPSaleSeatWFControl.seat.discountPotsent}"
+								minValue="0">
+
+								<p:ajax event="slideEnd"
+									listener="#{oPSaleSeatWFControl.onSlideEnd}"
+									update="actualPrice" />
+							</p:slider>
+						</h:panelGrid>
+					</h:panelGroup>
 
 
 					<h:outputText value="Остановка отправления:"></h:outputText>
