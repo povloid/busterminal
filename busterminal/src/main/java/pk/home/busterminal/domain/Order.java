@@ -143,6 +143,10 @@ public class Order implements Serializable {
 		if (orderType != null && orderType == OrderType.TICKET_SALE
 				&& seat != null && seat.getSeatType().getSold()) {
 
+			if (seat != null && seat.getBlock() != null && seat.getBlock())
+				throw new Exception(
+						"Место заблокировано, продавать его нельзя!");
+
 			if (seat.getDiscount() != null && seat.getDiscount()
 					&& seat.getDiscountPotsent() != null) {
 				if (seat.getPrice().compareTo(actualPrice) == -1) {

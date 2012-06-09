@@ -94,7 +94,7 @@
 							target="#{cc.attrs.selectedCell}" />
 					</p:commandButton>
 
-				</h:panelGroup> <h:panelGroup rendered="#{cc.attrs.show_op_batton_group}">
+				</h:panelGroup> <h:panelGroup rendered="#{cc.attrs.show_op_batton_group and !cc.attrs.cell.seat.block}">
 					<p:commandButton
 						rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold}"
 						ajax="false" action="#{cc.attrs.sale_cell_action}" value="Пр."

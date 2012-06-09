@@ -718,6 +718,19 @@ public class TestOrderService extends BaseTest {
 
 		order.setActualPrice(new BigDecimal(1000));
 
+		try {
+			order.getSeat().setBlock(true);
+			order = service.merge(order);
+
+			assertTrue("Допущена продажа заблокированного места", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.getSeat().setBlock(false);
+
 		// Сервисные проверки
 		// --------------------------------------------------------------------------------
 
