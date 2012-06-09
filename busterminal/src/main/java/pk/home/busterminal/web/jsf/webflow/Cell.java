@@ -74,6 +74,10 @@ public class Cell implements Serializable {
 			switch (v) {
 			case 1:
 				return "red";
+			case 2:
+				return "yellow";
+			case 3:
+				return "red";
 
 			default:
 				return "#00FF00";
@@ -100,12 +104,22 @@ public class Cell implements Serializable {
 	private String icon;
 
 	public String getIcon() {
+
+		// Отработка иконки для блокировки
+		opType = seat.getBlock() != null && seat.getBlock() && seat.getSeatType().getSold() != null
+				&& seat.getSeatType().getSold() ? OP_TYPE.BLOCK
+				: null;
+
 		if (opType == null) {
 			icon = SeatTypeIcons.getIconFromSeat(seat, "_128.png");
 		} else {
 			switch (opType) {
 			case BLOCK:
-				icon = SeatTypeIcons.getIcon(SeatTypeIcons.YELLOW_SEAT_KEY)
+				icon = SeatTypeIcons.getIcon(SeatTypeIcons.BLOCK_SEAT_KEY)
+						+ "_128.png";
+				break;
+			case ARMOR:
+				icon = SeatTypeIcons.getIcon(SeatTypeIcons.YELLOW_SEAT)
 						+ "_128.png";
 				break;
 			case SALE:

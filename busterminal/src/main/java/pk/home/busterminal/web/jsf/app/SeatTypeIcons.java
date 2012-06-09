@@ -19,6 +19,17 @@ public class SeatTypeIcons {
 
 	public static final String ICON_FOLDER = "/images/seats/";
 
+	public static final String BLOCK_SEAT_KEY = "BLOCK_SEAT_KEY";
+	public static final String BLOCK_SEAT = ICON_FOLDER + "op/seat_block";
+	public static final String BLOCK_SEAT_32 = ICON_FOLDER
+			+ "op/seat_block_32.png";
+	public static final String BLOCK_SEAT_64 = ICON_FOLDER
+			+ "op/seat_block_64.png";
+	public static final String BLOCK_SEAT_128 = ICON_FOLDER
+			+ "op/seat_block_128.png";
+	public static final String BLOCK_SEAT_256 = ICON_FOLDER
+			+ "op/seat_block_256.png";
+
 	public static final String RED_SEAT_KEY = "RED_SEAT_KEY";
 	public static final String RED_SEAT = ICON_FOLDER + "op/seat_red";
 	public static final String RED_SEAT_32 = ICON_FOLDER + "op/seat_red_32.png";
@@ -68,6 +79,7 @@ public class SeatTypeIcons {
 			if (!picsFiles.containsValue(fileName))
 				picsFiles.put(fileName, ICON_FOLDER + "all/" + fileName);
 		}
+		picsFiles.put(BLOCK_SEAT_KEY, BLOCK_SEAT);
 		picsFiles.put(RED_SEAT_KEY, RED_SEAT);
 		picsFiles.put(YELLOW_SEAT_KEY, YELLOW_SEAT);
 
@@ -126,7 +138,8 @@ public class SeatTypeIcons {
 
 		for (String s : picsFiles.keySet()) {
 			// System.out.println(s);
-			if (!s.equals(RED_SEAT_KEY) && !s.equals(YELLOW_SEAT_KEY)) {
+			if (!s.equals(RED_SEAT_KEY) && !s.equals(YELLOW_SEAT_KEY)
+					&& !s.equals(BLOCK_SEAT_KEY)) {
 				list.add(s);
 			}
 		}
