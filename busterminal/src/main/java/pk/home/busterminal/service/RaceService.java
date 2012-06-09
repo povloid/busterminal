@@ -66,14 +66,16 @@ public class RaceService extends ABaseService<Race> {
 			throw new Exception("Автобус должен иметь тип TEMPLITE");
 		// Проверка в items
 
-		checkBusWorkCopy(race, busTemplite);
+		if (race.getId() != null)
+			checkBusWorkCopy(race, busTemplite);
 		// ....
 
 		Bus busWorkCopy = busService.createWorkCopyFromTemplite(busTemplite);
 
 		race.setBus(busWorkCopy);
 
-		check(race);
+		if (race.getId() != null)
+			check(race);
 
 		return race;
 	}
