@@ -91,12 +91,20 @@
 				</p:column>
 
 				<p:column headerText="Действие"
-					style="width: 100px; text-align: center;">
-					<pk:pktable_crud_column_buttons_wf
-						edit_action="#{raceViewControl.edit}"
-						del_action="#{raceViewControl.del}" show_view_button="true"
-						view_button_oncomplete="rowDitailDialog.show()"
-						selected="#{raceViewControl.selected}" row="#{row}" />
+					style="width: 160px; text-align: center;">
+					<h:panelGrid columns="2" styleClass="actions">
+						<p:commandButton action="busTempliteMaster" ajax="false"
+							icon="wiz16">
+							<f:setPropertyActionListener value="#{row}"
+								target="#{raceViewControl.selected}" />
+						</p:commandButton>
+
+						<pk:pktable_crud_column_buttons_wf
+							edit_action="#{raceViewControl.edit}"
+							del_action="#{raceViewControl.del}" show_view_button="true"
+							view_button_oncomplete="rowDitailDialog.show()"
+							selected="#{raceViewControl.selected}" row="#{row}" />
+					</h:panelGrid>
 				</p:column>
 
 
