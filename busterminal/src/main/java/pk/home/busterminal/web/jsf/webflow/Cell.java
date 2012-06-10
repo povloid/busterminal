@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import pk.home.busterminal.domain.BusRouteStop;
-import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.web.jsf.app.SeatTypeIcons;
@@ -106,9 +105,9 @@ public class Cell implements Serializable {
 	public String getIcon() {
 
 		// Отработка иконки для блокировки
-		opType = seat.getBlock() != null && seat.getBlock() && seat.getSeatType().getSold() != null
-				&& seat.getSeatType().getSold() ? OP_TYPE.BLOCK
-				: null;
+		opType = seat.getBlock() != null && seat.getBlock()
+				&& seat.getSeatType().getSold() != null
+				&& seat.getSeatType().getSold() ? OP_TYPE.BLOCK : opType;
 
 		if (opType == null) {
 			icon = SeatTypeIcons.getIconFromSeat(seat, "_128.png");
@@ -140,11 +139,11 @@ public class Cell implements Serializable {
 	 * @param brs
 	 * @return
 	 */
-	private boolean isContain(List<Items> ilist, Cell cell, BusRouteStop brs) {
+	private boolean isContain(List<Object[]> ilist, Cell cell, BusRouteStop brs) {
 
-		for (Items items : ilist) {
-			if (items.getSeat().equals(cell.getSeat())) {
-				if (brs.equals(items.getBrst1())) {
+		for (Object[] items : ilist) {
+			if (((Long) items[2]) == cell.getSeat().getId().longValue()) {
+				if (brs.getId().longValue() == ((Long) items[3])) {
 					return true;
 				}
 			}
@@ -160,7 +159,7 @@ public class Cell implements Serializable {
 	 * @param ilist
 	 * @param cell
 	 */
-	public void buidProgress(Race race, List<Items> ilist, Cell cell) {
+	public void buidProgress(Race race, List<Object[]> ilist, Cell cell) {
 
 		// Не строить для непродаваемых мест
 		if (!seat.getSeatType().getSold())

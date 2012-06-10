@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
@@ -127,10 +126,18 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 		try {
 
+			System.out.println("01");
+			
 			race.setBusRoute(getBusRouteService().findWithLazy(
 					race.getBusRoute().getId()));
+			
+			System.out.println("02");
 
-			List<Items> ilist = getItemsService().findAllItemsForRace(race);
+			List<Object[]> ilist = getItemsService().raceItemsMatrix(race);
+			
+			//List<Items> ilist = new ArrayList<Items>();
+			
+			System.out.println("03");
 
 			if (selectedScheme != null) {
 
@@ -144,6 +151,8 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 						Seat seat = null;
 						for (Seat s : selectedScheme.getSeats()) {
+							//System.out.println("111");
+							
 							if (s.getSx() != null && s.getSy() != null
 									&& s.getSx() == x && s.getSy() == y) {
 								seat = s;
@@ -152,6 +161,9 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 						}
 
 						Cell cell = new Cell(pCell, seat, x, y);
+						
+						
+						// Эта функция создает полосу прогресса, а также пожкрашивает проданные места
 						cell.buidProgress(race, ilist, cell);
 
 						// Для проверки, все сделает красным
