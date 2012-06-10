@@ -30,8 +30,13 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:panel header="Детально:">
+			<h1>Операция возврата была проведена успешно, был сформирован следующий возвратный ордер:</h1>
+			
 				<h:panelGrid columns="2">
-					Операция проведена успешно
+
+
+					<bt:order_info_panel order="#{oPReturnWFControl.retOrder}"></bt:order_info_panel>
+
 				</h:panelGrid>
 
 			</p:panel>

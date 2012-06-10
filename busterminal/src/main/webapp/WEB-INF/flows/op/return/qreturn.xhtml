@@ -30,8 +30,12 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:panel header="Внимание:">
+				<h1>Провести ли операцию возврата?</h1>
 				<h:panelGrid columns="2">
-					Далее будет проведена операция возврата билета
+
+
+					<bt:order_info_panel order="#{oPReturnWFControl.order}"></bt:order_info_panel>
+
 				</h:panelGrid>
 
 
