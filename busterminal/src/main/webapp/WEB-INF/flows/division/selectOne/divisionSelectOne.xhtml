@@ -32,7 +32,7 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:dataTable var="row" value="#{divisionSelectOneWFControl.model}"
-				paginator="true" rows="10"
+				paginator="true" rows="10" lazy="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15"
 				selection="#{divisionSelectOneWFControl.selected}" id="table1">

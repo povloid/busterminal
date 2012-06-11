@@ -44,6 +44,13 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 		protected List<Customer> aload(int first, int pageSize,
 				String sortField, SortOrder sortOrder,
 				Map<String, String> filters) throws Exception {
+
+			System.out.println(sortField + " - " + sortOrder);
+
+			for (String s : filters.keySet()) {
+				System.out.println(s + " - " + filters.get(s));
+			}
+
 			return getCustomerService().getAllEntities(first, pageSize);
 		}
 
