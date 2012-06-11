@@ -731,6 +731,19 @@ public class TestOrderService extends BaseTest {
 
 		order.getSeat().setBlock(false);
 
+		try {
+			order.getRace().setBlock(true);
+			order = service.merge(order);
+
+			assertTrue("Допущена продажа заблокированного рейса", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+
+		order.getRace().setBlock(false);
+
 		// Сервисные проверки
 		// --------------------------------------------------------------------------------
 

@@ -47,19 +47,21 @@ public class Race implements Serializable {
 	@JoinColumn(nullable = false)
 	private Bus bus;
 
+	private Boolean block;
+
 	/**
 	 * Проверка
+	 * 
 	 * @throws Exception
 	 */
 	@PrePersist
 	@PreUpdate
-	public void check() throws Exception{
-		if(bus != null && bus.getBssType() != BssType.WORK){
+	public void check() throws Exception {
+		if (bus != null && bus.getBssType() != BssType.WORK) {
 			throw new Exception("В рейсе должен быть рабочий вариант шаблона");
 		}
 	}
-	
-	
+
 	public Race() {
 		super();
 	}
@@ -110,6 +112,14 @@ public class Race implements Serializable {
 
 	public void setBus(Bus bus) {
 		this.bus = bus;
+	}
+
+	public Boolean getBlock() {
+		return block;
+	}
+
+	public void setBlock(Boolean block) {
+		this.block = block;
 	}
 
 	@Override

@@ -72,8 +72,7 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 			<h:panelGrid columns="2" width="100%">
 
-				<p:panel header="Туда"
-					styleClass="searchPanel">
+				<p:panel header="Туда" styleClass="searchPanel">
 					<h:panelGrid columns="2">
 
 						<h:outputText value="Маршрут"></h:outputText>
@@ -96,8 +95,7 @@
 					</h:panelGrid>
 				</p:panel>
 
-				<p:panel header="Обратно"
-					styleClass="searchPanel">
+				<p:panel header="Обратно" styleClass="searchPanel">
 					<h:panelGrid columns="2">
 						<h:outputText value="Маршрут"></h:outputText>
 						<h:panelGrid columns="2">
@@ -154,18 +152,21 @@
 						</h:outputText>
 					</p:column>
 
+					<p:column headerText="Блок">
+						<pk:block block="#{row.block}" icon_size="24"></pk:block>
+					</p:column>
 
 					<p:column headerText="Описание">
-
+					
 						<h:outputText value="Маршрут: " style="font-weight: bold" />
 						<h:outputText value="#{row.busRoute.keyName}" />
-						<br />
+						<br/>
 						<h:outputText value="Автобус: " style="font-weight: bold" />
 						<h:outputText value="#{row.bus.keyName} - #{row.bus.gosNum}" />
-						<br />
+						<br/>
 						<h:outputText value="Пометки: " style="font-weight: bold" />
 						<h:outputText value="#{row.description}" />
-
+						
 					</p:column>
 
 					<p:column headerText="Действие"
@@ -200,6 +201,10 @@
 						</h:outputText>
 					</p:column>
 
+
+					<p:column headerText="Блок">
+						<pk:block block="#{row.block}" icon_size="24"></pk:block>
+					</p:column>
 
 					<p:column headerText="Описание">
 

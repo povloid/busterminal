@@ -66,6 +66,9 @@
 				<p:messages showDetail="true" autoUpdate="true" />
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
+				
+					<h:outputText value="Заблокирован"></h:outputText>
+					<p:selectBooleanCheckbox value="#{raceEditWFControl.edited.block}" />
 
 					<h:outputText value="№:"
 						rendered="#{raceEditWFControl.edited.id != null}" />

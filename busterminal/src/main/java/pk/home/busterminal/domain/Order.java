@@ -255,6 +255,11 @@ public class Order implements Serializable {
 		if (seat != null && !seat.getSeatType().getSold())
 			throw new Exception("Нельзя продавать места с непродажными типами!");
 
+		// (7)
+		if (race != null && race.getBlock() != null && race.getBlock())
+			throw new Exception(
+					"Данный рейс заблокирован. Проведение операции невозможно!");
+
 	}
 
 	// Сервисные функции
