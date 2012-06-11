@@ -11,6 +11,7 @@ import org.primefaces.model.SortOrder;
 
 import pk.home.busterminal.domain.Customer;
 import pk.home.busterminal.service.CustomerService;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
@@ -36,8 +37,17 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 		private static final long serialVersionUID = 4970282896915525138L;
 
 		@Override
-		protected int count() throws Exception {
-			return (int) getCustomerService().count();
+		protected int count(Map<String, String> filters) throws Exception {
+
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return (int) getCustomerService().selectCount(id,
+					filters.get("keyName"), filters.get("fName"),
+					filters.get("nName"), filters.get("mName"));
 		}
 
 		@Override
@@ -45,13 +55,21 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 				String sortField, SortOrder sortOrder,
 				Map<String, String> filters) throws Exception {
 
-			System.out.println(sortField + " - " + sortOrder);
-
-			for (String s : filters.keySet()) {
-				System.out.println(s + " - " + filters.get(s));
+			SortOrderType sortOrderType = SortOrderType.ASC;
+			if (sortOrder == SortOrder.DESCENDING) {
+				sortOrderType = SortOrderType.DESC;
 			}
 
-			return getCustomerService().getAllEntities(first, pageSize);
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return getCustomerService().select(first, pageSize, sortOrderType,
+					sortField, id, filters.get("keyName"),
+					filters.get("fName"), filters.get("nName"),
+					filters.get("mName"));
 		}
 
 		@Override

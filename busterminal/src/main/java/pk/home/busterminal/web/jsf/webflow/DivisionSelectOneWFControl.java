@@ -36,7 +36,7 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 		private static final long serialVersionUID = 4970282896915525138L;
 
 		@Override
-		protected int count() throws Exception {
+		protected int count(Map<String, String> filters) throws Exception {
 			return (int) getDivisionService().count();
 		}
 

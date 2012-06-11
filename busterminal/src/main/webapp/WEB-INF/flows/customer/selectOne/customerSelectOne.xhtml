@@ -46,7 +46,8 @@
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
-				<p:column headerText="keyName">
+				<p:column headerText="keyName" sortBy="#{row.keyName}"
+					filterBy="#{row.keyName}">
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 

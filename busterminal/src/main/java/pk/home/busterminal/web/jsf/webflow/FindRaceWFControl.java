@@ -165,7 +165,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		private static final long serialVersionUID = 4970282896915525138L;
 
 		@Override
-		protected int count() throws Exception {
+		protected int count(Map<String, String> filters) throws Exception {
 			if (date != null && busRoute != null)
 				return (int) getRaceService().selectRacesCount(busRoute, false,
 						date);
