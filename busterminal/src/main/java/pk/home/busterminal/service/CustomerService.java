@@ -60,7 +60,7 @@ public class CustomerService extends ABaseService<Customer> {
 		Root<Customer> t = cq.from(Customer.class);
 
 		// parent param ---------------------------------------
-		if (keyName != null) {
+		if (id != null) {
 			cq.where(cb.equal(t.get(Customer_.id), id));
 		}
 
@@ -73,11 +73,11 @@ public class CustomerService extends ABaseService<Customer> {
 		}
 
 		if (nName != null) {
-			cq.where(cb.like(t.get(Customer_.nName), fName + "%"));
+			cq.where(cb.like(t.get(Customer_.nName), nName + "%"));
 		}
 
 		if (mName != null) {
-			cq.where(cb.like(t.get(Customer_.mName), fName + "%"));
+			cq.where(cb.like(t.get(Customer_.mName), mName + "%"));
 		}
 		SingularAttribute<Customer, ?> orderByAttribute = null;
 		// Сортировка
@@ -119,7 +119,7 @@ public class CustomerService extends ABaseService<Customer> {
 		Root<Customer> t = cq.from(Customer.class);
 
 		// parent param ---------------------------------------
-		if (keyName != null) {
+		if (id != null) {
 			cq.where(cb.equal(t.get(Customer_.id), id));
 		}
 
@@ -132,11 +132,11 @@ public class CustomerService extends ABaseService<Customer> {
 		}
 
 		if (nName != null) {
-			cq.where(cb.like(t.get(Customer_.nName), fName + "%"));
+			cq.where(cb.like(t.get(Customer_.nName), nName + "%"));
 		}
 
 		if (mName != null) {
-			cq.where(cb.like(t.get(Customer_.mName), fName + "%"));
+			cq.where(cb.like(t.get(Customer_.mName), mName + "%"));
 		}
 
 		return customerDAO.count(t, cq);
