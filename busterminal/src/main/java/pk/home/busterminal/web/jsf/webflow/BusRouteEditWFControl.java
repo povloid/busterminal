@@ -75,8 +75,7 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 	public String selectBusStop() {
 		return "selectBusStop";
 	}
-	
-	
+
 	/**
 	 * Редактировать
 	 * 
@@ -85,7 +84,6 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 	public String busRouteStopEdit() {
 		return "busRouteStopEdit";
 	}
-	
 
 	private BusRouteStop selectedBusRouteStop;
 
@@ -95,6 +93,10 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 	 * @param id
 	 */
 	public void addBusStop(Long id) {
+
+		if (id == null)
+			return;
+
 		try {
 			BusStop busStop = getBusStopService().find(id);
 			BusRouteStop busRouteStop = new BusRouteStop();
