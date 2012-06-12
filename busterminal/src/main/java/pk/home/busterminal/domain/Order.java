@@ -107,6 +107,8 @@ public class Order implements Serializable {
 
 	// -----------------------------------------------------------------------------------------------------------------
 
+	private final static BigDecimal ROUND_VALUE = new BigDecimal(10);
+
 	/**
 	 * Проверка
 	 * 
@@ -159,6 +161,11 @@ public class Order implements Serializable {
 						.divide(new BigDecimal(100))
 						.multiply(
 								new BigDecimal(100 - seat.getDiscountPotsent()));
+
+				minPrice = minPrice.divide(ROUND_VALUE, 0,
+						BigDecimal.ROUND_DOWN).multiply(ROUND_VALUE);
+
+				System.out.println(minPrice + "  --  " + actualPrice);
 
 				if (minPrice.compareTo(actualPrice) == 1) {
 					throw new Exception(
