@@ -3,15 +3,22 @@ package pk.home.busterminal.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pk.home.libs.combine.dao.ABaseDAO;
-import pk.home.libs.combine.service.ABaseService;
 import pk.home.busterminal.dao.BusRouteDAO;
 import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.domain.BusRouteStop;
+import pk.home.busterminal.domain.BusRoute_;
+import pk.home.libs.combine.dao.ABaseDAO;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
+import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: BusRoute BusRoute - Маршрут
@@ -86,7 +93,6 @@ public class BusRouteService extends ABaseService<BusRoute> {
 		return false;
 	}
 
-	
 	/**
 	 * Получить путь - список остановок от начальной до конечной
 	 * 
@@ -128,6 +134,81 @@ public class BusRouteService extends ABaseService<BusRoute> {
 		path.add(brstFinish);
 
 		return path;
+	}
+
+	/**
+	 * Выборка
+	 * 
+	 * @param firstResult
+	 * @param maxResults
+	 * @param sortOrderType
+	 * @param sortField
+	 * @param id
+	 * @param keyName
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public List<BusRoute> select(int firstResult, int maxResults,
+			SortOrderType sortOrderType, String sortField, Long id,
+			String keyName) throws Exception {
+
+		CriteriaBuilder cb = busRouteDAO.getEntityManager()
+				.getCriteriaBuilder();
+
+		CriteriaQuery<BusRoute> cq = cb.createQuery(BusRoute.class);
+		Root<BusRoute> t = cq.from(BusRoute.class);
+
+		// parent param ---------------------------------------
+		if (id != null) {
+			cq.where(cb.equal(t.get(BusRoute_.id), id));
+		}
+
+		if (keyName != null) {
+			cq.where(cb.like(t.get(BusRoute_.keyName), keyName + "%"));
+		}
+
+		SingularAttribute<BusRoute, ?> orderByAttribute = null;
+		// Сортировка
+		if (sortField != null)
+			if (sortField.equals("id")) {
+				orderByAttribute = BusRoute_.id;
+			} else if (sortField.equals("keyName")) {
+				orderByAttribute = BusRoute_.keyName;
+			}
+
+		return busRouteDAO.getAllEntities(firstResult, maxResults,
+				orderByAttribute, sortOrderType, cb, cq, t);
+
+	}
+
+	/**
+	 * Выборка сколько всего строк
+	 * 
+	 * @param id
+	 * @param keyName
+	 * @return
+	 * @throws Exception
+	 */
+	public long selectCount(Long id, String keyName) throws Exception {
+
+		CriteriaBuilder cb = busRouteDAO.getEntityManager()
+				.getCriteriaBuilder();
+
+		CriteriaQuery<Object> cq = cb.createQuery(Object.class);
+		Root<BusRoute> t = cq.from(BusRoute.class);
+
+		// parent param ---------------------------------------
+		if (id != null) {
+			cq.where(cb.equal(t.get(BusRoute_.id), id));
+		}
+
+		if (keyName != null) {
+			cq.where(cb.like(t.get(BusRoute_.keyName), keyName + "%"));
+		}
+
+		return busRouteDAO.count(t, cq);
+
 	}
 
 }

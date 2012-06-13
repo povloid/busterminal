@@ -11,6 +11,7 @@ import org.primefaces.model.SortOrder;
 
 import pk.home.busterminal.domain.BusRoute;
 import pk.home.busterminal.service.BusRouteService;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
@@ -37,14 +38,33 @@ public class BusRouteSelectOneWFControl extends AWFBasicControl implements
 
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {
-			return (int) getBusRouteService().count();
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return (int) getBusRouteService().selectCount(id,
+					filters.get("keyName"));
 		}
 
 		@Override
 		protected List<BusRoute> aload(int first, int pageSize,
 				String sortField, SortOrder sortOrder,
 				Map<String, String> filters) throws Exception {
-			return getBusRouteService().getAllEntities(first, pageSize);
+			SortOrderType sortOrderType = SortOrderType.ASC;
+			if (sortOrder == SortOrder.DESCENDING) {
+				sortOrderType = SortOrderType.DESC;
+			}
+
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return getBusRouteService().select(first, pageSize, sortOrderType,
+					sortField, id, filters.get("keyName"));
 		}
 
 		@Override
