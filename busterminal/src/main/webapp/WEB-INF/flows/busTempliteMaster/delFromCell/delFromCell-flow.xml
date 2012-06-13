@@ -4,18 +4,18 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="delFromCell">
 
-
+	<secured attributes="ROLE_RB_TRANSPORT" />
 
 	<var name="wizWFControl"
 		class="pk.home.busterminal.web.jsf.webflow.DelFromCellWFWizControl" />
 
 	<input name="id" type="long" required="true" />
 	<input name="retUrl" type="java.lang.String" />
-	
+
 	<on-start>
 		<set name="wizWFControl.selectedSeatId" value="id" />
 	</on-start>
-	
+
 
 	<view-state id="delFromCell">
 		<transition on="close" to="end" />
@@ -23,15 +23,15 @@
 
 		<transition on="error" to="delFromCell" />
 	</view-state>
-	
-	
+
+
 	<decision-state id="variantAnalize">
 		<if test="wizWFControl.select eq 1" then="setNotMarked" else="delFromBase" />
 	</decision-state>
-	
+
 
 	<!-- DELETE FROM DATABASE -->
-	
+
 	<subflow-state id="delFromBase" subflow="seat/edit">
 		<input name="mode" value="'del'" />
 		<input name="id" value="id" />
@@ -39,11 +39,11 @@
 		<transition to="end" />
 	</subflow-state>
 
-	<!-- SET NOT MARCKED IN PLAN SCHEME-->
-	
+	<!-- SET NOT MARCKED IN PLAN SCHEME -->
+
 	<action-state id="setNotMarked">
 		<evaluate expression="wizWFControl.setNotMarked()" />
-		<transition to="end"/>
+		<transition to="end" />
 		<transition on-exception="java.lang.Exception" to="delFromCell" />
 	</action-state>
 

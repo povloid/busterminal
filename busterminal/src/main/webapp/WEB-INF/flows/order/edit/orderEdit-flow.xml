@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
 	
-	<secured attributes="ROLE_USER" />
+	<secured attributes="ROLE_ADMIN" />
 
 	<var name="orderEditWFControl" class="pk.home.busterminal.web.jsf.webflow.OrderEditWFControl" />
 

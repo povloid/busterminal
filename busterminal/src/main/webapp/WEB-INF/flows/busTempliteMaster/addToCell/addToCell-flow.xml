@@ -5,7 +5,7 @@
 	start-state="init">
 
 
-	<secured attributes="ROLE_USER" />
+	<secured attributes="ROLE_RB_TRANSPORT" />
 
 
 	<var name="wizWFControl"

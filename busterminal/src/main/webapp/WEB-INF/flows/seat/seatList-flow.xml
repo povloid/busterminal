@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="seatList">
 
-	<secured attributes="ROLE_USER" />
+	<secured attributes="ROLE_RB_TRANSPORT" />
 
 	<var name="seatViewControl" class="pk.home.busterminal.web.jsf.webflow.SeatViewWFControl" />
 
