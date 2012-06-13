@@ -1,9 +1,11 @@
 package pk.home.busterminal.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -60,25 +62,30 @@ public class CustomerService extends ABaseService<Customer> {
 		Root<Customer> t = cq.from(Customer.class);
 
 		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
 		if (id != null) {
-			cq.where(cb.equal(t.get(Customer_.id), id));
+			criteria.add(cb.equal(t.get(Customer_.id), id));
 		}
 
 		if (keyName != null) {
-			cq.where(cb.like(t.get(Customer_.keyName), keyName + "%"));
+			criteria.add(cb.like(t.get(Customer_.keyName), keyName + "%"));
 		}
 
 		if (fName != null) {
-			cq.where(cb.like(t.get(Customer_.fName), fName + "%"));
+			criteria.add(cb.like(t.get(Customer_.fName), fName + "%"));
 		}
 
 		if (nName != null) {
-			cq.where(cb.like(t.get(Customer_.nName), nName + "%"));
+			criteria.add(cb.like(t.get(Customer_.nName), nName + "%"));
 		}
 
 		if (mName != null) {
-			cq.where(cb.like(t.get(Customer_.mName), mName + "%"));
+			criteria.add(cb.like(t.get(Customer_.mName), mName + "%"));
 		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
 		SingularAttribute<Customer, ?> orderByAttribute = null;
 		// Сортировка
 		if (sortField != null)
@@ -119,25 +126,29 @@ public class CustomerService extends ABaseService<Customer> {
 		Root<Customer> t = cq.from(Customer.class);
 
 		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
 		if (id != null) {
-			cq.where(cb.equal(t.get(Customer_.id), id));
+			criteria.add(cb.equal(t.get(Customer_.id), id));
 		}
 
 		if (keyName != null) {
-			cq.where(cb.like(t.get(Customer_.keyName), keyName + "%"));
+			criteria.add(cb.like(t.get(Customer_.keyName), keyName + "%"));
 		}
 
 		if (fName != null) {
-			cq.where(cb.like(t.get(Customer_.fName), fName + "%"));
+			criteria.add(cb.like(t.get(Customer_.fName), fName + "%"));
 		}
 
 		if (nName != null) {
-			cq.where(cb.like(t.get(Customer_.nName), nName + "%"));
+			criteria.add(cb.like(t.get(Customer_.nName), nName + "%"));
 		}
 
 		if (mName != null) {
-			cq.where(cb.like(t.get(Customer_.mName), mName + "%"));
+			criteria.add(cb.like(t.get(Customer_.mName), mName + "%"));
 		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
 
 		return customerDAO.count(t, cq);
 

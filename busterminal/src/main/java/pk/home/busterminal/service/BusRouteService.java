@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -160,13 +161,17 @@ public class BusRouteService extends ABaseService<BusRoute> {
 		Root<BusRoute> t = cq.from(BusRoute.class);
 
 		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
 		if (id != null) {
-			cq.where(cb.equal(t.get(BusRoute_.id), id));
+			criteria.add(cb.equal(t.get(BusRoute_.id), id));
 		}
 
 		if (keyName != null) {
-			cq.where(cb.like(t.get(BusRoute_.keyName), keyName + "%"));
+			criteria.add(cb.like(t.get(BusRoute_.keyName), keyName + "%"));
 		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
 
 		SingularAttribute<BusRoute, ?> orderByAttribute = null;
 		// Сортировка
@@ -199,13 +204,17 @@ public class BusRouteService extends ABaseService<BusRoute> {
 		Root<BusRoute> t = cq.from(BusRoute.class);
 
 		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
 		if (id != null) {
-			cq.where(cb.equal(t.get(BusRoute_.id), id));
+			criteria.add(cb.equal(t.get(BusRoute_.id), id));
 		}
 
 		if (keyName != null) {
-			cq.where(cb.like(t.get(BusRoute_.keyName), keyName + "%"));
+			criteria.add(cb.like(t.get(BusRoute_.keyName), keyName + "%"));
 		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
 
 		return busRouteDAO.count(t, cq);
 
