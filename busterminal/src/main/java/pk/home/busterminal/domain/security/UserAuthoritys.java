@@ -20,6 +20,7 @@ public enum UserAuthoritys {
 	ROLE_RB_ORGANIZATION, // Работа со справочниками организации
 	ROLE_RB_CUSTOMER, // Работа со справочником клиентов
 
+	ROLE_OP,
 	ROLE_OP_CASSIR_SALE, // Операции кассир продажа билета
 	ROLE_OP_CASSIR_SALE_DISCOUNT, // Операции кассир продажа билета
 	ROLE_OP_CASSIR_RETURN, // Операции кассир возврат билета

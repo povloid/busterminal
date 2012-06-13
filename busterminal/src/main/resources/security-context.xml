@@ -56,7 +56,7 @@
 			access="ROLE_ANONYMOUS" requires-channel="any" />
 
 		<security:form-login login-processing-url="/j_spring_security_check"
-			login-page="/faces/jsf/login.xhtml" default-target-url="/faces/jsf/control/index.xhtml"
+			login-page="/faces/jsf/login.xhtml" default-target-url="/mvc/op"
 			authentication-failure-url="/faces/jsf/login.xhtml" />
 
 		<security:logout invalidate-session="true"

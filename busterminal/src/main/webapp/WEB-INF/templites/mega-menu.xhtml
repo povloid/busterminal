@@ -4,13 +4,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
 
 <h:form>
 
 	<p:megaMenu style="margin-left: 50px">
-		<p:menuitem value="Мастер-панель" url="/mvc/op"
-			icon="ui-icon home" />
+		<p:menuitem value="Мастер-панель" url="/mvc/op" icon="ui-icon home" />
 		<!-- 		<p:submenu label="TV" icon="ui-icon-check"> -->
 		<!-- 			<p:column> -->
 		<!-- 				<p:submenu label="TV.1"> -->
@@ -91,70 +91,101 @@
 		<!-- 			</p:column> -->
 		<!-- 		</p:submenu> -->
 
-		<p:submenu label="Операции" icon="ui-icon-pencil">
-			<p:column>
-				<p:submenu label="Информация">
-					<p:menuitem value="Ордера" icon="ui-icon addbk" url="/mvc/order" />
-				</p:submenu>
-			</p:column>
-		</p:submenu>
+		<sec:authorize ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_OP">
+			<p:submenu label="Операции" icon="ui-icon-pencil">
 
-		<p:submenu label="Диспетчеризация" icon="ui-icon-pencil">
-			<p:column>
-				<p:submenu label="План">
-					<p:menuitem value="Рейсы" icon="ui-icon addbk" url="/mvc/race" />
-				</p:submenu>
-			</p:column>
-		</p:submenu>
+				<p:column>
+					<sec:authorize ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_USER">
+						<p:submenu label="Информация">
+							<p:menuitem value="Ордера" icon="ui-icon addbk" url="/mvc/order" />
+						</p:submenu>
+					</sec:authorize>
+				</p:column>
+			</p:submenu>
+		</sec:authorize>
 
-		<p:submenu label="Справочники" icon="ui-icon-pencil">
-			<p:column>
-				<p:submenu label="Транспорт">
-					<p:menuitem value="Автобусы" icon="ui-icon addbk" url="/mvc/buses" />
-					<p:menuitem value="Схемы" icon="ui-icon addbk" url="/mvc/schema" />
-					<p:menuitem value="Места" icon="ui-icon addbk" url="/mvc/seat" />
-					<p:menuitem value="Водители" icon="ui-icon addbk" url="/mvc/driver" />
-				</p:submenu>
-				<p:submenu label="Маршрут">
-					<p:menuitem value="Остановки" icon="ui-icon addbk"
-						url="/mvc/busStop" />
-					<p:menuitem value="Маршрут" icon="ui-icon addbk"
-						url="/mvc/busRoute" />
-				</p:submenu>
-			</p:column>
-			<p:column>
-				<p:submenu label="Справочники">
-					<p:menuitem value="Типы мест" icon="ui-icon addbk"
-						url="/mvc/seatType" />
-					<p:menuitem value="Типы документов" icon="ui-icon addbk"
-						url="/mvc/documentType" />
-					<p:menuitem value="Клиенты" icon="ui-icon addbk"
-						url="/mvc/customer" />
-				</p:submenu>
-				<p:submenu label="Организация">
-					<p:menuitem value="Отделения" icon="ui-icon addbk"
-						url="/mvc/division" />
-				</p:submenu>
-			</p:column>
-			<p:column>
-				<strong>Справочные данные</strong>
-				<p:graphicImage value="/images/books/book_library.png" width="200" />
-			</p:column>
+		<sec:authorize
+			ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_DISPATCHER">
+			<p:submenu label="Диспетчеризация" icon="ui-icon-pencil">
+				<p:column>
+					<p:submenu label="План">
+						<p:menuitem value="Рейсы" icon="ui-icon addbk" url="/mvc/race" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+		</sec:authorize>
 
-		</p:submenu>
+		<sec:authorize
+			ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB,ROLE_RB_TRANSPORT,ROLE_RB_PATH,ROLE_RB_ORGANIZATION,ROLE_RB_CUSTOMER">
+			<p:submenu label="Справочники" icon="ui-icon-pencil">
+				<p:column>
 
-		<p:submenu label="Управление" icon="ui-icon-contact">
-			<p:column>
-				<p:submenu label="Администрирование">
-					<p:menuitem value="Пользователи" icon="ui-icon group_16"
-						url="/faces/jsf/control/seq/userAccountListView.xhtml" />
-				</p:submenu>
-			</p:column>
-			<p:column>
-				<strong>Управление приложением</strong>
-				<p:graphicImage value="/images/Settings.png" width="200" />
-			</p:column>
-		</p:submenu>
+					<sec:authorize
+						ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB_TRANSPORT">
+						<p:submenu label="Транспорт">
+							<p:menuitem value="Автобусы" icon="ui-icon addbk"
+								url="/mvc/buses" />
+							<p:menuitem value="Схемы" icon="ui-icon addbk" url="/mvc/schema" />
+							<p:menuitem value="Места" icon="ui-icon addbk" url="/mvc/seat" />
+							<p:menuitem value="Водители" icon="ui-icon addbk"
+								url="/mvc/driver" />
+							<p:menuitem value="Типы мест" icon="ui-icon addbk"
+								url="/mvc/seatType" />
+						</p:submenu>
+					</sec:authorize>
+					<sec:authorize
+						ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB_PATH">
+						<p:submenu label="Маршрут">
+							<p:menuitem value="Остановки" icon="ui-icon addbk"
+								url="/mvc/busStop" />
+							<p:menuitem value="Маршрут" icon="ui-icon addbk"
+								url="/mvc/busRoute" />
+						</p:submenu>
+					</sec:authorize>
+				</p:column>
+				<p:column>
+					<sec:authorize
+						ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB,ROLE_RB_CUSTOMER">
+						<p:submenu label="Справочники">
+							<p:menuitem value="Типы документов" icon="ui-icon addbk"
+								url="/mvc/documentType" />
+							<sec:authorize
+								ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB_CUSTOMER">
+								<p:menuitem value="Клиенты" icon="ui-icon addbk"
+									url="/mvc/customer" />
+							</sec:authorize>
+						</p:submenu>
+					</sec:authorize>
+					<sec:authorize
+						ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB_ORGANIZATION">
+						<p:submenu label="Организация">
+							<p:menuitem value="Отделения" icon="ui-icon addbk"
+								url="/mvc/division" />
+						</p:submenu>
+					</sec:authorize>
+				</p:column>
+				<p:column>
+					<strong>Справочные данные</strong>
+					<p:graphicImage value="/images/books/book_library.png" width="200" />
+				</p:column>
+
+			</p:submenu>
+		</sec:authorize>
+
+		<sec:authorize ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN">
+			<p:submenu label="Управление" icon="ui-icon-contact">
+				<p:column>
+					<p:submenu label="Администрирование">
+						<p:menuitem value="Пользователи" icon="ui-icon group_16"
+							url="/faces/jsf/control/seq/userAccountListView.xhtml" />
+					</p:submenu>
+				</p:column>
+				<p:column>
+					<strong>Управление приложением</strong>
+					<p:graphicImage value="/images/Settings.png" width="200" />
+				</p:column>
+			</p:submenu>
+		</sec:authorize>
 
 		<p:menuitem value="Quit"
 			url="#{request.contextPath}/j_spring_security_logout"
