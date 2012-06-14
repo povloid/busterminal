@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Index;
+
 /**
  * Entity class: Race Race - рейс
  * 
@@ -37,14 +39,17 @@ public class Race implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
+	@Index(name = "race_idx0")
 	private Date dTime;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@Index(name = "race_idx1")
 	private BusRoute busRoute;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@Index(name = "race_idx3")
 	private Bus bus;
 
 	private Boolean block;

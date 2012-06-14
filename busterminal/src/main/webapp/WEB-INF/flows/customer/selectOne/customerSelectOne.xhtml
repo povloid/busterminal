@@ -46,11 +46,6 @@
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
-				<p:column headerText="Документ" sortBy="#{row.keyName}"
-					filterBy="#{row.keyName}">
-					<h:outputText value="#{row.keyName}" />
-				</p:column>
-
 				<p:column headerText="Фамилия" sortBy="#{row.fName}"
 					filterBy="#{row.fName}">
 					<h:outputText value="#{row.fName}" />
@@ -65,6 +60,12 @@
 					filterBy="#{row.mName}">
 					<h:outputText value="#{row.mName}" />
 				</p:column>
+
+				<p:column headerText="Документ" sortBy="#{row.keyName}"
+					filterBy="#{row.keyName}">
+					<h:outputText value="#{row.keyName}" />
+				</p:column>
+
 
 				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />

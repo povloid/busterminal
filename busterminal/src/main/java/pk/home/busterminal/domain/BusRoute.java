@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Index;
+
 /**
  * Entity class: BusRoute BusRoute - Маршрут
  * 
@@ -30,6 +32,7 @@ public class BusRoute implements Serializable {
 
 	@NotNull
 	@Column(unique = true, nullable = false)
+	@Index(name = "busroutes_idx1")
 	private String keyName;
 
 	private String description;

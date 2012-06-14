@@ -6,6 +6,8 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Index;
+
 /**
  * Entity class: BusStop
  * BusStop - Остановка
@@ -32,6 +34,7 @@ public class BusStop implements Serializable {
 	
 	@NotNull
     @Column(unique=true, nullable = false)
+	@Index(name = "busstops_idx1")
 	private String keyName;
 	
 	
