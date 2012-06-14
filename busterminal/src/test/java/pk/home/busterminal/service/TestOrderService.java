@@ -430,7 +430,7 @@ public class TestOrderService extends BaseTest {
 			order.setOpTime(null);
 			order = service.merge(order);
 
-			assertTrue("Допущена вставка без указания времени уперации", false);
+			assertTrue("Допущена вставка без указания времени операции", false);
 
 		} catch (Exception e) {
 			System.out.println(e);
