@@ -225,6 +225,8 @@ public final class ReportsMVCController {
 
 		try {
 			if (format.equals("html")) {
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html;charset=UTF-8");
 
 				Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
 
@@ -241,12 +243,15 @@ public final class ReportsMVCController {
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR,
 								true);
+				parameters
+						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.CHARACTER_ENCODING,
+								"UTF-8");
 
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_DIR,
 								new File(undir));
 
-				System.out.println(undir);
+				// System.out.println(undir);
 
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI,
@@ -263,8 +268,17 @@ public final class ReportsMVCController {
 				JasperReportsUtils.renderAsXls(report, parameterMap,
 						JRdataSource, out);
 			} else if (format.equals("csv")) {
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html;charset=UTF-8");
+
+				Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
+
+				parameters
+						.put(net.sf.jasperreports.engine.export.JRCsvMetadataExporterParameter.CHARACTER_ENCODING,
+								"UTF-8");
+
 				JasperReportsUtils.renderAsCsv(report, parameterMap,
-						JRdataSource, wr);
+						JRdataSource, wr, parameters);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -49,11 +49,16 @@
 
 		<security:intercept-url pattern="/faces/jsf/control/**"
 			access="ROLE_VIEWER" requires-channel="https" />
+		
+		<security:intercept-url pattern="/mvc/**"
+			access="ROLE_VIEWER" requires-channel="https" />
 
 		<security:anonymous username="guest"
 			granted-authority="ROLE_ANONYMOUS" />
+			
 		<security:intercept-url pattern="/**"
 			access="ROLE_ANONYMOUS" requires-channel="any" />
+			
 
 		<security:form-login login-processing-url="/j_spring_security_check"
 			login-page="/faces/jsf/login.xhtml" default-target-url="/mvc/op"

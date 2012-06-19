@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.9487171000000083"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="opTime" class="java.sql.Timestamp"/>
 	<field name="description" class="java.lang.String"/>
