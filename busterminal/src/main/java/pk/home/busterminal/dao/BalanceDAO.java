@@ -9,6 +9,7 @@ import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.busterminal.domain.Balance;
 
 
+
 /**
  * DAO class for entity class: Balance
  * Balance - баланс
