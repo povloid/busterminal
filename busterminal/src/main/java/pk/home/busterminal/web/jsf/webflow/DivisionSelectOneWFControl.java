@@ -11,6 +11,7 @@ import org.primefaces.model.SortOrder;
 
 import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.service.DivisionService;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
@@ -36,15 +37,34 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 		private static final long serialVersionUID = 4970282896915525138L;
 
 		@Override
-		protected int count() throws Exception {
-			return (int) getDivisionService().count();
+		protected int count(Map<String, String> filters) throws Exception {
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return (int) getDivisionService().selectCount(id,
+					filters.get("keyName"));
 		}
 
 		@Override
 		protected List<Division> aload(int first, int pageSize,
 				String sortField, SortOrder sortOrder,
 				Map<String, String> filters) throws Exception {
-			return getDivisionService().getAllEntities(first, pageSize);
+			SortOrderType sortOrderType = SortOrderType.ASC;
+			if (sortOrder == SortOrder.DESCENDING) {
+				sortOrderType = SortOrderType.DESC;
+			}
+
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return getDivisionService().select(first, pageSize, sortOrderType,
+					sortField, id, filters.get("keyName"));
 		}
 
 		@Override

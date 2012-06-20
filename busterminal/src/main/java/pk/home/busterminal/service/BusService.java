@@ -1,11 +1,13 @@
 package pk.home.busterminal.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -422,6 +424,107 @@ public class BusService extends ABaseService<Bus> {
 		}
 
 		return bus;
+	}
+
+	/**
+	 * Выборка
+	 * 
+	 * @param firstResult
+	 * @param maxResults
+	 * @param sortOrderType
+	 * @param sortField
+	 * @param bssType
+	 * @param id
+	 * @param keyName
+	 * @param gosNum
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public List<Bus> select(int firstResult, int maxResults,
+			SortOrderType sortOrderType, String sortField, BssType bssType,
+			Long id, String keyName, String gosNum) throws Exception {
+
+		CriteriaBuilder cb = busDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Bus> cq = cb.createQuery(Bus.class);
+		Root<Bus> t = cq.from(Bus.class);
+
+		// parent param ---------------------------------------
+
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		criteria.add(cb.equal(t.get(Bus_.bssType), bssType));
+
+		if (id != null) {
+			criteria.add(cb.equal(t.get(Bus_.id), id));
+		}
+
+		if (keyName != null) {
+			criteria.add(cb.like(t.get(Bus_.keyName), keyName + "%"));
+		}
+
+		if (gosNum != null) {
+			criteria.add(cb.like(t.get(Bus_.gosNum), gosNum + "%"));
+		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		SingularAttribute<Bus, ?> orderByAttribute = null;
+		// Сортировка
+		if (sortField != null)
+			if (sortField.equals("id")) {
+				orderByAttribute = Bus_.id;
+			} else if (sortField.equals("keyName")) {
+				orderByAttribute = Bus_.keyName;
+			} else if (sortField.equals("gosNum")) {
+				orderByAttribute = Bus_.gosNum;
+			}
+
+		return busDAO.getAllEntities(firstResult, maxResults, orderByAttribute,
+				sortOrderType, cb, cq, t);
+
+	}
+
+	/**
+	 * Выборка сколько всего строк
+	 * 
+	 * @param id
+	 * @param keyName
+	 * @param bssType
+	 * @param gosNum
+	 * @return
+	 * @throws Exception
+	 */
+	public long selectCount(BssType bssType, Long id, String keyName,
+			String gosNum) throws Exception {
+
+		CriteriaBuilder cb = busDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object> cq = cb.createQuery(Object.class);
+		Root<Bus> t = cq.from(Bus.class);
+
+		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		criteria.add(cb.equal(t.get(Bus_.bssType), bssType));
+
+		if (id != null) {
+			criteria.add(cb.equal(t.get(Bus_.id), id));
+		}
+
+		if (keyName != null) {
+			criteria.add(cb.like(t.get(Bus_.keyName), keyName + "%"));
+		}
+
+		if (gosNum != null) {
+			criteria.add(cb.like(t.get(Bus_.gosNum), gosNum + "%"));
+		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		return busDAO.count(t, cq);
+
 	}
 
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+	<cc:attribute name="block" required="true" type="boolean" />
+	<cc:attribute name="icon_size" default="16" />
+</cc:interface>
+<cc:implementation>
+	<h:panelGrid rendered="#{cc.attrs.block}" columns="2"
+		styleClass="actions">
+		<h:graphicImage url="/images/icons/lock_#{cc.attrs.icon_size}.png"></h:graphicImage>
+		<h:outputText value="забл."></h:outputText>
+	</h:panelGrid>
+
+	<h:panelGrid rendered="#{!cc.attrs.block}" columns="2"
+		styleClass="actions">
+		<h:graphicImage url="/images/icons/ulock_#{cc.attrs.icon_size}.png"></h:graphicImage>
+		<h:outputText value="разб."></h:outputText>
+	</h:panelGrid>
+
+</cc:implementation>
+</html>

@@ -30,24 +30,42 @@
 			<p:growl id="msgs" showDetail="true" />
 
 			<p:messages showDetail="true" autoUpdate="true" />
-			
-			<pk:pk_add_button_wf add_action="#{customerSelectOneWFControl.addNewCustomer}"/>
+
+			<pk:pk_add_button_wf
+				add_action="#{customerSelectOneWFControl.addNewCustomer}" />
 
 			<p:dataTable var="row" value="#{customerSelectOneWFControl.model}"
-				paginator="true" rows="10"
+				paginator="true" rows="10" lazy="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15"
 				selection="#{customerSelectOneWFControl.selected}" id="table1">
 
 				<p:column selectionMode="single" style="width:18px" />
 
-				<p:column headerText="id">
+				<p:column headerText="id" sortBy="#{row.id}" filterBy="#{row.id}">
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
-				<p:column headerText="keyName">
+				<p:column headerText="Фамилия" sortBy="#{row.fName}"
+					filterBy="#{row.fName}">
+					<h:outputText value="#{row.fName}" />
+				</p:column>
+
+				<p:column headerText="Имя" sortBy="#{row.nName}"
+					filterBy="#{row.nName}">
+					<h:outputText value="#{row.nName}" />
+				</p:column>
+
+				<p:column headerText="Отчество" sortBy="#{row.mName}"
+					filterBy="#{row.mName}">
+					<h:outputText value="#{row.mName}" />
+				</p:column>
+
+				<p:column headerText="Документ" sortBy="#{row.keyName}"
+					filterBy="#{row.keyName}">
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
+
 
 				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />

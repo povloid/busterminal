@@ -12,6 +12,7 @@ import org.primefaces.model.SortOrder;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.service.BusService;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
@@ -37,17 +38,35 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 		private static final long serialVersionUID = 4970282896915525138L;
 
 		@Override
-		protected int count() throws Exception {
-			//return (int) getBusService().count();
-			return (int) getBusService().count(BssType.TEMPLITE);
+		protected int count(Map<String, String> filters) throws Exception {
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return (int) getBusService().selectCount(BssType.TEMPLITE, id,
+					filters.get("keyName"), filters.get("gosNum"));
 		}
 
 		@Override
-		protected List<Bus> aload(int first, int pageSize,
-				String sortField, SortOrder sortOrder,
-				Map<String, String> filters) throws Exception {
-			//return getBusService().getAllEntities(first, pageSize);
-			return getBusService().getAllEntities(BssType.TEMPLITE);
+		protected List<Bus> aload(int first, int pageSize, String sortField,
+				SortOrder sortOrder, Map<String, String> filters)
+				throws Exception {
+			SortOrderType sortOrderType = SortOrderType.ASC;
+			if (sortOrder == SortOrder.DESCENDING) {
+				sortOrderType = SortOrderType.DESC;
+			}
+
+			Long id = null;
+			try {
+				id = Long.parseLong(filters.get("id"));
+			} catch (Exception e) {
+			}
+
+			return getBusService().select(first, pageSize, sortOrderType,
+					sortField, BssType.TEMPLITE, id, filters.get("keyName"),
+					filters.get("gosNum"));
 		}
 
 		@Override

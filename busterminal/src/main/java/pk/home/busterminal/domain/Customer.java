@@ -3,16 +3,21 @@ package pk.home.busterminal.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Index;
 
 /**
  * Entity class: Customer Customer - клиент
  * 
  */
 @Entity
-@Table(schema = "public", name = "Customer")
+@Table(schema = "public", name = "Customer", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"docupenttype_id", "keyName" }) })
 @NamedQueries({
 		@NamedQuery(name = "Customer.findAll", query = "select a from Customer a order by a.id"),
 		@NamedQuery(name = "Customer.findByPrimaryKey", query = "select a from Customer a where a.id = ?1") })
@@ -28,22 +33,29 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne
+	private DocumentType docupentType;
+
 	@NotNull
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
+	@Index(name = "customer_idx1")
 	private String keyName;
 
 	@NotNull
 	@Size(max = 20)
 	@Column(length = 20, nullable = false)
+	@Index(name = "customer_idx2")
 	private String fName;
 
 	@NotNull
 	@Size(max = 20)
 	@Column(length = 20, nullable = false)
+	@Index(name = "customer_idx3")
 	private String nName;
 
 	@Size(max = 20)
 	@Column(length = 20)
+	@Index(name = "customer_idx4")
 	private String mName;
 
 	// Телефоны
@@ -64,10 +76,14 @@ public class Customer implements Serializable {
 	@Column(length = 20)
 	private String pfone4;
 
-	private String description;
+	@Temporal(TemporalType.DATE)
+	@Index(name = "customer_idx5")
+	private Date bDate;
 
-	@ManyToOne
-	private DocumentType docupentType;
+	@Enumerated(EnumType.STRING)
+	private Sex sex;
+
+	private String description;
 
 	public Customer() {
 		super();
@@ -160,6 +176,22 @@ public class Customer implements Serializable {
 
 	public void setPfone4(String pfone4) {
 		this.pfone4 = pfone4;
+	}
+
+	public Date getbDate() {
+		return bDate;
+	}
+
+	public void setbDate(Date bDate) {
+		this.bDate = bDate;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
 	}
 
 	@Override

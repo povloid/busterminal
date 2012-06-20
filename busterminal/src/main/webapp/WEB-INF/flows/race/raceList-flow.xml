@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="raceList">
 
-	<secured attributes="ROLE_USER" />
+	<secured attributes="ROLE_DISPATCHER" />
 
 	<var name="raceViewControl" class="pk.home.busterminal.web.jsf.webflow.RaceViewWFControl" />
 
@@ -24,6 +24,10 @@
 			<set name="flashScope.ids" value="raceViewControl.selected.id"
 				type="long" />
 		</transition>
+		
+		<transition on="busTempliteMaster" to="busTempliteMaster">
+		</transition>
+		
 	</view-state>
 
 
@@ -33,5 +37,12 @@
 
 		<transition to="raceList" />
 	</subflow-state>
+	
+	
+	<subflow-state id="busTempliteMaster" subflow="busTempliteMaster">
+		<input name="id" value="raceViewControl.selected.bus.id" />
+		<transition to="raceList" />
+	</subflow-state>
+	
 
 </flow>

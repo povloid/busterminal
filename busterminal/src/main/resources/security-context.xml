@@ -49,14 +49,19 @@
 
 		<security:intercept-url pattern="/faces/jsf/control/**"
 			access="ROLE_VIEWER" requires-channel="https" />
+		
+		<security:intercept-url pattern="/mvc/**"
+			access="ROLE_VIEWER" requires-channel="https" />
 
 		<security:anonymous username="guest"
 			granted-authority="ROLE_ANONYMOUS" />
+			
 		<security:intercept-url pattern="/**"
 			access="ROLE_ANONYMOUS" requires-channel="any" />
+			
 
 		<security:form-login login-processing-url="/j_spring_security_check"
-			login-page="/faces/jsf/login.xhtml" default-target-url="/faces/jsf/control/index.xhtml"
+			login-page="/faces/jsf/login.xhtml" default-target-url="/mvc/op"
 			authentication-failure-url="/faces/jsf/login.xhtml" />
 
 		<security:logout invalidate-session="true"
@@ -106,9 +111,23 @@
 			<value>
 				ROLE_SUPERUSER > ROLE_ADMIN
 				ROLE_ADMIN > ROLE_USER
-				ROLE_USER >
-				ROLE_USER_META_EDITOR
-				ROLE_USER_META_EDITOR > ROLE_VIEWER
+				ROLE_ADMIN >
+				ROLE_VIEWER
+				ROLE_USER > ROLE_VIEWER
+
+				ROLE_ADMIN > ROLE_DISPATCHER
+				ROLE_ADMIN > ROLE_RB_TRANSPORT
+				ROLE_ADMIN >
+				ROLE_RB_PATH
+				ROLE_ADMIN > ROLE_RB_ORGANIZATION
+				ROLE_ADMIN >
+				ROLE_RB_CUSTOMER
+				ROLE_ADMIN > ROLE_OP_CASSIR_SALE
+				ROLE_ADMIN >
+				ROLE_OP_CASSIR_SALE_DISCOUNT
+				ROLE_ADMIN > ROLE_OP_CASSIR_RETURN
+				ROLE_ADMIN > ROLE_USER_META_EDITOR
+
 				ROLE_VIEWER
 				> ROLE_ANONYMOUS
 			</value>

@@ -89,10 +89,12 @@ public class OPReturnWFControl extends AWFWizart implements Serializable {
 	 */
 	public void executeReturn() throws Exception {
 		try {
+
 			this.retOrder.setUserAccount(getTerminalCurrentUser()
 					.getUserAccount());
 			this.retOrder.setPreviousOrder(order);
 			this.retOrder.setOrderType(OrderType.TICKET_RETURN);
+
 			this.retOrder = getOrderService().createTicketReturnOrder(retOrder);
 
 		} catch (Exception e) {

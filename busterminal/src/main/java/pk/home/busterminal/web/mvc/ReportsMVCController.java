@@ -1,5 +1,8 @@
 package pk.home.busterminal.web.mvc;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +25,8 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sourceforge.barbecue.env.Environment;
+import net.sourceforge.barbecue.env.EnvironmentFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -225,6 +230,8 @@ public final class ReportsMVCController {
 
 		try {
 			if (format.equals("html")) {
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html;charset=UTF-8");
 
 				Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
 
@@ -241,12 +248,15 @@ public final class ReportsMVCController {
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR,
 								true);
+				// parameters
+				// .put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.CHARACTER_ENCODING,
+				// "UTF-8");
 
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_DIR,
 								new File(undir));
 
-				System.out.println(undir);
+				// System.out.println(undir);
 
 				parameters
 						.put(net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI,
@@ -263,8 +273,17 @@ public final class ReportsMVCController {
 				JasperReportsUtils.renderAsXls(report, parameterMap,
 						JRdataSource, out);
 			} else if (format.equals("csv")) {
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html;charset=UTF-8");
+
+				Map<JRExporterParameter, Object> parameters = new HashMap<JRExporterParameter, Object>();
+
+				parameters
+						.put(net.sf.jasperreports.engine.export.JRCsvMetadataExporterParameter.CHARACTER_ENCODING,
+								"UTF-8");
+
 				JasperReportsUtils.renderAsCsv(report, parameterMap,
-						JRdataSource, wr);
+						JRdataSource, wr, parameters);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -285,10 +304,55 @@ public final class ReportsMVCController {
 	private ClassPathResource resourceTicket = new ClassPathResource(
 			"reports/ticket.jrxml");
 
+	private ClassPathResource resourseBFont = new ClassPathResource(
+			"net/sf/jasperreports/fonts/dejavu/DejaVuSansMono.ttf");
+
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
 
 	{
+
+		EnvironmentFactory.setDefaultEnvironment(new Environment() {
+
+			// public final Font DEFAULT_FONT = new Font("Arial", Font.BOLD,
+			// 20);
+			// public final Font DEFAULT_FONT = new Font("DejaVu Sans Mono",
+			// Font.PLAIN, 20);
+
+			public Font DEFAULT_FONT;
+
+			{
+				try {
+					Font font = Font.createFont(Font.TRUETYPE_FONT,
+							resourseBFont.getFile());
+					font = font.deriveFont(Font.PLAIN, 20);
+					DEFAULT_FONT = font;
+
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			@Override
+			public int getResolution() {
+				return Toolkit.getDefaultToolkit().getScreenResolution();
+			}
+
+			@Override
+			public Font getDefaultFont() {
+				return DEFAULT_FONT;
+			}
+		});
+
+		if (EnvironmentFactory.getEnvironment().getDefaultFont() != null)
+			System.out.println(">>>>> FONT:"
+					+ EnvironmentFactory.getEnvironment().getDefaultFont()
+							.toString()
+					+ " ---- > "
+					+ EnvironmentFactory.getEnvironment().getDefaultFont()
+							.getFamily());
 
 		try {
 			orderReport = JasperCompileManager

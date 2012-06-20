@@ -62,17 +62,33 @@
 					<p:inputText value="#{customerEditWFControl.edited.mName}"
 						title="Отчество" readonly="#{del}" />
 
+					<h:outputLabel value="Дата рождения:" />
+					<p:inputMask value="#{customerEditWFControl.edited.bDate}"
+						mask="99.99.9999" required="true">
+						<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
+					</p:inputMask>
+
+					<h:outputText value="Пол: " />
+					<p:selectOneRadio id="options" required="true"
+						value="#{customerEditWFControl.edited.sex}" rendered="true">
+						<f:selectItem itemLabel="Мужской" itemValue="MAN" />
+						<f:selectItem itemLabel="Женский" itemValue="WOMAN" />
+					</p:selectOneRadio>
+
 					<h:outputLabel value="Телефон 1:" />
 					<p:inputMask value="#{customerEditWFControl.edited.pfone1}"
-						mask="(999) 999-9999? 99999" title="контактный телефон" readonly="#{del}" />
+						mask="(999) 999-9999? 99999" title="контактный телефон"
+						readonly="#{del}" />
 
 					<h:outputLabel value="Телефон 2:" />
 					<p:inputMask value="#{customerEditWFControl.edited.pfone2}"
-						mask="(999) 999-9999? 99999" title="контактный телефон" readonly="#{del}" />
+						mask="(999) 999-9999? 99999" title="контактный телефон"
+						readonly="#{del}" />
 
 					<h:outputLabel value="Телефон 3:" />
 					<p:inputMask value="#{customerEditWFControl.edited.pfone3}"
-						mask="(999) 999-9999? 99999" title="контактный телефон" readonly="#{del}" />
+						mask="(999) 999-9999? 99999" title="контактный телефон"
+						readonly="#{del}" />
 
 
 					<h:outputLabel value="Description:" />

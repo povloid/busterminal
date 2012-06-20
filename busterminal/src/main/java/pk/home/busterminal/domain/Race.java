@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Index;
+
 /**
  * Entity class: Race Race - рейс
  * 
@@ -37,29 +39,34 @@ public class Race implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
+	@Index(name = "race_idx0")
 	private Date dTime;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@Index(name = "race_idx1")
 	private BusRoute busRoute;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@Index(name = "race_idx3")
 	private Bus bus;
+
+	private Boolean block;
 
 	/**
 	 * Проверка
+	 * 
 	 * @throws Exception
 	 */
 	@PrePersist
 	@PreUpdate
-	public void check() throws Exception{
-		if(bus != null && bus.getBssType() != BssType.WORK){
+	public void check() throws Exception {
+		if (bus != null && bus.getBssType() != BssType.WORK) {
 			throw new Exception("В рейсе должен быть рабочий вариант шаблона");
 		}
 	}
-	
-	
+
 	public Race() {
 		super();
 	}
@@ -110,6 +117,14 @@ public class Race implements Serializable {
 
 	public void setBus(Bus bus) {
 		this.bus = bus;
+	}
+
+	public Boolean getBlock() {
+		return block;
+	}
+
+	public void setBlock(Boolean block) {
+		this.block = block;
 	}
 
 	@Override

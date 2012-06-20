@@ -32,18 +32,19 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:dataTable var="row" value="#{divisionSelectOneWFControl.model}"
-				paginator="true" rows="10"
+				paginator="true" rows="10" lazy="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15"
 				selection="#{divisionSelectOneWFControl.selected}" id="table1">
 
 				<p:column selectionMode="single" style="width:18px" />
 
-				<p:column headerText="id">
+				<p:column headerText="id" sortBy="#{row.id}" filterBy="#{row.id}">
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
-				<p:column headerText="keyName">
+				<p:column headerText="Наименование" sortBy="#{row.keyName}"
+					filterBy="#{row.keyName}">
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 

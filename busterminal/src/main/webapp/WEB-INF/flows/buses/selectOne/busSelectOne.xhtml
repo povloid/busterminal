@@ -32,19 +32,25 @@
 			<p:messages showDetail="true" autoUpdate="true" />
 
 			<p:dataTable var="row" value="#{busSelectOneWFControl.model}"
-				paginator="true" rows="10"
+				paginator="true" rows="10" lazy="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15"
 				selection="#{busSelectOneWFControl.selected}" id="table1">
 
 				<p:column selectionMode="single" style="width:18px" />
 
-				<p:column headerText="id">
+				<p:column headerText="id" sortBy="#{row.id}" filterBy="#{row.id}">
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
-				<p:column headerText="keyName">
+				<p:column headerText="Наименование" sortBy="#{row.keyName}"
+					filterBy="#{row.keyName}">
 					<h:outputText value="#{row.keyName}" />
+				</p:column>
+
+				<p:column headerText="Гос. номер" sortBy="#{row.gosNum}"
+					filterBy="#{row.gosNum}">
+					<h:outputText value="#{row.gosNum}" />
 				</p:column>
 
 				<p:column headerText="Описание">
@@ -54,8 +60,7 @@
 			</p:dataTable>
 
 			<br />
-			<pk:pk_cancel_button
-				cancel_action="#{busSelectOneWFControl.cancel}" />
+			<pk:pk_cancel_button cancel_action="#{busSelectOneWFControl.cancel}" />
 			<p:commandButton ajax="false"
 				action="#{busSelectOneWFControl.select}" value="Выбрать" />
 

@@ -10,11 +10,10 @@ import pk.home.busterminal.service.CustomerService;
 import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
- * JSF view control class for entity class: Customer
- * Customer - клиент
+ * JSF view control class for entity class: Customer Customer - клиент
  */
-public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer> implements
-		Serializable {
+public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
+		implements Serializable {
 
 	/**
 	 * 
@@ -27,34 +26,39 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer> im
 
 	@Override
 	protected void aInit() throws Exception {
-		
+
 		SingularAttribute<Customer, ?> orderByAttribute = Customer_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Customer_.id;
 		} else if (csortField != null && csortField.equals("keyName")) {
 			orderByAttribute = Customer_.keyName;
+		} else if (csortField != null && csortField.equals("fName")) {
+			orderByAttribute = Customer_.fName;
+		} else if (csortField != null && csortField.equals("nName")) {
+			orderByAttribute = Customer_.nName;
+		} else if (csortField != null && csortField.equals("mName")) {
+			orderByAttribute = Customer_.mName;
 		}
 
-		dataModel = getCustomerService().getAllEntities((page - 1) * rows, rows,
-				orderByAttribute, getSortOrderType());
+		dataModel = getCustomerService().getAllEntities((page - 1) * rows,
+				rows, orderByAttribute, getSortOrderType());
 	}
 
 	@Override
-	protected long initAllRowsCount() throws Exception {		
+	protected long initAllRowsCount() throws Exception {
 		return getCustomerService().count();
 	}
-	
-	
-	public String add(){
+
+	public String add() {
 		return "add";
 	}
-	
-	public String edit(){
+
+	public String edit() {
 		return "edit";
 	}
-	
-	public String del(){
+
+	public String del() {
 		return "del";
 	}
-	
+
 }

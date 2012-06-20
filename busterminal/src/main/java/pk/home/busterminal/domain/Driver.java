@@ -3,6 +3,8 @@ package pk.home.busterminal.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -65,6 +67,12 @@ public class Driver implements Serializable {
 	@Size(max = 20)
 	@Column(length = 20)
 	private String pfone4;
+
+	@Temporal(TemporalType.DATE)
+	private Date bDate;
+
+	@Enumerated(EnumType.STRING)
+	private Sex sex;
 
 	private String description;
 
@@ -159,6 +167,22 @@ public class Driver implements Serializable {
 
 	public void setPfone4(String pfone4) {
 		this.pfone4 = pfone4;
+	}
+
+	public Date getbDate() {
+		return bDate;
+	}
+
+	public void setbDate(Date bDate) {
+		this.bDate = bDate;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
 	}
 
 	@Override

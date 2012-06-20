@@ -24,8 +24,7 @@
 	<ui:define name="content">
 
 		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{customerViewControl.init}" />
+			<f:event type="preRenderView" listener="#{customerViewControl.init}" />
 			<f:viewParam name="ppage" value="#{customerViewControl.page}" />
 			<f:viewParam name="prows" value="#{customerViewControl.prows}" />
 			<f:viewParam name="pcsortField"
@@ -38,9 +37,9 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-			<pk:pk_add_button_wf add_action="#{customerViewControl.add}"/>
+			<pk:pk_add_button_wf add_action="#{customerViewControl.add}" />
 
-			<p:dataTable id="table1" var="row" 
+			<p:dataTable id="table1" var="row"
 				value="#{customerViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
 
@@ -74,15 +73,45 @@
 					<h:outputText value="#{row.keyName}" />
 				</p:column>
 
-				<p:column headerText="Описание" >
+				<p:column>
+					<f:facet name="header">
+						<pk:pktsortorder field="fName" caption="Фамилия"
+							csortOrder="#{customerViewControl.csortOrder}"
+							csortField="#{customerViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.fName}" />
+				</p:column>
+
+
+				<p:column>
+					<f:facet name="header">
+						<pk:pktsortorder field="nName" caption="Имя"
+							csortOrder="#{customerViewControl.csortOrder}"
+							csortField="#{customerViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.nName}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<pk:pktsortorder field="mName" caption="Отчество"
+							csortOrder="#{customerViewControl.csortOrder}"
+							csortField="#{customerViewControl.csortField}" />
+					</f:facet>
+					<h:outputText value="#{row.mName}" />
+				</p:column>
+
+
+
+				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />
 				</p:column>
 
-				<p:column headerText="Действие" style="width: 100px; text-align: center;">
+				<p:column headerText="Действие"
+					style="width: 100px; text-align: center;">
 					<pk:pktable_crud_column_buttons_wf
 						edit_action="#{customerViewControl.edit}"
-						del_action="#{customerViewControl.del}"
-						show_view_button="true"
+						del_action="#{customerViewControl.del}" show_view_button="true"
 						view_button_oncomplete="rowDitailDialog.show()"
 						selected="#{customerViewControl.selected}" row="#{row}" />
 				</p:column>
@@ -122,8 +151,7 @@
 
 					<h:outputText value="Description:" />
 					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
-						<h:outputText
-							value="#{customerViewControl.selected.description}"
+						<h:outputText value="#{customerViewControl.selected.description}"
 							escape="false" />
 					</p:scrollPanel>
 

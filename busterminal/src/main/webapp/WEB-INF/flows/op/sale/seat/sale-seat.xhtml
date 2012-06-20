@@ -7,7 +7,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
-	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal"
+	xmlns:sec="http://www.springframework.org/security/tags">
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
@@ -50,18 +51,20 @@
 					<h:panelGroup>
 						<h:outputText id="actualPrice"
 							value="#{oPSaleSeatWFControl.order.actualPrice}"></h:outputText>
-						<h:panelGrid columns="1" style="margin-bottom:10px"
-							rendered="#{oPSaleSeatWFControl.seat.discount}">
-							<p:inputText id="txt1" value="#{oPSaleSeatWFControl.percent}" />
-							<p:slider for="txt1"
-								maxValue="#{oPSaleSeatWFControl.seat.discountPotsent}"
-								minValue="0">
+						<sec:authorize ifAnyGranted="ROLE_OP_CASSIR_SALE_DISCOUNT">
+							<h:panelGrid columns="1" style="margin-bottom:10px"
+								rendered="#{oPSaleSeatWFControl.seat.discount}">
+								<p:inputText id="txt1" value="#{oPSaleSeatWFControl.percent}" />
+								<p:slider for="txt1"
+									maxValue="#{oPSaleSeatWFControl.seat.discountPotsent}"
+									minValue="0">
 
-								<p:ajax event="slideEnd"
-									listener="#{oPSaleSeatWFControl.onSlideEnd}"
-									update="actualPrice" />
-							</p:slider>
-						</h:panelGrid>
+									<p:ajax event="slideEnd"
+										listener="#{oPSaleSeatWFControl.onSlideEnd}"
+										update="actualPrice" />
+								</p:slider>
+							</h:panelGrid>
+						</sec:authorize>
 					</h:panelGroup>
 
 
