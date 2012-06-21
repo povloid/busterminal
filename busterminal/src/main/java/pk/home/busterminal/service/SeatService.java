@@ -195,7 +195,7 @@ public class SeatService extends ABaseService<Seat> {
 		seatCopy.setSeatType(seat.getSeatType());
 		seatCopy.setMasterProcent(seat.getMasterProcent());
 		seatCopy.setPrice(seat.getPrice());
-		
+
 		seatCopy.setDiscount(seat.getDiscount());
 		seatCopy.setDiscountPotsent(seat.getDiscountPotsent());
 		seatCopy.setBlock(seat.getBlock());
@@ -214,13 +214,17 @@ public class SeatService extends ABaseService<Seat> {
 	@Transactional(readOnly = true, rollbackFor = Exception.class)
 	public short createDecoratorMinNum(Seat seat) throws Exception {
 
-		short min = (Short) seatDAO.executeQueryByNameSingleResultO(
-				"Seat.findNumInSchema.min", seat.getSchema());
+		try {
+			short min = (Short) seatDAO.executeQueryByNameSingleResultO(
+					"Seat.findNumInSchema.min", seat.getSchema());
 
-		if (min >= 0)
-			min = (short) 0;
+			if (min >= 0)
+				min = (short) 0;
 
-		return --min;
+			return --min;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	/**
@@ -234,13 +238,17 @@ public class SeatService extends ABaseService<Seat> {
 	@Transactional(readOnly = true, rollbackFor = Exception.class)
 	public short createDecoratorMaxNum(Seat seat) throws Exception {
 
-		short max = (Short) seatDAO.executeQueryByNameSingleResultO(
-				"Seat.findNumInSchema.max", seat.getSchema());
+		try {
+			short max = (Short) seatDAO.executeQueryByNameSingleResultO(
+					"Seat.findNumInSchema.max", seat.getSchema());
 
-		if (max < 0)
-			max = (short) 0;
+			if (max < 0)
+				max = (short) 0;
 
-		return ++max;
+			return ++max;
+		} catch (Exception e) {
+			return 1;
+		}
 	}
 
 }

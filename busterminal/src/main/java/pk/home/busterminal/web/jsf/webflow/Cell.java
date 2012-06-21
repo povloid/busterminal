@@ -105,7 +105,7 @@ public class Cell implements Serializable {
 	public String getIcon() {
 
 		// Отработка иконки для блокировки
-		opType = seat.getBlock() != null && seat.getBlock()
+		opType = seat != null && seat.getBlock() != null && seat.getBlock()
 				&& seat.getSeatType().getSold() != null
 				&& seat.getSeatType().getSold() ? OP_TYPE.BLOCK : opType;
 
