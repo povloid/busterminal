@@ -2,7 +2,6 @@ package pk.home.busterminal.web.mvc;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -321,6 +320,8 @@ public final class ReportsMVCController {
 
 			public Font DEFAULT_FONT;
 
+			int resolution;
+
 			{
 				try {
 					Font font = Font.createFont(Font.TRUETYPE_FONT,
@@ -328,16 +329,22 @@ public final class ReportsMVCController {
 					font = font.deriveFont(Font.PLAIN, 20);
 					DEFAULT_FONT = font;
 
+					System.out.println(">>>>>>" + DEFAULT_FONT);
+
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				} catch (FontFormatException e1) {
 					e1.printStackTrace();
 				}
+
+				resolution = EnvironmentFactory.getEnvironment()
+						.getResolution();
 			}
 
 			@Override
 			public int getResolution() {
-				return Toolkit.getDefaultToolkit().getScreenResolution();
+				// return Toolkit.getDefaultToolkit().getScreenResolution();
+				return resolution;
 			}
 
 			@Override
@@ -353,6 +360,8 @@ public final class ReportsMVCController {
 					+ " ---- > "
 					+ EnvironmentFactory.getEnvironment().getDefaultFont()
 							.getFamily());
+		else
+			System.out.println(">>>>> FONT: null");
 
 		try {
 			orderReport = JasperCompileManager
