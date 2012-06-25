@@ -23,6 +23,7 @@ import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.domain.Seat_;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
 
@@ -258,6 +259,30 @@ public class OrderService extends ABaseService<Order> {
 		}
 
 		return o;
+	}
+
+	// reports
+	// -----------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Поиск ордеров
+	 * 
+	 * @param race
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Order> findOrdersBySeatNum(Race race) throws Exception {
+
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+		Root<Order> t = cq.from(Order.class);
+
+		cq.where(cb.equal(t.get(Order_.race), race));
+		cq.orderBy(cb.asc(t.get(Order_.seat).get(Seat_.num)));
+
+		return orderDAO.getAllEntities(cb, cq, t);
 	}
 
 }

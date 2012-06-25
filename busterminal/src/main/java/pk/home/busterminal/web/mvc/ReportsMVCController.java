@@ -39,7 +39,9 @@ import org.springframework.web.servlet.ModelAndView;
 import pk.home.busterminal.application.Config;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
+import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.service.OrderService;
+import pk.home.busterminal.service.RaceService;
 import pk.home.libs.combine.fileutils.FileUtils;
 
 /**
@@ -54,6 +56,9 @@ public final class ReportsMVCController {
 
 	@Autowired
 	OrderService orderService;
+
+	@Autowired
+	RaceService raceService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "pdf")
 	public ModelAndView generatePdfReport(ModelAndView modelAndView)
@@ -303,11 +308,15 @@ public final class ReportsMVCController {
 	private ClassPathResource resourceTicket = new ClassPathResource(
 			"reports/ticket.jrxml");
 
+	private ClassPathResource drive_report_for_seatTicket = new ClassPathResource(
+			"reports/drive_report_for_seat.jrxml");
+
 	private ClassPathResource resourseBFont = new ClassPathResource(
 			"net/sf/jasperreports/fonts/dejavu/DejaVuSansMono.ttf");
 
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
+	private JasperReport drive_report_for_seatReport;
 
 	{
 
@@ -370,6 +379,10 @@ public final class ReportsMVCController {
 
 			ticketReport = JasperCompileManager.compileReport(resourceTicket
 					.getFile().getAbsolutePath());
+
+			drive_report_for_seatReport = JasperCompileManager
+					.compileReport(drive_report_for_seatTicket.getFile()
+							.getAbsolutePath());
 
 		} catch (JRException e) {
 			e.printStackTrace();
@@ -443,7 +456,7 @@ public final class ReportsMVCController {
 			throw new Exception(
 					"Ордер №"
 							+ id
-							+ " не является продажным, выдать билет по непродажному ордеру невохможно!");
+							+ " не является продажным, выдать билет по непродажному ордеру невозможно!");
 		}
 
 		// Параметры отчета
@@ -464,6 +477,43 @@ public final class ReportsMVCController {
 		// OUT
 		renderReport(format, "order_" + id, ticketReport, parameterMap,
 				JRdataSource, request, response);
+	}
+
+	/**
+	 * Отчет для водителя - сортировка по номеру сидений
+	 * 
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/drive_report_for_seat/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	public void generateDrive_report_for_seat(@PathVariable Long id,
+			@PathVariable String file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		Race race = raceService.find(id);
+
+		// Параметры отчета
+		// Формат вывода
+		String format = file.substring(file.lastIndexOf(".") + 1);
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", format);
+
+		// Формирование набора данных
+		List<Order> list = orderService.findOrdersBySeatNum(race);
+
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		// Compile the report
+		// OUT
+		renderReport(format, "drive_report_for_seat_race_" + id,
+				drive_report_for_seatReport, parameterMap, JRdataSource,
+				request, response);
+
 	}
 
 }
