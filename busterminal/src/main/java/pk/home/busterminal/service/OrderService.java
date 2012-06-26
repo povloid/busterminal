@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import javax.transaction.NotSupportedException;
 
@@ -18,11 +21,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import pk.home.busterminal.dao.BusRouteStopDAO;
 import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
+import pk.home.busterminal.domain.BusRouteStop_;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.domain.Race_;
 import pk.home.busterminal.domain.Seat_;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
@@ -283,6 +288,32 @@ public class OrderService extends ABaseService<Order> {
 		cq.orderBy(cb.asc(t.get(Order_.seat).get(Seat_.num)));
 
 		return orderDAO.getAllEntities(cb, cq, t);
+	}
+
+	/**
+	 * Поиск ордеров
+	 * 
+	 * @param race
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Object[]> findOrdersOrderByBusRouteStops(Race race)
+			throws Exception {
+
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+		Root<BusRouteStop> t = cq.from(BusRouteStop.class);
+		Join<BusRouteStop, Order> p = t.join(Order_.busRouteStopA,
+				JoinType.LEFT);
+
+		cq.multiselect(t, p);
+		cq.where(cb.equal(t.get(Order_.race), race));
+		cq.orderBy(cb.asc(p.get(BusRouteStop_.orId)));
+
+		TypedQuery<Object[]> q = orderDAO.getEntityManager().createQuery(cq);
+		return q.getResultList();
 	}
 
 }

@@ -25,7 +25,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[СПИСОК ТУРИСТОВ (форма 2).]]></text>
+				<text><![CDATA[СПИСОК ПАССАЖИРОВ (форма 2).]]></text>
 			</staticText>
 		</band>
 	</title>
