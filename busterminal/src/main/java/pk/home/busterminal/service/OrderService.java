@@ -1,6 +1,7 @@
 package pk.home.busterminal.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -290,6 +291,45 @@ public class OrderService extends ABaseService<Order> {
 		return orderDAO.getAllEntities(cb, cq, t);
 	}
 
+	public class FindOrdersOrderByBusRouteStopsResult {
+
+		BusRouteStop BusRouteStop;
+
+		Order gOrder;
+		Order pOrder;
+
+		public FindOrdersOrderByBusRouteStopsResult(
+				pk.home.busterminal.domain.BusRouteStop busRouteStop) {
+			super();
+			BusRouteStop = busRouteStop;
+		}
+
+		public Order getgOrder() {
+			return gOrder;
+		}
+
+		public void setgOrder(Order gOrder) {
+			this.gOrder = gOrder;
+		}
+
+		public Order getpOrder() {
+			return pOrder;
+		}
+
+		public void setpOrder(Order pOrder) {
+			this.pOrder = pOrder;
+		}
+
+		public BusRouteStop getBusRouteStop() {
+			return BusRouteStop;
+		}
+
+		public void setBusRouteStop(BusRouteStop busRouteStop) {
+			BusRouteStop = busRouteStop;
+		}
+
+	}
+
 	/**
 	 * Поиск ордеров
 	 * 
@@ -298,22 +338,64 @@ public class OrderService extends ABaseService<Order> {
 	 * @throws Exception
 	 */
 	@Transactional(readOnly = true)
-	public List<Object[]> findOrdersOrderByBusRouteStops(Race race)
-			throws Exception {
+	public List<FindOrdersOrderByBusRouteStopsResult> findOrdersOrderByBusRouteStops(
+			Race race) throws Exception {
 
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 
-		CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
-		Root<BusRouteStop> t = cq.from(BusRouteStop.class);
-		Join<BusRouteStop, Order> p = t.join(Order_.busRouteStopA,
-				JoinType.LEFT);
+		List<BusRouteStop> brsList = null;
 
-		cq.multiselect(t, p);
-		cq.where(cb.equal(t.get(Order_.race), race));
-		cq.orderBy(cb.asc(p.get(BusRouteStop_.orId)));
+		{
+			CriteriaQuery<BusRouteStop> cq = cb.createQuery(BusRouteStop.class);
+			Root<BusRouteStop> t = cq.from(BusRouteStop.class);
+			// Join<BusRouteStop, Order> p = t.join("busRouteStopA",
+			// JoinType.LEFT);
+			//
+			// cq.multiselect(t, p);
+			cq.where(cb.equal(t.get(BusRouteStop_.busRoute), race.getBusRoute()));
+			cq.orderBy(cb.asc(t.get(BusRouteStop_.orId)));
 
-		TypedQuery<Object[]> q = orderDAO.getEntityManager().createQuery(cq);
-		return q.getResultList();
+			TypedQuery<BusRouteStop> q = orderDAO.getEntityManager()
+					.createQuery(cq);
+
+			brsList = q.getResultList();
+		}
+
+		List<Order> orders = null;
+
+		{
+			CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+			Root<Order> t = cq.from(Order.class);
+
+			cq.where(cb.equal(t.get(Order_.race), race));
+			cq.orderBy(cb.asc(t.get(Order_.seat).get(Seat_.num)));
+
+			orders = orderDAO.getAllEntities(cb, cq, t);
+		}
+
+		List<FindOrdersOrderByBusRouteStopsResult> rlist = new ArrayList<OrderService.FindOrdersOrderByBusRouteStopsResult>();
+
+		for (BusRouteStop brs : brsList) {
+			for (Order o : orders) {
+				if (o.getBusRouteStopA().equals(brs)) {
+					FindOrdersOrderByBusRouteStopsResult foobb = new FindOrdersOrderByBusRouteStopsResult(
+							brs);
+					foobb.setgOrder(o);
+					rlist.add(foobb);
+				}
+			}
+
+			for (Order o : orders) {
+				if (o.getBusRouteStopB().equals(brs)) {
+					FindOrdersOrderByBusRouteStopsResult foobb = new FindOrdersOrderByBusRouteStopsResult(
+							brs);
+					foobb.setpOrder(o);
+					rlist.add(foobb);
+				}
+			}
+		}
+
+		return rlist;
 	}
 
 }

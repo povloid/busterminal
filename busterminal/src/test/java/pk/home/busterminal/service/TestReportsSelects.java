@@ -19,6 +19,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.service.OrderService.FindOrdersOrderByBusRouteStopsResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -67,8 +68,14 @@ public class TestReportsSelects {
 	public void testFindOrdersOrderByBusRouteStops() throws Exception {
 		Race race = raceService.find(1l);
 
-		List<Object[]> listo = orderService
+		List<FindOrdersOrderByBusRouteStopsResult> listo = orderService
 				.findOrdersOrderByBusRouteStops(race);
+
+		for (FindOrdersOrderByBusRouteStopsResult r : listo) {
+			System.out.println(r.getBusRouteStop().getOrId() + " "
+					+ r.getBusRouteStop().getBusStop().getKeyName() + " "
+					+ r.getgOrder() + " --- " + r.getpOrder());
+		}
 
 		System.out.println(listo.size());
 
