@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -501,6 +504,14 @@ public final class ReportsMVCController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", format);
+
+		parameterMap.put("CAPTION_PARAMETR", "№"
+				+ race.getId()
+				+ " "
+				+ race.getBusRoute().getKeyName()
+				+ " время: "
+				+ (new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", new Locale(
+						"ru")).format(race.getdTime())));
 
 		// Формирование набора данных
 		List<Order> list = orderService.findOrdersBySeatNum(race);

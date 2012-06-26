@@ -3,90 +3,121 @@
 	<property name="ireport.zoom" value="2.143588810000013"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="CAPTION_PARAMETR" class="java.lang.String"/>
 	<field name="seat.num" class="java.lang.Number"/>
 	<field name="customer.fName" class="java.lang.String"/>
 	<field name="customer.nName" class="java.lang.String"/>
 	<field name="customer.mName" class="java.lang.String"/>
+	<field name="customer.pfone1" class="java.lang.String"/>
+	<field name="customer.pfone2" class="java.lang.String"/>
+	<field name="customer.pfone3" class="java.lang.String"/>
+	<field name="customer.pfone4" class="java.lang.String"/>
+	<field name="id" class="java.lang.Number"/>
+	<field name="busRouteStopA.busStop.keyName" class="java.lang.String"/>
+	<field name="busRouteStopB.busStop.keyName" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
 	<title>
-		<band height="29"/>
+		<band height="16">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[СПИСОК ТУРИСТОВ (форма 2).]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="23"/>
+		<band height="12">
+			<staticText>
+				<reportElement x="0" y="0" width="59" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[По маршруту: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="59" y="0" width="496" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CAPTION_PARAMETR}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="12">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="34" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="0" y="0" width="17" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Мест.№]]></text>
+				<text><![CDATA[№м]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="34" y="0" width="161" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="17" y="0" width="161" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ф.И.О.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="195" y="0" width="82" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="178" y="0" width="82" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Телефоны]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="277" y="0" width="71" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="260" y="0" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ПТ№]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="348" y="0" width="95" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="318" y="0" width="116" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Посадка]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="443" y="0" width="112" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="434" y="0" width="121" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Высадка]]></text>
@@ -96,7 +127,7 @@
 	<detail>
 		<band height="14">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="34" height="14"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="17" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -107,7 +138,7 @@
 				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="34" y="0" width="161" height="14"/>
+				<reportElement stretchType="RelativeToBandHeight" x="17" y="0" width="161" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -118,7 +149,7 @@
 				<textFieldExpression><![CDATA[$F{customer.fName}+" "+$F{customer.nName}+" "+$F{customer.mName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="195" y="0" width="82" height="14"/>
+				<reportElement stretchType="RelativeToBandHeight" x="178" y="0" width="82" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -126,10 +157,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{customer.pfone1}) != null ? $F{customer.pfone1} : "") +" "+(($F{customer.pfone2}) != null ? $F{customer.pfone2} : "")+" "+(($F{customer.pfone3}) != null ? $F{customer.pfone3} : "")+" "+(($F{customer.pfone4}) != null ? $F{customer.pfone4} : "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="277" y="0" width="71" height="14"/>
+				<reportElement stretchType="RelativeToBandHeight" x="260" y="0" width="58" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -137,10 +168,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="348" y="0" width="95" height="14"/>
+				<reportElement stretchType="RelativeToBandHeight" x="318" y="0" width="116" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -148,10 +179,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{busRouteStopA.busStop.keyName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToBandHeight" x="443" y="0" width="112" height="14"/>
+				<reportElement stretchType="RelativeToBandHeight" x="434" y="0" width="121" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -160,12 +191,27 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{busRouteStopB.busStop.keyName}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band/>
+		<band height="17">
+			<textField>
+				<reportElement x="277" y="0" width="166" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="277" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[Всего записей:]]></text>
+			</staticText>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="15">
@@ -184,9 +230,9 @@
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="2" width="100" height="13"/>
+				<reportElement x="0" y="2" width="128" height="13"/>
 				<textElement>
-					<font size="8"/>
+					<font fontName="DejaVu Sans Mono" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
