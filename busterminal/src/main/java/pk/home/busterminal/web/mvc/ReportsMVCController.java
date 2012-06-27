@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,8 +61,11 @@ import pk.home.libs.combine.fileutils.FileUtils;
 @RequestMapping("/report/")
 public final class ReportsMVCController {
 
-	private final DateFormat dateFormat = new SimpleDateFormat(
+	private final DateFormat dateFormatFullTime = new SimpleDateFormat(
 			"EEE, d MMM yyyy HH:mm:ss", new Locale("ru"));
+
+	private final DateFormat dateFormatShortDate = new SimpleDateFormat(
+			"dd.MM.yyyy", new Locale("ru"));
 
 	@Autowired
 	OrderService orderService;
@@ -527,9 +529,9 @@ public final class ReportsMVCController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", format);
 
-		parameterMap.put("CAPTION_PARAMETR",
-				"№" + race.getId() + " " + race.getBusRoute().getKeyName()
-						+ " время: " + dateFormat.format(race.getdTime()));
+		parameterMap.put("CAPTION_PARAMETR", "№" + race.getId() + " "
+				+ race.getBusRoute().getKeyName() + " время: "
+				+ dateFormatFullTime.format(race.getdTime()));
 
 		// Формирование набора данных
 		List<Order> list = orderService.findOrdersBySeatNum(race);
@@ -592,14 +594,14 @@ public final class ReportsMVCController {
 		parameterMap.put("div_cass_balance", divCassBalance);
 		parameterMap.put("div_balance", divBalance);
 
-		Date bdate = new Date((new Date()).getTime() - 1000 * 24 * 24 * 60 * 30);
+		Date bdate = new Date(bDate);
 
-		Date edate = new Date();
+		Date edate = new Date(eDate + 1000 * 24 * 24 * 60);
 
-		parameterMap.put("CAPTION_PARAMETR",
-				"Отчет по операциям организации " + division.getKeyName()
-						+ "  за период с " + dateFormat.format(bdate) + " по  "
-						+ dateFormat.format(edate));
+		parameterMap.put("CAPTION_PARAMETR", "Отчет по операциям организации "
+				+ division.getKeyName() + "  за период с "
+				+ dateFormatShortDate.format(bdate) + " по  "
+				+ dateFormatShortDate.format(edate));
 
 		// Формирование набора данных
 		List<Object[]> list = orderService.findOrdersForDateAndDivisionO(
