@@ -172,27 +172,29 @@
 		</sec:authorize>
 
 		<sec:authorize ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_REPORTS">
-			<p:submenu label="Отчеты" icon="ui-icon-pencil">
-				<p:column>
+			<p:submenu label="Отчеты" icon="ui-icon-pencil" >
+				<p:column colspan="2" style="width: 200px">
 					<sec:authorize ifAnyGranted="ROLE_REPORTS_DIVISION">
-							<p:submenu label="Отделения">
+						<p:submenu label="Отделения">
 							<sec:authorize ifAnyGranted="ROLE_REPORTS_DIVISION_BALANCE_F1">
-								<p:menuitem value="Отчет по операциям (форма 1)"
+								<p:menuitem value="Отчет по опер. (ф1)"
 									icon="ui-icon docs16" url="/mvc/wfreport/division_balance_f1" />
 							</sec:authorize>
 						</p:submenu>
 					</sec:authorize>
-					
+
 					<sec:authorize ifAnyGranted="ROLE_REPORTS_DRIVER">
-							<p:submenu label="Отделения">
-							<sec:authorize ifAnyGranted=ROLE_REPORTS_DRIVER_FORM2>
-								<p:menuitem value="Список пассажиров (форма 2)"
+						<p:submenu label="Водитель">
+							<sec:authorize ifAnyGranted="ROLE_REPORTS_DRIVER_FORM2">
+								<p:menuitem value="Сп. пассаж. (ф2)" 
 									icon="ui-icon docs16" url="/mvc/wfreport/division_balance_f1" />
 							</sec:authorize>
 						</p:submenu>
 					</sec:authorize>
-					
-					
+
+
+				</p:column>
+				<p:column>
 				</p:column>
 			</p:submenu>
 		</sec:authorize>

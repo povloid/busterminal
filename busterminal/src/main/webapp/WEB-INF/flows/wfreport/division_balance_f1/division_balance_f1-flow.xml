@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="division_balance_f1">
 
-	<secured attributes="ROLE_RB_ORGANIZATION" />
+	<secured attributes="ROLE_REPORTS_DIVISION_BALANCE_F1" />
 
 	<var name="rPTDivisionBalanceF1WFControl"
 		class="pk.home.busterminal.web.jsf.webflow.RPTDivisionBalanceF1WFControl" />
