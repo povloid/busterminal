@@ -1,5 +1,6 @@
 package pk.home.busterminal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -18,6 +19,8 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import pk.home.busterminal.domain.Division;
+import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.service.OrderService.FindOrdersOrderByBusRouteStopsResult;
 
@@ -34,6 +37,9 @@ public class TestReportsSelects {
 
 	@Autowired
 	private RaceService raceService;
+
+	@Autowired
+	private DivisionService divisionService;
 
 	/**
 	 * @throws java.lang.Exception
@@ -78,6 +84,46 @@ public class TestReportsSelects {
 		}
 
 		System.out.println(listo.size());
+
+	}
+
+	@Test
+	@Rollback(true)
+	public void testOrdersForDateAndDivision() throws Exception {
+		Division div = divisionService.find(2l);
+
+		Date bdate = new Date((new Date()).getTime() - 1000 * 24 * 24 * 60 * 30);
+
+		Date edate = new Date();
+
+		List<Order> list = orderService.findOrdersForDateAndDivision(div,
+				bdate, edate);
+
+		System.out.println(list.size());
+	}
+
+	@Test
+	@Rollback(true)
+	public void testFindOrdersForDateAndDivisionO() throws Exception {
+		Division div = divisionService.find(2l);
+
+		Date bdate = new Date((new Date()).getTime() - 1000 * 24 * 24 * 60 * 30);
+
+		Date edate = new Date();
+
+		List<Object[]> list = orderService.findOrdersForDateAndDivisionO(div,
+				bdate, edate);
+
+		System.out.println(list.size());
+
+		Number n = orderService.findOrdersForDateAndDivisionBalance(div, bdate,
+				edate);
+
+		System.out.println(n);
+
+		Number n2 = orderService.findOrdersDivisionBalance(div);
+
+		System.out.println(n2);
 
 	}
 

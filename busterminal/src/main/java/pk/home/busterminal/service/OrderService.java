@@ -8,8 +8,6 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.transaction.NotSupportedException;
@@ -24,6 +22,9 @@ import pk.home.busterminal.dao.BusRouteStopDAO;
 import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.BusRouteStop_;
+import pk.home.busterminal.domain.BusRoute_;
+import pk.home.busterminal.domain.Customer_;
+import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Items_;
 import pk.home.busterminal.domain.Order;
@@ -32,6 +33,7 @@ import pk.home.busterminal.domain.Order_;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
 import pk.home.busterminal.domain.Seat_;
+import pk.home.busterminal.domain.security.UserAccount_;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
 
@@ -273,7 +275,7 @@ public class OrderService extends ABaseService<Order> {
 	// -----------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Поиск ордеров
+	 * Поиск ордеров - форма 2
 	 * 
 	 * @param race
 	 * @return
@@ -301,6 +303,12 @@ public class OrderService extends ABaseService<Order> {
 		return orderDAO.getAllEntities(cb, cq, t);
 	}
 
+	/**
+	 * Результирующий класс для формы 1
+	 * 
+	 * @author povloid
+	 * 
+	 */
 	public class FindOrdersOrderByBusRouteStopsResult {
 
 		BusRouteStop BusRouteStop;
@@ -363,7 +371,7 @@ public class OrderService extends ABaseService<Order> {
 	}
 
 	/**
-	 * Поиск ордеров
+	 * Поиск ордеров - форма 1
 	 * 
 	 * @param race
 	 * @return
@@ -436,6 +444,208 @@ public class OrderService extends ABaseService<Order> {
 		}
 
 		return rlist;
+	}
+
+	/**
+	 * Поиск ордеров за промежуток времени и отделению
+	 * 
+	 * @param division
+	 * @param bDate
+	 * @param eDate
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Order> findOrdersForDateAndDivision(Division division,
+			Date bDate, Date eDate) throws Exception {
+
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+		Root<Order> t = cq.from(Order.class);
+
+		Subquery<Long> sq = cq.subquery(Long.class);
+		Root<Order> it = sq.from(Order.class);
+
+		sq.select(it.get(Order_.id))
+				.distinct(true)
+				.where(cb.equal(
+						it.get(Order_.userAccount).get(UserAccount_.division),
+						division),
+						cb.equal(it.get(Order_.orderType),
+								OrderType.TICKET_SALE),
+						cb.between(it.get(Order_.opTime), bDate, eDate));
+
+		cq.where(cb.or(
+				cb.in(t.get(Order_.previousOrder).get(Order_.id)).value(sq)
+
+				/*
+				 * , cb.and(cb.equal(
+				 * t.get(Order_.userAccount).get(UserAccount_.division),
+				 * division), cb.equal(t.get(Order_.orderType),
+				 * OrderType.TICKET_SALE), cb.between( t.get(Order_.opTime),
+				 * bDate, eDate))
+				 */
+				, cb.in(t.get(Order_.id)).value(sq)
+
+		));
+		cq.orderBy(cb.asc(t.get(Order_.opTime)));
+
+		return orderDAO.getAllEntities(cb, cq, t);
+	}
+
+	/**
+	 * Поиск ордеров за промежуток времени и отделению
+	 * 
+	 * @param division
+	 * @param bDate
+	 * @param eDate
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Object[]> findOrdersForDateAndDivisionO(Division division,
+			Date bDate, Date eDate) throws Exception {
+
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+		Root<Order> t = cq.from(Order.class);
+
+		Subquery<Long> sq = cq.subquery(Long.class);
+		Root<Order> it = sq.from(Order.class);
+
+		sq.select(it.get(Order_.id))
+				.distinct(true)
+				.where(cb.equal(
+						it.get(Order_.userAccount).get(UserAccount_.division),
+						division),
+						cb.equal(it.get(Order_.orderType),
+								OrderType.TICKET_SALE),
+						cb.between(it.get(Order_.opTime), bDate, eDate));
+
+		cq.multiselect(t.get(Order_.id), t.get(Order_.opTime),
+				t.get(Order_.orderType), t.get(Order_.race).get(Race_.id),
+				t.get(Order_.race).get(Race_.busRoute).get(BusRoute_.keyName),
+				t.get(Order_.seat).get(Seat_.num),
+				t.get(Order_.customer).get(Customer_.fName),
+				t.get(Order_.customer).get(Customer_.nName),
+				t.get(Order_.customer).get(Customer_.mName),
+				t.get(Order_.actualPrice),
+				t.get(Order_.userAccount).get(UserAccount_.id),
+				t.get(Order_.userAccount).get(UserAccount_.username),
+				t.get(Order_.userAccount).get(UserAccount_.fName),
+				t.get(Order_.userAccount).get(UserAccount_.nName),
+				t.get(Order_.userAccount).get(UserAccount_.mName));
+
+		cq.where(cb.or(
+				cb.in(t.get(Order_.previousOrder).get(Order_.id)).value(sq)
+
+				/*
+				 * , cb.and(cb.equal(
+				 * t.get(Order_.userAccount).get(UserAccount_.division),
+				 * division), cb.equal(t.get(Order_.orderType),
+				 * OrderType.TICKET_SALE), cb.between( t.get(Order_.opTime),
+				 * bDate, eDate))
+				 */
+				, cb.in(t.get(Order_.id)).value(sq)
+
+		));
+		cq.orderBy(cb.asc(t.get(Order_.opTime)));
+
+		TypedQuery<Object[]> q = orderDAO.getEntityManager().createQuery(cq);
+		return q.getResultList();
+	}
+
+	/**
+	 * Поиск ордеров за промежуток времени и отделению - баланс
+	 * 
+	 * @param division
+	 * @param bDate
+	 * @param eDate
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public Number findOrdersForDateAndDivisionBalance(Division division,
+			Date bDate, Date eDate) throws Exception {
+
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<BigDecimal> cq = cb.createQuery(BigDecimal.class);
+		Root<Order> t = cq.from(Order.class);
+
+		Subquery<Long> sq = cq.subquery(Long.class);
+		Root<Order> it = sq.from(Order.class);
+
+		sq.select(it.get(Order_.id))
+				.distinct(true)
+				.where(cb.equal(
+						it.get(Order_.userAccount).get(UserAccount_.division),
+						division),
+						cb.equal(it.get(Order_.orderType),
+								OrderType.TICKET_SALE),
+						cb.between(it.get(Order_.opTime), bDate, eDate));
+
+		cq.select(cb.sum(t.get(Order_.actualPrice)));
+
+		cq.where(cb.or(
+				cb.in(t.get(Order_.previousOrder).get(Order_.id)).value(sq)
+
+				/*
+				 * , cb.and(cb.equal(
+				 * t.get(Order_.userAccount).get(UserAccount_.division),
+				 * division), cb.equal(t.get(Order_.orderType),
+				 * OrderType.TICKET_SALE), cb.between( t.get(Order_.opTime),
+				 * bDate, eDate))
+				 */
+				, cb.in(t.get(Order_.id)).value(sq)
+
+		));
+
+		TypedQuery<BigDecimal> q = orderDAO.getEntityManager().createQuery(cq);
+		return q.getSingleResult();
+	}
+
+	/**
+	 * Выдать баланс за все время
+	 * 
+	 * @param division
+	 * @param bDate
+	 * @param eDate
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true)
+	public Number findOrdersDivisionBalance(Division division) throws Exception {
+
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<BigDecimal> cq = cb.createQuery(BigDecimal.class);
+		Root<Order> t = cq.from(Order.class);
+
+		Subquery<Long> sq = cq.subquery(Long.class);
+		Root<Order> it = sq.from(Order.class);
+
+		sq.select(it.get(Order_.id))
+				.distinct(true)
+				.where(cb.equal(
+						it.get(Order_.userAccount).get(UserAccount_.division),
+						division),
+						cb.equal(it.get(Order_.orderType),
+								OrderType.TICKET_SALE));
+
+		cq.select(cb.sum(t.get(Order_.actualPrice)));
+
+		cq.where(cb.or(
+				cb.in(t.get(Order_.previousOrder).get(Order_.id)).value(sq), cb
+						.in(t.get(Order_.id)).value(sq)
+
+		));
+
+		TypedQuery<BigDecimal> q = orderDAO.getEntityManager().createQuery(cq);
+		return q.getSingleResult();
+
 	}
 
 }

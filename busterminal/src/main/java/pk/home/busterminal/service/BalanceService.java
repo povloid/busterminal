@@ -77,5 +77,4 @@ public class BalanceService extends ABaseService<Balance> {
 		return n != null ? n : 0;
 	}
 	
-
 }
