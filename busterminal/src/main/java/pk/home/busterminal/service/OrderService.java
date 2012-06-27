@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import javax.transaction.NotSupportedException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import pk.home.busterminal.dao.OrderDAO;
 import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.busterminal.domain.BusRouteStop_;
 import pk.home.busterminal.domain.Items;
+import pk.home.busterminal.domain.Items_;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
@@ -285,7 +287,15 @@ public class OrderService extends ABaseService<Order> {
 		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 		Root<Order> t = cq.from(Order.class);
 
-		cq.where(cb.equal(t.get(Order_.race), race));
+		Subquery<Long> sq = cq.subquery(Long.class);
+		Root<Items> it = sq.from(Items.class);
+
+		sq.select(it.get(Items_.order).get(Order_.id)).distinct(true)
+				.where(cb.equal(it.get(Items_.race), race));
+
+		cq.where(cb.equal(t.get(Order_.race), race), cb.equal(
+				t.get(Order_.orderType), OrderType.TICKET_SALE),
+				cb.in(t.get(Order_.id)).value(sq));
 		cq.orderBy(cb.asc(t.get(Order_.seat).get(Seat_.num)));
 
 		return orderDAO.getAllEntities(cb, cq, t);
@@ -295,13 +305,19 @@ public class OrderService extends ABaseService<Order> {
 
 		BusRouteStop BusRouteStop;
 
+		private String type;
+		private String typeCaption;
+
 		Order gOrder;
 		Order pOrder;
 
 		public FindOrdersOrderByBusRouteStopsResult(
-				pk.home.busterminal.domain.BusRouteStop busRouteStop) {
+				pk.home.busterminal.domain.BusRouteStop busRouteStop,
+				String type, String typeCaption) {
 			super();
 			BusRouteStop = busRouteStop;
+			this.type = type;
+			this.typeCaption = typeCaption;
 		}
 
 		public Order getgOrder() {
@@ -326,6 +342,22 @@ public class OrderService extends ABaseService<Order> {
 
 		public void setBusRouteStop(BusRouteStop busRouteStop) {
 			BusRouteStop = busRouteStop;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
+		public String getTypeCaption() {
+			return typeCaption;
+		}
+
+		public void setTypeCaption(String typeCaption) {
+			this.typeCaption = typeCaption;
 		}
 
 	}
@@ -367,7 +399,15 @@ public class OrderService extends ABaseService<Order> {
 			CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 			Root<Order> t = cq.from(Order.class);
 
-			cq.where(cb.equal(t.get(Order_.race), race));
+			Subquery<Long> sq = cq.subquery(Long.class);
+			Root<Items> it = sq.from(Items.class);
+
+			sq.select(it.get(Items_.order).get(Order_.id)).distinct(true)
+					.where(cb.equal(it.get(Items_.race), race));
+
+			cq.where(cb.equal(t.get(Order_.race), race),
+					cb.equal(t.get(Order_.orderType), OrderType.TICKET_SALE),
+					cb.in(t.get(Order_.id)).value(sq));
 			cq.orderBy(cb.asc(t.get(Order_.seat).get(Seat_.num)));
 
 			orders = orderDAO.getAllEntities(cb, cq, t);
@@ -379,7 +419,7 @@ public class OrderService extends ABaseService<Order> {
 			for (Order o : orders) {
 				if (o.getBusRouteStopA().equals(brs)) {
 					FindOrdersOrderByBusRouteStopsResult foobb = new FindOrdersOrderByBusRouteStopsResult(
-							brs);
+							brs, "get", "Посадка");
 					foobb.setgOrder(o);
 					rlist.add(foobb);
 				}
@@ -388,7 +428,7 @@ public class OrderService extends ABaseService<Order> {
 			for (Order o : orders) {
 				if (o.getBusRouteStopB().equals(brs)) {
 					FindOrdersOrderByBusRouteStopsResult foobb = new FindOrdersOrderByBusRouteStopsResult(
-							brs);
+							brs, "get", "Высадка");
 					foobb.setpOrder(o);
 					rlist.add(foobb);
 				}
