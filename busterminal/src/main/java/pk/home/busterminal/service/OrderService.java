@@ -524,8 +524,10 @@ public class OrderService extends ABaseService<Order> {
 								OrderType.TICKET_SALE),
 						cb.between(it.get(Order_.opTime), bDate, eDate));
 
-		cq.multiselect(t.get(Order_.id), t.get(Order_.opTime),
-				t.get(Order_.orderType), t.get(Order_.race).get(Race_.id),
+		cq.multiselect(t.get(Order_.id), 
+				t.get(Order_.opTime),
+				t.get(Order_.orderType), 
+				t.get(Order_.race).get(Race_.id),
 				t.get(Order_.race).get(Race_.busRoute).get(BusRoute_.keyName),
 				t.get(Order_.seat).get(Seat_.num),
 				t.get(Order_.customer).get(Customer_.fName),

@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,9 +42,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pk.home.busterminal.application.Config;
+import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.service.BalanceService;
+import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.OrderService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.libs.combine.fileutils.FileUtils;
@@ -57,11 +62,20 @@ import pk.home.libs.combine.fileutils.FileUtils;
 @RequestMapping("/report/")
 public final class ReportsMVCController {
 
+	private final DateFormat dateFormat = new SimpleDateFormat(
+			"EEE, d MMM yyyy HH:mm:ss", new Locale("ru"));
+
 	@Autowired
 	OrderService orderService;
 
 	@Autowired
 	RaceService raceService;
+
+	@Autowired
+	DivisionService divisionService;
+
+	@Autowired
+	BalanceService balanceService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "pdf")
 	public ModelAndView generatePdfReport(ModelAndView modelAndView)
@@ -311,8 +325,11 @@ public final class ReportsMVCController {
 	private ClassPathResource resourceTicket = new ClassPathResource(
 			"reports/ticket.jrxml");
 
-	private ClassPathResource drive_report_for_seatTicket = new ClassPathResource(
+	private ClassPathResource resourceDrive_report_for_seatTicket = new ClassPathResource(
 			"reports/drive_report_for_seat.jrxml");
+
+	private ClassPathResource resourceDivision_balance1Report = new ClassPathResource(
+			"reports/division_balance1.jrxml");
 
 	private ClassPathResource resourseBFont = new ClassPathResource(
 			"net/sf/jasperreports/fonts/dejavu/DejaVuSansMono.ttf");
@@ -320,6 +337,7 @@ public final class ReportsMVCController {
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
 	private JasperReport drive_report_for_seatReport;
+	private JasperReport division_balance1Report;
 
 	{
 
@@ -384,7 +402,11 @@ public final class ReportsMVCController {
 					.getFile().getAbsolutePath());
 
 			drive_report_for_seatReport = JasperCompileManager
-					.compileReport(drive_report_for_seatTicket.getFile()
+					.compileReport(resourceDrive_report_for_seatTicket
+							.getFile().getAbsolutePath());
+
+			division_balance1Report = JasperCompileManager
+					.compileReport(resourceDivision_balance1Report.getFile()
 							.getAbsolutePath());
 
 		} catch (JRException e) {
@@ -505,13 +527,9 @@ public final class ReportsMVCController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", format);
 
-		parameterMap.put("CAPTION_PARAMETR", "№"
-				+ race.getId()
-				+ " "
-				+ race.getBusRoute().getKeyName()
-				+ " время: "
-				+ (new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", new Locale(
-						"ru")).format(race.getdTime())));
+		parameterMap.put("CAPTION_PARAMETR",
+				"№" + race.getId() + " " + race.getBusRoute().getKeyName()
+						+ " время: " + dateFormat.format(race.getdTime()));
 
 		// Формирование набора данных
 		List<Order> list = orderService.findOrdersBySeatNum(race);
@@ -525,6 +543,76 @@ public final class ReportsMVCController {
 				drive_report_for_seatReport, parameterMap, JRdataSource,
 				request, response);
 
+	}
+
+	/**
+	 * Отчет водителя - форма 1
+	 * 
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/drive_report_form_1/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	public void generateDrive_report_form1(@PathVariable Long id,
+			@PathVariable String file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+	}
+
+	/**
+	 * Отчет по операциям подразделения
+	 * 
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/division_balance/{id:.*}/{bDate:.*}/{eDate:.*}/{file:.*}", method = RequestMethod.GET)
+	public void generateDivision_balance(@PathVariable Long id,
+			@PathVariable Long bDate, @PathVariable Long eDate,
+			@PathVariable String file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		Division division = divisionService.find(id);
+
+		// Параметры отчета
+		// Формат вывода
+		String format = file.substring(file.lastIndexOf(".") + 1);
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", format);
+
+		Number divCassBalance = orderService
+				.findOrdersDivisionBalance(division);
+		Number divBalance = balanceService.getBalance(division);
+
+		parameterMap.put("div_cass_balance", divCassBalance);
+		parameterMap.put("div_balance", divBalance);
+
+		Date bdate = new Date((new Date()).getTime() - 1000 * 24 * 24 * 60 * 30);
+
+		Date edate = new Date();
+
+		parameterMap.put("CAPTION_PARAMETR",
+				"Отчет по операциям организации " + division.getKeyName()
+						+ "  за период с " + dateFormat.format(bdate) + " по  "
+						+ dateFormat.format(edate));
+
+		// Формирование набора данных
+		List<Object[]> list = orderService.findOrdersForDateAndDivisionO(
+				division, bdate, edate);
+
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		// Compile the report
+		// OUT
+		renderReport(format, "division_balance1_" + id,
+				division_balance1Report, parameterMap, JRdataSource, request,
+				response);
 	}
 
 }
