@@ -2,7 +2,9 @@ package pk.home.busterminal.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -458,6 +460,8 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(readOnly = true)
 	public List<Order> findOrdersForDateAndDivision(Division division,
 			Date bDate, Date eDate) throws Exception {
+		
+
 
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 
@@ -507,6 +511,9 @@ public class OrderService extends ABaseService<Order> {
 	public List<Object[]> findOrdersForDateAndDivisionO(Division division,
 			Date bDate, Date eDate) throws Exception {
 
+		
+		
+		
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 
 		CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
@@ -571,6 +578,8 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(readOnly = true)
 	public Number findOrdersForDateAndDivisionBalance(Division division,
 			Date bDate, Date eDate) throws Exception {
+		
+
 
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 

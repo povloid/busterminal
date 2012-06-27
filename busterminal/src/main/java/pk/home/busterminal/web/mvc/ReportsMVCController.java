@@ -12,7 +12,9 @@ import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -596,12 +598,22 @@ public final class ReportsMVCController {
 
 		Date bdate = new Date(bDate);
 
-		Date edate = new Date(eDate + 1000 * 24 * 24 * 60);
+		Date edate = new Date(eDate);
 
 		parameterMap.put("CAPTION_PARAMETR", "Отчет по операциям организации "
 				+ division.getKeyName() + "  за период с "
 				+ dateFormatShortDate.format(bdate) + " по  "
 				+ dateFormatShortDate.format(edate));
+		
+		
+		Calendar c = new GregorianCalendar();
+		c.setTime(edate);
+		c.clear( Calendar.HOUR_OF_DAY );
+		c.clear( Calendar.MINUTE );
+		c.clear( Calendar.SECOND );
+		c.clear( Calendar.MILLISECOND );
+		c.add(Calendar.DAY_OF_MONTH, 1);
+		edate = c.getTime();
 
 		// Формирование набора данных
 		List<Object[]> list = orderService.findOrdersForDateAndDivisionO(
