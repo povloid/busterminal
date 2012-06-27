@@ -27,5 +27,12 @@ public enum UserAuthoritys {
 
 	ROLE_USER_META_EDITOR, // Редактор метатегов
 
-	ROLE_VIEWER // Просмотр
+	ROLE_VIEWER, // Просмотр
+	
+	ROLE_REPORTS,
+	ROLE_REPORTS_DIVISION,
+	ROLE_REPORTS_DIVISION_BALANCE_F1,
+	
+	ROLE_REPORTS_DRIVER,
+	ROLE_REPORTS_DRIVER_FORM2
 }

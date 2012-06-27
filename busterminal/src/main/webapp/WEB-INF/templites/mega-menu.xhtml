@@ -115,8 +115,7 @@
 			</p:submenu>
 		</sec:authorize>
 
-		<sec:authorize
-			ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB,ROLE_RB_TRANSPORT,ROLE_RB_PATH,ROLE_RB_ORGANIZATION,ROLE_RB_CUSTOMER">
+		<sec:authorize ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_RB">
 			<p:submenu label="Справочники" icon="ui-icon-pencil">
 				<p:column>
 
@@ -169,6 +168,32 @@
 					<p:graphicImage value="/images/books/book_library.png" width="200" />
 				</p:column>
 
+			</p:submenu>
+		</sec:authorize>
+
+		<sec:authorize ifAnyGranted="ROLE_SUPERUSER,ROLE_ADMIN,ROLE_REPORTS">
+			<p:submenu label="Отчеты" icon="ui-icon-pencil">
+				<p:column>
+					<sec:authorize ifAnyGranted="ROLE_REPORTS_DIVISION">
+							<p:submenu label="Отделения">
+							<sec:authorize ifAnyGranted="ROLE_REPORTS_DIVISION_BALANCE_F1">
+								<p:menuitem value="Отчет по операциям (форма 1)"
+									icon="ui-icon docs16" url="/mvc/wfreport/division_balance_f1" />
+							</sec:authorize>
+						</p:submenu>
+					</sec:authorize>
+					
+					<sec:authorize ifAnyGranted="ROLE_REPORTS_DRIVER">
+							<p:submenu label="Отделения">
+							<sec:authorize ifAnyGranted=ROLE_REPORTS_DRIVER_FORM2>
+								<p:menuitem value="Список пассажиров (форма 2)"
+									icon="ui-icon docs16" url="/mvc/wfreport/division_balance_f1" />
+							</sec:authorize>
+						</p:submenu>
+					</sec:authorize>
+					
+					
+				</p:column>
 			</p:submenu>
 		</sec:authorize>
 
