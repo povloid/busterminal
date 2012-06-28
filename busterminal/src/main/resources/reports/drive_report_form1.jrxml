@@ -75,7 +75,21 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band/>
+			<band height="12">
+				<textField>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="12" backcolor="#FFFFFF"/>
+					<box leftPadding="2" rightPadding="2">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Всего: " + $V{Group2_COUNT} + " чел."]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupFooter>
 	</group>
 	<background>
