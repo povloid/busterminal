@@ -896,6 +896,22 @@ public class TestOrderService extends BaseTest {
 			System.out.println(e);
 			assertTrue(true);
 		}
+		
+		retOrder.setUserAccount(userAccount);
+		
+		
+		try {
+
+			retOrder = service.createTicketReturnOrder(retOrder);
+		
+
+			assertTrue("Допущена повторная операция возврата билета", false);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			assertTrue(true);
+		}
+		
 
 	}
 

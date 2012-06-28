@@ -219,7 +219,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{order.seat.num}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement stretchType="RelativeToBandHeight" x="80" y="0" width="180" height="12"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="0.5"/>
@@ -252,7 +252,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[(($F{order.customer.pfone1}) != null ? $F{order.customer.pfone1} : "") +" "+(($F{order.customer.pfone2}) != null ? $F{order.customer.pfone2} : "")+" "+(($F{order.customer.pfone3}) != null ? $F{order.customer.pfone3} : "")+" "+(($F{order.customer.pfone4}) != null ? $F{order.customer.pfone4} : "")]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement stretchType="RelativeToBandHeight" x="342" y="0" width="29" height="12"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="0.5"/>
@@ -263,7 +263,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[($F{order.customer.sex} == pk.home.busterminal.domain.Sex.MAN ? "муж." : "") + ($F{order.customer.sex} == pk.home.busterminal.domain.Sex.WOMAN ? "жен." : "")]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="dd.MM.yyyy" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="371" y="0" width="58" height="12"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="0.5"/>
@@ -274,7 +274,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{order.customer.bDate}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd.MM.yyyy">
+			<textField isStretchWithOverflow="true" pattern="dd.MM.yyyy">
 				<reportElement stretchType="RelativeToBandHeight" x="429" y="0" width="126" height="12"/>
 				<box leftPadding="2" rightPadding="2">
 					<leftPen lineWidth="0.5"/>
