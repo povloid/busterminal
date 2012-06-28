@@ -20,13 +20,13 @@
 
 	<h:outputText value="Экспорт"></h:outputText>
 	<p:commandButton icon="ui-icon html16" value="HTML" ajax="true"
-		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.html', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); " />
+		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}/#{cc.attrs.purl}/#{cc.attrs.filename}.html', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); " />
 	<p:commandButton icon="ui-icon pdf16" value="PDF" ajax="true"
-		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.pdf', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); " />
+		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}/#{cc.attrs.purl}/#{cc.attrs.filename}.pdf', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); " />
 	<p:button icon="ui-icon excel16" value="XLS" ajax="true"
-		href="/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.xls" />
+		href="/mvc/report/#{cc.attrs.report}/#{cc.attrs.purl}/#{cc.attrs.filename}.xls" />
 	<p:commandButton icon="ui-icon text16" value="CSV" ajax="true"
-		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}#{cc.attrs.purl}#{cc.attrs.filename}.csv', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); " />
+		onclick="window.open ('#{request.contextPath}/mvc/report/#{cc.attrs.report}/#{cc.attrs.purl}/#{cc.attrs.filename}.csv', '#{cc.attrs.filename}', 'height=#{cc.attrs.height},width=#{cc.attrs.width}'); " />
 
 </cc:implementation>
 </html>

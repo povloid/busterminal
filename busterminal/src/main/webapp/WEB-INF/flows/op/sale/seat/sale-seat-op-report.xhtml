@@ -43,7 +43,7 @@
 					Операция проведена успешно
 				</h:panelGrid>
 
-				<bt:report report="ticket" purl="/#{oPSaleSeatWFControl.order.id}/"
+				<bt:report report="ticket" purl="#{oPSaleSeatWFControl.order.id}"
 					filename="ticket_#{oPSaleSeatWFControl.order.id}" />
 
 				<p:commandButton action="ok" value="Далее"></p:commandButton>
