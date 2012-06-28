@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="driver_form2">
 
-	<secured attributes="ROLE_REPORTS_DRIVER_FORM1" />
+	<secured attributes="ROLE_REPORTS_DRIVER_FORM2" />
 
 	<var name="rPTDriverForm2WFControl"
 		class="pk.home.busterminal.web.jsf.webflow.RPTDriverForm2WFControl" />

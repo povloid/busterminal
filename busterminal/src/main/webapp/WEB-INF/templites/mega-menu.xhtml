@@ -185,9 +185,13 @@
 
 					<sec:authorize ifAnyGranted="ROLE_REPORTS_DRIVER">
 						<p:submenu label="Водитель">
+							<sec:authorize ifAnyGranted="ROLE_REPORTS_DRIVER_FORM1">
+								<p:menuitem value="Сп. пассаж. (ф1)" 
+									icon="ui-icon docs16" url="/mvc/wfreport/driver_form1" />
+							</sec:authorize>
 							<sec:authorize ifAnyGranted="ROLE_REPORTS_DRIVER_FORM2">
 								<p:menuitem value="Сп. пассаж. (ф2)" 
-									icon="ui-icon docs16" url="/mvc/wfreport/division_balance_f1" />
+									icon="ui-icon docs16" url="/mvc/wfreport/driver_form2" />
 							</sec:authorize>
 						</p:submenu>
 					</sec:authorize>
