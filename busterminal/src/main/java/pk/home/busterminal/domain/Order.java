@@ -31,6 +31,9 @@ public class Order implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Version
+	private int version;
+
 	@Column(nullable = false)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +41,9 @@ public class Order implements Serializable {
 
 	@ManyToOne
 	private Order previousOrder; // Предшествующий ордер
+
+	@OneToOne
+	private Order tailEndOrder;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -190,6 +196,18 @@ public class Order implements Serializable {
 
 		if (orderType != null && orderType == OrderType.TICKET_RETURN
 				&& previousOrder != null) {
+
+			if (previousOrder.getTailEndOrder() != null) {
+				Order ot = previousOrder.getTailEndOrder();
+				while (ot != null) {
+					if (ot.getOrderType() == OrderType.TICKET_RETURN) {
+						throw new Exception(
+								"Повторно осуществить возврат нельзя! Ранее уже был произведен возврат по ордеру №"
+										+ ot.getId());
+					}
+					ot = ot.getPreviousOrder();
+				}
+			}
 
 			if (seat != null && !seat.equals(previousOrder.getSeat()))
 				throw new Exception(
@@ -408,6 +426,22 @@ public class Order implements Serializable {
 
 	public void setItems(List<Items> items) {
 		this.items = items;
+	}
+
+	public Order getTailEndOrder() {
+		return tailEndOrder;
+	}
+
+	public void setTailEndOrder(Order tailEndOrder) {
+		this.tailEndOrder = tailEndOrder;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

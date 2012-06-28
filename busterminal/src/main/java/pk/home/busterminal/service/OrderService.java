@@ -268,6 +268,10 @@ public class OrderService extends ABaseService<Order> {
 			itemsService.remove(items);
 		}
 
+		order.setTailEndOrder(o);
+		order.getItems().clear();
+		order = super.merge(order);
+
 		return o;
 	}
 
