@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
+
+<ui:composition template="/WEB-INF/templites/templite.xhtml">
+	<ui:define name="title">
+        Список пассажиров (форма 1)
+    </ui:define>
+
+	<ui:define name="header_icon">
+		<img src="#{request.contextPath}/images/icons/docs_24.png"></img>
+	</ui:define>
+
+	<ui:define name="header">
+        Список пассажиров (форма 1) 
+    </ui:define>
+
+	<ui:define name="content">
+
+		<h:form>
+			<p:growl id="msgs" showDetail="true" />
+			<p:messages showDetail="true" autoUpdate="true" />
+
+			<p:panel header="Параметры запроса">
+
+				<h:panelGrid columns="2">
+					<h:outputText value="Рейс:"></h:outputText>
+					<h:panelGrid columns="2">
+						<h:outputText
+							value="#{rPTDriverForm1WFControl.race.id} #{rPTDriverForm1WFControl.race.dTime} #{rPTDriverForm1WFControl.race.busRoute.keyName}"></h:outputText>
+						<p:commandButton value="Выбрать" action="selectRace"></p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<p:commandButton value="Сформировать"
+					action="#{rPTDriverForm1WFControl.makeReport}"></p:commandButton>
+
+			</p:panel>
+
+			<h:panelGroup rendered="#{rPTDriverForm1WFControl.purl != null}">
+				<bt:report report="driver_form1"
+					purl="#{rPTDriverForm1WFControl.purl}"
+					filename="#{rPTDriverForm1WFControl.filename}" />
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
+        footer
+    </ui:define>
+</ui:composition>
+</html>

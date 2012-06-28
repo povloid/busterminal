@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -20,6 +21,7 @@ import pk.home.busterminal.dao.RaceDAO;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.BusRoute;
+import pk.home.busterminal.domain.BusRoute_;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
@@ -293,6 +295,97 @@ public class RaceService extends ABaseService<Race> {
 
 		Query q = raceDAO.getEntityManager().createQuery(cq);
 		return ((Long) q.getSingleResult()).longValue();
+	}
+
+	/**
+	 * Выборка
+	 * 
+	 * @param firstResult
+	 * @param maxResults
+	 * @param sortOrderType
+	 * @param sortField
+	 * @param id
+	 * @param keyName
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public List<Race> select(int firstResult, int maxResults,
+			SortOrderType sortOrderType, String sortField, Long id,
+			String keyName) throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Race> cq = cb.createQuery(Race.class);
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		if (id != null) {
+			criteria.add(cb.equal(t.get(Race_.id), id));
+		}
+
+		if (keyName != null) {
+			criteria.add(cb.like(t.get(Race_.busRoute).get(BusRoute_.keyName),
+					keyName + "%"));
+		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		SingularAttribute<Race, ?> orderByAttribute = null;
+		// Сортировка
+		if (sortField != null)
+			if (sortField.equals("id")) {
+				orderByAttribute = Race_.id;
+			} else if (sortField.equals("busRoute.keyName")) {
+				
+				orderByAttribute = null;
+				
+				if (sortOrderType == SortOrderType.ASC)
+					cq.orderBy(cb.asc(t.get(Race_.busRoute).get(
+							BusRoute_.keyName)));
+				else if (sortOrderType == SortOrderType.DESC)
+					cq.orderBy(cb.desc(t.get(Race_.busRoute).get(
+							BusRoute_.keyName)));
+			}
+
+		return raceDAO.getAllEntities(firstResult, maxResults,
+				orderByAttribute, sortOrderType, cb, cq, t);
+
+	}
+
+	/**
+	 * Выборка сколько всего строк
+	 * 
+	 * @param id
+	 * @param keyName
+	 * @return
+	 * @throws Exception
+	 */
+	public long selectCount(Long id, String keyName) throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object> cq = cb.createQuery(Object.class);
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		if (id != null) {
+			criteria.add(cb.equal(t.get(Race_.id), id));
+		}
+
+		if (keyName != null) {
+			criteria.add(cb.like(t.get(Race_.busRoute).get(BusRoute_.keyName),
+					keyName + "%"));
+		}
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		return raceDAO.count(t, cq);
+
 	}
 
 }

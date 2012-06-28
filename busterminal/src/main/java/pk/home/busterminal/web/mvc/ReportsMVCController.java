@@ -344,8 +344,8 @@ public final class ReportsMVCController {
 
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
-	private JasperReport drive_report_form2;
-	private JasperReport drive_report_form1;
+	private JasperReport driver_form2Report;
+	private JasperReport driver_form1Report;
 	private JasperReport division_balance1Report;
 
 	{
@@ -410,11 +410,11 @@ public final class ReportsMVCController {
 			ticketReport = JasperCompileManager.compileReport(resourceTicket
 					.getFile().getAbsolutePath());
 
-			drive_report_form2 = JasperCompileManager
+			driver_form2Report = JasperCompileManager
 					.compileReport(resourceDrive_report_form2.getFile()
 							.getAbsolutePath());
 
-			drive_report_form1 = JasperCompileManager
+			driver_form1Report = JasperCompileManager
 					.compileReport(resourceDrive_report_form1.getFile()
 							.getAbsolutePath());
 
@@ -526,7 +526,7 @@ public final class ReportsMVCController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/drive_report_form2/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/driver_form2/{id:.*}/{file:.*}", method = RequestMethod.GET)
 	public void generateDrive_report_for_seat(@PathVariable Long id,
 			@PathVariable String file, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -553,7 +553,7 @@ public final class ReportsMVCController {
 		// Compile the report
 		// OUT
 		renderReport(format, "drive_report_for_seat_race_" + id,
-				drive_report_form2, parameterMap, JRdataSource, request,
+				driver_form2Report, parameterMap, JRdataSource, request,
 				response);
 
 	}
@@ -567,7 +567,7 @@ public final class ReportsMVCController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/drive_report_form1/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/driver_form1/{id:.*}/{file:.*}", method = RequestMethod.GET)
 	public void generateDrive_report_form1(@PathVariable Long id,
 			@PathVariable String file, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -595,7 +595,7 @@ public final class ReportsMVCController {
 		// Compile the report
 		// OUT
 		renderReport(format, "drive_report_form1_race_" + id,
-				drive_report_form1, parameterMap, JRdataSource, request,
+				driver_form1Report, parameterMap, JRdataSource, request,
 				response);
 
 	}
