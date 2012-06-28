@@ -80,7 +80,8 @@ public class TestReportsSelects {
 		for (FindOrdersOrderByBusRouteStopsResult r : listo) {
 			System.out.println(r.getBusRouteStop().getOrId() + " "
 					+ r.getBusRouteStop().getBusStop().getKeyName() + " "
-					+ r.getgOrder() + " --- " + r.getpOrder());
+					+ r.getTypeCaption() + "  >>> "
+					+ r.getOrder().getId());
 		}
 
 		System.out.println(listo.size());

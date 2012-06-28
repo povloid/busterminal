@@ -2,9 +2,7 @@ package pk.home.busterminal.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -313,45 +311,20 @@ public class OrderService extends ABaseService<Order> {
 	 */
 	public class FindOrdersOrderByBusRouteStopsResult {
 
-		BusRouteStop BusRouteStop;
+		BusRouteStop busRouteStop;
 
 		private String type;
 		private String typeCaption;
 
-		Order gOrder;
-		Order pOrder;
+		private Order order;
 
 		public FindOrdersOrderByBusRouteStopsResult(
 				pk.home.busterminal.domain.BusRouteStop busRouteStop,
 				String type, String typeCaption) {
 			super();
-			BusRouteStop = busRouteStop;
+			this.busRouteStop = busRouteStop;
 			this.type = type;
 			this.typeCaption = typeCaption;
-		}
-
-		public Order getgOrder() {
-			return gOrder;
-		}
-
-		public void setgOrder(Order gOrder) {
-			this.gOrder = gOrder;
-		}
-
-		public Order getpOrder() {
-			return pOrder;
-		}
-
-		public void setpOrder(Order pOrder) {
-			this.pOrder = pOrder;
-		}
-
-		public BusRouteStop getBusRouteStop() {
-			return BusRouteStop;
-		}
-
-		public void setBusRouteStop(BusRouteStop busRouteStop) {
-			BusRouteStop = busRouteStop;
 		}
 
 		public String getType() {
@@ -368,6 +341,22 @@ public class OrderService extends ABaseService<Order> {
 
 		public void setTypeCaption(String typeCaption) {
 			this.typeCaption = typeCaption;
+		}
+
+		public Order getOrder() {
+			return order;
+		}
+
+		public void setOrder(Order order) {
+			this.order = order;
+		}
+
+		public BusRouteStop getBusRouteStop() {
+			return busRouteStop;
+		}
+
+		public void setBusRouteStop(BusRouteStop busRouteStop) {
+			this.busRouteStop = busRouteStop;
 		}
 
 	}
@@ -430,7 +419,7 @@ public class OrderService extends ABaseService<Order> {
 				if (o.getBusRouteStopA().equals(brs)) {
 					FindOrdersOrderByBusRouteStopsResult foobb = new FindOrdersOrderByBusRouteStopsResult(
 							brs, "get", "Посадка");
-					foobb.setgOrder(o);
+					foobb.setOrder(o);
 					rlist.add(foobb);
 				}
 			}
@@ -438,8 +427,8 @@ public class OrderService extends ABaseService<Order> {
 			for (Order o : orders) {
 				if (o.getBusRouteStopB().equals(brs)) {
 					FindOrdersOrderByBusRouteStopsResult foobb = new FindOrdersOrderByBusRouteStopsResult(
-							brs, "get", "Высадка");
-					foobb.setpOrder(o);
+							brs, "put", "Высадка");
+					foobb.setOrder(o);
 					rlist.add(foobb);
 				}
 			}
@@ -460,8 +449,6 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(readOnly = true)
 	public List<Order> findOrdersForDateAndDivision(Division division,
 			Date bDate, Date eDate) throws Exception {
-		
-
 
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 
@@ -511,9 +498,6 @@ public class OrderService extends ABaseService<Order> {
 	public List<Object[]> findOrdersForDateAndDivisionO(Division division,
 			Date bDate, Date eDate) throws Exception {
 
-		
-		
-		
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 
 		CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
@@ -531,10 +515,8 @@ public class OrderService extends ABaseService<Order> {
 								OrderType.TICKET_SALE),
 						cb.between(it.get(Order_.opTime), bDate, eDate));
 
-		cq.multiselect(t.get(Order_.id), 
-				t.get(Order_.opTime),
-				t.get(Order_.orderType), 
-				t.get(Order_.race).get(Race_.id),
+		cq.multiselect(t.get(Order_.id), t.get(Order_.opTime),
+				t.get(Order_.orderType), t.get(Order_.race).get(Race_.id),
 				t.get(Order_.race).get(Race_.busRoute).get(BusRoute_.keyName),
 				t.get(Order_.seat).get(Seat_.num),
 				t.get(Order_.customer).get(Customer_.fName),
@@ -578,8 +560,6 @@ public class OrderService extends ABaseService<Order> {
 	@Transactional(readOnly = true)
 	public Number findOrdersForDateAndDivisionBalance(Division division,
 			Date bDate, Date eDate) throws Exception {
-		
-
 
 		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
 

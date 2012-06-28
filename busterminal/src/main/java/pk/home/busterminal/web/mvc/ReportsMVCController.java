@@ -51,6 +51,7 @@ import pk.home.busterminal.service.BalanceService;
 import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.OrderService;
 import pk.home.busterminal.service.RaceService;
+import pk.home.busterminal.service.OrderService.FindOrdersOrderByBusRouteStopsResult;
 import pk.home.libs.combine.fileutils.FileUtils;
 
 /**
@@ -329,7 +330,7 @@ public final class ReportsMVCController {
 	private ClassPathResource resourceTicket = new ClassPathResource(
 			"reports/ticket.jrxml");
 
-	private ClassPathResource resourceDrive_report_for_seatTicket = new ClassPathResource(
+	private ClassPathResource resourceDrive_report_form2 = new ClassPathResource(
 			"reports/drive_report_for_seat.jrxml");
 
 	private ClassPathResource resourceDivision_balance1Report = new ClassPathResource(
@@ -338,9 +339,13 @@ public final class ReportsMVCController {
 	private ClassPathResource resourseBFont = new ClassPathResource(
 			"net/sf/jasperreports/fonts/dejavu/DejaVuSansMono.ttf");
 
+	private ClassPathResource resourceDrive_report_form1 = new ClassPathResource(
+			"reports/drive_report_form1.jrxml");
+
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
-	private JasperReport drive_report_for_seatReport;
+	private JasperReport drive_report_form2;
+	private JasperReport drive_report_form1;
 	private JasperReport division_balance1Report;
 
 	{
@@ -405,9 +410,13 @@ public final class ReportsMVCController {
 			ticketReport = JasperCompileManager.compileReport(resourceTicket
 					.getFile().getAbsolutePath());
 
-			drive_report_for_seatReport = JasperCompileManager
-					.compileReport(resourceDrive_report_for_seatTicket
-							.getFile().getAbsolutePath());
+			drive_report_form2 = JasperCompileManager
+					.compileReport(resourceDrive_report_form2.getFile()
+							.getAbsolutePath());
+
+			drive_report_form1 = JasperCompileManager
+					.compileReport(resourceDrive_report_form1.getFile()
+							.getAbsolutePath());
 
 			division_balance1Report = JasperCompileManager
 					.compileReport(resourceDivision_balance1Report.getFile()
@@ -517,7 +526,7 @@ public final class ReportsMVCController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/drive_report_for_seat/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/drive_report_form2/{id:.*}/{file:.*}", method = RequestMethod.GET)
 	public void generateDrive_report_for_seat(@PathVariable Long id,
 			@PathVariable String file, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -531,9 +540,9 @@ public final class ReportsMVCController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", format);
 
-		parameterMap.put("CAPTION_PARAMETR", "№" + race.getId() + " "
-				+ race.getBusRoute().getKeyName() + " время: "
-				+ dateFormatFullTime.format(race.getdTime()));
+		parameterMap.put("CAPTION_PARAMETR", "Рейс №" + race.getId()
+				+ " по маршруту " + race.getBusRoute().getKeyName()
+				+ " время: " + dateFormatFullTime.format(race.getdTime()));
 
 		// Формирование набора данных
 		List<Order> list = orderService.findOrdersBySeatNum(race);
@@ -544,8 +553,8 @@ public final class ReportsMVCController {
 		// Compile the report
 		// OUT
 		renderReport(format, "drive_report_for_seat_race_" + id,
-				drive_report_for_seatReport, parameterMap, JRdataSource,
-				request, response);
+				drive_report_form2, parameterMap, JRdataSource, request,
+				response);
 
 	}
 
@@ -558,10 +567,36 @@ public final class ReportsMVCController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/drive_report_form_1/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	@RequestMapping(value = "/drive_report_form1/{id:.*}/{file:.*}", method = RequestMethod.GET)
 	public void generateDrive_report_form1(@PathVariable Long id,
 			@PathVariable String file, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+
+		Race race = raceService.find(id);
+
+		// Параметры отчета
+		// Формат вывода
+		String format = file.substring(file.lastIndexOf(".") + 1);
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", format);
+
+		parameterMap.put("CAPTION_PARAMETR", "Рейс №" + race.getId()
+				+ " по маршруту " + race.getBusRoute().getKeyName()
+				+ " время: " + dateFormatFullTime.format(race.getdTime()));
+
+		// Формирование набора данных
+		List<FindOrdersOrderByBusRouteStopsResult> list = orderService
+				.findOrdersOrderByBusRouteStops(race);
+
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		// Compile the report
+		// OUT
+		renderReport(format, "drive_report_form1_race_" + id,
+				drive_report_form1, parameterMap, JRdataSource, request,
+				response);
 
 	}
 
@@ -602,16 +637,15 @@ public final class ReportsMVCController {
 
 		parameterMap.put("CAPTION_PARAMETR", "Отчет по операциям организации "
 				+ division.getKeyName() + "  за период с "
-				+ dateFormatShortDate.format(bdate) + " по  "
+				+ dateFormatShortDate.format(bdate) + " до "
 				+ dateFormatShortDate.format(edate));
-		
-		
+
 		Calendar c = new GregorianCalendar();
 		c.setTime(edate);
-		c.clear( Calendar.HOUR_OF_DAY );
-		c.clear( Calendar.MINUTE );
-		c.clear( Calendar.SECOND );
-		c.clear( Calendar.MILLISECOND );
+		c.clear(Calendar.HOUR_OF_DAY);
+		c.clear(Calendar.MINUTE);
+		c.clear(Calendar.SECOND);
+		c.clear(Calendar.MILLISECOND);
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		edate = c.getTime();
 
