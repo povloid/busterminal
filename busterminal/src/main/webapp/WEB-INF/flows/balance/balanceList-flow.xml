@@ -7,9 +7,18 @@
 
 	<secured attributes="ROLE_RB_ORGANIZATION" />
 
-	<var name="balanceViewControl" class="pk.home.busterminal.web.jsf.webflow.BalanceViewWFControl" />
+	<var name="balanceViewControl"
+		class="pk.home.busterminal.web.jsf.webflow.BalanceViewWFControl" />
+
+	<input name="divisionId" type="java.lang.Long" required="true" />
+	<input name="retUrl" type="java.lang.String" />
+
+
 
 	<view-state id="balanceList">
+		<on-entry>
+			<evaluate expression="balanceViewControl.findDivision(divisionId)" />
+		</on-entry>
 		<transition on="add" to="op">
 			<set name="flashScope.modes" value="'add'" type="java.lang.String" />
 			<set name="flashScope.ids" value="null" type="long" />
@@ -24,6 +33,8 @@
 			<set name="flashScope.ids" value="balanceViewControl.selected.id"
 				type="long" />
 		</transition>
+		
+		<transition on="end" to="end"></transition>
 	</view-state>
 
 
@@ -33,5 +44,19 @@
 
 		<transition to="balanceList" />
 	</subflow-state>
+
+
+
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+	</end-state>
 
 </flow>

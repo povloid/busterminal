@@ -1,7 +1,12 @@
 package pk.home.busterminal.service;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 import javax.transaction.NotSupportedException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +17,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import pk.home.busterminal.dao.BalanceDAO;
 import pk.home.busterminal.domain.Balance;
+import pk.home.busterminal.domain.Balance_;
 import pk.home.busterminal.domain.Division;
 import pk.home.libs.combine.dao.ABaseDAO;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
 
 /**
@@ -61,20 +68,54 @@ public class BalanceService extends ABaseService<Balance> {
 
 		return n != null ? n : 0;
 	}
-	
-	
+
 	/**
 	 * Баланс подразделения
+	 * 
 	 * @param division
 	 * @return
 	 * @throws Exception
 	 */
 	@Transactional(readOnly = true)
 	public Number getBalance(Division division) throws Exception {
-		Number n = (Number) balanceDAO
-				.executeQueryByNameSingleResultO("Balance.getAllBalanceForDivision", division);
+		Number n = (Number) balanceDAO.executeQueryByNameSingleResultO(
+				"Balance.getAllBalanceForDivision", division);
 
 		return n != null ? n : 0;
 	}
+
 	
+	
+	@Transactional(readOnly = true)
+	public List<Balance> getAllEntities(Division division, int firstResult,
+			int maxResults, SingularAttribute<Balance, ?> orderByAttribute,
+			SortOrderType sortOrder) throws Exception {
+
+		CriteriaBuilder cb = balanceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Balance> cq = cb.createQuery(Balance.class);
+		Root<Balance> t = cq.from(Balance.class);
+
+		// parent param ---------------------------------------
+		cq.where(cb.equal(t.get(Balance_.division), division));
+
+		return balanceDAO.getAllEntities(firstResult, maxResults,
+				orderByAttribute, sortOrder, cb, cq, t);
+	}
+
+	@Transactional(readOnly = true)
+	public long count(Division division) throws Exception {
+
+		CriteriaBuilder cb = balanceDAO.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Object> cq = balanceDAO.getEntityManager()
+				.getCriteriaBuilder().createQuery();
+		Root<Balance> rt = cq.from(Balance.class);
+
+		cq.where(cb.equal(rt.get(Balance_.division), division));
+
+		cq.select(balanceDAO.getEntityManager().getCriteriaBuilder().count(rt));
+
+		return (Long) balanceDAO.getSinleResult(cq);
+	}
+
 }

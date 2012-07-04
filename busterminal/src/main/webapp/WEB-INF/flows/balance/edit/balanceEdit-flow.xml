@@ -10,6 +10,7 @@
 	<var name="balanceEditWFControl" class="pk.home.busterminal.web.jsf.webflow.BalanceEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
+	<input name="divisionId" type="java.lang.Long" required="true" />
 	<input name="mode" required="true" type="java.lang.String" />
 	<input name="retUrl" type="java.lang.String" />
 

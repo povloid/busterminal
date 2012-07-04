@@ -36,9 +36,34 @@
 		<h:form id="form">
 
 			<p:growl id="msgs" showDetail="true" />
+			<p:messages showDetail="true" autoUpdate="true" />
+			<h:panelGroup>
+				<pk:pk_close_button action="end" />
+				<pk:pk_add_button_wf add_action="#{balanceViewControl.add}" />
+			</h:panelGroup>
 
-			<pk:pk_add_button_wf add_action="#{balanceViewControl.add}" />
+			<p:fieldset
+				legend="Отделение: #{balanceViewControl.division.keyName}"
+				toggleable="true" toggleSpeed="500" collapsed="true">
+				<h:panelGrid id="detail" columns="2">
 
+					<h:outputLabel value="KeyName:" />
+					<h:outputText value="#{balanceViewControl.division.keyName}" />
+
+					<h:outputLabel value="Description:" />
+					<h:outputText value="#{balanceViewControl.division.description}" />
+
+					<h:outputLabel value="Телефоны:" />
+					<h:outputText
+						value="#{balanceViewControl.division.pfone1} #{balanceViewControl.division.pfone2} #{balanceViewControl.division.pfone3} #{balanceViewControl.division.pfone4}" />
+
+					<h:outputLabel value="Адрес:" />
+					<h:outputText value="#{balanceViewControl.division.address}" />
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<br />
 			<p:dataTable id="table1" var="row"
 				value="#{balanceViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
