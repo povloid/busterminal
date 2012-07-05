@@ -33,7 +33,7 @@
 			<set name="flashScope.ids" value="balanceViewControl.selected.id"
 				type="long" />
 		</transition>
-		
+
 		<transition on="end" to="end"></transition>
 	</view-state>
 
@@ -41,6 +41,7 @@
 	<subflow-state id="op" subflow="balance/edit">
 		<input name="mode" value="modes" />
 		<input name="id" value="ids" />
+		<input name="divisionId" value="divisionId" />
 
 		<transition to="balanceList" />
 	</subflow-state>

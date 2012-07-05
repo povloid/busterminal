@@ -36,12 +36,15 @@
 					<h:outputText value="#{balanceEditWFControl.edited.id}"
 						rendered="#{balanceEditWFControl.edited.id != null}" />
 
-					<h:outputLabel value="Description:" />
+					<h:outputLabel value="Сумма: " />
+					<p:spinner value="#{balanceEditWFControl.edited.actualSumm}" />
+
+					<h:outputLabel value="Примечания по операции:" />
 					<p:inputTextarea readonly="#{del}"
 						value="#{balanceEditWFControl.edited.description}"
 						style="width:300px;height:100px;" title="Description" />
-						
-			
+
+
 				</h:panelGrid>
 
 				<br />
