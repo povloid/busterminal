@@ -7,6 +7,7 @@ import pk.home.busterminal.domain.BalanceType;
 import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.service.BalanceService;
 import pk.home.busterminal.service.DivisionService;
+import pk.home.busterminal.service.OrderService;
 import pk.home.busterminal.web.jsf.security.TerminalCurrentUser;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
@@ -27,6 +28,10 @@ public class BalanceEditWFControl extends AWFControl<Balance, Long> implements
 
 	public DivisionService getDivisionService() {
 		return (DivisionService) findBean("divisionService");
+	}
+
+	public OrderService getOrderService() {
+		return (OrderService) findBean("orderService");
 	}
 
 	private Division division;
@@ -56,7 +61,7 @@ public class BalanceEditWFControl extends AWFControl<Balance, Long> implements
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		edited.setBalanceType(BalanceType.valueOf(type));
- 
+
 		edited = getBalanceService().persist(edited);
 	}
 
@@ -73,6 +78,14 @@ public class BalanceEditWFControl extends AWFControl<Balance, Long> implements
 	}
 
 	private String type = "PLUS";
+
+	public Number getOrderBalance() throws Exception {
+		return getOrderService().findOrdersDivisionBalance(division);
+	}
+
+	public Number getBalance() throws Exception {
+		return getBalanceService().getBalance(division);
+	}
 
 	// init
 	// ----------------------------------------------------------------------------------------------

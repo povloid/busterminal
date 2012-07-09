@@ -8,6 +8,7 @@ import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Division_;
 import pk.home.busterminal.service.BalanceService;
 import pk.home.busterminal.service.DivisionService;
+import pk.home.busterminal.service.OrderService;
 import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
@@ -23,6 +24,10 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
 
 	public DivisionService getDivisionService() {
 		return (DivisionService) findBean("divisionService");
+	}
+
+	public OrderService getOrderService() {
+		return (OrderService) findBean("orderService");
 	}
 
 	public BalanceService getBalanceService() {
@@ -50,6 +55,20 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
 
 	public Number getBalance(Division division) throws Exception {
 		return getBalanceService().getBalance(division);
+	}
+
+	public Number getOrderBalance(Division division) throws Exception {
+		return getOrderService().findOrdersDivisionBalance(division);
+	}
+
+	public Number getBalanceSumm(Division division) throws Exception {
+		try {
+			return getBalanceService().getBalance(division).doubleValue()
+					- getOrderService().findOrdersDivisionBalance(division)
+							.doubleValue();
+		} catch (NullPointerException ex) {
+			return 0;
+		}
 	}
 
 	public String add() {

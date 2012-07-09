@@ -77,8 +77,16 @@
 					<h:outputText value="#{row.description}" />
 				</p:column>
 
-				<p:column headerText="Баланс">
+				<p:column headerText="Продано на сумму" style="text-align: right">
+					<h:outputText value="#{divisionViewControl.getOrderBalance(row)}" />
+				</p:column>
+
+				<p:column headerText="Баланс" style="text-align: right">
 					<h:outputText value="#{divisionViewControl.getBalance(row)}" />
+				</p:column>
+
+				<p:column headerText="Итог" style="text-align: right">
+					<h:outputText value="#{divisionViewControl.getBalanceSumm(row)}" />
 				</p:column>
 
 				<p:column headerText="Действие"

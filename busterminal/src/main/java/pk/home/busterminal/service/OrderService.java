@@ -639,8 +639,9 @@ public class OrderService extends ABaseService<Order> {
 		));
 
 		TypedQuery<BigDecimal> q = orderDAO.getEntityManager().createQuery(cq);
-		return q.getSingleResult();
+		Number n = q.getSingleResult();
 
+		return n != null ? n : 0;
 	}
 
 }

@@ -65,6 +65,23 @@
 			</p:fieldset>
 
 			<br />
+			<h:panelGrid columns="3" style="font-size: 150%;">
+				<h:panelGroup>
+					<h:outputText value="Продано билетов на сумму: " />
+					<h:outputText value="#{balanceViewControl.getOrderBalance()}"
+						style="font-weight:bolder" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:outputText value="Баланс организации: " />
+					<h:outputText value="#{balanceViewControl.getBalance()}"
+						style="font-weight:bolder" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:outputText value="и того: " />
+					<h:outputText value="#{balanceViewControl.getBalanceSumm()}"
+						style="font-weight:bolder" />
+				</h:panelGroup>
+			</h:panelGrid>
 			<p:dataTable id="table1" var="row"
 				value="#{balanceViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
@@ -79,7 +96,7 @@
 
 				</f:facet>
 
-	
+
 
 				<p:column>
 					<f:facet name="header">
@@ -100,9 +117,9 @@
 				</p:column>
 
 				<p:column headerText="тип">
-					<bt:balance_type row="#{row}"/>
+					<bt:balance_type row="#{row}" />
 				</p:column>
-				
+
 				<p:column headerText="сумма" style="text-align: right">
 					<h:outputText value="#{row.actualSumm}" />
 				</p:column>
