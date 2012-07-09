@@ -36,8 +36,16 @@
 					<h:outputText value="#{balanceEditWFControl.edited.id}"
 						rendered="#{balanceEditWFControl.edited.id != null}" />
 
+					<h:outputText value="Тип: " />
+					<p:selectOneButton value="#{balanceEditWFControl.type}"
+						required="true">
+						<f:selectItem itemLabel="+" itemValue="PLUS" />
+						<f:selectItem itemLabel="-" itemValue="MINUS" />
+					</p:selectOneButton>
+
 					<h:outputLabel value="Сумма: " />
-					<p:spinner value="#{balanceEditWFControl.edited.actualSumm}" />
+					<p:spinner value="#{balanceEditWFControl.edited.actualSumm}"
+						required="true" />
 
 					<h:outputLabel value="Примечания по операции:" />
 					<p:inputTextarea readonly="#{del}"

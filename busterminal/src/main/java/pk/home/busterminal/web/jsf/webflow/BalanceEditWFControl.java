@@ -56,7 +56,7 @@ public class BalanceEditWFControl extends AWFControl<Balance, Long> implements
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		edited.setBalanceType(BalanceType.valueOf(type));
-
+ 
 		edited = getBalanceService().persist(edited);
 	}
 

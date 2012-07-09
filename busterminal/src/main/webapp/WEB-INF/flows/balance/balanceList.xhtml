@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
@@ -78,7 +79,7 @@
 
 				</f:facet>
 
-
+	
 
 				<p:column>
 					<f:facet name="header">
@@ -89,8 +90,35 @@
 					<h:outputText value="#{row.id}" />
 				</p:column>
 
+				<p:column headerText="Время">
+					<h:panelGrid columns="2" styleClass="actions">
+						<h:graphicImage url="/images/icons/hist_16.png"></h:graphicImage>
+						<h:outputText value="#{row.opTime}">
+							<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+						</h:outputText>
+					</h:panelGrid>
+				</p:column>
+
+				<p:column headerText="тип">
+					<bt:balance_type row="#{row}"/>
+				</p:column>
+				
+				<p:column headerText="сумма" style="text-align: right">
+					<h:outputText value="#{row.actualSumm}" />
+				</p:column>
+
 				<p:column headerText="Описание">
 					<h:outputText value="#{row.description}" />
+				</p:column>
+
+
+				<p:column headerText="Пользователь">
+					<h:panelGrid columns="2" styleClass="actions">
+						<h:graphicImage url="/images/icons/user_16.png"></h:graphicImage>
+						<h:outputText value="#{row.userAccount.username}">
+
+						</h:outputText>
+					</h:panelGrid>
 				</p:column>
 
 				<p:column headerText="Действие"

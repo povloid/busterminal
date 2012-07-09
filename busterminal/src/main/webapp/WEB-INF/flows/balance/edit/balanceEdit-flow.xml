@@ -4,10 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="idAnalize">
-	
+
 	<secured attributes="ROLE_RB_ORGANIZATION" />
 
-	<var name="balanceEditWFControl" class="pk.home.busterminal.web.jsf.webflow.BalanceEditWFControl" />
+	<var name="balanceEditWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.BalanceEditWFControl" />
 
 	<input name="id" type="java.lang.Long" />
 	<input name="divisionId" type="java.lang.Long" required="true" />
@@ -18,6 +19,7 @@
 		<set name="flowScope.add" type="boolean" value="false" />
 		<set name="flowScope.edit" type="boolean" value="false" />
 		<set name="flowScope.del" type="boolean" value="false" />
+		<evaluate expression="balanceEditWFControl.findDivision(divisionId)" />
 	</on-start>
 
 
@@ -55,9 +57,9 @@
 
 	<view-state id="balanceEdit">
 		<on-entry>
-			<evaluate expression="balanceEditWFControl.init()"/>
+			<evaluate expression="balanceEditWFControl.init()" />
 		</on-entry>
-	
+
 		<transition on="end" to="end"></transition>
 
 		<transition on="addComplite" to="findEdited">
@@ -80,8 +82,8 @@
 
 	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
 	</end-state>
-	
-	
+
+
 	<end-state id="end0" view='externalRedirect:contextRelative:/'>
 	</end-state>
 </flow>

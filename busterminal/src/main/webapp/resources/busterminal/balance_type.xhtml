@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+<cc:interface>
+	<cc:attribute name="row" required="true" type="java.lang.Object" />
+</cc:interface>
+<cc:implementation>
+
+
+	<h:panelGrid rendered="#{cc.attrs.row.balanceType == 'PLUS'}"
+		columns="2" styleClass="actions">
+		<h:graphicImage url="/images/icons/add_16.png"></h:graphicImage>
+		<h:outputText value="Внос денег"></h:outputText>
+	</h:panelGrid>
+
+	<h:panelGrid rendered="#{cc.attrs.row.balanceType == 'MINUS'}"
+		columns="2" styleClass="actions">
+		<h:graphicImage url="/images/icons/remov_16.png"></h:graphicImage>
+		<h:outputText value="Снятие денег"></h:outputText>
+	</h:panelGrid>
+
+</cc:implementation>
+</html>
