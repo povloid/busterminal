@@ -20,7 +20,20 @@
 			<h:outputText value="#{cc.attrs.order.id}" />
 
 			<h:outputText value="тип:" />
-			<bt:order_type order="#{cc.attrs.order}"></bt:order_type>
+			<!--  bt:order_type order="#{cc.attrs.order}" id="order_type_#{cc.id}"></bt:order_type -->
+			<h:panelGroup>
+				<h:panelGrid rendered="#{cc.attrs.order.orderType == 'TICKET_SALE'}"
+					columns="2" styleClass="actions">
+					<h:graphicImage url="/images/icons/add_16.png"></h:graphicImage>
+					<h:outputText value="Продажа билета"></h:outputText>
+				</h:panelGrid>
+				<h:panelGrid
+					rendered="#{cc.attrs.order.orderType == 'TICKET_RETURN'}"
+					columns="2" styleClass="actions">
+					<h:graphicImage url="/images/icons/remov_16.png"></h:graphicImage>
+					<h:outputText value="Возвтрат билета"></h:outputText>
+				</h:panelGrid>
+			</h:panelGroup>
 
 			<h:outputText value="время операции:" />
 			<h:outputText value="#{cc.attrs.order.opTime}">
