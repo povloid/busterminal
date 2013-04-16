@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -53,7 +54,9 @@ public class SeatTypeIcons {
 	private static String foolIconsFolderPath;
 	private static Map<String, String> picsFiles = new HashMap<String, String>();
 
-	static {
+	
+	@PostConstruct
+	public void initStatic(){
 
 		// SecurityContextHolderAwareRequestWrapper request =
 		// (SecurityContextHolderAwareRequestWrapper) FacesContext

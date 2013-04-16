@@ -13,6 +13,7 @@ import pk.home.busterminal.domain.Division;
  * DAO class for entity class: Division
  * Division - отделение
  */
+
 @Repository
 @Transactional
 public class DivisionDAO extends ABaseDAO<Division> {
