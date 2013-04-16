@@ -128,6 +128,8 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 	}
 
 	public List<Bus> getBuses() {
+		
+		System.out.println(buses.size());
 		return buses;
 	}
 

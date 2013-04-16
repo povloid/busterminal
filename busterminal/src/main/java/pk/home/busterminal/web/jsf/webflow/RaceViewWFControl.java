@@ -36,7 +36,7 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 			orderByAttribute = Race_.dTime;
 		}
 
-		dataModel = getRaceService().getAllEntities((page - 1) * rows, rows,
+		dataModel = getRaceService().getAllEntities(Math.abs(page - 1) * rows, rows,
 				orderByAttribute, getSortOrderType());
 	}
 

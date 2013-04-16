@@ -87,6 +87,8 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		Date eDate = event.getDate();
 
 		findRaceModel2.setDate(new Date(eDate.getTime() + (days) * DAY));
+		
+		System.out.println(new Date(eDate.getTime() + (days) * DAY));
 	}
 
 	/**
@@ -203,9 +205,17 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		// get's and set's
 		// ----------------------------------------------------------
 
+		
+		
+		
 		public Date getDate() {
 			return date;
 		}
+
+		//@Override
+		//public void setRowIndex(int rowIndex) {
+		//	super.setRowIndex(rowIndex == 0 ? -1 : rowIndex);
+		//}
 
 		public void setDate(Date date) {
 			this.date = date;
@@ -219,6 +229,9 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 			this.busRoute = busRoute;
 		}
 
+		
+		
+		
 	}
 
 	// get's and set's

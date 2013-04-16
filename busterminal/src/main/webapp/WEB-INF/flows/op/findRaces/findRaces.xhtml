@@ -134,7 +134,7 @@
 
 
 				<p:dataTable var="row" value="#{findRaceWFControl.findRaceModel1}"
-					paginator="true" rows="10"
+					paginator="true" rows="10" lazy="true"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					rowsPerPageTemplate="5,10,15" id="findRaceModeltable1"
 					selectionMode="single" selection="#{findRaceWFControl.selected1}">
@@ -183,7 +183,7 @@
 
 
 				<p:dataTable var="row" value="#{findRaceWFControl.findRaceModel2}"
-					paginator="true" rows="10"
+					paginator="true" rows="10" lazy="true"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					rowsPerPageTemplate="5,10,15" id="findRaceModeltable2"
 					selectionMode="single" selection="#{findRaceWFControl.selected2}">

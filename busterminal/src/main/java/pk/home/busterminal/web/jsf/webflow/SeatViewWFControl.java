@@ -23,7 +23,11 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6473102880965154583L;
+
+	/**
+	 * 
+	 */
 
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
@@ -73,6 +77,8 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	private BssType bssType = BssType.TEMPLITE;
 
 	public void setBssType(String s) throws Exception {
+		System.out.println("s = " + s);
+		
 		if (s != null && s.trim().length() > 0) {
 			bssType = BssType.valueOf(s);
 		}
@@ -86,6 +92,8 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	private Long selectedSchemaId;
 
 	private void initBuses() throws Exception {
+		System.out.println("bssType = " + bssType);
+		
 		buses = getBusService().getAllEntities(bssType);
 
 	}
@@ -143,6 +151,7 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	// -----------------------------------------------------------------------------------------------------
 
 	public List<Bus> getBuses() {
+		System.out.println(buses.size());
 		return buses;
 	}
 

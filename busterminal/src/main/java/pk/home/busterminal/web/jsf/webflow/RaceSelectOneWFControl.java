@@ -63,8 +63,13 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 			} catch (Exception e) {
 			}
 
-			return getRaceService().select(first, pageSize, sortOrderType,
+			System.out.println("*");
+			
+			List<Race> l = getRaceService().select(first, pageSize, sortOrderType,
 					sortField, id, filters.get("busRoute.keyName"));
+			System.out.println(l.size());
+			
+			return l;
 		}
 
 		@Override
