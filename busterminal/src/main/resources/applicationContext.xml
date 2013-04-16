@@ -34,6 +34,7 @@
 	<context:component-scan base-package="pk.home.busterminal.dao" />
 	<context:component-scan base-package="pk.home.busterminal.service" />
 	<context:component-scan base-package="pk.home.busterminal.web.jsf"/>
+	<context:component-scan base-package="pk.home.busterminal.web.jsf.app"/>
 	
 <!-- 	<context:component-scan base-package="pk.home.vta.web.servlets"/> -->
 

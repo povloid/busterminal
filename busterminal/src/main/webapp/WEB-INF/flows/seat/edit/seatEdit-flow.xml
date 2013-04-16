@@ -14,14 +14,14 @@
 	<input name="mode" required="true" type="java.lang.String" />
 	<input name="retUrl" type="java.lang.String" />
 
-	<input name="blockXY" type="java.lang.Boolean" />
+	<input name="blockXY" type="boolean" />
 	<input name="sx" type="short" />
 	<input name="sy" type="short" />
 
 	<on-start>
-		<set name="flowScope.add" type="java.lang.Boolean" value="false" />
-		<set name="flowScope.edit" type="java.lang.Boolean" value="false" />
-		<set name="flowScope.del" type="java.lang.Boolean" value="false" />
+		<set name="flowScope.add" type="boolean" value="false" />
+		<set name="flowScope.edit" type="boolean" value="false" />
+		<set name="flowScope.del" type="boolean" value="false" />
 		<set name="seatEditWFControl.schemaId" type="long" value="schemaId" />
 	</on-start>
 
@@ -53,7 +53,7 @@
 			<set name="seatEditWFControl.edited.sx" type="short" value="sx" />
 			<set name="seatEditWFControl.edited.sy" type="short" value="sy" />
 		</on-entry>
-		<set name="seatEditWFControl.blockXY" type="java.lang.Boolean" value="blockXY" />
+		<set name="seatEditWFControl.blockXY" type="boolean" value="blockXY" />
 		<transition to="addEditDel">
 
 		</transition>

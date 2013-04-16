@@ -56,7 +56,7 @@
 	<subflow-state id="addNewSeat" subflow="seat/edit">
 		<input name="mode" value="'add'" type="java.lang.String" />
 		<input name="schemaId" value="schemaId" />
-		<input name="blockXY" type="java.lang.Boolean" value="true" />
+		<input name="blockXY" type="boolean" value="true" />
 		<input name="sx" type="short" value="sX" />
 		<input name="sy" type="short" value="sY" />
 

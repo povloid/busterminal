@@ -15,9 +15,9 @@
 	<input name="retUrl" type="java.lang.String" />
 
 	<on-start>
-		<set name="flowScope.add" type="java.lang.Boolean" value="false" />
-		<set name="flowScope.edit" type="java.lang.Boolean" value="false" />
-		<set name="flowScope.del" type="java.lang.Boolean" value="false" />
+		<set name="flowScope.add" type="boolean" value="false" />
+		<set name="flowScope.edit" type="boolean" value="false" />
+		<set name="flowScope.del" type="boolean" value="false" />
 		<evaluate expression="schemaEditWFControl.setSelectedBus(busId)"/>
 	</on-start>
 

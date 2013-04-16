@@ -1,12 +1,12 @@
 package pk.home.busterminal.web.jsf.app;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -16,7 +16,12 @@ import pk.home.busterminal.domain.SeatType;
 
 @ManagedBean(name = "seatTypeIcons")
 @ApplicationScoped
-public class SeatTypeIcons {
+public class SeatTypeIcons implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5041856025249530701L;
 
 	public static final String ICON_FOLDER = "/images/seats/";
 
@@ -51,12 +56,11 @@ public class SeatTypeIcons {
 	public static final String YELLOW_SEAT_256 = ICON_FOLDER
 			+ "op/seat_yellow_256.png";
 
-	private static String foolIconsFolderPath;
+	private static String foolIconsFolderPath = null;
 	private static Map<String, String> picsFiles = new HashMap<String, String>();
 
 	
-	@PostConstruct
-	public void initStatic(){
+	private static void initPath() {
 
 		// SecurityContextHolderAwareRequestWrapper request =
 		// (SecurityContextHolderAwareRequestWrapper) FacesContext
@@ -87,9 +91,24 @@ public class SeatTypeIcons {
 		picsFiles.put(YELLOW_SEAT_KEY, YELLOW_SEAT);
 
 	}
+	
+	
+	public SeatTypeIcons() {
+		super();
+		
+		if(foolIconsFolderPath == null)
+			initPath();
+	}
+	
+	
+	
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
+
+
+
+
 
 	public static String getFoolIconsFolderPath() {
 		return foolIconsFolderPath;
@@ -128,6 +147,7 @@ public class SeatTypeIcons {
 	 * @return
 	 */
 	public static String getIcon(String key) {
+		System.out.println(">>> getIcon(" + key + ") ");
 		return picsFiles.get(key);
 	}
 
