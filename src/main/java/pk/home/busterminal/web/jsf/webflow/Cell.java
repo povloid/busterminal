@@ -22,9 +22,15 @@ public class Cell implements Serializable {
 	 */
 	private static final long serialVersionUID = -7831224580870450169L;
 
-	short index = 1, x = 0, y = 0;
+	short index = 1, x = 0, y = 0;	// координаты ячейки
 	private Seat seat;
 
+	/**
+	 * Тип ячейки
+	 * 
+	 * @author povloid
+	 *
+	 */
 	public enum OP_TYPE {
 		BLOCK, SALE, ARMOR
 	}
@@ -47,6 +53,12 @@ public class Cell implements Serializable {
 		private int v;
 		private String text;
 
+		/**
+		 * конструктор
+		 * 
+		 * @param v
+		 * @param text
+		 */
 		public ProgressPoint(int v, String text) {
 			super();
 			this.v = v;
@@ -85,12 +97,28 @@ public class Cell implements Serializable {
 
 	}
 
+	
+	// прогресс как список точек
 	private List<ProgressPoint> progress = new ArrayList<ProgressPoint>();
 
+	/**
+	 * Добавить точку на прогресс
+	 * 
+	 * @param v
+	 * @param text
+	 */
 	public void addProgressPoint(int v, String text) {
 		progress.add(new ProgressPoint(v, text));
 	}
 
+	/**
+	 * Конструктор ячеки
+	 * 
+	 * @param previusCell
+	 * @param seat
+	 * @param x
+	 * @param y
+	 */
 	public Cell(Cell previusCell, Seat seat, short x, short y) {
 		this.index = (short) (previusCell == null ? index
 				: previusCell.index + 1);
@@ -100,8 +128,14 @@ public class Cell implements Serializable {
 		// icon = SeatTypeIcons.getIconFromSeat(seat, "_128.png");
 	}
 
-	private String icon;
+	private String icon;	// Icon
 
+	
+	/**
+	 * Получить связанную по текущему типу иконку
+	 * 
+	 * @return
+	 */
 	public String getIcon() {
 
 		// Отработка иконки для блокировки

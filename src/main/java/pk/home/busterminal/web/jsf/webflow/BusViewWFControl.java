@@ -10,6 +10,12 @@ import pk.home.busterminal.domain.Bus_;
 import pk.home.busterminal.service.BusService;
 import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
+/**
+ * Контрол для списка автобусов
+ * 
+ * @author povloid
+ *
+ */
 public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 		Serializable {
 
@@ -18,12 +24,26 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 	 */
 	private static final long serialVersionUID = -6872276756508162992L;
 
+	/**
+	 * Сервис управления автобусами
+	 * 
+	 * @return
+	 */
 	public BusService getBusService() {
 		return (BusService) findBean("busService");
 	}
 
+	/**
+	 * Тип автобуса
+	 */
 	private BssType bssType = BssType.TEMPLITE;
 	
+	/**
+	 * Установка типа автобуса из строкового значения
+	 * 
+	 * @param s
+	 * @throws Exception
+	 */
 	public void setBssType(String s) throws Exception
 	{
 		if(s != null && s.trim().length() > 0){
@@ -33,6 +53,9 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 
@@ -47,23 +70,46 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 				rows, orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
 		return getBusService().count(bssType);
 	}
 
+	/**
+	 * Добавить 
+	 * 
+	 * @return
+	 */
 	public String add() {
 		return "add";
 	}
 
+	/**
+	 * Редактировать 
+	 * 
+	 * @return
+	 */
 	public String edit() {
 		return "edit";
 	}
 
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del() {
 		return "del";
 	}
 
+	/**
+	 * Перейти на шаблон
+	 * 
+	 * @return
+	 */
 	public String busTempliteMaster() {
 		return "busTempliteMaster";
 	}

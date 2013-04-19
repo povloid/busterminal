@@ -11,6 +11,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
  * JSF view control class for entity class: Customer Customer - клиент
+ * 
+ * @author povloid
+ *
  */
 public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 		implements Serializable {
@@ -20,10 +23,18 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис управления клиентами
+	 * 
+	 * @return
+	 */
 	public CustomerService getCustomerService() {
 		return (CustomerService) findBean("customerService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 
@@ -44,19 +55,37 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 				rows, orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
 		return getCustomerService().count();
 	}
 
+	/**
+	 * ДОбавить
+	 * 
+	 * @return
+	 */
 	public String add() {
 		return "add";
 	}
 
+	/**
+	 * Редактировать 
+	 * 
+	 * @return
+	 */
 	public String edit() {
 		return "edit";
 	}
 
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del() {
 		return "del";
 	}

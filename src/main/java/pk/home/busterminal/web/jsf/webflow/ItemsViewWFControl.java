@@ -12,6 +12,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: Items
  * Items - запись ордера
+ * 
+ * @author povloid
+ *
  */
 public class ItemsViewWFControl extends AWFBaseLazyLoadTableView<Items> implements
 		Serializable {
@@ -21,10 +24,18 @@ public class ItemsViewWFControl extends AWFBaseLazyLoadTableView<Items> implemen
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис управления записями ордера (продаваемыми отрезками пути)
+	 * 
+	 * @return
+	 */
 	public ItemsService getItemsService() {
 		return (ItemsService) findBean("itemsService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -37,22 +48,39 @@ public class ItemsViewWFControl extends AWFBaseLazyLoadTableView<Items> implemen
 				orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {		
 		return getItemsService().count();
 	}
 	
 	
+	/**
+	 * Добавить
+	 * 
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактировать
+	 * 
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}
-	
 }

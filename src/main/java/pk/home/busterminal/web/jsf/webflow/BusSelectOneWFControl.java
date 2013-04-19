@@ -16,9 +16,21 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
+/**
+ * Контрол для выбора одного автобуса
+ * 
+ * @author povloid
+ *
+ */
 public class BusSelectOneWFControl extends AWFBasicControl implements
 		Serializable {
 
+	
+	/**
+	 * Сервис управления автобусами
+	 * 
+	 * @return
+	 */
 	public BusService getBusService() {
 		return (BusService) findBean("busService");
 	}
@@ -28,8 +40,14 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 	 */
 	private static final long serialVersionUID = -6986222423369826350L;
 
+	/**
+	 * Выбранный автобус
+	 */
 	private Bus selected;
 
+	/**
+	 * Ленивая модель для отображения списка автобусов
+	 */
 	private WFLazyDataModel<Bus> model = new WFLazyDataModel<Bus>() {
 
 		/**
@@ -37,6 +55,9 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 		 */
 		private static final long serialVersionUID = 4970282896915525138L;
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)
+		 */
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {
 			Long id = null;
@@ -49,6 +70,9 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 					filters.get("keyName"), filters.get("gosNum"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#aload(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
+		 */
 		@Override
 		protected List<Bus> aload(int first, int pageSize, String sortField,
 				SortOrder sortOrder, Map<String, String> filters)
@@ -69,6 +93,9 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 					filters.get("gosNum"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowData(java.lang.String)
+		 */
 		@Override
 		public Bus getRowData(String rowKey) {
 			for (Bus rd : getDataList()) {
@@ -78,6 +105,9 @@ public class BusSelectOneWFControl extends AWFBasicControl implements
 			return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowKey(java.lang.Object)
+		 */
 		@Override
 		public Object getRowKey(Bus object) {
 			return object.getId();

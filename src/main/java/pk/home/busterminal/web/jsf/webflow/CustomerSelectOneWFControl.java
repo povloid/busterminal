@@ -15,20 +15,35 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
+/**
+ * Контрол для выбора одного клиента
+ * 
+ * 
+ * @author povloid
+ *
+ */
 public class CustomerSelectOneWFControl extends AWFBasicControl implements
 		Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6986222423369826350L;
+	
+	private Customer selected;
 
+	/**
+	 * СЕрвис управления клиентами
+	 * 
+	 * @return
+	 */
 	public CustomerService getCustomerService() {
 		return (CustomerService) findBean("customerService");
 	}
 
 	/**
-	 * 
+	 * Ленивая модель для таблици выбора клиентов
 	 */
-	private static final long serialVersionUID = -6986222423369826350L;
-
-	private Customer selected;
-
 	private WFLazyDataModel<Customer> model = new WFLazyDataModel<Customer>() {
 
 		/**
@@ -36,6 +51,9 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 		 */
 		private static final long serialVersionUID = 4970282896915525138L;
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)
+		 */
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {
 
@@ -50,6 +68,9 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 					filters.get("nName"), filters.get("mName"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#aload(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
+		 */
 		@Override
 		protected List<Customer> aload(int first, int pageSize,
 				String sortField, SortOrder sortOrder,
@@ -72,6 +93,9 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 					filters.get("mName"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowData(java.lang.String)
+		 */
 		@Override
 		public Customer getRowData(String rowKey) {
 			for (Customer rd : getDataList()) {
@@ -81,6 +105,9 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 			return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowKey(java.lang.Object)
+		 */
 		@Override
 		public Object getRowKey(Customer object) {
 			return object.getId();

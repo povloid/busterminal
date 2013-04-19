@@ -37,51 +37,95 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	 * 
 	 */
 	private static final long serialVersionUID = -6802892297395121858L;
+	
+	// Переменные
+	private Race race;		// рейс
+	private Seat seat;		// место
+	private Order order;	// ордер
+	
+	// Интерфейсные переменные
+	private int percent;	// процент
+	
+	/**
+	 * Значение округления суммы 
+	 */
+	private final static BigDecimal ROUND_VALUE = new BigDecimal(10);
 
 	// SERVICES
 	// -------------------------------------------------------------------------------------------
 
+	/**
+	 * сервис маршрутов
+	 * 
+	 * @return
+	 */
 	public BusRouteService getBusRouteService() {
 		return (BusRouteService) findBean("busRouteService");
 	}
 
+	/**
+	 * сервис остановок на маршруте
+	 * 
+	 * @return
+	 */
 	public BusRouteStopService getBusRouteStopService() {
 		return (BusRouteStopService) findBean("busRouteStopService");
 	}
 
+	/**
+	 * сервис рейсов
+	 * 
+	 * @return
+	 */
 	public RaceService getRaceService() {
 		return (RaceService) findBean("raceService");
 	}
 
+	/**
+	 * сервис мест
+	 * 
+	 * @return
+	 */
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
 	}
 
+	/**
+	 * сервис ордеров
+	 * 
+	 * @return
+	 */
 	public OrderService getOrderService() {
 		return (OrderService) findBean("orderService");
 	}
 
+	/**
+	 * сервис клиентов
+	 * 
+	 * @return
+	 */
 	public CustomerService getCustomerService() {
 		return (CustomerService) findBean("customerService");
 	}
 
+	/**
+	 * сервис по текущему пользователю
+	 * 
+	 * @return
+	 */
 	public TerminalCurrentUser getTerminalCurrentUser() {
 		return (TerminalCurrentUser) findBean("terminalCurrentUser");
 	}
 
-	// Переменные
-	private Race race;
-	private Seat seat;
-	private Order order;
-
-	// Интерфейсные переменные
-	private int percent;
 
 	// actions
 	// -------------------------------------------------------------------------------------------
 
-	private final static BigDecimal ROUND_VALUE = new BigDecimal(10);
-
+	/**
+	 * Событие по установки ползунка скидки по цене
+	 * 
+	 * @param event
+	 */
 	public void onSlideEnd(SlideEndEvent event) {
 		// FacesMessage msg = new FacesMessage("Slide Ended", "Value: " +
 		// event.getValue());
@@ -179,9 +223,8 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	/**
 	 * Выбор участка пути
 	 */
-
-	private List<BusRouteStop> stops1;
-	private List<BusRouteStop> stops2;
+	private List<BusRouteStop> stops1;	// список для выбора остановки (на маршруте) отправки
+	private List<BusRouteStop> stops2;	// список для выбора остановки (на маршруте) прибытия
 
 	/**
 	 * Инициализация первого списка остановок
@@ -217,6 +260,11 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 
 	}
 
+	/**
+	 * Получить id остановки (на маршруте) отправления
+	 * 
+	 * @return
+	 */
 	public long getBusRouteStopAId() {
 		if (order.getBusRouteStopA() != null)
 			return order.getBusRouteStopA().getId();
@@ -224,6 +272,11 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 			return 0;
 	}
 
+	/**
+	 * получить id остановк (на маршруте) прибытия 
+	 * 
+	 * @return
+	 */
 	public long getBusRouteStopBId() {
 		if (order.getBusRouteStopB() != null)
 			return order.getBusRouteStopB().getId();
@@ -231,6 +284,10 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 			return 0;
 	}
 
+	/**
+	 * Установить id остановки (на маршруте) отправления
+	 * @param id
+	 */
 	public void setBusRouteStopAId(long id) {
 		try {
 			this.order.setBusRouteStopA(getBusRouteStopService().find(id));
@@ -239,6 +296,10 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 		}
 	}
 
+	/**
+	 * Установить id остановк (на маршруте) прибытия 
+	 * @param id
+	 */
 	public void setBusRouteStopBId(long id) {
 		try {
 			this.order.setBusRouteStopB(getBusRouteStopService().find(id));

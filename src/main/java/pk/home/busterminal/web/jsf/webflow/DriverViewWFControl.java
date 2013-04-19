@@ -12,6 +12,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: Driver
  * Driver - водитель
+ * 
+ * @author povloid
+ *
  */
 public class DriverViewWFControl extends AWFBaseLazyLoadTableView<Driver> implements
 		Serializable {
@@ -21,10 +24,18 @@ public class DriverViewWFControl extends AWFBaseLazyLoadTableView<Driver> implem
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис управления водителями
+	 * 
+	 * @return
+	 */
 	public DriverService getDriverService() {
 		return (DriverService) findBean("driverService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -45,14 +56,29 @@ public class DriverViewWFControl extends AWFBaseLazyLoadTableView<Driver> implem
 	}
 	
 	
+	/**
+	 * Добавить
+	 * 
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактировать
+	 * 
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}

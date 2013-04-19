@@ -12,19 +12,31 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: BusStop
  * BusStop - Остановка
+ * 
+ * @author povloid
+ *
  */
 public class BusStopViewWFControl extends AWFBaseLazyLoadTableView<BusStop> implements
 		Serializable {
 
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 246627859451257145L;
 
+	/**
+	 * Сервис управления остановками
+	 * 
+	 * @return
+	 */
 	public BusStopService getBusStopService() {
 		return (BusStopService) findBean("busStopService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -39,20 +51,38 @@ public class BusStopViewWFControl extends AWFBaseLazyLoadTableView<BusStop> impl
 				orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {		
 		return getBusStopService().count();
 	}
 	
 	
+	/**
+	 * Добавить 
+	 * 
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактировать 
+	 * 
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}

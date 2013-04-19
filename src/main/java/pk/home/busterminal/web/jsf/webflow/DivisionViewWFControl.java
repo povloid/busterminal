@@ -13,6 +13,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
  * JSF view control class for entity class: Division Division - отделение
+ * 
+ * @author povloid
+ *
  */
 public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
 		implements Serializable {
@@ -22,18 +25,36 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис управления отделениями
+	 * 
+	 * @return
+	 */
 	public DivisionService getDivisionService() {
 		return (DivisionService) findBean("divisionService");
 	}
 
+	/**
+	 * Сервис управления ордерами
+	 * 
+	 * @return
+	 */
 	public OrderService getOrderService() {
 		return (OrderService) findBean("orderService");
 	}
 
+	/**
+	 * Сервис управления балансом
+	 * 
+	 * @return
+	 */
 	public BalanceService getBalanceService() {
 		return (BalanceService) findBean("balanceService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 
@@ -48,19 +69,43 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
 				rows, orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
 		return getDivisionService().count();
 	}
 
+	/**
+	 * Получить баланс отделения
+	 * 
+	 * @param division
+	 * @return
+	 * @throws Exception
+	 */
 	public Number getBalance(Division division) throws Exception {
 		return getBalanceService().getBalance(division);
 	}
 
+	/**
+	 * Получить балансный ордер
+	 * 
+	 * @param division
+	 * @return
+	 * @throws Exception
+	 */
 	public Number getOrderBalance(Division division) throws Exception {
 		return getOrderService().findOrdersDivisionBalance(division);
 	}
 
+	/**
+	 * Сумма баланса
+	 * 
+	 * @param division
+	 * @return
+	 * @throws Exception
+	 */
 	public Number getBalanceSumm(Division division) throws Exception {
 		try {
 			return getBalanceService().getBalance(division).doubleValue()
@@ -71,14 +116,29 @@ public class DivisionViewWFControl extends AWFBaseLazyLoadTableView<Division>
 		}
 	}
 
+	/**
+	 * Добавить
+	 * 
+	 * @return
+	 */
 	public String add() {
 		return "add";
 	}
 
+	/**
+	 * Редактировать 
+	 * 
+	 * @return
+	 */
 	public String edit() {
 		return "edit";
 	}
 
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del() {
 		return "del";
 	}

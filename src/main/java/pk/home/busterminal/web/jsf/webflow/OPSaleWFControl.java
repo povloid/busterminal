@@ -26,23 +26,43 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 	 */
 	private static final long serialVersionUID = -6702785294921753935L;
 
-	private Race race;
+	private Race race;	// Рейс
 
 	// SERVICES
 	// -------------------------------------------------------------------------------------------
 
+	/**
+	 * Сервис продаваемых/проданных отрезков пути
+	 * 
+	 * @return
+	 */
 	public ItemsService getItemsService() {
 		return (ItemsService) findBean("itemsService");
 	}
 
+	/**
+	 * Сервис рейсов
+	 * 
+	 * @return
+	 */
 	public RaceService getRaceService() {
 		return (RaceService) findBean("raceService");
 	}
 
+	/**
+	 * Сервис маршрутов
+	 * 
+	 * @return
+	 */
 	public BusRouteService getBusRouteService() {
 		return (BusRouteService) findBean("busRouteService");
 	}
 
+	/**
+	 * Сервис шаблонов/схем 
+	 * 
+	 * @return
+	 */
 	public BusTempliteMasterService service() {
 		return (BusTempliteMasterService) findBean("busTempliteMasterService");
 	}
@@ -60,15 +80,19 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 		System.out.println("RACE " + id + ": " + race);
 	}
-
-	// actions
-	// -------------------------------------------------------------------------------------------
-
+	
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFBasicControl#init0()
+	 */
 	@Override
 	protected void init0() throws Exception {
 		System.out.println("INIT");
 		handleSchemaChange();
 	}
+
+	// actions
+	// -------------------------------------------------------------------------------------------
+
 
 	/**
 	 * Продать место
@@ -82,8 +106,8 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 	// Schemas
 	// -------------------------------------------------------------------------------------------
 
-	private Long selectedSchemeId;
-	private Schema selectedScheme;
+	private Long selectedSchemeId;	// Выбранной схемы/плана
+	private Schema selectedScheme;	// Выбранная схема/план	
 
 	/**
 	 * Выбор схемы
@@ -225,5 +249,4 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 	public void setSelectedCell(Cell selectedCell) {
 		this.selectedCell = selectedCell;
 	}
-
 }

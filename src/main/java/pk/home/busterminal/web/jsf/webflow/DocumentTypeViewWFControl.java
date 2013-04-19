@@ -12,6 +12,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: DocumentType
  * DocumentType - тип документа
+ * 
+ * @author povloid
+ *
  */
 public class DocumentTypeViewWFControl extends AWFBaseLazyLoadTableView<DocumentType> implements
 		Serializable {
@@ -21,10 +24,18 @@ public class DocumentTypeViewWFControl extends AWFBaseLazyLoadTableView<Document
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис управления типами доркументов
+	 * 
+	 * @return
+	 */
 	public DocumentTypeService getDocumentTypeService() {
 		return (DocumentTypeService) findBean("documentTypeService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -45,14 +56,29 @@ public class DocumentTypeViewWFControl extends AWFBaseLazyLoadTableView<Document
 	}
 	
 	
+	/**
+	 * Добавить
+	 * 
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактировать
+	 * 
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}

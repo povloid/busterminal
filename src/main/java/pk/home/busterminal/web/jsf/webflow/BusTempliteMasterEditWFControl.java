@@ -16,6 +16,12 @@ import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.service.BusTempliteMasterService;
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
+/**
+ * Контрол для работы с шаблоном автобуса
+ * 
+ * @author povloid
+ *
+ */
 public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		implements Serializable {
 
@@ -24,35 +30,60 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 */
 	private static final long serialVersionUID = -3189205660540524184L;
 
+	private Long selectedSchemeId;	// id выбранной остановки
+	private Schema selectedScheme;	// выбранная остановка
+	
+	/**
+	 * Сервис управления шаблонами
+	 * 
+	 * @return
+	 */
 	public BusTempliteMasterService service() {
 		return (BusTempliteMasterService) findBean("busTempliteMasterService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#findEdited(java.lang.Object)
+	 */
 	@Override
 	public Bus findEdited(Long id) throws Exception {
 		return service().getBusService().findWithLazy(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#newEdited()
+	 */
 	@Override
 	public Bus newEdited() throws Exception {
 		throw new NotImplementedException();
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmAddImpl()
+	 */
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		throw new NotImplementedException();
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmEditImpl()
+	 */
 	@Override
 	protected void confirmEditImpl() throws Exception {
-		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmDelImpl()
+	 */
 	@Override
 	protected void confirmDelImpl() throws Exception {
 		throw new NotImplementedException();
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#init0()
+	 */
 	@Override
 	protected void init0() throws Exception {
 		System.out.println(">>>init()");
@@ -60,8 +91,6 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		handleSchemaChange();
 	}
 
-	private Long selectedSchemeId;
-	private Schema selectedScheme;
 
 	/**
 	 * Выбор схемы
@@ -163,7 +192,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 
 	// CELL OPERATIONS
 	// ---------------------------------------------------------------------------------
-	private Cell selectedCell;
+	private Cell selectedCell;	// Выбранная ячейка
 
 	/**
 	 * Добавить в ячейку
@@ -215,8 +244,8 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 		return "calcAndSetPrice";
 	}
 
-	private boolean discount;
-	private int discountPotsent;
+	private boolean discount;		// Скидка
+	private int discountPotsent;	// Скидочный процент 
 
 	/**
 	 * Мастер группового проставления сведений по скидкам
@@ -328,7 +357,4 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	public void setDiscountPotsent(int discountPotsent) {
 		this.discountPotsent = discountPotsent;
 	}
-
-	
-
 }

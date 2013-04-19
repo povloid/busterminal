@@ -15,9 +15,20 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
+/**
+ * Контрол выбора одного отделения
+ * 
+ * @author povloid
+ *
+ */
 public class DivisionSelectOneWFControl extends AWFBasicControl implements
 		Serializable {
 
+	/**
+	 * Сервис управления отделениями
+	 * 
+	 * @return
+	 */
 	public DivisionService getDivisionService() {
 		return (DivisionService) findBean("divisionService");
 	}
@@ -27,8 +38,12 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 	 */
 	private static final long serialVersionUID = -6986222423369826350L;
 
-	private Division selected;
+	private Division selected;	// Выбранное отделение
 
+	
+	/**
+	 *	Ленивая модель для таблици выбора олтлений 
+	 */
 	private WFLazyDataModel<Division> model = new WFLazyDataModel<Division>() {
 
 		/**
@@ -36,6 +51,9 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 		 */
 		private static final long serialVersionUID = 4970282896915525138L;
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)
+		 */
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {
 			Long id = null;
@@ -48,6 +66,9 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 					filters.get("keyName"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#aload(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
+		 */
 		@Override
 		protected List<Division> aload(int first, int pageSize,
 				String sortField, SortOrder sortOrder,
@@ -67,6 +88,9 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 					sortField, id, filters.get("keyName"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowData(java.lang.String)
+		 */
 		@Override
 		public Division getRowData(String rowKey) {
 			for (Division rd : getDataList()) {
@@ -76,6 +100,9 @@ public class DivisionSelectOneWFControl extends AWFBasicControl implements
 			return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowKey(java.lang.Object)
+		 */
 		@Override
 		public Object getRowKey(Division object) {
 			return object.getId();

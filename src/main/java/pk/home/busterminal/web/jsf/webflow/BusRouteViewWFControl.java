@@ -12,19 +12,33 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: BusRoute
  * BusRoute - Маршрут
+ * 
+ * @author povloid
+ *
  */
 public class BusRouteViewWFControl extends AWFBaseLazyLoadTableView<BusRoute> implements
 		Serializable {
 
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4306147261469800543L;
 
+	
+	/**
+	 * Сервис управления маршрутами
+	 * 
+	 * @return
+	 */
 	public BusRouteService getBusRouteService() {
 		return (BusRouteService) findBean("busRouteService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -39,20 +53,38 @@ public class BusRouteViewWFControl extends AWFBaseLazyLoadTableView<BusRoute> im
 				orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {		
 		return getBusRouteService().count();
 	}
 	
 	
+	/**
+	 * Добавление 
+	 * 
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактирование
+	 * 
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удаление
+	 * 
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}

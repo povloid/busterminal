@@ -29,26 +29,41 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2866582993448987413L;
+	
+	private final static int DAY = 1000 * 60 * 60 * 24;	// Один день
+	
+	
+	private FindRaceModel findRaceModel1 = new FindRaceModel();	// Модель для таблици рейсов слева
+	private FindRaceModel findRaceModel2 = new FindRaceModel();	// Модель для таблици рейсов справа
+	
+	private Race selected1;	// выбранный рейс в левой половине
+	private Race selected2;	// выбранный рейс в правой половине
+	
+	private int days = 0;	// Разница в сутках между рейсом "туда" и "обратно"
 
+	/**
+	 * Сервис управления рейсами
+	 * @return
+	 */
 	public RaceService getRaceService() {
 		return (RaceService) findBean("raceService");
 	}
 
+	/**
+	 * Сервис управления остановками
+	 * @return
+	 */
 	public BusRouteService getBusRouteService() {
 		return (BusRouteService) findBean("busRouteService");
 	}
 
-	private FindRaceModel findRaceModel1 = new FindRaceModel();
-	private FindRaceModel findRaceModel2 = new FindRaceModel();
-
-	private Race selected1;
-	private Race selected2;
-
-	private int days = 0;
 
 	// actions
 	// ------------------------------------------------------------------------------------
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFBasicControl#init0()
+	 */
 	@Override
 	protected void init0() throws Exception {
 		System.out.println("INIT");
@@ -74,7 +89,6 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		findRaceModel2.setBusRoute(getBusRouteService().find(id));
 	}
 
-	private final static int DAY = 1000 * 60 * 60 * 24;
 
 	/**
 	 * Смена даты 1
@@ -145,11 +159,15 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	 * @author povloid
 	 * 
 	 */
+	/**
+	 * @author povloid
+	 *
+	 */
 	public class FindRaceModel extends WFLazyDataModel<Race> implements
 			Serializable {
 
-		private Date date;
-		private BusRoute busRoute;
+		private Date date;			// дата для запроса
+		private BusRoute busRoute;	// выбранный рейс
 
 		{
 			java.util.Calendar cal = GregorianCalendar.getInstance();
@@ -166,6 +184,9 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		 */
 		private static final long serialVersionUID = 4970282896915525138L;
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)
+		 */
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {
 			if (date != null && busRoute != null)
@@ -175,6 +196,9 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 				return 0;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#aload(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
+		 */
 		@Override
 		protected List<Race> aload(int first, int pageSize, String sortField,
 				SortOrder sortOrder, Map<String, String> filters)
@@ -186,6 +210,9 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 				return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowData(java.lang.String)
+		 */
 		@Override
 		public Race getRowData(String rowKey) {
 			if (getDataList() != null)
@@ -196,6 +223,9 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 			return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowKey(java.lang.Object)
+		 */
 		@Override
 		public Object getRowKey(Race object) {
 
@@ -204,10 +234,6 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 
 		// get's and set's
 		// ----------------------------------------------------------
-
-		
-		
-		
 		public Date getDate() {
 			return date;
 		}
@@ -228,10 +254,6 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		public void setBusRoute(BusRoute busRoute) {
 			this.busRoute = busRoute;
 		}
-
-		
-		
-		
 	}
 
 	// get's and set's
