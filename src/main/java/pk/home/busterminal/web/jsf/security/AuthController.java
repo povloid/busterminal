@@ -13,17 +13,20 @@ import javax.servlet.ServletResponse;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+
 /**
- * TODO: Считать количество попыток и после 3-й выдавать капчу.
- * <p/>
+ * 
+ * Код позаимствован у: 
  * User: Dmitry Leontyev
  * Date: 12.12.10
  * Time: 21:45
+ * 
+ * доработан:
+ * @author povloid
  */
-
 @Scope("request")
 @Controller("authController")
-public class AuthController {
+public final class AuthController {
 	
 	
 	
@@ -105,10 +108,6 @@ public class AuthController {
 
 	public void setRemember_me(boolean remember_me) {
 		this.remember_me = remember_me;
-	}
-    
-    
-    
-    
+	}    
     
 }

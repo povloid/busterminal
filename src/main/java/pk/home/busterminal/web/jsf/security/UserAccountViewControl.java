@@ -13,9 +13,15 @@ import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.domain.security.UserAccount_;
 import pk.home.busterminal.service.security.UserAccountService;
 
+/**
+ * Контроллер просмотра списка пользователей
+ * 
+ * @author povloid
+ *
+ */
 @Scope("session")
 @Component("userAccountViewControl")
-public class UserAccountViewControl extends ABaseLazyLoadTableView<UserAccount>
+public final class UserAccountViewControl extends ABaseLazyLoadTableView<UserAccount>
 		implements Serializable {
 
 	/**

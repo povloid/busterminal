@@ -14,6 +14,12 @@ import javax.faces.context.FacesContext;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.domain.SeatType;
 
+/**
+ * Иконки по типам мест
+ * 
+ * @author povloid
+ *
+ */
 @ManagedBean(name = "seatTypeIcons")
 @ApplicationScoped
 public class SeatTypeIcons implements Serializable{
@@ -60,6 +66,10 @@ public class SeatTypeIcons implements Serializable{
 	private static Map<String, String> picsFiles = new HashMap<String, String>();
 
 	
+	/**
+	 * Инициализация ресурсов и путей к ним
+	 * 
+	 */
 	private static void initPath() {
 
 		// SecurityContextHolderAwareRequestWrapper request =
@@ -93,6 +103,9 @@ public class SeatTypeIcons implements Serializable{
 	}
 	
 	
+	/**
+	 * Конструктор
+	 */
 	public SeatTypeIcons() {
 		super();
 		
@@ -105,10 +118,6 @@ public class SeatTypeIcons implements Serializable{
 
 	// gets and sets
 	// ---------------------------------------------------------------------------------------------------
-
-
-
-
 
 	public static String getFoolIconsFolderPath() {
 		return foolIconsFolderPath;

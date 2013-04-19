@@ -3,6 +3,12 @@ package pk.home.busterminal.web.jsf;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+/**
+ * Бин для отчета
+ * 
+ * @author povloid
+ *
+ */
 @ManagedBean(name = "report")
 @RequestScoped
 public class Report {

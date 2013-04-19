@@ -16,6 +16,12 @@ import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.security.UserAccountService;
 import pk.home.busterminal.service.security.UserAuthorityService;
 
+/**
+ * Контрол для формы редактирования пользователей
+ * 
+ * @author povloid
+ *
+ */
 public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		implements Serializable {
 
@@ -24,34 +30,68 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 	 */
 	private static final long serialVersionUID = 4157216820946820481L;
 
-	private String password;
+	private String password;	// пароль
 
+	private DualListModel<String> roles;	// список ролей
+	
+	private Map<String, Long> rolesMap = new HashMap<String, Long>();	// карта сопоставления имен ролей и их id 
+	
+	/**
+	 * Сервис управления пользователями 
+	 * 
+	 * @return
+	 */
+	public UserAccountService getUserAccountService() {
+		return (UserAccountService) findBean("userAccountService");
+	}
+	
+	/**
+	 * Сервис аутентификации
+	 * 
+	 * @return
+	 */
+	public UserAuthorityService getUserAuthorityService() {
+		return (UserAuthorityService) findBean("userAuthorityService");
+	}
+	
+	/**
+	 * Сервис работы с отделениями
+	 * 
+	 * @return
+	 */
+	public DivisionService getDivisionService() {
+		return (DivisionService) findBean("divisionService");
+	}
+	
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#findEdited(java.lang.Object)
+	 */
 	@Override
 	public UserAccount findEdited(Long id) throws Exception {
 		return getUserAccountService().find(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#newEdited()
+	 */
 	@Override
 	public UserAccount newEdited() throws Exception {
 		return new UserAccount();
 	}
 
-	public UserAccountService getUserAccountService() {
-		return (UserAccountService) findBean("userAccountService");
-	}
 
-	public UserAuthorityService getUserAuthorityService() {
-		return (UserAuthorityService) findBean("userAuthorityService");
-	}
-
-	public DivisionService getDivisionService() {
-		return (DivisionService) findBean("divisionService");
-	}
-
+	/**
+	 * Получить кодировщик пароля
+	 * 
+	 * @return
+	 */
 	public PasswordEncoder getPasswordEncoder() {
 		return (PasswordEncoder) findBean("passwordEncoder");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmAddImpl()
+	 */
 	@Override
 	protected void confirmAddImpl() throws Exception {
 
@@ -69,6 +109,9 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		edited = getUserAccountService().merge(edited);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmEditImpl()
+	 */
 	@Override
 	protected void confirmEditImpl() throws Exception {
 		populateEditedresortTypes();
@@ -81,6 +124,9 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		edited = getUserAccountService().merge(edited);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmDelImpl()
+	 */
 	@Override
 	protected void confirmDelImpl() throws Exception {
 		edited.getAuthorities().clear();
@@ -90,6 +136,9 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 
 	// init
 	// ----------------------------------------------------------------------------------------------
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#init0()
+	 */
 	protected void init0() throws Exception {
 		populateResortTypes();
 	}
@@ -97,10 +146,10 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 	// UserAuthority
 	// ----------------------------------------------------------------------------------------------------
 
-	private DualListModel<String> roles;
 
-	private Map<String, Long> rolesMap = new HashMap<String, Long>();
-
+	/**
+	 * Заполнение типов ролей
+	 */
 	private void populateResortTypes() {
 		rolesMap.clear();
 
@@ -127,6 +176,11 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		this.roles = new DualListModel<String>(source, target);
 	}
 
+	/**
+	 * Заполнение 
+	 * 
+	 * @throws Exception
+	 */
 	private void populateEditedresortTypes() throws Exception {
 		edited.getUserAuthorities().clear();
 
@@ -137,6 +191,12 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		}
 	}
 
+	/**
+	 * Установить отделение по id
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
 	public void setDivisionId(Long id) throws Exception {
 		this.edited.setDivision(getDivisionService().find(id));
 	}

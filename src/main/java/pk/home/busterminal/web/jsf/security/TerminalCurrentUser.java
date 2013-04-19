@@ -11,9 +11,15 @@ import org.springframework.stereotype.Component;
 import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.service.security.UserAccountService;
 
+/**
+ * Контроллер, предоставляющий сведения по текущему пользователю
+ * 
+ * @author povloid
+ *
+ */
 @Scope("session")
 @Component("terminalCurrentUser")
-public class TerminalCurrentUser implements Serializable {
+public final class TerminalCurrentUser implements Serializable {
 
 	@Autowired
 	private UserAccountService userAccountService;
@@ -25,6 +31,11 @@ public class TerminalCurrentUser implements Serializable {
 
 	private UserAccount userAccount;
 
+	/**
+	 * Получить сведения по текущему пользователю
+	 * 
+	 * @return
+	 */
 	public UserAccount getUserAccount() {
 
 		if (this.userAccount == null) {
@@ -55,10 +66,20 @@ public class TerminalCurrentUser implements Serializable {
 		this.userAccount = userAccount;
 	}
 
+	/**
+	 * Получить сервис управления пользователями
+	 * 
+	 * @return
+	 */
 	public UserAccountService getUserAccountService() {
 		return userAccountService;
 	}
 
+	/**
+	 * Установить сервис управления пользователями
+	 * 
+	 * @param userAccountService
+	 */
 	public void setUserAccountService(UserAccountService userAccountService) {
 		this.userAccountService = userAccountService;
 	}

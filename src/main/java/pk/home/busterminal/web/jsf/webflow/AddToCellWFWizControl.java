@@ -10,6 +10,12 @@ import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.service.BusTempliteMasterService;
 import pk.home.libs.combine.web.jsf.flow.AWFWizart;
 
+/**
+ * Контроллер для мастера добавления места в ячейку
+ * 
+ * @author povloid
+ *
+ */
 public class AddToCellWFWizControl extends AWFWizart implements Serializable {
 
 	/**
@@ -17,10 +23,18 @@ public class AddToCellWFWizControl extends AWFWizart implements Serializable {
 	 */
 	private static final long serialVersionUID = 1586242585286422108L;
 
+	/**
+	 * Сервис
+	 * 
+	 * @return
+	 */
 	public BusTempliteMasterService service() {
 		return (BusTempliteMasterService) findBean("busTempliteMasterService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFWizart#nextImpl()
+	 */
 	@Override
 	protected void nextImpl() throws Exception {
 		if (select == 0)
@@ -30,22 +44,19 @@ public class AddToCellWFWizControl extends AWFWizart implements Serializable {
 
 	private short select;
 
-	public short getSelect() {
-		return select;
-	}
+	private Long selectedSchemaId; 	// Идентификатор текущей схемы
+	private Short x;				// Координата X
+	private Short y;				// Координата Y
 
-	public void setSelect(short select) {
-		this.select = select;
-	}
+	private Schema selectedSchema;		// Текущая выбранная схема
+	private Long selectedSeatId;		// Идентификатор текущего выбранного места
+	private Seat selectedSeat;			// Текущее выбранное место
+	
+	private SeatDataModel noMarkedSeats; // Модель данных
 
-	private Long selectedSchemaId;
-	private Short x;
-	private Short y;
-
-	private Schema selectedSchema;
-	private Long selectedSeatId;
-	private Seat selectedSeat;
-
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFWizart#init0()
+	 */
 	@Override
 	protected void init0() throws Exception {
 		selectedSchema = service().getSchemaService().find(selectedSchemaId);
@@ -53,8 +64,12 @@ public class AddToCellWFWizControl extends AWFWizart implements Serializable {
 				.findNotMarkedSeats(selectedSchema));
 	}
 
-	private SeatDataModel noMarkedSeats;
 
+	/**
+	 * Добавить выбранное неотмесенное место в схему
+	 * 
+	 * @throws Exception
+	 */
 	public void addSelectNotMarkedSeatToCell() throws Exception {
 		try {
 
@@ -134,5 +149,14 @@ public class AddToCellWFWizControl extends AWFWizart implements Serializable {
 	public void setSelectedSeat(Seat selectedSeat) {
 		this.selectedSeat = selectedSeat;
 	}
+	
+	public short getSelect() {
+		return select;
+	}
+
+	public void setSelect(short select) {
+		this.select = select;
+	}
+
 
 }

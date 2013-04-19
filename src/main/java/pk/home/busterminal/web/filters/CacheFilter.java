@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author kopychenko
  */
-public class CacheFilter implements Filter {
+public final class CacheFilter implements Filter {
 
 	/* (non-Javadoc)
 	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)

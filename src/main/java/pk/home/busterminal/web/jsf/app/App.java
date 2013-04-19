@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
+ * Бин для общих вещей уровня приложения
+ * 
  * 
  * @author traveler
  */
@@ -24,6 +26,8 @@ public class App implements Serializable {
 
 	private static final long serialVersionUID = 2167179189163857373L;
 
+	
+	
 	public Date getDate() {
 		return new Date();
 	}
@@ -31,6 +35,8 @@ public class App implements Serializable {
 	public void setDate(Date date) {
 
 	}
+	
+	
 
 	private static int sbindex = 1;
 
@@ -52,6 +58,12 @@ public class App implements Serializable {
 		this.bindex = bindex;
 	}
 
+
+	/**
+	 * Получить аутентификатор
+	 * 
+	 * @return
+	 */
 	public Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}

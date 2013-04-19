@@ -10,15 +10,25 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 /**
- * User: Dmitry Leontyev Date: 26.12.10 Time: 0:34
+ * 
+ * Код позаимствован у: 
+ * User: Dmitry Leontyev
+ * Date: 12.12.10
+ * Time: 21:45
+ * 
+ * доработан:
+ * @author povloid
  */
-public class LoginErrorPhaseListener implements PhaseListener {
+public final class LoginErrorPhaseListener implements PhaseListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5963658604113140000L;
 
+	/* (non-Javadoc)
+	 * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
+	 */
 	@Override
 	public void beforePhase(final PhaseEvent arg0) {
 		Exception e = (Exception) FacesContext.getCurrentInstance()
@@ -36,10 +46,16 @@ public class LoginErrorPhaseListener implements PhaseListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
+	 */
 	@Override
 	public void afterPhase(final PhaseEvent arg0) {
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.faces.event.PhaseListener#getPhaseId()
+	 */
 	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
