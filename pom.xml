@@ -410,14 +410,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.5.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>
 					<compilerArguments>
 						<endorseddirs>${endorsed.dir}</endorseddirs>
-						<!-- <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor> -->
+						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
 					</compilerArguments>
 				</configuration>
 			</plugin>

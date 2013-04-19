@@ -13,11 +13,17 @@ import pk.home.busterminal.domain.Balance;
 /**
  * DAO class for entity class: Balance
  * Balance - баланс
+ * 
+ * @author povloid
+ *
  */
 @Repository
 @Transactional
 public class BalanceDAO extends ABaseDAO<Balance> {
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getTClass()
+	 */
 	@Override
 	protected Class<Balance> getTClass() {
 		return Balance.class;
@@ -30,11 +36,17 @@ public class BalanceDAO extends ABaseDAO<Balance> {
 	@PersistenceContext(unitName = "")
 	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getEntityManager()
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getPrimaryKey(java.lang.Object)
+	 */
 	@Override
 	public Object getPrimaryKey(Balance o) {
 		return o.getId();

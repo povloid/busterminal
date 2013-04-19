@@ -12,12 +12,16 @@ import pk.home.busterminal.domain.Division;
 /**
  * DAO class for entity class: Division
  * Division - отделение
+ * 
+ * @author povloid
  */
-
 @Repository
 @Transactional
 public class DivisionDAO extends ABaseDAO<Division> {
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getTClass()
+	 */
 	@Override
 	protected Class<Division> getTClass() {
 		return Division.class;
@@ -30,11 +34,17 @@ public class DivisionDAO extends ABaseDAO<Division> {
 	@PersistenceContext(unitName = "")
 	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getEntityManager()
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getPrimaryKey(java.lang.Object)
+	 */
 	@Override
 	public Object getPrimaryKey(Division o) {
 		return o.getId();

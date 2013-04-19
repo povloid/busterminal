@@ -12,11 +12,17 @@ import pk.home.busterminal.domain.DocumentType;
 /**
  * DAO class for entity class: DocumentType
  * DocumentType - тип документа
+ * 
+ * @author povloid
+ *
  */
 @Repository
 @Transactional
 public class DocumentTypeDAO extends ABaseDAO<DocumentType> {
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getTClass()
+	 */
 	@Override
 	protected Class<DocumentType> getTClass() {
 		return DocumentType.class;
@@ -29,11 +35,17 @@ public class DocumentTypeDAO extends ABaseDAO<DocumentType> {
 	@PersistenceContext(unitName = "")
 	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getEntityManager()
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getPrimaryKey(java.lang.Object)
+	 */
 	@Override
 	public Object getPrimaryKey(DocumentType o) {
 		return o.getId();

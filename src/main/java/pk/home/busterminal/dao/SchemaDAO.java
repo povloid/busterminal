@@ -12,11 +12,17 @@ import pk.home.busterminal.domain.Schema;
 /**
  * DAO class for entity class: Schema
  * Schema - схема мест расположения
+ * 
+ * @author povloid
+ *
  */
 @Repository
 @Transactional
 public class SchemaDAO extends ABaseDAO<Schema> {
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getTClass()
+	 */
 	@Override
 	protected Class<Schema> getTClass() {
 		return Schema.class;
@@ -29,11 +35,17 @@ public class SchemaDAO extends ABaseDAO<Schema> {
 	@PersistenceContext(unitName = "")
 	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getEntityManager()
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getPrimaryKey(java.lang.Object)
+	 */
 	@Override
 	public Object getPrimaryKey(Schema o) {
 		return o.getId();

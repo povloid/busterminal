@@ -12,11 +12,17 @@ import pk.home.busterminal.domain.Customer;
 /**
  * DAO class for entity class: Customer
  * Customer - клиент
+ * 
+ * @author povloid
+ *
  */
 @Repository
 @Transactional
 public class CustomerDAO extends ABaseDAO<Customer> {
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getTClass()
+	 */
 	@Override
 	protected Class<Customer> getTClass() {
 		return Customer.class;
@@ -29,11 +35,17 @@ public class CustomerDAO extends ABaseDAO<Customer> {
 	@PersistenceContext(unitName = "")
 	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getEntityManager()
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getPrimaryKey(java.lang.Object)
+	 */
 	@Override
 	public Object getPrimaryKey(Customer o) {
 		return o.getId();

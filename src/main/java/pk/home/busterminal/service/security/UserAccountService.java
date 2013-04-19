@@ -11,6 +11,12 @@ import pk.home.busterminal.domain.security.UserAccount;
 
 
 
+/**
+ * Сервис управления пользователями
+ * 
+ * @author povloid
+ *
+ */
 @Service
 @Transactional
 public class UserAccountService extends ABaseService<UserAccount> {
@@ -18,6 +24,9 @@ public class UserAccountService extends ABaseService<UserAccount> {
 	@Autowired
 	private UserAccountDAO userAccountDAO;
 	
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<UserAccount> getAbstractBasicDAO() {
 		return userAccountDAO;
@@ -25,7 +34,4 @@ public class UserAccountService extends ABaseService<UserAccount> {
 	
 	//@Transactional(propagation = Propagation.REQUIRED ,readOnly = true)
 	//public UserAccount findUserAccountByUserName(String username) 
-	
-	
-
 }

@@ -12,11 +12,17 @@ import pk.home.busterminal.domain.Seat;
 /**
  * DAO class for entity class: Seat
  * Seat - посадочное место
+ * 
+ * @author povloid
+ *
  */
 @Repository
 @Transactional
 public class SeatDAO extends ABaseDAO<Seat> {
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getTClass()
+	 */
 	@Override
 	protected Class<Seat> getTClass() {
 		return Seat.class;
@@ -29,11 +35,17 @@ public class SeatDAO extends ABaseDAO<Seat> {
 	@PersistenceContext(unitName = "")
 	private EntityManager entityManager;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getEntityManager()
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.dao.ABaseDAO#getPrimaryKey(java.lang.Object)
+	 */
 	@Override
 	public Object getPrimaryKey(Seat o) {
 		return o.getId();

@@ -12,6 +12,12 @@ import pk.home.busterminal.dao.security.UserAuthorityDAO;
 import pk.home.busterminal.domain.security.UserAuthority;
 import pk.home.busterminal.domain.security.UserAuthoritys;
 
+/**
+ * Сервис авторизации
+ * 
+ * @author povloid
+ *
+ */
 @Service
 @Transactional
 public class UserAuthorityService extends ABaseService<UserAuthority> {
@@ -19,11 +25,17 @@ public class UserAuthorityService extends ABaseService<UserAuthority> {
 	@Autowired
 	private UserAuthorityDAO userAuthorityDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<UserAuthority> getAbstractBasicDAO() {
 		return userAuthorityDAO;
 	}
 
+	/**
+	 * Инициализация
+	 */
 	@PostConstruct
 	public void init() {
 		try {
@@ -36,6 +48,12 @@ public class UserAuthorityService extends ABaseService<UserAuthority> {
 		}
 	}
 
+	/**
+	 * Инициализация роли
+	 * 
+	 * @param role
+	 * @throws Exception
+	 */
 	private void initRole(String role) throws Exception {
 
 		try {
@@ -49,5 +67,4 @@ public class UserAuthorityService extends ABaseService<UserAuthority> {
 			userAuthorityDAO.persist(uat);
 		}
 	}
-
 }

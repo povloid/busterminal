@@ -16,12 +16,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CacheFilter implements Filter {
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+	 */
 	public void init(FilterConfig config) throws ServletException {
 
 	}
 
 	private static final int AGE = 60 * 60 * 24 * 7;
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain next) throws IOException, ServletException {
 
@@ -37,6 +43,9 @@ public class CacheFilter implements Filter {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#destroy()
+	 */
 	public void destroy() {
 	}
 }
