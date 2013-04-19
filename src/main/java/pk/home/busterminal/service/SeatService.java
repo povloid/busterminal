@@ -24,6 +24,8 @@ import pk.home.busterminal.domain.Seat_;
 
 /**
  * Service class for entity class: Seat Seat - посадочное место
+ * 
+ * @author povloid
  */
 @Service
 @Transactional
@@ -38,11 +40,28 @@ public class SeatService extends ABaseService<Seat> {
 	@Autowired
 	private SeatDAO seatDAO;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Seat> getAbstractBasicDAO() {
 		return seatDAO;
 	}
 
+	/**
+	 * Получит список мест в конкретном автобусе и схеме расположения
+	 * 
+	 * @param firstResult
+	 * @param maxResults
+	 * @param orderByAttribute
+	 * @param sortOrder
+	 * @param bus
+	 * @param schema
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Seat> getAllEntities(int firstResult, int maxResults,
 			SingularAttribute<Seat, ?> orderByAttribute,
 			SortOrderType sortOrder, Bus bus, Schema schema) throws Exception {
@@ -71,11 +90,24 @@ public class SeatService extends ABaseService<Seat> {
 		}
 	}
 
+	/**
+	 * Получит количество мест в конкретном автобусе и схеме расположения
+	 * 
+	 * @param bus
+	 * @param schema
+	 * @return
+	 * @throws Exception
+	 */
 	public long count(Bus bus, Schema schema) throws Exception {
 		return (Long) seatDAO.executeQueryByNameSingleResultO(
 				"Seat.findByBusAndSchema.count", bus, schema);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -84,6 +116,11 @@ public class SeatService extends ABaseService<Seat> {
 		return super.persist(o);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see pk.home.libs.combine.service.ABaseService#merge(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -250,5 +287,4 @@ public class SeatService extends ABaseService<Seat> {
 			return 1;
 		}
 	}
-
 }

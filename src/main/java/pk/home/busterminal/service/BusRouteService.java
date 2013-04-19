@@ -23,6 +23,8 @@ import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: BusRoute BusRoute - Маршрут
+ * 
+ * @author povloid
  */
 @Service
 @Transactional

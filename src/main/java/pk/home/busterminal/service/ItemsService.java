@@ -25,6 +25,9 @@ import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: Items Items - запись ордера
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional
@@ -33,11 +36,17 @@ public class ItemsService extends ABaseService<Items> {
 	@Autowired
 	private ItemsDAO itemsDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Items> getAbstractBasicDAO() {
 		return itemsDAO;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -46,6 +55,9 @@ public class ItemsService extends ABaseService<Items> {
 		return super.persist(o);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#merge(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -66,6 +78,9 @@ public class ItemsService extends ABaseService<Items> {
 		o.check();
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#remove(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

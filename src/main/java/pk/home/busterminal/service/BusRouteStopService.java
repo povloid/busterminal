@@ -11,6 +11,12 @@ import pk.home.busterminal.domain.BusRouteStop;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.service.ABaseService;
 
+/**
+ * Сервис управления остановками на маршруте
+ * 
+ * @author povloid
+ *
+ */
 @Service
 @Transactional
 public class BusRouteStopService extends ABaseService<BusRouteStop> {
@@ -18,11 +24,17 @@ public class BusRouteStopService extends ABaseService<BusRouteStop> {
 	@Autowired
 	private BusRouteStopDAO busRouteStopDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<BusRouteStop> getAbstractBasicDAO() {
 		return busRouteStopDAO;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -31,6 +43,9 @@ public class BusRouteStopService extends ABaseService<BusRouteStop> {
 		return super.persist(o);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#merge(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -39,6 +54,12 @@ public class BusRouteStopService extends ABaseService<BusRouteStop> {
 		return super.merge(o);
 	}
 
+	/**
+	 * Валидация остановки
+	 * 
+	 * @param o
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public void check(BusRouteStop o) throws Exception {
 		BusRouteStop old = find(o.getId());

@@ -33,11 +33,18 @@ public class BalanceService extends ABaseService<Balance> {
 	@Autowired
 	private BalanceDAO balanceDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Balance> getAbstractBasicDAO() {
 		return balanceDAO;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -86,6 +93,17 @@ public class BalanceService extends ABaseService<Balance> {
 
 	
 	
+	/**
+	 * Получить все записи
+	 * 
+	 * @param division
+	 * @param firstResult
+	 * @param maxResults
+	 * @param orderByAttribute
+	 * @param sortOrder
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public List<Balance> getAllEntities(Division division, int firstResult,
 			int maxResults, SingularAttribute<Balance, ?> orderByAttribute,
@@ -103,6 +121,13 @@ public class BalanceService extends ABaseService<Balance> {
 				orderByAttribute, sortOrder, cb, cq, t);
 	}
 
+	/**
+	 * Получить общее число записей
+	 * 
+	 * @param division
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public long count(Division division) throws Exception {
 

@@ -39,6 +39,9 @@ import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: Order Order - ордер - операция
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional
@@ -56,21 +59,36 @@ public class OrderService extends ABaseService<Order> {
 	@Autowired
 	private BusRouteStopDAO busRouteStopDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Order> getAbstractBasicDAO() {
 		return orderDAO;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
+	 */
 	@Override
 	public Order persist(Order o) throws Exception {
 		throw new NotSupportedException();
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#merge(java.lang.Object)
+	 */
 	@Override
 	public Order merge(Order o) throws Exception {
 		throw new NotSupportedException();
 	}
 
+	/**
+	 * Проверка ордера
+	 * 
+	 * @param o
+	 * @throws Exception
+	 */
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void check(Order o) throws Exception {
@@ -90,6 +108,9 @@ public class OrderService extends ABaseService<Order> {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#remove(java.lang.Object)
+	 */
 	@Override
 	public void remove(Order object) throws Exception {
 

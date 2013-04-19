@@ -22,6 +22,10 @@ import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: BusStop BusStop - Остановка
+ * 
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional

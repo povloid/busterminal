@@ -24,6 +24,8 @@ import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: Schema Schema - схема мест расположения
+ * 
+ * @author povloid
  */
 @Service
 @Transactional
@@ -35,11 +37,21 @@ public class SchemaService extends ABaseService<Schema> {
 	@Autowired
 	private SeatService seatService;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Schema> getAbstractBasicDAO() {
 		return schemaDAO;
 	}
 
+	/**
+	 * Поднять с ленивыми элементами
+	 * 
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public Schema findAllLazy(Object key) throws Exception {
 		Schema s = super.find(key);
@@ -47,6 +59,17 @@ public class SchemaService extends ABaseService<Schema> {
 		return s;
 	}
 
+	/**
+	 * Получить все записи
+	 * 
+	 * @param bus
+	 * @param firstResult
+	 * @param maxResults
+	 * @param orderByAttribute
+	 * @param sortOrder
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public List<Schema> getAllEntities(Bus bus, int firstResult,
 			int maxResults, SingularAttribute<Schema, ?> orderByAttribute,
@@ -64,6 +87,13 @@ public class SchemaService extends ABaseService<Schema> {
 				orderByAttribute, sortOrder, cb, cq, t);
 	}
 
+	/**
+	 * Получить все записи
+	 * 
+	 * @param bus
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public List<Schema> getAllEntities(Bus bus) throws Exception {
 
@@ -79,6 +109,13 @@ public class SchemaService extends ABaseService<Schema> {
 				cq, t);
 	}
 
+	/**
+	 * Количество схем в автобусе
+	 * 
+	 * @param bus
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(readOnly = true)
 	public long count(Bus bus) throws Exception {
 

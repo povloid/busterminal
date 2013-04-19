@@ -22,6 +22,9 @@ import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Service class for entity class: Customer Customer - клиент
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional
@@ -30,6 +33,9 @@ public class CustomerService extends ABaseService<Customer> {
 	@Autowired
 	private CustomerDAO customerDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Customer> getAbstractBasicDAO() {
 		return customerDAO;

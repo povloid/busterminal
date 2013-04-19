@@ -30,7 +30,10 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
 
 /**
- * Service class for entity class: Race Race - рейс
+ * Service class for entity class: Race Race - рейс 
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional
@@ -45,6 +48,9 @@ public class RaceService extends ABaseService<Race> {
 	@Autowired
 	private ItemsService itemsService;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<Race> getAbstractBasicDAO() {
 		return raceDAO;
@@ -82,6 +88,9 @@ public class RaceService extends ABaseService<Race> {
 		return race;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#persist(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -92,6 +101,9 @@ public class RaceService extends ABaseService<Race> {
 		return o;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#merge(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -190,6 +202,9 @@ public class RaceService extends ABaseService<Race> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#remove(java.lang.Object)
+	 */
 	@Override
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -219,6 +234,10 @@ public class RaceService extends ABaseService<Race> {
 
 	}
 
+	/**
+	 * Один день
+	 * 
+	 */
 	public static final int DAY = 1000 * 60 * 60 * 24;
 
 	/**

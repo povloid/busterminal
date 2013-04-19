@@ -22,6 +22,9 @@ import pk.home.busterminal.domain.Division_;
 
 /**
  * Service class for entity class: Division Division - отделение
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional

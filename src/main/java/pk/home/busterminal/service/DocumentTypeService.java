@@ -12,6 +12,9 @@ import pk.home.busterminal.domain.DocumentType;
 /**
  * Service class for entity class: DocumentType
  * DocumentType - тип документа
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional
@@ -20,6 +23,9 @@ public class DocumentTypeService extends ABaseService<DocumentType> {
 	@Autowired
 	private DocumentTypeDAO documentTypeDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<DocumentType> getAbstractBasicDAO() {
 		return documentTypeDAO;

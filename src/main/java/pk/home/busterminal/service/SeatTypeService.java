@@ -12,6 +12,9 @@ import pk.home.busterminal.domain.SeatType;
 /**
  * Service class for entity class: SeatType
  * SeatType - тип места
+ * 
+ * @author povloid
+ *
  */
 @Service
 @Transactional
@@ -20,6 +23,9 @@ public class SeatTypeService extends ABaseService<SeatType> {
 	@Autowired
 	private SeatTypeDAO seatTypeDAO;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#getAbstractBasicDAO()
+	 */
 	@Override
 	public ABaseDAO<SeatType> getAbstractBasicDAO() {
 		return seatTypeDAO;

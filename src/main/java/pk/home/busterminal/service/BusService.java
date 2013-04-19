@@ -27,6 +27,12 @@ import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
 
+/**
+ * Сервис управления автобусами
+ * 
+ * @author povloid
+ *
+ */
 @Service
 @Transactional
 public class BusService extends ABaseService<Bus> {
@@ -115,8 +121,9 @@ public class BusService extends ABaseService<Bus> {
 		}
 	}
 
-	/**
-	 * Удаление - рекурсивное
+	
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.service.ABaseService#remove(java.lang.Object)
 	 */
 	@Override
 	@ExceptionHandler(Exception.class)
@@ -140,7 +147,7 @@ public class BusService extends ABaseService<Bus> {
 	// ----------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Загрузка вместе с коллесциями
+	 * Загрузка вместе с коллекциями
 	 * 
 	 * @param key
 	 * @return
