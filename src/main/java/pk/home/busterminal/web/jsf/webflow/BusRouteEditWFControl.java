@@ -15,54 +15,92 @@ import pk.home.libs.combine.web.jsf.flow.AWFControl;
 
 /**
  * JSF edit control class for entity class: BusRoute BusRoute - Маршрут
+ * 
+ * 
+ * 
+ * @author povloid
+ *
  */
 public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 		Serializable {
 
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6198696373641859442L;
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#findEdited(java.lang.Object)
+	 */
 	@Override
 	public BusRoute findEdited(Long id) throws Exception {
 		return getBusRouteService().findWithLazy(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#newEdited()
+	 */
 	@Override
 	public BusRoute newEdited() throws Exception {
 		return new BusRoute();
 	}
 
+	/**
+	 * Сервис управления маршрутами автобусов
+	 * 
+	 * @return
+	 */
 	public BusRouteService getBusRouteService() {
 		return (BusRouteService) findBean("busRouteService");
 	}
 
+	/**
+	 * Сервис управления остановками
+	 * 
+	 * @return
+	 */
 	public BusStopService getBusStopService() {
 		return (BusStopService) findBean("busStopService");
 	}
 
+	/**
+	 * Сервис управления остановками на маршрутах
+	 * 
+	 * @return
+	 */
 	public BusRouteStopService getBusRouteStopService() {
 		return (BusRouteStopService) findBean("busRouteStopService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmAddImpl()
+	 */
 	@Override
 	protected void confirmAddImpl() throws Exception {
 		edited = getBusRouteService().persist(edited);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmEditImpl()
+	 */
 	@Override
 	protected void confirmEditImpl() throws Exception {
 		edited = getBusRouteService().merge(edited);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#confirmDelImpl()
+	 */
 	@Override
 	protected void confirmDelImpl() throws Exception {
 		getBusRouteService().remove(edited);
 	}
 
-	// init
-	// ----------------------------------------------------------------------------------------------
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#init0()
+	 */
 	protected void init0() throws Exception {
 	}
 
