@@ -12,6 +12,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: Order
  * Order - ордер - операция
+ * 
+ * @author povloid
+ *
  */
 public class OrderViewWFControl extends AWFBaseLazyLoadTableView<Order> implements
 		Serializable {

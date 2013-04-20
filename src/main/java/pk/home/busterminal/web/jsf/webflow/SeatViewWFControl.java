@@ -16,6 +16,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
  * JSF view control class for entity class: Seat Seat - посадочное место
+ * 
+ * @author povloid
+ *
  */
 public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 		Serializable {
@@ -26,17 +29,26 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * сервис мест
 	 * 
+	 * @return
 	 */
-
 	public SeatService getSeatService() {
 		return (SeatService) findBean("seatService");
 	}
 
+	/**
+	 * сервис автобусов
+	 * 
+	 * @return
+	 */
 	public BusService getBusService() {
 		return (BusService) findBean("busService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		initBuses();
@@ -53,6 +65,9 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 				selectedSchema);
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
 		// System.out.println(">>>>>>>" + selectedBus);
@@ -60,14 +75,26 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 		return getSeatService().count(selectedBus, selectedSchema);
 	}
 
+	/**
+	 * Добавть
+	 * @return
+	 */
 	public String add() {
 		return "add";
 	}
 
+	/**
+	 * Редактировать
+	 * @return
+	 */
 	public String edit() {
 		return "edit";
 	}
 
+	/**
+	 * Удалить
+	 * @return
+	 */
 	public String del() {
 		return "del";
 	}
@@ -191,7 +218,4 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	public void setBssType(BssType bssType) {
 		this.bssType = bssType;
 	}
-	
-	
-
 }

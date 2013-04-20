@@ -39,9 +39,6 @@ public class RaceEditWFControl extends AWFControl<Race, Long> implements
 	/* (non-Javadoc)
 	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#newEdited()
 	 */
-	/* (non-Javadoc)
-	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#newEdited()
-	 */
 	@Override
 	public Race newEdited() throws Exception {
 		return new Race();

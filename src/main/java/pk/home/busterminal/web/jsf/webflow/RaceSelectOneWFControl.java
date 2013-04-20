@@ -15,6 +15,12 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.web.jsf.flow.AWFBasicControl;
 import pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel;
 
+/**
+ * Контрол выбора одного реса
+ * 
+ * @author povloid
+ *
+ */
 public class RaceSelectOneWFControl extends AWFBasicControl implements
 		Serializable {
 
@@ -27,8 +33,11 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Race selected;
+	private Race selected;	// Выбранный рейс
 
+	/**
+	 *	Ленивая модель для таблици ресов 
+	 */
 	private WFLazyDataModel<Race> model = new WFLazyDataModel<Race>() {
 
 		/**
@@ -36,6 +45,9 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 		 */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)
+		 */
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {
 			Long id = null;
@@ -48,6 +60,9 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 					filters.get("busRoute.keyName"));
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#aload(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
+		 */
 		@Override
 		protected List<Race> aload(int first, int pageSize, String sortField,
 				SortOrder sortOrder, Map<String, String> filters)
@@ -72,6 +87,9 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 			return l;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowData(java.lang.String)
+		 */
 		@Override
 		public Race getRowData(String rowKey) {
 			for (Race rd : getDataList()) {
@@ -81,6 +99,9 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 			return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#getRowKey(java.lang.Object)
+		 */
 		@Override
 		public Object getRowKey(Race object) {
 			return object.getId();

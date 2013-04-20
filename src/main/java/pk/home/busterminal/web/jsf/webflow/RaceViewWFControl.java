@@ -11,6 +11,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
 /**
  * JSF view control class for entity class: Race Race - рейс
+ * 
+ * @author povloid
+ *
  */
 public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 		Serializable {
@@ -20,10 +23,18 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис рейсов
+	 * 
+	 * @return
+	 */
 	public RaceService getRaceService() {
 		return (RaceService) findBean("raceService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 
@@ -40,19 +51,37 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 				orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
 		return getRaceService().count();
 	}
 
+	/**
+	 * Добавить
+	 * 
+	 * @return
+	 */
 	public String add() {
 		return "add";
 	}
 
+	/**
+	 * Редактировать 
+	 * 
+	 * @return
+	 */
 	public String edit() {
 		return "edit";
 	}
 
+	/**
+	 * Удалить
+	 * 
+	 * @return
+	 */
 	public String del() {
 		return "del";
 	}

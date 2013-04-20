@@ -7,6 +7,12 @@ import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.service.DivisionService;
 import pk.home.libs.combine.web.jsf.flow.AWFRPTWFControl;
 
+/**
+ * Отчет - баоланс
+ * 
+ * @author povloid
+ *
+ */
 public class RPTDivisionBalanceF1WFControl extends AWFRPTWFControl implements
 		Serializable {
 
@@ -15,15 +21,25 @@ public class RPTDivisionBalanceF1WFControl extends AWFRPTWFControl implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long divisionId;
-	private Division division;
+	private Long divisionId;	// id отделения
+	private Division division;	// Отделение
 
-	private Date bDate, eDate;
+	private Date bDate, eDate;	// промежуток времени
 
+	/**
+	 * Сервис подразделений
+	 * @return
+	 */
 	public DivisionService getDivisionService() {
 		return (DivisionService) findBean("divisionService");
 	}
 
+	/**
+	 * Поиск отделения по id
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
 	public void setDivisionId(Long id) throws Exception {
 		this.division = getDivisionService().find(id);
 	}

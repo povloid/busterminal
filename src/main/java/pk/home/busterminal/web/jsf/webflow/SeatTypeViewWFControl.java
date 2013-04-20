@@ -12,6 +12,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: SeatType
  * SeatType - тип места
+ * 
+ * @author povloid
+ *
  */
 public class SeatTypeViewWFControl extends AWFBaseLazyLoadTableView<SeatType> implements
 		Serializable {
@@ -21,10 +24,18 @@ public class SeatTypeViewWFControl extends AWFBaseLazyLoadTableView<SeatType> im
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис типов посадочных мест
+	 * 
+	 * @return
+	 */
 	public SeatTypeService getSeatTypeService() {
 		return (SeatTypeService) findBean("seatTypeService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -39,22 +50,36 @@ public class SeatTypeViewWFControl extends AWFBaseLazyLoadTableView<SeatType> im
 				orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {		
 		return getSeatTypeService().count();
 	}
 	
 	
+	/**
+	 * Добавть
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактировать
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удалить
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}
-	
 }

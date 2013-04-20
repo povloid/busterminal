@@ -14,10 +14,6 @@ import pk.home.libs.combine.web.jsf.flow.AWFControl;
  * @author povloid
  *
  */
-/**
- * @author povloid
- *
- */
 public class OrderEditWFControl extends AWFControl<Order, Long> implements
 		Serializable {
 

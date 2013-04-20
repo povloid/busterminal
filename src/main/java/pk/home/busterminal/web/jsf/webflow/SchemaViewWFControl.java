@@ -16,6 +16,9 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 /**
  * JSF view control class for entity class: Schema Schema - схема мест
  * расположения
+ * 
+ * @author povloid
+ *
  */
 public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 		implements Serializable {
@@ -25,14 +28,27 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис схем
+	 * 
+	 * @return
+	 */
 	public SchemaService getSchemaService() {
 		return (SchemaService) findBean("schemaService");
 	}
 
+	/**
+	 * Сервис автобусов
+	 * 
+	 * @return
+	 */
 	public BusService getBusService() {
 		return (BusService) findBean("busService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		initBuses();
@@ -50,37 +66,67 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 				(page - 1) * rows, rows, orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
 		return getSchemaService().count(selectedBus);
 	}
 
+	/**
+	 * Добавить
+	 * @return
+	 */
 	public String add() {
 		return "add";
 	}
 
+	/**
+	 * Редактировать
+	 * @return
+	 */
 	public String edit() {
 		return "edit";
 	}
 
+	/**
+	 * Удалить
+	 * @return
+	 */
 	public String del() {
 		return "del";
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 
+	/**
+	 * Тип автобуса
+	 */
 	private BssType bssType = BssType.TEMPLITE;
 
+	private List<Bus> buses;	// список автобусов
+	private Bus selectedBus;	// Выбранный автобус
+	private Long selectedBusId;	// id выбранного автобуса
+
+	/**
+	 * Установить тип автобуса по строчному значению
+	 * 
+	 * @param s
+	 * @throws Exception
+	 */
 	public void setBssType(String s) throws Exception {
 		if (s != null && s.trim().length() > 0) {
 			bssType = BssType.valueOf(s);
 		}
 	}
 
-	private List<Bus> buses;
-	private Bus selectedBus;
-	private Long selectedBusId;
 
+	/**
+	 * Установить id выбранного автобуса
+	 * 
+	 * @param selectedBusId
+	 */
 	public void setSelectedBusId(Long selectedBusId) {
 		this.selectedBusId = selectedBusId;
 
@@ -111,6 +157,11 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 		}
 	}
 
+	/**
+	 * Инициализация списка автобусов
+	 * 
+	 * @throws Exception
+	 */
 	private void initBuses() throws Exception {
 		buses = getBusService().getAllEntities(bssType);
 
@@ -128,7 +179,6 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 	}
 
 	public List<Bus> getBuses() {
-		
 		System.out.println(buses.size());
 		return buses;
 	}
@@ -148,5 +198,4 @@ public class SchemaViewWFControl extends AWFBaseLazyLoadTableView<Schema>
 	public Long getSelectedBusId() {
 		return selectedBusId;
 	}
-
 }
