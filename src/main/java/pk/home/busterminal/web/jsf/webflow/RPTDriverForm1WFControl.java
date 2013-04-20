@@ -14,7 +14,7 @@ public class RPTDriverForm1WFControl extends AWFRPTWFControl implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4874192402909525048L;
+	private static final long serialVersionUID = 1L;
 
 	private Race race;
 	private Long raceId;

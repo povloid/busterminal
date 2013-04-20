@@ -24,7 +24,7 @@ public class BusRouteViewWFControl extends AWFBaseLazyLoadTableView<BusRoute> im
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4306147261469800543L;
+	private static final long serialVersionUID = 1L;
 
 	
 	/**

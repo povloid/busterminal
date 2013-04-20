@@ -24,7 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RequestScoped
 public class App implements Serializable {
 
-	private static final long serialVersionUID = 2167179189163857373L;
+	private static final long serialVersionUID = 1L;
 
 	
 	

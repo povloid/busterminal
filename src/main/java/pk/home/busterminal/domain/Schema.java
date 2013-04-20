@@ -29,7 +29,7 @@ public class Schema implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4574079630536468670L;
+	private static final long serialVersionUID = 1L;
 
 	@Version
 	private int version;

@@ -27,7 +27,7 @@ public final class TerminalCurrentUser implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3589616731821852097L;
+	private static final long serialVersionUID = 1L;
 
 	private UserAccount userAccount;
 

@@ -21,10 +21,18 @@ public class OrderViewWFControl extends AWFBaseLazyLoadTableView<Order> implemen
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Сервис управления ордерами
+	 * 
+	 * @return
+	 */
 	public OrderService getOrderService() {
 		return (OrderService) findBean("orderService");
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
+	 */
 	@Override
 	protected void aInit() throws Exception {
 		
@@ -37,20 +45,35 @@ public class OrderViewWFControl extends AWFBaseLazyLoadTableView<Order> implemen
 				orderByAttribute, getSortOrderType());
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {		
 		return getOrderService().count();
 	}
 	
 	
+	/**
+	 * Добавить
+	 * @return
+	 */
 	public String add(){
 		return "add";
 	}
 	
+	/**
+	 * Редактировать
+	 * @return
+	 */
 	public String edit(){
 		return "edit";
 	}
 	
+	/**
+	 * Удалить
+	 * @return
+	 */
 	public String del(){
 		return "del";
 	}

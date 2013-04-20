@@ -28,7 +28,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3189205660540524184L;
+	private static final long serialVersionUID = 1L;
 
 	private Long selectedSchemeId;	// id выбранной остановки
 	private Schema selectedScheme;	// выбранная остановка

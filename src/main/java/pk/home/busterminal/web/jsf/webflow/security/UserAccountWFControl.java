@@ -28,7 +28,7 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4157216820946820481L;
+	private static final long serialVersionUID = 1L;
 
 	private String password;	// пароль
 

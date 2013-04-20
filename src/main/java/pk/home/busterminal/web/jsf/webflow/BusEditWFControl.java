@@ -22,7 +22,7 @@ public class BusEditWFControl extends AWFControl<Bus, Long> implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4157216820946820481L;
+	private static final long serialVersionUID = 1L;
 
 	// Тип записи
 	private BssType bssType = BssType.TEMPLITE;

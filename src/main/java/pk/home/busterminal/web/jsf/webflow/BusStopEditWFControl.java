@@ -21,7 +21,7 @@ public class BusStopEditWFControl extends AWFControl<BusStop, Long> implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1597110240261866040L;
+	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
 	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#findEdited(java.lang.Object)

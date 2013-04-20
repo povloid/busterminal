@@ -23,7 +23,7 @@ public class BusStopViewWFControl extends AWFBaseLazyLoadTableView<BusStop> impl
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 246627859451257145L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Сервис управления остановками

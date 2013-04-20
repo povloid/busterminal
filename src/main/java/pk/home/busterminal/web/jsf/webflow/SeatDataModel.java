@@ -15,7 +15,7 @@ public class SeatDataModel extends WFDataModel<Seat> implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8990908095419549776L;
+	private static final long serialVersionUID = 1L;
 
 
 

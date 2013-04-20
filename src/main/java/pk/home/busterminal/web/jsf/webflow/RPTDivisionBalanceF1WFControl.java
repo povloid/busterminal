@@ -13,7 +13,7 @@ public class RPTDivisionBalanceF1WFControl extends AWFRPTWFControl implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3786051198921606764L;
+	private static final long serialVersionUID = 1L;
 
 	private Long divisionId;
 	private Division division;

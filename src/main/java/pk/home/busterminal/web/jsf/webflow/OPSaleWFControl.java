@@ -24,7 +24,7 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6702785294921753935L;
+	private static final long serialVersionUID = 1L;
 
 	private Race race;	// Рейс
 

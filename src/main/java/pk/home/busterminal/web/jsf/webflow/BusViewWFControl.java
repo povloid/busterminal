@@ -22,7 +22,7 @@ public class BusViewWFControl extends AWFBaseLazyLoadTableView<Bus> implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6872276756508162992L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Сервис управления автобусами

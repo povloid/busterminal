@@ -22,11 +22,14 @@ import pk.home.libs.combine.web.jsf.flow.AWFControl;
 public class BalanceEditWFControl extends AWFControl<Balance, Long> implements
 		Serializable {
 
+
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	private Division division;	// Текущее отделение
 	private String type = "PLUS";
 	

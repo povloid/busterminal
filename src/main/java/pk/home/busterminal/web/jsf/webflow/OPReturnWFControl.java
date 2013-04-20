@@ -22,7 +22,7 @@ public class OPReturnWFControl extends AWFWizart implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4938481481919621181L;
+	private static final long serialVersionUID = 1L;
 	
 	private Order order;	// Ордер покупки билета
 	private Order retOrder = new Order();	// Возвратный ордер

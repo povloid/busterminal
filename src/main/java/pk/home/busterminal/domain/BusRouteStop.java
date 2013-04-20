@@ -31,7 +31,7 @@ public class BusRouteStop implements Serializable {
 	 * 
 	 * 
 	 */
-	private static final long serialVersionUID = -2201675064555128789L;
+	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "busroute_id")

@@ -38,7 +38,7 @@ public class Bus implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -865838226573198527L;
+	private static final long serialVersionUID = 1L;
 
 	@Version
 	private int version;

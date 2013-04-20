@@ -27,7 +27,7 @@ public class SeatTypeIcons implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5041856025249530701L;
+	private static final long serialVersionUID = 1L;
 
 	public static final String ICON_FOLDER = "/images/seats/";
 

@@ -16,6 +16,8 @@ import pk.home.libs.combine.web.jsf.flow.AWFControl;
 public class BusRouteStopEditWFControl extends AWFControl<BusRouteStop, Long> implements
 		Serializable {
 
+
+
 	/**
 	 * 
 	 */

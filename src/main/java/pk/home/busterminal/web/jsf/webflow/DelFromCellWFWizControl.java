@@ -17,7 +17,7 @@ public class DelFromCellWFWizControl extends AWFWizart implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6011782358806237532L;
+	private static final long serialVersionUID = 1L;
 
 	private Long selectedSeatId;	// id отрабатываемой ячейки
 	private short select;			// отрабатываемая ячека

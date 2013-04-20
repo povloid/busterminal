@@ -16,7 +16,7 @@ public class UserAuthority implements GrantedAuthority, Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2908667810165215473L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -29,7 +29,7 @@ public class BusRouteEditWFControl extends AWFControl<BusRoute, Long> implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6198696373641859442L;
+	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
 	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#findEdited(java.lang.Object)

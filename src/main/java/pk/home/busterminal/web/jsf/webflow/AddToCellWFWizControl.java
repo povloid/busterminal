@@ -21,7 +21,7 @@ public class AddToCellWFWizControl extends AWFWizart implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1586242585286422108L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Сервис

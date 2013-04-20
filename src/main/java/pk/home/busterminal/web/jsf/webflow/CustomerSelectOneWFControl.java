@@ -28,7 +28,7 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6986222423369826350L;
+	private static final long serialVersionUID = 1L;
 	
 	private Customer selected;
 
@@ -49,7 +49,7 @@ public class CustomerSelectOneWFControl extends AWFBasicControl implements
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 4970282896915525138L;
+		private static final long serialVersionUID = 1L;
 
 		/* (non-Javadoc)
 		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)

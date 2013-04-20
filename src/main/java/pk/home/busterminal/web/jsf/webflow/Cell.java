@@ -20,7 +20,7 @@ public class Cell implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7831224580870450169L;
+	private static final long serialVersionUID = 1L;
 
 	short index = 1, x = 0, y = 0;	// координаты ячейки
 	private Seat seat;

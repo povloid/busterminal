@@ -24,7 +24,7 @@ public final class LoginErrorPhaseListener implements PhaseListener {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5963658604113140000L;
+	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
 	 * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)

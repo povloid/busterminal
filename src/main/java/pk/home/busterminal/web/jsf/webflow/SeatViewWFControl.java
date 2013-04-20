@@ -23,7 +23,7 @@ public class SeatViewWFControl extends AWFBaseLazyLoadTableView<Seat> implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6473102880965154583L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 

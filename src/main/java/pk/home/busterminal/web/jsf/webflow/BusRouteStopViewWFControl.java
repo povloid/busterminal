@@ -24,7 +24,7 @@ public class BusRouteStopViewWFControl extends AWFBaseLazyLoadTableView<BusRoute
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1668080268712415538L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Сервис управления остановками на маршрутах

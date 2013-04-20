@@ -25,7 +25,7 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6986222423369826350L;
+	private static final long serialVersionUID = 1L;
 
 	private Race selected;
 
@@ -34,7 +34,7 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 4970282896915525138L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		protected int count(Map<String, String> filters) throws Exception {

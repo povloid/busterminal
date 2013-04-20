@@ -36,7 +36,7 @@ public class UserAccount implements UserDetails, Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5540548849637113620L;
+	private static final long serialVersionUID = 1L;
 
 	@Column(unique = true, nullable = false)
 	@Id

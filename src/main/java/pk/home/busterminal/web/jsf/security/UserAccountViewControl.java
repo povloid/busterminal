@@ -27,7 +27,7 @@ public final class UserAccountViewControl extends ABaseLazyLoadTableView<UserAcc
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8914379362921153006L;
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private UserAccountService userAccountService;

@@ -36,7 +36,7 @@ public class OPSaleSeatWFControl extends AWFBasicControl implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6802892297395121858L;
+	private static final long serialVersionUID = 1L;
 	
 	// Переменные
 	private Race race;		// рейс

@@ -28,7 +28,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2866582993448987413L;
+	private static final long serialVersionUID = 1L;
 	
 	private final static int DAY = 1000 * 60 * 60 * 24;	// Один день
 	
@@ -182,7 +182,7 @@ public class FindRaceWFControl extends AWFBasicControl implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 4970282896915525138L;
+		private static final long serialVersionUID = 1L;
 
 		/* (non-Javadoc)
 		 * @see pk.home.libs.combine.web.jsf.flow.model.WFLazyDataModel#count(java.util.Map)
