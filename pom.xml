@@ -216,25 +216,7 @@
 
 
 		<!-- LOG -->
-
-<!-- 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.5</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.5</version>
-			<scope>runtime</scope>
-		</dependency> -->
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -287,7 +269,6 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- JSF -->
 		<!-- Sun Mojarra JSF 2 runtime -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -299,13 +280,6 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>2.1.21</version>
 		</dependency>
-
-<!-- <dependency> -->
-<!--   <groupId>org.glassfish</groupId> -->
-<!--   <artifactId>javax.faces</artifactId> -->
-<!--   <version>2.1.11</version> -->
-<!-- </dependency> -->
-
 
 
 		<!-- PrimeFaces component library -->
@@ -368,7 +342,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>4.7.1</version>
+			<version>5.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
@@ -439,17 +413,14 @@
 					<url>http://localhost:8080/manager/text</url>
 				</configuration>
 			</plugin>
-
-
-
 		</plugins>
 
 		<finalName>busterminal</finalName>
 	</build>
-	<url>politrend.kz</url>
+	<url>http://github.com/povloid/busterminal</url>
 	<description>Bus Terminal - selling tickets on the buses</description>
 	<organization>
-		<name>Politrend</name>
-		<url>politrend.kz</url>
+		<name>PK</name>
+		<url>http://github.com/povloid/busterminal</url>
 	</organization>
 </project>
