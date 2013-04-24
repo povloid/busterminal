@@ -26,9 +26,6 @@
 
 	<import resource="classpath:applicationContext.xml" />
 
-
 	<import resource="webflow-context.xml" />
-
-<!-- 	<import resource="security-context.xml" /> -->
 
 </beans>

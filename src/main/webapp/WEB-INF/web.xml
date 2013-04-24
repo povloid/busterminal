@@ -5,11 +5,11 @@
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 
-
 	<context-param>
 		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<!-- Настрока восстановления представления -->
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
@@ -30,7 +30,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/applicationContext.xml</param-value>
@@ -38,9 +37,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
-
-
 	<listener>
 		<listener-class>
 			org.springframework.web.context.request.RequestContextListener
@@ -50,19 +46,16 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
 	<listener>
     	<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
-
-
-
-
-
+	
+<!--  Можно указать специфичную тему оформления primefaces -->
 <!-- 	<context-param> -->
 <!-- 		<param-name>primefaces.THEME</param-name> -->
 <!-- 		<param-value>flick</param-value> -->
 <!-- 	</context-param> -->
+
 	<session-config>
 		<session-timeout>300</session-timeout>
 	</session-config>
@@ -70,27 +63,32 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<welcome-file>faces/redirect.jsp</welcome-file>
 	</welcome-file-list>
 
-
-
-
-
 	<!-- JSF 2 IMPLEMENTATION -->
 	<!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
-	<!-- Enables special Facelets debug output during development -->
+	<!-- 
+	Enables special Facelets debug output during development
+	Разрешить во время разработки специальный отладочный вывод facelets
+	-->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 <!-- 		<param-value>Production</param-value> -->
 	</context-param>
-	<!-- Causes Facelets to refresh templates during development -->
+	<!-- 
+	Causes Facelets to refresh templates during development
+	Заставлять facelets обновлять шаблон во время разработки
+	1 - заставит проверять шаблон каждую секунду
+	-1 - необходимо задать в Production  
+	-->
 	<context-param>
 		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
 		<param-value>1</param-value>
 	</context-param>
+	<!--  отключение коментариев -->
 	<context-param>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
@@ -105,34 +103,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
-
-
-
-
-
-	<servlet>
-		<description>The Image Servlet</description>
-		<display-name>Image</display-name>
-		<servlet-name>Image</servlet-name>
-		<servlet-class>pk.home.vta.web.servlets.Image</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Image</servlet-name>
-		<url-pattern>/Image</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description>The RobotsTXT Servlet</description>
-		<display-name>RobotsTXT</display-name>
-		<servlet-name>RobotsTXT</servlet-name>
-		<servlet-class>pk.home.vta.web.servlets.RobotsTXT</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RobotsTXT</servlet-name>
-		<url-pattern>/robots.txt</url-pattern>
-	</servlet-mapping>
-
-
-
 
 	<!-- The front controller of this Spring Web application, responsible for 
 		handling all application requests -->
@@ -151,8 +121,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<url-pattern>/mvc/*</url-pattern>
 	</servlet-mapping>
 
-
-
 	<filter>
 		<filter-name>Charset Filter</filter-name>
 		<filter-class>pk.home.libs.combine.web.filters.CharsetFilter</filter-class>
@@ -168,9 +136,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	</filter-mapping>
 
 
-
-
-	<!-- Почемуто хреново работает -->
+	<!-- Плохо работает, заменил своей реализацией -->
 	<!-- <filter> -->
 	<!-- <filter-name>charEncodingFilter</filter-name> -->
 	<!-- <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> -->
@@ -183,8 +149,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	<!-- <param-value>true</param-value> -->
 	<!-- </init-param> -->
 	<!-- </filter> -->
-
-
 
 
 	<filter>
@@ -263,8 +227,13 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 			<encoding>UTF-8</encoding>
 		</locale-encoding-mapping>
 	</locale-encoding-mapping-list>
-
-
+	
+	
+	<context-param>
+   		<param-name>spring.profiles.default</param-name>
+   		<param-value>Prod</param-value>
+	</context-param>
+	
 
 </web-app>
 <!-- Полезное !!!!! -->
