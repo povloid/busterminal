@@ -12,38 +12,39 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<!-- WEB FLOW SYSTEM -->
-	
-	<!-- Все запросы идут на спринговский DispatcherServlet, в том числе и статические.
-         Отсекаются настройками: Enable serving of classpath with Spring 3 resource
-         serving mechanism. For example: GET /webflow-showcase/resources/styles/blueprint/print.css -->
-	<mvc:resources location="/css/" mapping="/css/**"/>
-    <mvc:resources location="/images/" mapping="/images/**"/>
-	
-	<!-- Включение механизма аннотаций -->
-	<mvc:annotation-driven />
 
-	<!-- Слушатель JPA -->
+	<mvc:annotation-driven/>
+
+	<!-- Все запросы идут на спринговский DispatcherServlet, в том числе и статические. 
+		Отсекаются настройками: Enable serving of classpath with Spring 3 resource 
+		serving mechanism. For example: GET /webflow-showcase/resources/styles/blueprint/print.css -->
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+    
+	<!-- Enable processing of JSF 2 resource requests. For example: /webflow-primefaces-showcase/app/javax.faces.resource/jsf.js?ln=javax.faces 
+	Подключает ресурсы JSF в вебпотоках -->
+	<faces:resources />
+	
+
 	<bean id="jpaFlowExecutionListener"
 		class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
 		<constructor-arg ref="entityManagerFactory" />
 		<constructor-arg ref="transactionManager" />
 	</bean>
 
-	<!-- Слушатель безопасности -->
+
 	<bean id="securityFlowExecutionListener"
 		class="org.springframework.webflow.security.SecurityFlowExecutionListener">
 		<!-- Объявлен и настроен в secyrity-context.xml -->
 		<property name="accessDecisionManager" ref="accessDecisionManager" />
 	</bean>
 
-	<!-- 
-	A listener maintain one FacesContext instance per Web Flow request.
-	Слушаеть для создания и освобождения FacesContext 
-	-->
+
+	<!-- A listener maintain one FacesContext instance per Web Flow request. -->
 	<bean id="facesContextListener"
 		class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener" />
 
-	<!-- Исполняет потоки: центральная точка входа в систему Spring Web Flow -->
+
 	<webflow:flow-executor id="flowExecutor"
 		flow-registry="flowRegistry">
 		<webflow:flow-execution-listeners>
@@ -53,16 +54,15 @@
 		</webflow:flow-execution-listeners>
 	</webflow:flow-executor>
 
- 	<context:spring-configured/>
 
-	<!-- Задаем путь к реестру диалогов -->
 	<webflow:flow-registry id="flowRegistry"
-		flow-builder-services="facesFlowBuilderServices" 
-		base-path="/WEB-INF/flows">
+		flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/flows">
 		<webflow:flow-location-pattern value="/**/*-flow.xml" />
 	</webflow:flow-registry>
 
-	
+
+	<faces:flow-builder-services id="facesFlowBuilderServices"
+		enable-managed-beans="true" development="true" />
 
 	<bean
 		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
@@ -82,9 +82,6 @@
 		</property>
 	</bean>
 
-	<!-- Enable processing of JSF 2 resource requests. For example: /webflow-primefaces-showcase/app/javax.faces.resource/jsf.js?ln=javax.faces 
-		Подключает ресурсы JSF в вебпотоках -->
-	<faces:resources />
 
 	<!-- Maps request URIs to controllers -->
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -106,15 +103,16 @@
 		<property name="flowExecutor" ref="flowExecutor" />
 	</bean>
 
-	<!-- <import resource="classpath:jasper-views.xml" /> -->
+<!-- 	<import resource="classpath:jasper-views.xml" /> -->
+
 
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">
 			<list>
-				<!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver"> -->
-				<!-- <property name="basename" value="views"/> -->
-				<!-- </bean> -->
+<!-- 				<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver"> -->
+<!--     					<property name="basename" value="views"/> -->
+<!-- 				</bean> -->
 				<bean
 					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 					<property name="prefix">
@@ -134,19 +132,4 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-	
-	
-	<!-- Строитель диалогов -->
-	<beans profile="Dev">
-		<faces:flow-builder-services id="facesFlowBuilderServices"
-			enable-managed-beans="true" development="true" />
-	</beans>
-	<beans profile="Prod">
-		<faces:flow-builder-services id="facesFlowBuilderServices"
-			enable-managed-beans="true" development="false" />
-	</beans>
-	
-	
 </beans>

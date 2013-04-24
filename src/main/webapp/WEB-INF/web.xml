@@ -64,30 +64,50 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	</welcome-file-list>
 
 	<!-- JSF 2 IMPLEMENTATION -->
+	
+	
 	<!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
+	
+	<!-- ************************************************************** --> 
 	<!-- 
 	Enables special Facelets debug output during development
 	Разрешить во время разработки специальный отладочный вывод facelets
+	
+	Может принимать значения Development и Production
 	-->
-	<context-param>
+	<!-- <context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
-<!-- 		<param-value>Production</param-value> -->
-	</context-param>
+	</context-param> -->
 	<!-- 
 	Causes Facelets to refresh templates during development
 	Заставлять facelets обновлять шаблон во время разработки
 	1 - заставит проверять шаблон каждую секунду
 	-1 - необходимо задать в Production  
 	-->
-	<context-param>
+	<!-- <context-param>
 		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
 		<param-value>1</param-value>
-	</context-param>
+	</context-param> -->
+	
+	
+	
+
+	<!-- Надо бобавить в context.xml -->
+
+	<!-- <Parameter name="javax.faces.PROJECT_STAGE" value="Development" override="false"/> 
+		<Parameter name="javax.faces.FACELETS_REFRESH_PERIOD" value="1" override="false"/> 
+		<Parameter name="spring.profiles.default" value="Prod" override="false"/> -->
+
+	<!-- ************************************************************** -->
+	
+	
+	<!-- ************************************************************** -->
+	
 	<!--  отключение коментариев -->
 	<context-param>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
@@ -229,10 +249,10 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	</locale-encoding-mapping-list>
 	
 	
-	<context-param>
+	<!-- <context-param>
    		<param-name>spring.profiles.default</param-name>
    		<param-value>Prod</param-value>
-	</context-param>
+	</context-param> -->
 	
 
 </web-app>
