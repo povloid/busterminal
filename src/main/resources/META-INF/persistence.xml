@@ -23,17 +23,19 @@
 		<class>pk.home.busterminal.domain.Division</class>
 		<class>pk.home.busterminal.domain.Balance</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url"
+			<!-- <property name="javax.persistence.jdbc.url"
 				value="jdbc:postgresql://localhost:5433/busterminal" />
 			<property name="javax.persistence.jdbc.user" value="busterminal" />
 			<property name="javax.persistence.jdbc.password" value="paradox" />
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> -->
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-			<property name="hibernate.show_sql" value="true" />
+			<!-- <property name="hibernate.show_sql" value="true" /> -->
+			
+			
 			<!-- <property name="hibernate.format_sql" value="true" /> -->
 			<!-- <property name="hibernate.use_sql_comments" value="true" /> -->
 
