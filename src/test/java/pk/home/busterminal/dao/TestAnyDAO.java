@@ -1,10 +1,5 @@
 package pk.home.busterminal.dao;
 
-import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.Field;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,9 +15,6 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-import pk.home.busterminal.domain.Bus;
-import pk.home.busterminal.domain.Schema;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		DirtiesContextTestExecutionListener.class,
@@ -31,11 +23,8 @@ import pk.home.busterminal.domain.Schema;
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
 public class TestAnyDAO {
 
-	private BusDAO busDAO;
-
 	@Autowired
 	public void setBusDAO(BusDAO busDAO) {
-		this.busDAO = busDAO;
 	}
 
 	/**
