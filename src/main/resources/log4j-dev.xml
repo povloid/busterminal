@@ -33,7 +33,7 @@
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="info" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.binding">
@@ -41,7 +41,7 @@
     </logger>
 
     <logger name="org.springframework.webflow">
-        <level value="info" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.primefaces">
