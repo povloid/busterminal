@@ -1,7 +1,6 @@
 package pk.home.busterminal.web.jsf.security;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -10,13 +9,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 
 /**
  * 
- * Код позаимствован у: 
+ * Код позаимствован: 
  * User: Dmitry Leontyev
  * Date: 12.12.10
  * Time: 21:45
@@ -30,8 +30,7 @@ public final class AuthController {
 	
 	
 	
-    @SuppressWarnings("unused")
-	private static final Logger LOG = Logger.getLogger(AuthController.class.getName());
+	private static final Logger LOG = Logger.getLogger(AuthController.class);
 
     
     private String user;
@@ -52,8 +51,8 @@ public final class AuthController {
         RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
                 .getRequestDispatcher("/j_spring_security_check");
         
-        //String sss = ((ServletRequest) context.getRequest()).getParameter("_spring_security_remember_me");
-        //System.out.print(">>>>>>>>>>>>>>>>>>>>" + sss);
+        String sss = ((ServletRequest) context.getRequest()).getParameter("_spring_security_remember_me");
+        LOG.info("**** doLogin() **** => " + sss);
         
         dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
                

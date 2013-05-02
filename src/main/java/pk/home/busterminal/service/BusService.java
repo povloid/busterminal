@@ -340,7 +340,7 @@ public class BusService extends ABaseService<Bus> {
 		return persistCopy(work);
 	}
 
-	private static final BigDecimal ROUND_VALUE = new BigDecimal(100);
+	private static final BigDecimal ROUND_VALUE = new BigDecimal(10);
 
 	/**
 	 * Вычислить и установить цену
