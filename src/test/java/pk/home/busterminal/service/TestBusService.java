@@ -34,9 +34,11 @@ import org.springframework.transaction.annotation.Transactional;
 import pk.home.busterminal.domain.BssType;
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Bus_;
+import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.domain.SeatType;
+import pk.home.busterminal.domain.security.UserAccount;
 import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -676,6 +678,25 @@ public class TestBusService extends BaseTest {
 		seat1.setDiscount(true);
 		seat1.setDiscountPotsent(50);
 		seat1.setBlock(true);
+		seat1.setBlockDescription("Причина блокировки ....");
+		{
+			division = new Division();
+			division.setKeyName("Тестовое отделение - 1");
+			division = divisionService.persist(division);
+
+			userAccount = new UserAccount();
+			userAccount.setUsername("testuser1");
+			userAccount.setPassword(passwordEncoder.encodePassword("password",
+					null));
+			userAccount.setfName("Фамилия - ТЕСТ");
+			userAccount.setnName("Имя - ТЕСТ");
+			userAccount.setmName("Отчество - ТЕСТ");
+
+			userAccount = userAccountService.persist(userAccount);
+			
+			// ******************************
+			seat1.setBlocker(userAccount);
+		}
 
 		seat1 = seatService.persist(seat1);
 
@@ -690,8 +711,7 @@ public class TestBusService extends BaseTest {
 		seat2.setDiscount(false);
 		seat2.setDiscountPotsent(60);
 		seat2.setBlock(false);
-		seat2.setBlockDescription("Причина блокировки ....");
-		seat2.setBlocker(userAccount);
+
 		
 		seat2 = seatService.persist(seat2);
 
@@ -754,7 +774,9 @@ public class TestBusService extends BaseTest {
 
 				assertEquals(as.getDiscount(), bs.getDiscount());
 				assertEquals(as.getDiscountPotsent(), bs.getDiscountPotsent());
-				assertEquals(as.getBlock(), bs.getBlock());
+				
+				/// Блокировка и все что с ней связано не копируется
+				///assertEquals(as.getBlock(), bs.getBlock());
 
 				assertFalse(as.getId() == bs.getId());
 			}

@@ -235,7 +235,9 @@ public class SeatService extends ABaseService<Seat> {
 
 		seatCopy.setDiscount(seat.getDiscount());
 		seatCopy.setDiscountPotsent(seat.getDiscountPotsent());
-		seatCopy.setBlock(seat.getBlock());
+		
+		// Внимание, блокировку и все что с ней связано не копируем
+		// В конечном счете есть блокировка на уровне рейса
 
 		return seatCopy;
 	}

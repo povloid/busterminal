@@ -43,13 +43,13 @@
 	
 	<beans profile="Dev">
 		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="locations" value="profiles/profile.Dev.properties"/>
+			<property name="locations" value="classpath:profiles/profile.Dev.properties"/>
 		</bean>
 	</beans>
 	
 	<beans profile="Prod">
 		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="locations" value="profiles/profile.Prod.properties"/>
+			<property name="locations" value="classpath:profiles/profile.Prod.properties"/>
 		</bean>
 	</beans>	
 
