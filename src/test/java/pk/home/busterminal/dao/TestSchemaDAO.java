@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,12 +38,11 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestSchemaDAO {
 
 	private BusDAO busDAO;
-	
-	
-	
+
 	@Autowired
 	public void setBusDAO(BusDAO busDAO) {
 		this.busDAO = busDAO;
@@ -106,8 +106,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -135,14 +134,13 @@ public class TestSchemaDAO {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		
+
 		Bus bus = new Bus();
 		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -152,7 +150,8 @@ public class TestSchemaDAO {
 			index++;
 		}
 
-		List<Schema> list = dataStore.getAllEntities(Schema_.id, SortOrderType.ASC);
+		List<Schema> list = dataStore.getAllEntities(Schema_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -180,7 +179,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -213,7 +212,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -253,8 +252,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -308,7 +306,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -337,7 +335,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Schema schema1 = new Schema();
@@ -366,8 +364,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -391,13 +388,13 @@ public class TestSchemaDAO {
 	@Test
 	@Rollback(true)
 	public void testRefresh() throws Exception {
-		
+
 		Bus bus = new Bus();
 		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -429,13 +426,13 @@ public class TestSchemaDAO {
 	@Test
 	@Rollback(true)
 	public void testMerge() throws Exception {
-		
+
 		Bus bus = new Bus();
 		bus.setBssType(BssType.TEMPLITE);
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);
@@ -473,8 +470,7 @@ public class TestSchemaDAO {
 		bus.setKeyName("#Test Bus");
 		bus.setGosNum("#Test num");
 		bus = busDAO.persist(bus);
-		
-		
+
 		Schema schema1 = new Schema();
 		schema1.setKeyName("key " + 999);
 		schema1.setBus(bus);

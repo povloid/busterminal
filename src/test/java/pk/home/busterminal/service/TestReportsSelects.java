@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,6 +31,7 @@ import pk.home.busterminal.service.OrderService.FindOrdersOrderByBusRouteStopsRe
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestReportsSelects {
 
 	@Autowired
@@ -80,8 +82,7 @@ public class TestReportsSelects {
 		for (FindOrdersOrderByBusRouteStopsResult r : listo) {
 			System.out.println(r.getBusRouteStop().getOrId() + " "
 					+ r.getBusRouteStop().getBusStop().getKeyName() + " "
-					+ r.getTypeCaption() + "  >>> "
-					+ r.getOrder().getId());
+					+ r.getTypeCaption() + "  >>> " + r.getOrder().getId());
 		}
 
 		System.out.println(listo.size());

@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,6 +40,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestSeatService {
 
 	private SchemaService schemaService;
@@ -168,7 +170,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -218,7 +220,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -262,7 +264,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -313,7 +315,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -383,7 +385,7 @@ public class TestSeatService {
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
 		seatType = seatTypeService.persist(seatType);
-		
+
 		Seat seat1 = new Seat();
 		seat1.setNum((short) 100);
 		seat1.setSchema(schema);
@@ -418,7 +420,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -458,7 +460,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -499,7 +501,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -548,7 +550,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -597,7 +599,7 @@ public class TestSeatService {
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);
 		schema = schemaService.persist(schema);
-		
+
 		SeatType seatType = new SeatType();
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
@@ -640,7 +642,7 @@ public class TestSeatService {
 		seatType.setKeyName("Тест - Пассажирское");
 		seatType.setSold(true);
 		seatType = seatTypeService.persist(seatType);
-		
+
 		Schema schema = new Schema();
 		schema.setKeyName("key " + 999);
 		schema.setBus(bus);

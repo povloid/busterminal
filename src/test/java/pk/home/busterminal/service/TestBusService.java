@@ -3,7 +3,10 @@
  */
 package pk.home.busterminal.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -19,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -46,6 +50,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestBusService extends BaseTest {
 
 	/**
@@ -642,9 +647,9 @@ public class TestBusService extends BaseTest {
 		busTemplite.setKeyName("Тестовый автобус 2");
 		busTemplite.setGosNum("TEST NUM 2");
 		busTemplite.setBssType(BssType.TEMPLITE);
-		
+
 		busTemplite.setBasePrice(new BigDecimal(1000));
-		
+
 		busTemplite = busService.persist(busTemplite);
 
 		// -------------------------------------------------------

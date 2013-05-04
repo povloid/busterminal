@@ -1,9 +1,11 @@
 package pk.home.busterminal.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,6 +22,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
 import pk.home.busterminal.domain.Balance;
 import pk.home.busterminal.domain.BalanceType;
 import pk.home.busterminal.domain.Balance_;
@@ -34,6 +38,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestBalanceDAO extends BaseTest {
 
 	/**
@@ -122,7 +127,7 @@ public class TestBalanceDAO extends BaseTest {
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		createTestEntitys();
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
@@ -131,7 +136,7 @@ public class TestBalanceDAO extends BaseTest {
 			balance.setActualSumm(new BigDecimal(1000));
 			balance.setDivision(division);
 			balance.setUserAccount(userAccount);
-			
+
 			dataStore.persist(balance);
 			index++;
 		}
@@ -193,7 +198,7 @@ public class TestBalanceDAO extends BaseTest {
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		createTestEntitys();
-		
+
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
@@ -202,7 +207,7 @@ public class TestBalanceDAO extends BaseTest {
 			balance.setActualSumm(new BigDecimal(1000));
 			balance.setDivision(division);
 			balance.setUserAccount(userAccount);
-			
+
 			dataStore.persist(balance);
 			// index++;
 		}
@@ -233,7 +238,7 @@ public class TestBalanceDAO extends BaseTest {
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		createTestEntitys();
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
@@ -242,7 +247,7 @@ public class TestBalanceDAO extends BaseTest {
 			balance.setActualSumm(new BigDecimal(1000));
 			balance.setDivision(division);
 			balance.setUserAccount(userAccount);
-			
+
 			dataStore.persist(balance);
 			index++;
 		}
@@ -293,7 +298,7 @@ public class TestBalanceDAO extends BaseTest {
 		balance.setActualSumm(new BigDecimal(1000));
 		balance.setDivision(division);
 		balance.setUserAccount(userAccount);
-		
+
 		balance = dataStore.persist(balance);
 
 		long id = balance.getId();
@@ -315,7 +320,7 @@ public class TestBalanceDAO extends BaseTest {
 	@Rollback(true)
 	public void testCount() throws Exception {
 		createTestEntitys();
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Balance balance = new Balance();
@@ -324,7 +329,7 @@ public class TestBalanceDAO extends BaseTest {
 			balance.setActualSumm(new BigDecimal(1000));
 			balance.setDivision(division);
 			balance.setUserAccount(userAccount);
-			
+
 			dataStore.persist(balance);
 			index++;
 		}
@@ -344,14 +349,14 @@ public class TestBalanceDAO extends BaseTest {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		createTestEntitys();
-		
+
 		Balance balance = new Balance();
 		balance.setOpTime(createUniqueDate());
 		balance.setBalanceType(BalanceType.PLUS);
 		balance.setActualSumm(new BigDecimal(1000));
 		balance.setDivision(division);
 		balance.setUserAccount(userAccount);
-		
+
 		balance = dataStore.persist(balance);
 
 		long id = balance.getId();
@@ -373,14 +378,14 @@ public class TestBalanceDAO extends BaseTest {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		createTestEntitys();
-		
+
 		Balance balance = new Balance();
 		balance.setOpTime(createUniqueDate());
 		balance.setBalanceType(BalanceType.PLUS);
 		balance.setActualSumm(new BigDecimal(1000));
 		balance.setDivision(division);
 		balance.setUserAccount(userAccount);
-		
+
 		balance = dataStore.persist(balance);
 
 		long id = balance.getId();
@@ -409,14 +414,14 @@ public class TestBalanceDAO extends BaseTest {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		createTestEntitys();
-		
+
 		Balance balance = new Balance();
 		balance.setOpTime(createUniqueDate());
 		balance.setBalanceType(BalanceType.PLUS);
 		balance.setActualSumm(new BigDecimal(1000));
 		balance.setDivision(division);
 		balance.setUserAccount(userAccount);
-		
+
 		balance = dataStore.persist(balance);
 
 		long id = balance.getId();
@@ -446,14 +451,14 @@ public class TestBalanceDAO extends BaseTest {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		createTestEntitys();
-		
+
 		Balance balance = new Balance();
 		balance.setOpTime(createUniqueDate());
 		balance.setBalanceType(BalanceType.PLUS);
 		balance.setActualSumm(new BigDecimal(1000));
 		balance.setDivision(division);
 		balance.setUserAccount(userAccount);
-		
+
 		balance = dataStore.persist(balance);
 
 		long id = balance.getId();
@@ -477,7 +482,6 @@ public class TestBalanceDAO extends BaseTest {
 	@Rollback(true)
 	public void insertEntities() throws Exception {
 		createTestEntitys();
-		
 
 		long index = dataStore.count();
 		for (int i = 200; i < 210; i++) {
@@ -487,7 +491,7 @@ public class TestBalanceDAO extends BaseTest {
 			balance.setActualSumm(new BigDecimal(1000));
 			balance.setDivision(division);
 			balance.setUserAccount(userAccount);
-			
+
 			dataStore.persist(balance);
 			index++;
 		}

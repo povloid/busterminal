@@ -20,6 +20,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
+import pk.home.busterminal.domain.security.UserAccount;
+
 @Entity
 @Table(schema = "public", name = "seats", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"num", "schema_id" }))
@@ -64,6 +66,15 @@ public class Seat implements Serializable {
 				&& !seatType.getSold() && num > 0)
 			throw new Exception(
 					"У НЕ продаваемых мест номер должен быть отрицательным!");
+		
+		if (block) {
+			if (blockDescription.trim().length() == 0)
+				throw new Exception("Неуказана причина блокировки!");
+
+			if (blocker == null)
+				throw new Exception(
+						"Неуказан пользователь, осуществивший блокирование!");
+		}
 	}
 
 	@ManyToOne
@@ -101,7 +112,12 @@ public class Seat implements Serializable {
 	@JoinColumn(nullable = false)
 	private SeatType seatType;
 
+	// Блокировка места	
 	private Boolean block;
+	@Length(max = 1000)
+	@Column(length = 1000)
+	private String blockDescription;
+	private UserAccount blocker;
 
 	public Long getId() {
 		return id;
@@ -205,6 +221,22 @@ public class Seat implements Serializable {
 
 	public void setBlock(Boolean block) {
 		this.block = block;
+	}
+
+	public String getBlockDescription() {
+		return blockDescription;
+	}
+
+	public void setBlockDescription(String blockDescription) {
+		this.blockDescription = blockDescription;
+	}
+
+	public UserAccount getBlocker() {
+		return blocker;
+	}
+
+	public void setBlocker(UserAccount blocker) {
+		this.blocker = blocker;
 	}
 
 	@Override

@@ -16,9 +16,9 @@
 	<context:annotation-config />
 	
 	
-	<context:property-placeholder location="classpath:profiles/profile.${spring.profiles.default}.properties"/>
+		
 	
-
+	
 	<!-- ******************************************************************** -->
 	<!-- Scan for service layer annotated beans -->
 	<!-- ******************************************************************** -->
@@ -30,37 +30,27 @@
 	<context:component-scan base-package="pk.home.busterminal.web.mvc" />
 
 
-	<!-- ******************************************************************** -->
-	<!-- Mark bean transactions as annotation driven -->
-	<!-- ******************************************************************** -->
-	<tx:annotation-driven transaction-manager="transactionManager"
-		proxy-target-class="true" />
-
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="voyager" />
-		<property name="jpaPropertyMap">
-			<map>
-				<entry key="javax.persistence.jdbc.url" value="${db.jdbcUrl}" />
-				<entry key="javax.persistence.jdbc.user" value="${db.user}" />
-				<entry key="javax.persistence.jdbc.password" value="${db.password}" />
-				<entry key="javax.persistence.jdbc.driver" value="${db.driverClass}" />
-				<entry key="hibernate.show_sql" value="${db.hibernate.show_sql}" />
-			</map>
-        </property>
-		
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-		p:entityManagerFactory-ref="entityManagerFactory" p:jpaDialect-ref="jpaDialect" />
-
-	<bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
-	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+	<!-- Подключаем определения безопасности -->
+	<import resource="classpath:database-context.xml" />
 
 	<!-- Подключаем определения безопасности -->
 	<import resource="classpath:security-context.xml" />
+	
+	
+	<!-- 
+	<context:property-placeholder location="classpath:profiles/profile.${spring.profiles.default}.properties"/>
+	-->
+	
+	<beans profile="Dev">
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations" value="profiles/profile.Dev.properties"/>
+		</bean>
+	</beans>
+	
+	<beans profile="Prod">
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations" value="profiles/profile.Prod.properties"/>
+		</bean>
+	</beans>	
 
 </beans>

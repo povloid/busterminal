@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 		DirtiesContextTestExecutionListener.class,
 		TransactionalTestExecutionListener.class })
 @Transactional
-@ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
+@ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml"})
 public class TestAnyDAO {
 
 	@Autowired

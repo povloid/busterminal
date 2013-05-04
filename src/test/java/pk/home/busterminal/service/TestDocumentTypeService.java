@@ -1,7 +1,10 @@
 package pk.home.busterminal.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,13 +21,14 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
 import pk.home.busterminal.domain.DocumentType;
 import pk.home.busterminal.domain.DocumentType_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test service class for entity class: DocumentType
- * DocumentType - тип документа
+ * JUnit test service class for entity class: DocumentType DocumentType - тип
+ * документа
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -31,6 +36,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestDocumentTypeService {
 
 	/**
@@ -120,7 +126,8 @@ public class TestDocumentTypeService {
 			index++;
 		}
 
-		List<DocumentType> list = service.getAllEntities(DocumentType_.id, SortOrderType.ASC);
+		List<DocumentType> list = service.getAllEntities(DocumentType_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -177,8 +184,8 @@ public class TestDocumentTypeService {
 			// index++;
 		}
 
-		List<DocumentType> list = service.getAllEntities(10, 10, DocumentType_.id,
-				SortOrderType.ASC);
+		List<DocumentType> list = service.getAllEntities(10, 10,
+				DocumentType_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -211,8 +218,8 @@ public class TestDocumentTypeService {
 		}
 
 		// all - FALSE
-		List<DocumentType> list = service.getAllEntities(false, 10, 10, DocumentType_.id,
-				SortOrderType.ASC);
+		List<DocumentType> list = service.getAllEntities(false, 10, 10,
+				DocumentType_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -394,11 +401,9 @@ public class TestDocumentTypeService {
 		assertTrue(documentType3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
@@ -417,6 +422,5 @@ public class TestDocumentTypeService {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }

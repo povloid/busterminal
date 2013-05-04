@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -42,6 +43,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestOrderService extends BaseTest {
 
 	/**
@@ -896,14 +898,12 @@ public class TestOrderService extends BaseTest {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
+
 		retOrder.setUserAccount(userAccount);
-		
-		
+
 		try {
 
 			retOrder = service.createTicketReturnOrder(retOrder);
-		
 
 			assertTrue("Допущена повторная операция возврата билета", false);
 
@@ -911,7 +911,6 @@ public class TestOrderService extends BaseTest {
 			System.out.println(e);
 			assertTrue(true);
 		}
-		
 
 	}
 

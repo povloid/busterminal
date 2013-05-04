@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -35,6 +36,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestRaceDAO extends BaseTest {
 
 	/**
@@ -122,9 +124,9 @@ public class TestRaceDAO extends BaseTest {
 	@Rollback(true)
 	public void testGetAllEntitiesSingularAttributeOfTQSortOrderType()
 			throws Exception {
-		
+
 		createTestEntitys();
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
@@ -159,7 +161,7 @@ public class TestRaceDAO extends BaseTest {
 	public void testGetAllEntitiesIntInt() throws Exception {
 
 		createTestEntitys();
-		
+
 		// int index = 0;
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
@@ -189,7 +191,7 @@ public class TestRaceDAO extends BaseTest {
 	public void testGetAllEntitiesIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		createTestEntitys();
-		
+
 		// long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
@@ -226,7 +228,7 @@ public class TestRaceDAO extends BaseTest {
 	public void testGetAllEntitiesBooleanIntIntSingularAttributeOfTQSortOrderType()
 			throws Exception {
 		createTestEntitys();
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
@@ -302,7 +304,7 @@ public class TestRaceDAO extends BaseTest {
 	@Rollback(true)
 	public void testCount() throws Exception {
 		createTestEntitys();
-		
+
 		long index = dataStore.count();
 		for (int i = 0; i < 100; i++) {
 			Race race = new Race();
@@ -328,7 +330,7 @@ public class TestRaceDAO extends BaseTest {
 	@Rollback(true)
 	public void testPersist() throws Exception {
 		createTestEntitys();
-		
+
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
@@ -354,7 +356,7 @@ public class TestRaceDAO extends BaseTest {
 	@Rollback(true)
 	public void testRefresh() throws Exception {
 		createTestEntitys();
-		
+
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
@@ -388,7 +390,7 @@ public class TestRaceDAO extends BaseTest {
 	@Rollback(true)
 	public void testMerge() throws Exception {
 		createTestEntitys();
-		
+
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);
@@ -423,7 +425,7 @@ public class TestRaceDAO extends BaseTest {
 	@Rollback(true)
 	public void testRemove() throws Exception {
 		createTestEntitys();
-		
+
 		Race race = new Race();
 		race.setdTime(createUniqueDate());
 		race.setBus(busWork1);

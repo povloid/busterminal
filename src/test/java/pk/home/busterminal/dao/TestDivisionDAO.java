@@ -1,7 +1,10 @@
 package pk.home.busterminal.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,13 +21,13 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
 import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Division_;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
 /**
- * JUnit test DAO class for entity class: Division
- * Division - отделение
+ * JUnit test DAO class for entity class: Division Division - отделение
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
@@ -31,6 +35,7 @@ import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 		TransactionalTestExecutionListener.class })
 @Transactional
 @ContextConfiguration(locations = { "file:./src/main/resources/applicationContext.xml" })
+@ActiveProfiles({"Dev"})
 public class TestDivisionDAO {
 
 	/**
@@ -120,7 +125,8 @@ public class TestDivisionDAO {
 			index++;
 		}
 
-		List<Division> list = dataStore.getAllEntities(Division_.id, SortOrderType.ASC);
+		List<Division> list = dataStore.getAllEntities(Division_.id,
+				SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -211,8 +217,8 @@ public class TestDivisionDAO {
 		}
 
 		// all - FALSE
-		List<Division> list = dataStore.getAllEntities(false, 10, 10, Division_.id,
-				SortOrderType.ASC);
+		List<Division> list = dataStore.getAllEntities(false, 10, 10,
+				Division_.id, SortOrderType.ASC);
 
 		assertTrue(list != null);
 		assertTrue(list.size() > 0);
@@ -394,11 +400,9 @@ public class TestDivisionDAO {
 		assertTrue(division3 == null);
 
 	}
-	
-	
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
-	
+
 	@Test
 	@Rollback(true)
 	public void insertEntities() throws Exception {
@@ -417,6 +421,5 @@ public class TestDivisionDAO {
 		assertTrue(list.size() > 0);
 		assertTrue(list.size() == index);
 	}
-	
 
 }
