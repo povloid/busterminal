@@ -67,13 +67,13 @@ public class Seat implements Serializable {
 			throw new Exception(
 					"У НЕ продаваемых мест номер должен быть отрицательным!");
 		
-		if (block) {
-			if (blockDescription.trim().length() == 0)
-				throw new Exception("Неуказана причина блокировки!");
+		if (block != null && block) {
+			if (blockDescription == null || blockDescription.trim().length() == 0)
+				throw new Exception("Не указана причина блокировки!");
 
 			if (blocker == null)
 				throw new Exception(
-						"Неуказан пользователь, осуществивший блокирование!");
+						"Не указан пользователь, осуществивший блокирование!");
 		}
 	}
 

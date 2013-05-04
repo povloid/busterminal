@@ -690,6 +690,9 @@ public class TestBusService extends BaseTest {
 		seat2.setDiscount(false);
 		seat2.setDiscountPotsent(60);
 		seat2.setBlock(false);
+		seat2.setBlockDescription("Причина блокировки ....");
+		seat2.setBlocker(userAccount);
+		
 		seat2 = seatService.persist(seat2);
 
 		schema1 = schemaService.refresh(schema1);
