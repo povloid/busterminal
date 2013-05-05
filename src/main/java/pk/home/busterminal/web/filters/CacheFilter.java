@@ -10,7 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Фильтр для указани периуда кэширования запрашиваемых ресурсов
+ * Фильтр для указани срока кэширования запрашиваемых ресурсов
  * 
  * @author kopychenko
  */
