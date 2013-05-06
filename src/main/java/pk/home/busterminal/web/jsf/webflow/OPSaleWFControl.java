@@ -103,6 +103,15 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 		return "saleSeat";
 	}
 
+	/**
+	 * Блокировать ячейку
+	 * 
+	 * @return
+	 */
+	public String blockCell() {
+		return "blockCell";
+	}
+	
 	// Schemas
 	// -------------------------------------------------------------------------------------------
 

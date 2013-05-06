@@ -24,6 +24,7 @@
 		</on-entry>
 
 		<transition on="end" to="end" />
+		<transition on="blockCell" to="blockCell" />
 
 		<transition on="saleSeat" to="saleSeat" />
 	</view-state>
@@ -34,6 +35,12 @@
 	<subflow-state id="saleSeat" subflow="op/sale/seat">
 		<input name="raceId" value="oPSaleWFControl.race.id" />
 		<input name="seatId" value="oPSaleWFControl.selectedCell.seat.id" />
+		<transition to="sale" />
+	</subflow-state>
+	
+	<subflow-state id="blockCell" subflow="seat/block">
+		<input name="id" value="oPSaleWFControl.selectedCell.seat.id" />
+		
 		<transition to="sale" />
 	</subflow-state>
 

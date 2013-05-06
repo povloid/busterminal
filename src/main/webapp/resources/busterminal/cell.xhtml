@@ -117,21 +117,23 @@
 						<f:setPropertyActionListener value="#{cc.attrs.cell}"
 							target="#{cc.attrs.selectedCell}" />
 					</p:commandButton>
-				</h:panelGroup> <p:commandButton update="@form"
-					rendered="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true' and cc.attrs.cell.seat != null}"
-					oncomplete="#{cc.attrs.view_button_oncomplete}"
-					icon="ui-icon ui-icon-search" title="View row">
-					<f:setPropertyActionListener value="#{cc.attrs.cell}"
-						target="#{cc.attrs.selectedCell}" />
-				</p:commandButton>
-				<p:commandButton
+				</h:panelGroup> <p:menuButton value="..">
+					<p:menuitem
 						rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold and cc.attrs.cell.seat.schema.bus.bssType == 'WORK'}"
-						ajax="false" action="#{cc.attrs.block_cell_action}" value="Бл."
-						title="Блокировать место">
+						value="Блокировать место" ajax="false"
+						action="#{cc.attrs.block_cell_action}" icon="ui-icon-close">
 						<f:setPropertyActionListener value="#{cc.attrs.cell}"
 							target="#{cc.attrs.selectedCell}" />
-				</p:commandButton>
-				</td>
+					</p:menuitem>
+					<p:separator />
+					<p:menuitem update="@form" value="Информация"
+						rendered="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true' and cc.attrs.cell.seat != null}"
+						oncomplete="#{cc.attrs.view_button_oncomplete}"
+						icon="ui-icon ui-icon-search" title="View row">
+						<f:setPropertyActionListener value="#{cc.attrs.cell}"
+							target="#{cc.attrs.selectedCell}" />
+					</p:menuitem>
+				</p:menuButton></td>
 		</tr>
 		<tr>
 
