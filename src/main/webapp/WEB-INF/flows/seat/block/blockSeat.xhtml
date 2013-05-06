@@ -10,7 +10,7 @@
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
-		Блокировка посадочного места
+		Блокировка посадочного места №<h:outputText value="#{seatOPBlockWFControl.seat.num}"/>
 	</ui:define>
 
 	<ui:define name="header_icon">
@@ -18,7 +18,7 @@
 	</ui:define>
 
 	<ui:define name="header">
-		Блокировка посадочного места
+		Блокировка посадочного места №<h:outputText value="#{seatOPBlockWFControl.seat.num}"/>
 	</ui:define>
 
 	<ui:define name="content">
@@ -28,13 +28,22 @@
 				<p:messages showDetail="true" autoUpdate="true" />
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
+				
+					<h:outputText value="Автобус"/>
+					<h:outputText value="#{seatOPBlockWFControl.seat.schema.bus.keyName}"/>
+					
+					<h:outputText value="Госномер:"/>
+					<h:outputText value="#{seatOPBlockWFControl.seat.schema.bus.gosNum}"/>
 
-					<h:outputText value="Заблокировано"></h:outputText>
-					<p:selectBooleanCheckbox value="#{seatOPBlockWFControl.seat.block}" />
+					<h:outputText value="Посадочное место №"/>
+					<h:outputText value="#{seatOPBlockWFControl.seat.num}"/>
+					
+					<h:outputText value="Заблокировано"/>
+					<p:selectBooleanCheckbox value="#{seatOPBlockWFControl.seat.block}"/>
 					
 					<h:outputLabel value="Причина блокировки:" />
 					<p:inputTextarea value="#{seatOPBlockWFControl.seat.blockDescription}"
-						style="width:300px;height:100px;" title="Причина блокировки" />
+						style="width:300px;height:100px;" title="Причина блокировки"/>
 					
 				</h:panelGrid>
 

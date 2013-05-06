@@ -77,7 +77,7 @@ public class SeatOPBlockWFControl extends AWFBasicControl implements
 			seat.setBlocker(getTerminalCurrentUser().getUserAccount());
 		
 		try{
-		getSeatService().merge(seat);
+			seat = getSeatService().merge(seat);
 		} catch (Exception e){
 			FacesContext.getCurrentInstance()
 			.addMessage(

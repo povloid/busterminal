@@ -220,6 +220,17 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	public String delFromCell() {
 		return "delFromCell";
 	}
+	
+	/**
+	 * Блокировать ячейку
+	 * 
+	 * @return
+	 */
+	public String blockCell() {
+		return "blockCell";
+	}
+	
+	
 
 	private BigDecimal basePrice;
 
