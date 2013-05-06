@@ -137,7 +137,11 @@ public class SeatService extends ABaseService<Seat> {
 	 */
 	@Transactional
 	public void check(Seat o) throws Exception {
-
+		
+		// Проверка на уровне сущности
+		o.check();
+		
+		// Проверка на уровне логики, которая не возможна на уровне сущности
 		Bus b = busService.find(o.getSchema().getBus().getId());
 
 		for (Schema sh : schemaService.getAllEntities(b)) {
@@ -149,7 +153,7 @@ public class SeatService extends ABaseService<Seat> {
 					if (o.getNum() != null && st.getNum() != null
 							&& o.getNum().equals(st.getNum())) {
 						throw new Exception(
-								"Номера мест в пределах одного автобуса должны бвть уникальными!");
+								"Номера мест в пределах одного автобуса должны быть уникальными!");
 					}
 
 					if (o.getSx() != null && o.getSx() > 0 && o.getSy() != null
@@ -165,7 +169,7 @@ public class SeatService extends ABaseService<Seat> {
 					}
 				}
 			}
-		}
+		}		
 	}
 
 	/**

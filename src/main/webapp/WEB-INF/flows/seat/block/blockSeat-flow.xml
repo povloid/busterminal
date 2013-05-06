@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="blockSeat">
+
+	<secured attributes="ROLE_RB_TRANSPORT" />
+
+	<var name="seatOPBlockWFControl" class="pk.home.busterminal.web.jsf.webflow.SeatOPBlockWFControl" />
+
+	<input name="id" type="java.lang.Long" required="true"/>
+	<input name="retUrl" type="java.lang.String" />
+
+	<on-start>
+		<evaluate expression="seatOPBlockWFControl.findSeat(id)" />
+	</on-start>
+
+	<view-state id="blockSeat">
+		
+		<transition on="end" to="end"></transition>
+
+		<transition on="error" to="blockSeat"></transition>
+		<transition on-exception="java.lang.Exception" to="blockSeat"/>
+	</view-state>
+
+
+	<!-- Выход -->
+	<decision-state id="end">
+		<if test="retUrl == null" then="end0" else="end1" />
+	</decision-state>
+
+	<end-state id="end1" view='externalRedirect:contextRelative:#{retUrl}'>
+	</end-state>
+
+	<end-state id="end0" view='externalRedirect:contextRelative:/'>
+	</end-state>
+</flow>

@@ -57,7 +57,7 @@ public class SeatEditWFControl extends AWFControl<Seat, Long> implements
 	public SchemaService getSchemaService() {
 		return (SchemaService) findBean("schemaService");
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see pk.home.libs.combine.web.jsf.flow.AWFControl#findEdited(java.lang.Object)
 	 */

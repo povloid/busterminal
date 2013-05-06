@@ -2,6 +2,7 @@ package pk.home.busterminal.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -74,6 +77,12 @@ public class Seat implements Serializable {
 			if (blocker == null)
 				throw new Exception(
 						"Не указан пользователь, осуществивший блокирование!");
+			
+			blockDate = new Date();
+		} else {
+			blockDescription = null;
+			blocker = null;
+			blockDate = null;
 		}
 	}
 
@@ -118,6 +127,8 @@ public class Seat implements Serializable {
 	@Column(length = 1000)
 	private String blockDescription;
 	private UserAccount blocker;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date blockDate;
 
 	public Long getId() {
 		return id;
@@ -237,6 +248,14 @@ public class Seat implements Serializable {
 
 	public void setBlocker(UserAccount blocker) {
 		this.blocker = blocker;
+	}
+
+	public Date getBlockDate() {
+		return blockDate;
+	}
+
+	public void setBlockDate(Date blockDate) {
+		this.blockDate = blockDate;
 	}
 
 	@Override

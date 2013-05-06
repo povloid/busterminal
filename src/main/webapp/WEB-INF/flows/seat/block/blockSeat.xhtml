@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+
+<ui:composition template="/WEB-INF/templites/templite.xhtml">
+	<ui:define name="title">
+		Блокировка посадочного места
+	</ui:define>
+
+	<ui:define name="header_icon">
+		<h:graphicImage url="/images/icons/lock_24.png" />
+	</ui:define>
+
+	<ui:define name="header">
+		Блокировка посадочного места
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:panel header="Детали:" style="margin-top:10px">
+				<p:growl id="msgs" showDetail="true" />
+				<p:messages showDetail="true" autoUpdate="true" />
+
+				<h:panelGrid id="detail" columns="2" styleClass="grid">
+
+					<h:outputText value="Заблокировано"></h:outputText>
+					<p:selectBooleanCheckbox value="#{seatOPBlockWFControl.seat.block}" />
+					
+					<h:outputLabel value="Причина блокировки:" />
+					<p:inputTextarea value="#{seatOPBlockWFControl.seat.blockDescription}"
+						style="width:300px;height:100px;" title="Причина блокировки" />
+					
+				</h:panelGrid>
+
+				<br />
+
+				<pk:pk_close_button action="end" />
+				<pk:pkdialog_crud_buttons
+					edit_action_and_close="#{seatOPBlockWFControl.blockAndClose}"
+					edit_action="#{seatOPBlockWFControl.block}"
+					add_view="false" edit_view="true" del_view="false" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
