@@ -3,6 +3,7 @@ package pk.home.busterminal.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -316,8 +317,10 @@ public class RaceService extends ABaseService<Race> {
 		return ((Long) q.getSingleResult()).longValue();
 	}
 
+	//------------------------------------------------------------------------------------
+	
 	/**
-	 * Выборка
+	 * Выборка по рейсу
 	 * 
 	 * @param firstResult
 	 * @param maxResults
@@ -406,5 +409,101 @@ public class RaceService extends ABaseService<Race> {
 		return raceDAO.count(t, cq);
 
 	}
+	
+	//------------------------------------------------------------------------------------
+	
+	
+	/**
+	 * Выборка по различным параметрам
+	 * 
+	 * @param firstResult
+	 * @param maxResults
+	 * @param orderByAttribute
+	 * @param sortOrderType
+	 * @param filters
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public List<Race> selectF(int firstResult, int maxResults,
+			SingularAttribute<Race, ?> orderByAttribute, SortOrderType sortOrderType, 
+			Map<String,Object> filters) throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Race> cq = cb.createQuery(Race.class);
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		// MAP ------------------
+		
+		//if (id != null) {
+		//	criteria.add(cb.equal(t.get(Race_.id), id));
+		//}
+
+		//if (keyName != null) {
+		//	criteria.add(cb.like(t.get(Race_.busRoute).get(BusRoute_.keyName),
+		//			keyName + "%"));
+		//}
+
+		if(filters != null){
+			if(filters.containsKey("dTime"))
+				criteria.add(cb.between(t.get(Race_.dTime)
+						, (Date) filters.get("dTime")
+						, new Date(((Date) filters.get("dTime")).getTime() + 1000 * 60 * 60 * 24 ) ));
+		}
+		
+		
+		// ----------------------
+		
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		return raceDAO.getAllEntities(firstResult, maxResults,
+				orderByAttribute, sortOrderType, cb, cq, t);
+
+	}
+
+	/**
+	 * Выборка по различным параметрам
+	 * 
+	 * @param filters
+	 * @return
+	 * @throws Exception
+	 */
+	public long selectFCount(Map<String,Object> filters) throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object> cq = cb.createQuery(Object.class);
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		// MAP ------------------
+		
+		if(filters != null){
+			if(filters.containsKey("dTime"))
+				criteria.add(cb.between(t.get(Race_.dTime)
+						, (Date) filters.get("dTime")
+						, new Date(((Date) filters.get("dTime")).getTime() + 1000 * 60 * 60 * 24 ) ));
+		}
+		
+		// ----------------------
+
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		return raceDAO.count(t, cq);
+
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

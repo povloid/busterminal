@@ -1,6 +1,9 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -13,7 +16,7 @@ import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
  * JSF view control class for entity class: Race Race - рейс
  * 
  * @author povloid
- *
+ * 
  */
 public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 		Serializable {
@@ -22,6 +25,9 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private boolean enableFilterDTime = false;
+	private Date filterDTime = new Date();
 
 	/**
 	 * Сервис рейсов
@@ -32,7 +38,9 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 		return (RaceService) findBean("raceService");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#aInit()
 	 */
 	@Override
@@ -47,16 +55,32 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 			orderByAttribute = Race_.dTime;
 		}
 
-		dataModel = getRaceService().getAllEntities(Math.abs(page - 1) * rows, rows,
-				orderByAttribute, getSortOrderType());
+		// Отработка фильтров
+		Map<String, Object> filtres = new HashMap<>();
+		// ...
+
+		if (enableFilterDTime) {
+			filtres.put("dTime", filterDTime);
+		}
+
+		dataModel = getRaceService().selectF(Math.abs(page - 1) * rows, rows,
+				orderByAttribute, getSortOrderType(), filtres);
 	}
 
-	/* (non-Javadoc)
-	 * @see pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.libs.combine.web.jsf.ABaseLazyLoadTableView#initAllRowsCount()
 	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
-		return getRaceService().count();
+
+		// Отработка фильтров
+		Map<String, Object> filtres = new HashMap<>();
+		// ...
+
+		return getRaceService().selectFCount(filtres);
 	}
 
 	/**
@@ -69,7 +93,7 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 	}
 
 	/**
-	 * Редактировать 
+	 * Редактировать
 	 * 
 	 * @return
 	 */
@@ -84,6 +108,22 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 	 */
 	public String del() {
 		return "del";
+	}
+
+	public Date getFilterDTime() {
+		return filterDTime;
+	}
+
+	public void setFilterDTime(Date filterDTime) {
+		this.filterDTime = filterDTime;
+	}
+
+	public boolean isEnableFilterDTime() {
+		return enableFilterDTime;
+	}
+
+	public void setEnableFilterDTime(boolean enableFilterDTime) {
+		this.enableFilterDTime = enableFilterDTime;
 	}
 
 }

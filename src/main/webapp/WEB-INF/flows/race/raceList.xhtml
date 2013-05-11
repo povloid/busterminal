@@ -23,6 +23,41 @@
 
 	<ui:define name="content">
 
+
+		<script language="javascript">
+			PrimeFaces.locales['ru'] = {
+				closeText : 'Закрыть',
+				prevText : 'Назад',
+				nextText : 'Вперёд',
+				monthNames : [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май',
+						'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь',
+						'Ноябрь', 'Декабрь' ],
+				monthNamesShort : [ 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+						'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+				dayNames : [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
+						'Четверг', 'Пятница', 'Субота' ],
+				dayNamesShort : [ 'Воск', 'Пон', 'Вт', 'Ср', 'Четв', 'Пят',
+						'Суб' ],
+				dayNamesMin : [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
+				weekHeader : 'Неделя',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Только время',
+				timeText : 'Время',
+				hourText : 'Час',
+				minuteText : 'Минута',
+				secondText : 'Секунда',
+				currentText : 'Сегодня',
+				ampm : false,
+				month : 'Месяц',
+				week : 'неделя',
+				day : 'День',
+				allDayText : 'Весь день'
+			};
+		</script>
+
 		<f:metadata>
 			<f:event type="preRenderView" listener="#{raceViewControl.init}" />
 			<f:viewParam name="ppage" value="#{raceViewControl.page}" />
@@ -57,7 +92,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<pk:pktsortorder field="id"
+						<pk:pktsortorder field="id" caption="№"
 							csortOrder="#{raceViewControl.csortOrder}"
 							csortField="#{raceViewControl.csortField}" />
 					</f:facet>
@@ -66,13 +101,25 @@
 
 				<p:column style="width: 210px; text-align: left;">
 					<f:facet name="header">
-						<pk:pktsortorder field="dTime"
+						<pk:pktsortorder field="dTime" caption="Время отправления"
 							csortOrder="#{raceViewControl.csortOrder}"
 							csortField="#{raceViewControl.csortField}" />
+						<br />
+						<p:selectBooleanCheckbox value="#{raceViewControl.enableFilterDTime}" >
+							<p:ajax event="change" update="@form"
+								listener="#{raceViewControl.init}" />
+						</p:selectBooleanCheckbox>
+						<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button" readonly="#{!raceViewControl.enableFilterDTime}"
+							showButtonPanel="true" navigator="true" 
+							value="#{raceViewControl.filterDTime}">
+							<p:ajax event="dateSelect"
+									listener="#{raceViewControl.init}"
+									update="@form" />
+						</p:calendar>
 					</f:facet>
 					<h:outputText value="#{row.dTime}"
 						style="font-weight: bold; font-size:large">
-						<f:convertDateTime type="both" />
+						<f:convertDateTime type="both" pattern="dd.MM.yyyy hh:mm" />
 					</h:outputText>
 				</p:column>
 
@@ -158,7 +205,7 @@
 	</ui:define>
 
 	<ui:define name="footer">
-        
-    </ui:define>
+
+	</ui:define>
 </ui:composition>
 </html>
