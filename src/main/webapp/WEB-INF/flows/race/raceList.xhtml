@@ -72,7 +72,25 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-			<pk:pk_add_button_wf add_action="#{raceViewControl.add}" />
+			<h:panelGrid columns="10">
+				<h:panelGroup >
+					<pk:pk_add_button_wf add_action="#{raceViewControl.add}" />
+				</h:panelGroup>
+
+				<h:outputText value="Выбрать по дате:"/>
+				<p:selectBooleanButton value="#{raceViewControl.enableFilterDTime}"
+					immediate="false" onLabel="on" offLabel="off"
+					valueChangeListener="#{raceViewControl.init}">
+					<p:ajax event="change" update="@form" />
+				</p:selectBooleanButton>
+				<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
+					readonly="#{!raceViewControl.enableFilterDTime}"
+					showButtonPanel="true" navigator="true"
+					value="#{raceViewControl.filterDTime}">
+					<p:ajax event="dateSelect" listener="#{raceViewControl.init}"
+						update="@form" />
+				</p:calendar>
+			</h:panelGrid>
 
 			<p:dataTable id="table1" var="row"
 				value="#{raceViewControl.dataModel}" widgetVar="dataTable1"
@@ -88,8 +106,6 @@
 
 				</f:facet>
 
-
-
 				<p:column>
 					<f:facet name="header">
 						<pk:pktsortorder field="id" caption="№"
@@ -104,18 +120,6 @@
 						<pk:pktsortorder field="dTime" caption="Время отправления"
 							csortOrder="#{raceViewControl.csortOrder}"
 							csortField="#{raceViewControl.csortField}" />
-						<br />
-						<p:selectBooleanCheckbox value="#{raceViewControl.enableFilterDTime}" >
-							<p:ajax event="change" update="@form"
-								listener="#{raceViewControl.init}" />
-						</p:selectBooleanCheckbox>
-						<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button" readonly="#{!raceViewControl.enableFilterDTime}"
-							showButtonPanel="true" navigator="true" 
-							value="#{raceViewControl.filterDTime}">
-							<p:ajax event="dateSelect"
-									listener="#{raceViewControl.init}"
-									update="@form" />
-						</p:calendar>
 					</f:facet>
 					<h:outputText value="#{row.dTime}"
 						style="font-weight: bold; font-size:large">

@@ -26,7 +26,7 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private boolean enableFilterDTime = false;
+	private Boolean enableFilterDTime = false;
 	private Date filterDTime = new Date();
 
 	/**
@@ -57,11 +57,11 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 
 		// Отработка фильтров
 		Map<String, Object> filtres = new HashMap<>();
-		// ...
-
 		if (enableFilterDTime) {
 			filtres.put("dTime", filterDTime);
 		}
+		// ...
+
 
 		dataModel = getRaceService().selectF(Math.abs(page - 1) * rows, rows,
 				orderByAttribute, getSortOrderType(), filtres);
@@ -78,6 +78,10 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 
 		// Отработка фильтров
 		Map<String, Object> filtres = new HashMap<>();
+		
+		if (enableFilterDTime) {
+			filtres.put("dTime", filterDTime);
+		}
 		// ...
 
 		return getRaceService().selectFCount(filtres);
@@ -118,12 +122,11 @@ public class RaceViewWFControl extends AWFBaseLazyLoadTableView<Race> implements
 		this.filterDTime = filterDTime;
 	}
 
-	public boolean isEnableFilterDTime() {
+	public Boolean getEnableFilterDTime() {
 		return enableFilterDTime;
 	}
 
-	public void setEnableFilterDTime(boolean enableFilterDTime) {
+	public void setEnableFilterDTime(Boolean enableFilterDTime) {
 		this.enableFilterDTime = enableFilterDTime;
 	}
-
 }
