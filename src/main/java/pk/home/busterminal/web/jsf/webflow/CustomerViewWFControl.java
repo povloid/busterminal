@@ -2,10 +2,7 @@ package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
 
-import javax.persistence.metamodel.SingularAttribute;
-
 import pk.home.busterminal.domain.Customer;
-import pk.home.busterminal.domain.Customer_;
 import pk.home.busterminal.service.CustomerService;
 import pk.home.libs.combine.web.jsf.flow.AWFBaseLazyLoadTableView;
 
@@ -22,6 +19,10 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String fName;
+	private String nName;
+	private String mName;
 
 	/**
 	 * Сервис управления клиентами
@@ -38,7 +39,10 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 	@Override
 	protected void aInit() throws Exception {
 
-		SingularAttribute<Customer, ?> orderByAttribute = Customer_.id;
+		/*
+		 * Старый изначальный вариант
+		 * 
+		 * SingularAttribute<Customer, ?> orderByAttribute = Customer_.id;
 		if (csortField != null && csortField.equals("id")) {
 			orderByAttribute = Customer_.id;
 		} else if (csortField != null && csortField.equals("keyName")) {
@@ -52,7 +56,11 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 		}
 
 		dataModel = getCustomerService().getAllEntities((page - 1) * rows,
-				rows, orderByAttribute, getSortOrderType());
+				rows, orderByAttribute, getSortOrderType());*/
+		
+		
+		dataModel = getCustomerService().select((page - 1) * rows, rows, 
+				getSortOrderType(), csortField, null, null, fName, nName, mName);
 	}
 
 	/* (non-Javadoc)
@@ -60,7 +68,9 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 	 */
 	@Override
 	protected long initAllRowsCount() throws Exception {
-		return getCustomerService().count();
+		// Старый изначальный вариант
+		// return getCustomerService().count();
+		return getCustomerService().selectCount(null, null, fName, nName, mName);
 	}
 
 	/**
@@ -90,4 +100,27 @@ public class CustomerViewWFControl extends AWFBaseLazyLoadTableView<Customer>
 		return "del";
 	}
 
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public String getnName() {
+		return nName;
+	}
+
+	public void setnName(String nName) {
+		this.nName = nName;
+	}
+
+	public String getmName() {
+		return mName;
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
 }

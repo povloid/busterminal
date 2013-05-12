@@ -37,12 +37,31 @@
 
 			<p:growl id="msgs" showDetail="true" />
 
-			<pk:pk_add_button_wf add_action="#{customerViewControl.add}" />
+			<h:panelGrid columns="10">
+				<h:panelGroup>
+					<pk:pk_add_button_wf add_action="#{customerViewControl.add}" />
+				</h:panelGroup>
+				
+				<h:outputText value="Выбрать "/>
+				<h:outputText value="фамилия:"/>
+				<p:inputText value="#{customerViewControl.fName}" valueChangeListener="#{customerViewControl.init}">
+					<p:ajax event="keyup" update="table1"/>
+				</p:inputText>
+				<h:outputText value="имя:"/>
+				<p:inputText value="#{customerViewControl.nName}" valueChangeListener="#{customerViewControl.init}">
+					<p:ajax event="keyup" update="table1" />
+				</p:inputText>
+				<h:outputText value="отчество:"/>
+				<p:inputText value="#{customerViewControl.mName}" valueChangeListener="#{customerViewControl.init}">
+					<p:ajax event="keyup" update="table1" />
+				</p:inputText>
+				
+				
+			</h:panelGrid>
 
 			<p:dataTable id="table1" var="row"
 				value="#{customerViewControl.dataModel}" widgetVar="dataTable1"
 				emptyMessage="Таблица пустая">
-
 
 				<f:facet name="header">
 					<pk:pkpaginator pages="#{customerViewControl.allPagesCount}"
@@ -52,8 +71,6 @@
 						rows="#{customerViewControl.rows}" />
 
 				</f:facet>
-
-
 
 				<p:column>
 					<f:facet name="header">

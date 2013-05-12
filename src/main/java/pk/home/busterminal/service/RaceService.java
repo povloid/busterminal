@@ -320,7 +320,7 @@ public class RaceService extends ABaseService<Race> {
 	//------------------------------------------------------------------------------------
 	
 	/**
-	 * Выборка по рейсу
+	 * Выборка
 	 * 
 	 * @param firstResult
 	 * @param maxResults
@@ -328,6 +328,8 @@ public class RaceService extends ABaseService<Race> {
 	 * @param sortField
 	 * @param id
 	 * @param keyName
+	 * @param enableFilterDTime
+	 * @param dTime
 	 * @return
 	 * @throws Exception
 	 */
@@ -383,10 +385,12 @@ public class RaceService extends ABaseService<Race> {
 	}
 
 	/**
-	 * Выборка сколько всего строк
+	 * Выборка количество строк
 	 * 
 	 * @param id
 	 * @param keyName
+	 * @param enableFilterDTime
+	 * @param dTime
 	 * @return
 	 * @throws Exception
 	 */
