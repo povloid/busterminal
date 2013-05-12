@@ -1,6 +1,7 @@
 package pk.home.busterminal.web.jsf.webflow;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,9 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Boolean enableFilterDTime = false;
+	private Date filterDTime = new Date();
 
 	private Race selected;	// Выбранный рейс
 
@@ -57,7 +61,7 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 			}
 
 			return (int) getRaceService().selectCount(id,
-					filters.get("busRoute.keyName"));
+					filters.get("busRoute.keyName"), enableFilterDTime ,filterDTime);
 		}
 
 		/* (non-Javadoc)
@@ -77,14 +81,9 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 				id = Long.parseLong(filters.get("id"));
 			} catch (Exception e) {
 			}
-
-			System.out.println("*");
 			
-			List<Race> l = getRaceService().select(first, pageSize, sortOrderType,
-					sortField, id, filters.get("busRoute.keyName"));
-			System.out.println(l.size());
-			
-			return l;
+			return getRaceService().select(first, pageSize, sortOrderType,
+					sortField, id, filters.get("busRoute.keyName"), enableFilterDTime, filterDTime);
 		}
 
 		/* (non-Javadoc)
@@ -156,4 +155,19 @@ public class RaceSelectOneWFControl extends AWFBasicControl implements
 			return null;
 	}
 
+	public Boolean getEnableFilterDTime() {
+		return enableFilterDTime;
+	}
+
+	public void setEnableFilterDTime(Boolean enableFilterDTime) {
+		this.enableFilterDTime = enableFilterDTime;
+	}
+
+	public Date getFilterDTime() {
+		return filterDTime;
+	}
+
+	public void setFilterDTime(Date filterDTime) {
+		this.filterDTime = filterDTime;
+	}
 }

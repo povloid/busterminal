@@ -334,7 +334,7 @@ public class RaceService extends ABaseService<Race> {
 	@Transactional
 	public List<Race> select(int firstResult, int maxResults,
 			SortOrderType sortOrderType, String sortField, Long id,
-			String keyName) throws Exception {
+			String keyName, boolean enableFilterDTime, Date dTime) throws Exception {
 
 		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
 
@@ -352,6 +352,11 @@ public class RaceService extends ABaseService<Race> {
 			criteria.add(cb.like(t.get(Race_.busRoute).get(BusRoute_.keyName),
 					keyName + "%"));
 		}
+		
+		if (enableFilterDTime && dTime != null)
+			criteria.add(cb.between(t.get(Race_.dTime), dTime,
+					new Date(dTime.getTime() + 1000 * 60 * 60 * 24 ) ));
+			
 
 		cq.where(cb.and(criteria.toArray(new Predicate[0])));
 
@@ -385,7 +390,7 @@ public class RaceService extends ABaseService<Race> {
 	 * @return
 	 * @throws Exception
 	 */
-	public long selectCount(Long id, String keyName) throws Exception {
+	public long selectCount(Long id, String keyName, boolean enableFilterDTime, Date dTime) throws Exception {
 
 		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
 
@@ -403,6 +408,10 @@ public class RaceService extends ABaseService<Race> {
 			criteria.add(cb.like(t.get(Race_.busRoute).get(BusRoute_.keyName),
 					keyName + "%"));
 		}
+		
+		if (enableFilterDTime && dTime != null)
+			criteria.add(cb.between(t.get(Race_.dTime), dTime,
+					new Date(dTime.getTime() + 1000 * 60 * 60 * 24 ) ));
 
 		cq.where(cb.and(criteria.toArray(new Predicate[0])));
 
