@@ -117,7 +117,7 @@
 						<f:setPropertyActionListener value="#{cc.attrs.cell}"
 							target="#{cc.attrs.selectedCell}" />
 					</p:commandButton>
-				</h:panelGroup> <p:menuButton value="..">
+				</h:panelGroup> <p:menuButton value=".."  rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold}">
 					<p:menuitem
 						rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold and cc.attrs.cell.seat.schema.bus.bssType == 'WORK'}"
 						value="Блокировать место" ajax="false"
