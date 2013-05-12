@@ -99,7 +99,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{seatTime}]]></textFieldExpression>
 			</textField>
-			<staticText>
+			
+			
+			<!-- Сведения по автобусу из билета попросили убрать !!! -->
+			<!-- staticText>
 				<reportElement x="0" y="75" width="49" height="14"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
@@ -128,7 +131,7 @@
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
 				<text><![CDATA[гос. номер:]]></text>
-			</staticText>
+			</staticText>	
 			<textField>
 				<reportElement x="272" y="75" width="80" height="14"/>
 				<box>
@@ -138,7 +141,48 @@
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{race.bus.gosNum}]]></textFieldExpression>
-			</textField>
+			</textField -->
+			
+			
+			<!-- Замена сведений по автобусу пустыми элементами с бордером -->
+			<staticText>
+				<reportElement x="0" y="75" width="49" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="75" width="160" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+			</staticText>	
+			<staticText>
+				<reportElement x="209" y="75" width="63" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+			</staticText>	
+			<staticText>
+				<reportElement x="272" y="75" width="80" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="9"/>
+				</textElement>
+			</staticText>	
+			
+			
 			<textField>
 				<reportElement x="412" y="45" width="143" height="44"/>
 				<box>
