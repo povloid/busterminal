@@ -46,7 +46,7 @@ public class UserAccount implements UserDetails, Serializable {
 	@Column(length = 50, nullable = false, unique = true)
 	private String username;
 
-	@Column(length = 50, nullable = false)
+	@Column(length = 80, nullable = false)
 	private String password;
 
 	@Column(nullable = false)

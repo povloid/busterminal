@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.primefaces.model.DualListModel;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import pk.home.libs.combine.web.jsf.flow.AWFControl;
 import pk.home.busterminal.domain.security.UserAccount;
@@ -96,8 +96,7 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 	protected void confirmAddImpl() throws Exception {
 
 		if (password != null && password.length() > 0) {
-			edited.setPassword(getPasswordEncoder().encodePassword(password,
-					null));
+			edited.setPassword(getPasswordEncoder().encode(password));
 		} else {
 			throw new Exception("Password requrired!!!");
 		}
@@ -117,8 +116,7 @@ public class UserAccountWFControl extends AWFControl<UserAccount, Long>
 		populateEditedresortTypes();
 
 		if (password != null && password.length() > 0) {
-			edited.setPassword(getPasswordEncoder().encodePassword(password,
-					null));
+			edited.setPassword(getPasswordEncoder().encode(password));
 		}
 
 		edited = getUserAccountService().merge(edited);

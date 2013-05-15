@@ -92,7 +92,7 @@
 	</security:authentication-manager>
 
 	<bean
-		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder"
 		id="passwordEncoder" />
 
 	<bean id="loggerListener"
