@@ -35,5 +35,10 @@ public enum UserAuthoritys {
 	
 	ROLE_REPORTS_DRIVER,
 	ROLE_REPORTS_DRIVER_FORM1,
-	ROLE_REPORTS_DRIVER_FORM2
+	ROLE_REPORTS_DRIVER_FORM2,
+	
+	
+	ROLE_BLOCKER,		// Дает право блокировать место и разблокировать место
+	ROLE_BLOCKER_SUPER	// Дает право блокировать место и разблокировать все места
+	
 }

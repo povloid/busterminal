@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="blockSeat">
 
-	<secured attributes="ROLE_RB_TRANSPORT" />
+	<secured attributes="ROLE_BLOCKER_SUPER,ROLE_BLOCKER" />
 
 	<var name="seatOPBlockWFControl" class="pk.home.busterminal.web.jsf.webflow.SeatOPBlockWFControl" />
 
