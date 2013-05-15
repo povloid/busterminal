@@ -30,17 +30,34 @@
 					<h:outputText value="#{cc.attrs.cell.seat.id}"
 						style="font-weight:bold" />
 
-					<h:outputText value="№:" />
+					<h:outputText value="номер №:" />
 					<h:outputText value="#{cc.attrs.cell.seat.num}"
 						style="font-weight:bold" />
 
-
 					<h:outputText value="Description:" />
-					<p:scrollPanel style="width:350px;height:200px" scrollMode="native">
+					<p:scrollPanel style="width:350px;height:100px" scrollMode="native">
 						<h:outputText value="#{cc.attrs.cell.seat.description}"
 							escape="false" />
 					</p:scrollPanel>
-
+					
+					<h:outputText value="Блокирока:" />
+					<p:fieldset legend="Место заблокировано" rendered="#{cc.attrs.cell.seat.block}">
+						<h:panelGrid id="blockPanel" columns="2" cellpadding="4">
+							<h:outputText value="Дата блокирования:" /> 
+							<h:outputText value="#{cc.attrs.cell.seat.blockDate}">
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+							</h:outputText>
+							
+							<h:outputText value="Пользователь:" /> 
+							<h:outputText value="#{cc.attrs.cell.seat.blocker.username} - #{cc.attrs.cell.seat.blocker.description}"/>
+							
+							<h:outputText value="Причина блокировки:" /> 
+							<h:outputText value="#{cc.attrs.cell.seat.blockDescription}"/>
+							
+						</h:panelGrid>
+					</p:fieldset>
+					<h:outputText value="нет" rendered="#{!cc.attrs.cell.seat.block}"/>
+					
 					<f:facet name="footer">
 						<p:outputPanel layout="block" style="text-align:right">
 							<p:commandButton value="Close" onclick="#{cc.attrs.widgetVar}.hide()"

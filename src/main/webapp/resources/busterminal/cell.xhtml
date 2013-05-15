@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:cc="http://java.sun.com/jsf/composite"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
 <cc:interface>
 
 	<cc:attribute name="cell" type="java.lang.Object" required="true" />
@@ -117,15 +118,18 @@
 						<f:setPropertyActionListener value="#{cc.attrs.cell}"
 							target="#{cc.attrs.selectedCell}" />
 					</p:commandButton>
-				</h:panelGroup> <p:menuButton value=".."  rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold}">
-					<p:menuitem
-						rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold and cc.attrs.cell.seat.schema.bus.bssType == 'WORK'}"
-						value="Блокировать место" ajax="false"
-						action="#{cc.attrs.block_cell_action}" icon="ui-icon-close">
-						<f:setPropertyActionListener value="#{cc.attrs.cell}"
-							target="#{cc.attrs.selectedCell}" />
-					</p:menuitem>
-					<p:separator />
+				</h:panelGroup> <p:menuButton value=".."
+					rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold}">
+					<sec:authorize ifAnyGranted="ROLE_BLOCKER_SUPER,ROLE_BLOCKER">
+						<p:menuitem
+							rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold and cc.attrs.cell.seat.schema.bus.bssType == 'WORK'}"
+							value="Блокировать место" ajax="false"
+							action="#{cc.attrs.block_cell_action}" icon="ui-icon-close">
+							<f:setPropertyActionListener value="#{cc.attrs.cell}"
+								target="#{cc.attrs.selectedCell}" />
+						</p:menuitem>
+						<p:separator />
+					</sec:authorize>
 					<p:menuitem update="@form" value="Информация"
 						rendered="#{!empty cc.attrs.show_view_button and cc.attrs.show_view_button == 'true' and cc.attrs.cell.seat != null}"
 						oncomplete="#{cc.attrs.view_button_oncomplete}"
