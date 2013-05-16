@@ -203,7 +203,8 @@
 		</dependency>
 
 		<!-- Lucene search -->
-		<dependency>
+		<!-- Пока не нужен -->
+		<!--  dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
 			<version>4.1.1.Final</version>
@@ -212,7 +213,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-analyzers</artifactId>
 			<version>4.1.1.Final</version>
-		</dependency>
+		</dependency -->
 
 
 		<!-- LOG -->
