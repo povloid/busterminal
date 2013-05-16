@@ -1,16 +1,24 @@
 package pk.home.busterminal.service.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pk.home.libs.combine.dao.ABaseDAO;
-import pk.home.libs.combine.service.ABaseService;
 import pk.home.busterminal.dao.security.UserAuthorityDAO;
 import pk.home.busterminal.domain.security.UserAuthority;
+import pk.home.busterminal.domain.security.UserAuthority_;
 import pk.home.busterminal.domain.security.UserAuthoritys;
+import pk.home.libs.combine.dao.ABaseDAO;
+import pk.home.libs.combine.service.ABaseService;
 
 /**
  * Сервис авторизации
@@ -67,4 +75,23 @@ public class UserAuthorityService extends ABaseService<UserAuthority> {
 			userAuthorityDAO.persist(uat);
 		}
 	}
+	
+	@Transactional(readOnly=true)
+	public UserAuthority findUserAuthority(UserAuthoritys userAuthoritys) throws Exception {
+		
+		CriteriaBuilder cb = userAuthorityDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<UserAuthority> cq = cb.createQuery(UserAuthority.class);
+		Root<UserAuthority> t = cq.from(UserAuthority.class);
+
+		List<Predicate> criteria = new ArrayList<Predicate>();
+
+		criteria.add(cb.equal(t.get(UserAuthority_.authority), userAuthoritys.name()));
+						
+		cq.where(cb.and(criteria.toArray(new Predicate[0])));
+
+		return userAuthorityDAO.getAllEntities(cb, cq, t).get(0);
+	}
+	
+	
 }

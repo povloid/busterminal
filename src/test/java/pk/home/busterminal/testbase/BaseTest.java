@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import pk.home.busterminal.domain.BssType;
@@ -30,6 +30,7 @@ import pk.home.busterminal.service.SchemaService;
 import pk.home.busterminal.service.SeatService;
 import pk.home.busterminal.service.SeatTypeService;
 import pk.home.busterminal.service.security.UserAccountService;
+import pk.home.busterminal.service.security.UserAuthorityService;
 
 @Transactional
 public class BaseTest {
@@ -48,6 +49,9 @@ public class BaseTest {
 
 	@Autowired
 	protected UserAccountService userAccountService;
+	
+	@Autowired
+	protected UserAuthorityService userAuthorityService;
 
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
@@ -318,8 +322,7 @@ public class BaseTest {
 
 		userAccount = new UserAccount();
 		userAccount.setUsername("testuser1");
-		userAccount.setPassword(passwordEncoder
-				.encodePassword("password", null));
+		userAccount.setPassword(passwordEncoder.encode("password"));
 		userAccount.setfName("Фамилия - ТЕСТ");
 		userAccount.setnName("Имя - ТЕСТ");
 		userAccount.setmName("Отчество - ТЕСТ");

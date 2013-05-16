@@ -21,6 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -39,6 +40,8 @@ import pk.home.busterminal.domain.Schema;
 import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.domain.SeatType;
 import pk.home.busterminal.domain.security.UserAccount;
+import pk.home.busterminal.domain.security.UserAuthority;
+import pk.home.busterminal.domain.security.UserAuthoritys;
 import pk.home.busterminal.testbase.BaseTest;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 
@@ -677,8 +680,11 @@ public class TestBusService extends BaseTest {
 		seat1.setSeatType(seatType);
 		seat1.setDiscount(true);
 		seat1.setDiscountPotsent(50);
+		
 		seat1.setBlock(true);
 		seat1.setBlockDescription("Причина блокировки ....");
+		
+		
 		{
 			division = new Division();
 			division.setKeyName("Тестовое отделение - 1");
@@ -686,13 +692,22 @@ public class TestBusService extends BaseTest {
 
 			userAccount = new UserAccount();
 			userAccount.setUsername("testuser1");
-			userAccount.setPassword(passwordEncoder.encodePassword("password",
-					null));
+			userAccount.setPassword(passwordEncoder.encode("password"));
 			userAccount.setfName("Фамилия - ТЕСТ");
 			userAccount.setnName("Имя - ТЕСТ");
 			userAccount.setmName("Отчество - ТЕСТ");
-
+			
 			userAccount = userAccountService.persist(userAccount);
+			
+			UserAuthority userAuthority = userAuthorityService.findUserAuthority(UserAuthoritys.ROLE_BLOCKER);
+			System.out.println(userAuthority);
+			
+			userAccount.getUserAuthorities().add(userAuthority);
+			System.out.println(userAccount.getUserAuthorities().size());
+			
+			userAccount = userAccountService.merge(userAccount);
+			
+			assertTrue(userAccountService.containRole(userAccount,UserAuthoritys.ROLE_BLOCKER));
 			
 			// ******************************
 			seat1.setBlocker(userAccount);
