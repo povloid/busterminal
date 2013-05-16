@@ -143,34 +143,58 @@ public class SeatService extends ABaseService<Seat> {
 	@Transactional
 	public void check(Seat o) throws Exception {
 
-		// Проверка разграничения блокировки по ролям
+		// Проверка разграничения блокировки по ролям -----------------------------------------------------------------------------------------
+		if(o.getId() == null){ // При создании новой записи
+		
+			if(o.getBlock() != null && o.getBlock()
+					&& userAccountService.containRole(o.getBlocker(),
+							UserAuthoritys.ROLE_BLOCKER) || userAccountService
+					.containRole(o.getBlocker(),
+							UserAuthoritys.ROLE_BLOCKER_SUPER)){
+				//Все нормально
+			} else 
+				throw new Exception(
+						"У вас нет прав для блокирования и разблокирования! Обратитесь к системному администратору.");
+			
+		} else { // При обновлении записи
+			
+			Seat seatInBase = find(o.getId()); // Поднимаем старую сущность из базы
 
-		if (o.getBlock() != null)
-			// Проверка при блокировании ---------------------------------------------------------------------------
-			if (o.getBlock()) {
-				if (!(userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER)
-						|| userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER_SUPER))) {
+			if(o.getBlock() == null || !o.getBlock()){ // Приходит отключенная
+				
+				if(seatInBase.getBlock() != null && seatInBase.getBlock()
+						&& ((seatInBase.getBlocker().equals(o.getBlocker()) 
+								&&  userAccountService.containRole(o.getBlocker(), UserAuthoritys.ROLE_BLOCKER))
+						// или у разблокировщика есть право разблокирования
+						|| userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER_SUPER) ) ){
+					// Тогда ничего не делаем, считаем что все нормально
+				} else if(seatInBase.getBlock() == null || !seatInBase.getBlock()){ // Оно и небыло заблокировано 
+					// Тогда ничего не делаем, считаем что все нормально
+				} else
 					throw new Exception(
 							"У вас нет прав для блокирования и разблокирования! Обратитесь к системному администратору.");
-				} 
-				// Проверка при разблокировании --------------------------------------------------------------------
-			} else if (!o.getBlock()) {
-				if (o.getId() != null) { // Чтобы исключить проверку при создании новой записи
-					Seat seatInBase = find(o.getId()); // Поднимаем сущность из базы
-					
-					if(seatInBase.getBlock() // Если место блокировано  
-							// Если разблокировщик тот же и у него есть права
-							&& ((seatInBase.getBlocker().equals(o.getBlocker()) &&  userAccountService.containRole(o.getBlocker(), UserAuthoritys.ROLE_BLOCKER))
-									// или у разблокировщика есть право разблокирования
-									|| userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER_SUPER) ) ){
-						// Тогда ничего не делаем, считаем что все нормально
-					} else {
-						throw new Exception(
-								"У вас нет прав для блокирования и разблокирования! Обратитесь к системному администратору.");
-					}
-				}
+				
+				
+			} else { // Иначе приходит включенная - заблокированная 
+				
+				if(seatInBase.getBlock() != null && seatInBase.getBlock() && seatInBase.getBlocker().equals(o.getBlocker())){
+					// Значит идет обновление но сведения по блокировке не изменились
+				} else if(seatInBase.getBlock() != null && seatInBase.getBlock() && !seatInBase.getBlocker().equals(o.getBlocker()) 
+						&& userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER_SUPER)){
+					throw new Exception(
+							"Вам необходимо сначала разблокировать запись.");
+				} else if((seatInBase.getBlock() == null || !seatInBase.getBlock()) 
+						&&  (userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER) 
+						|| 	userAccountService.containRole(o.getBlocker(),UserAuthoritys.ROLE_BLOCKER_SUPER))){
+					// Все нормально, происходит штатная блокирока
+				} else
+					throw new Exception(
+							"У вас нет прав для блокирования и разблокирования! Обратитесь к системному администратору.");
 			}
+		}
 		
+		// Проверка разграничения блокировки по ролям ...
+			
 		// Проверка на уровне сущности
 		o.check();
 
