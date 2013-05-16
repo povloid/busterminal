@@ -24,7 +24,7 @@
 	
 	
 
-	<!-- Надо бобавить в context.xml -->
+	<!-- Надо добавить в context.xml -->
 
 	<!--<Parameter name="javax.faces.PROJECT_STAGE" value="Development" override="false"/> 
 		<Parameter name="javax.faces.FACELETS_REFRESH_PERIOD" value="1" override="false"/> 
