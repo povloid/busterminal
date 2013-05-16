@@ -789,8 +789,11 @@ public class TestBusService extends BaseTest {
 				assertEquals(as.getDiscount(), bs.getDiscount());
 				assertEquals(as.getDiscountPotsent(), bs.getDiscountPotsent());
 				
-				/// Блокировка и все что с ней связано не копируется
-				///assertEquals(as.getBlock(), bs.getBlock());
+				/// Блокировка и все что с ней связано копируется
+				assertEquals(as.getBlock(), bs.getBlock());
+				assertEquals(as.getBlockDescription(), bs.getBlockDescription());
+				assertEquals(as.getBlockDate(), bs.getBlockDate());
+				assertEquals(as.getBlocker(), bs.getBlocker());
 
 				assertFalse(as.getId() == bs.getId());
 			}

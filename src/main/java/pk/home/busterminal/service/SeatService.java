@@ -146,7 +146,9 @@ public class SeatService extends ABaseService<Seat> {
 		// Проверка разграничения блокировки по ролям -----------------------------------------------------------------------------------------
 		if(o.getId() == null){ // При создании новой записи
 		
-			if(o.getBlock() != null && o.getBlock()
+			if(o.getBlock() == null || o.getBlock() != null && !o.getBlock()){
+				//Все нормально
+			} else if(o.getBlock() != null && o.getBlock()
 					&& userAccountService.containRole(o.getBlocker(),
 							UserAuthoritys.ROLE_BLOCKER) || userAccountService
 					.containRole(o.getBlocker(),
@@ -298,8 +300,12 @@ public class SeatService extends ABaseService<Seat> {
 		seatCopy.setDiscount(seat.getDiscount());
 		seatCopy.setDiscountPotsent(seat.getDiscountPotsent());
 
-		// Внимание, блокировку и все что с ней связано не копируем
-		// В конечном счете есть блокировка на уровне рейса
+		// Внимание, блокировку и все что с ней связано копируем
+		seatCopy.setBlock(seat.getBlock());
+		seatCopy.setBlockDate(seat.getBlockDate());
+		seatCopy.setBlocker(seat.getBlocker());
+		seatCopy.setBlockDescription(seat.getBlockDescription());
+		
 
 		return seatCopy;
 	}
