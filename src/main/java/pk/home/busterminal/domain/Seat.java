@@ -123,10 +123,14 @@ public class Seat implements Serializable {
 
 	// Блокировка места	
 	private Boolean block;
+	
 	@Length(max = 1000)
 	@Column(length = 1000)
 	private String blockDescription;
+	
+	@ManyToOne
 	private UserAccount blocker;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date blockDate;
 
