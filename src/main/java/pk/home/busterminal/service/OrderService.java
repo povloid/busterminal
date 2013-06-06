@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.transaction.NotSupportedException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -47,6 +48,8 @@ import pk.home.libs.combine.service.ABaseService;
 @Transactional
 public class OrderService extends ABaseService<Order> {
 
+	private static final Logger LOG = Logger.getLogger(OrderService.class);
+	
 	@Autowired
 	private OrderDAO orderDAO;
 
@@ -177,13 +180,13 @@ public class OrderService extends ABaseService<Order> {
 				.getBusRoute(), o.getBusRouteStopA(), o.getBusRouteStopB());
 
 		// for (BusRouteStop ibrs : list) {
-		// System.out.print(">>>>>>>" + ibrs);
-		// System.out.print(" - " + ibrs.getOrId());
+		// LOG.debug(">>>>>>>" + ibrs);
+		// LOG.debug(" - " + ibrs.getOrId());
 		//
 		// if (ibrs.getpBRStop() != null)
-		// System.out.print(" - " + ibrs.getpBRStop().getOrId());
+		// LOG.debug(" - " + ibrs.getpBRStop().getOrId());
 		// else
-		// System.out.print(" - " + "null");
+		// LOG.debug(" - " + "null");
 		//
 		// if (ibrs.getnBRStop() != null)
 		// System.out.println(" - " + ibrs.getnBRStop().getOrId());
@@ -224,13 +227,13 @@ public class OrderService extends ABaseService<Order> {
 		}
 
 		for (BusRouteStop ibrs : list) {
-			System.out.print(">>>>>>>" + ibrs);
-			System.out.print(" - " + ibrs.getOrId());
+			LOG.debug(">>>>>>>" + ibrs);
+			LOG.debug(" - " + ibrs.getOrId());
 
 			if (ibrs.getpBRStop() != null)
-				System.out.print(" - " + ibrs.getpBRStop().getOrId());
+				LOG.debug(" - " + ibrs.getpBRStop().getOrId());
 			else
-				System.out.print(" - " + "null");
+				LOG.debug(" - " + "null");
 
 			if (ibrs.getnBRStop() != null)
 				System.out.println(" - " + ibrs.getnBRStop().getOrId());

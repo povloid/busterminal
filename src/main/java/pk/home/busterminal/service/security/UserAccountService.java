@@ -1,5 +1,6 @@
 package pk.home.busterminal.service.security;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ import pk.home.libs.combine.service.ABaseService;
 @Transactional
 public class UserAccountService extends ABaseService<UserAccount> {
 
+	private static final Logger LOG = Logger.getLogger(UserAccountService.class);
+	
 	@Autowired
 	private UserAccountDAO userAccountDAO;
 	
@@ -50,8 +53,8 @@ public class UserAccountService extends ABaseService<UserAccount> {
 		userAccount = userAccountDAO.find(userAccount.getId());
 		
 		for(GrantedAuthority ga: userAccount.getAuthorities()){
-			System.out.println(">>>>> containRole: "  + ga.getAuthority() + " - " + userAuthoritys.name());
-		 	
+			LOG.debug(">>>>> containRole: "  + ga.getAuthority() + " - " + userAuthoritys.name());
+			
 			if((ga.getAuthority().equals(userAuthoritys.name())))
 				return true;
 		}

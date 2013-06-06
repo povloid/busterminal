@@ -204,7 +204,7 @@ public class OPSaleWFControl extends AWFBasicControl implements Serializable {
 
 						// // Для отладки
 						// /for (ProgressPoint pp : cell.getProgress()) {
-						// / System.out.print(pp.getV());
+						// / LOG.debug(pp.getV());
 						// /}
 						// /System.out.println();
 
