@@ -123,7 +123,7 @@
 					<sec:authorize ifAnyGranted="ROLE_BLOCKER_SUPER,ROLE_BLOCKER">
 						<p:menuitem
 							rendered="#{cc.attrs.cell.seat != null and cc.attrs.cell.seat.seatType.sold and cc.attrs.cell.seat.schema.bus.bssType == 'WORK'}"
-							value="Блокировать место" ajax="false"
+							value="Блокировка" ajax="false"
 							action="#{cc.attrs.block_cell_action}" icon="ui-icon-close">
 							<f:setPropertyActionListener value="#{cc.attrs.cell}"
 								target="#{cc.attrs.selectedCell}" />

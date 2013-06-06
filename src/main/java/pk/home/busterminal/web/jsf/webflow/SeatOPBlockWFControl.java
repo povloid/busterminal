@@ -73,11 +73,18 @@ public class SeatOPBlockWFControl extends AWFBasicControl implements
 	 * @throws Exception
 	 */
 	public String block() throws Exception {
-		if(seat.getBlock() != null && seat.getBlock())
+		if(seat.getBlock() != null)
 			seat.setBlocker(getTerminalCurrentUser().getUserAccount());
 		
 		try{
 			seat = getSeatService().merge(seat);
+			
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Ok: ",
+							"Запись успешно обновлена"));
+			
+			
 		} catch (Exception e){
 			FacesContext.getCurrentInstance()
 			.addMessage(
