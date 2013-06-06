@@ -56,4 +56,14 @@
 	keystoreFile="${user.home}/.keystore" keystorePass="paradox#65535" 
 	maxThreads="200" port="8443" scheme="https" secure="true" sslProtocol="TLS"/>
 
+
+(JasperReport)
+
+// Work wor windows
+// Необходимо добавить чтобы работали отчеты в виндовс и некорежило кодировки
+// set JAVA_OPTS=-Dfile.encoding=UTF-8
+	
+// public static final String BASE_FILES_DIR = "c:/btmp/";
+
+
 	
