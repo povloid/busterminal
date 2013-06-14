@@ -33,6 +33,7 @@ import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Order_;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
+import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.domain.Seat_;
 import pk.home.busterminal.domain.security.UserAccount_;
 import pk.home.libs.combine.dao.ABaseDAO;
@@ -133,11 +134,32 @@ public class OrderService extends ABaseService<Order> {
 	// *****************************************************************************************************************
 
 	/**
-	 * Найти все ордера, связанные с данным рейсом
-	 * 
-	 * @param race
-	 * @return
-	 * @throws Exception
+	 * Найти все ордера, связанные с конкретным местом.
+	 *
+	 * @param race the race
+	 * @return the list
+	 * @throws Exception the exception
+	 */
+	@Transactional(readOnly = true)
+	public List<Order> findAllOrdersForSeat(Seat seat) throws Exception {
+		CriteriaBuilder cb = orderDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+		Root<Order> t = cq.from(Order.class);
+
+		// parent param ---------------------------------------
+		cq.where(cb.equal(t.get(Order_.seat), seat));
+
+		return orderDAO.getAllEntities(cb, cq, t);
+	}
+	
+	
+	/**
+	 * Найти все ордера, связанные с данным рейсом.
+	 *
+	 * @param race the race
+	 * @return the list
+	 * @throws Exception the exception
 	 */
 	@Transactional(readOnly = true)
 	public List<Order> findAllOrdersForRace(Race race) throws Exception {
