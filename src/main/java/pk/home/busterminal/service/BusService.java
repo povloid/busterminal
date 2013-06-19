@@ -114,7 +114,7 @@ public class BusService extends ABaseService<Bus> {
 
 			cq.select(busDAO.getEntityManager().getCriteriaBuilder().count(rt));
 
-			long count = (Long) busDAO.getSinleResult(cq);
+			long count = (Long) busDAO.findAdvancedObj(cq);
 			if (count > 0)
 				throw new Exception(
 						"У шаблонов поля keyName и gosNum должно быть уникальным");
@@ -233,7 +233,7 @@ public class BusService extends ABaseService<Bus> {
 
 		cq.select(busDAO.getEntityManager().getCriteriaBuilder().count(rt));
 
-		return (Long) busDAO.getSinleResult(cq);
+		return (Long) busDAO.findAdvancedObj(cq);
 	}
 
 	/**

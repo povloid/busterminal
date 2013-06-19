@@ -128,7 +128,7 @@ public class SchemaService extends ABaseService<Schema> {
 
 		cq.select(schemaDAO.getEntityManager().getCriteriaBuilder().count(rt));
 
-		return (Long) schemaDAO.getSinleResult(cq);
+		return (Long) schemaDAO.findAdvancedObj(cq);
 	}
 
 	/**

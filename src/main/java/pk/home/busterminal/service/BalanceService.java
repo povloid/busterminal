@@ -140,7 +140,7 @@ public class BalanceService extends ABaseService<Balance> {
 
 		cq.select(balanceDAO.getEntityManager().getCriteriaBuilder().count(rt));
 
-		return (Long) balanceDAO.getSinleResult(cq);
+		return (Long) balanceDAO.findAdvancedObj(cq);
 	}
 
 }
