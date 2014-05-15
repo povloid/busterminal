@@ -11,7 +11,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Index;
+
 
 import pk.home.busterminal.domain.security.UserAccount;
 
@@ -20,7 +20,12 @@ import pk.home.busterminal.domain.security.UserAccount;
  * 
  */
 @Entity
-@Table(schema = "public", name = "Order")
+@Table(schema = "public", name = "Order",
+indexes = {
+		@Index(name="order_idx1", columnList="orderType"),
+		@Index(name="order_idx2", columnList="opTime"),
+		@Index(name="order_idx3", columnList="userAccount_id"),
+		@Index(name="order_idx4", columnList="customer_id")})
 @NamedQueries({
 		@NamedQuery(name = "Order.findAll", query = "select a from Order a order by a.id"),
 		@NamedQuery(name = "Order.findByPrimaryKey", query = "select a from Order a where a.id = ?1") })
@@ -47,12 +52,12 @@ public class Order implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	@Index(name = "order_idx1")
+	//@Index(name = "order_idx1")
 	private OrderType orderType;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	@Index(name = "order_idx2")
+	//@Index(name = "order_idx2")
 	@NotNull
 	private Date opTime;
 
@@ -100,13 +105,13 @@ public class Order implements Serializable {
 	// -----------------------------------------------------------------------------------------------------------------
 
 	@ManyToOne
-	@Index(name = "order_idx3")
+	//@Index(name = "order_idx3")
 	@JoinColumn(nullable = false)
 	@NotNull
 	private UserAccount userAccount;
 
 	@ManyToOne
-	@Index(name = "order_idx4")
+	//@Index(name = "order_idx4")
 	@JoinColumn(nullable = false)
 	@NotNull
 	private Customer customer;

@@ -4,17 +4,20 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Index;
+
 
 /**
  * Entity class: BusRoute BusRoute - Маршрут
  * 
  */
 @Entity
-@Table(schema = "public", name = "BusRoutes")
+@Table(schema = "public", name = "BusRoutes", 
+indexes = {
+		@Index(name="busroutes_idx1", columnList="keyName")})
 @NamedQueries({
 		@NamedQuery(name = "BusRoute.findAll", query = "select a from BusRoute a order by a.id"),
 		@NamedQuery(name = "BusRoute.findByPrimaryKey", query = "select a from BusRoute a where a.id = ?1") })
@@ -32,7 +35,7 @@ public class BusRoute implements Serializable {
 
 	@NotNull
 	@Column(unique = true, nullable = false)
-	@Index(name = "busroutes_idx1")
+	//@Index(name = "busroutes_idx1")
 	private String keyName;
 
 	private String description;

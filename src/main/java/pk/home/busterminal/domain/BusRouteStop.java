@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
@@ -17,14 +18,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Index;
+
 
 @Entity
 @Table(schema = "public", name = "bus_routes_stops", uniqueConstraints = {
 // @UniqueConstraint(columnNames = { "busroute_id", "busstop_id" }), --> Потому
 // что надо чтобы были возможны круговые маршруты и петли
 // Подразумевается мультиграф с петлями
-@UniqueConstraint(columnNames = { "busroute_id", "orId" }) })
+@UniqueConstraint(columnNames = { "busroute_id", "orId" }) },
+indexes = {@Index(name="bus_routes_stops_idx1", columnList="busRoute_id , busStop_id")})
 public class BusRouteStop implements Serializable {
 
 	/**
@@ -35,12 +37,12 @@ public class BusRouteStop implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "busroute_id")
-	@Index(name = "bus_routes_stops_idx1")
+	//@Index(name = "bus_routes_stops_idx1")
 	private BusRoute busRoute;
 
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "busstop_id")
-	@Index(name = "bus_routes_stops_idx1")
+	//@Index(name = "bus_routes_stops_idx1")
 	private BusStop busStop;
 
 	@Column(nullable = false)

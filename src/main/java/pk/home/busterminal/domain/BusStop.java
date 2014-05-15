@@ -6,7 +6,6 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Index;
 
 /**
  * Entity class: BusStop
@@ -14,7 +13,9 @@ import org.hibernate.annotations.Index;
  *
  */
 @Entity
-@Table(schema = "public", name = "BusStops")
+@Table(schema = "public", name = "BusStops", 
+indexes = {
+		@Index(name="busstops_idx1", columnList="keyName")})
 @NamedQueries({
 	@NamedQuery(name = "BusStop.findAll", query = "select a from BusStop a order by a.id"),
 	@NamedQuery(name = "BusStop.findByPrimaryKey", query = "select a from BusStop a where a.id = ?1")})
@@ -34,7 +35,7 @@ public class BusStop implements Serializable {
 	
 	@NotNull
     @Column(unique=true, nullable = false)
-	@Index(name = "busstops_idx1")
+	//@Index(name = "busstops_idx1")
 	private String keyName;
 	
 	

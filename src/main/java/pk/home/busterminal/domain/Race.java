@@ -7,14 +7,17 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Index;
 
 /**
  * Entity class: Race Race - рейс
  * 
  */
 @Entity
-@Table(schema = "public", name = "Race")
+@Table(schema = "public", name = "Race",
+indexes = {
+	@Index(name="race_idx0", columnList="dTime"),
+	@Index(name="race_idx1", columnList="busRoute_id"),
+	@Index(name="race_idx2", columnList="bus_id")})
 @NamedQueries({
 		@NamedQuery(name = "Race.findAll", query = "select a from Race a order by a.id"),
 		@NamedQuery(name = "Race.findByPrimaryKey", query = "select a from Race a where a.id = ?1") })
@@ -39,17 +42,17 @@ public class Race implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
-	@Index(name = "race_idx0")
+	//@Index(name = "race_idx0")
 	private Date dTime;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	@Index(name = "race_idx1")
+	//@Index(name = "race_idx1")
 	private BusRoute busRoute;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	@Index(name = "race_idx3")
+	//@Index(name = "race_idx3")
 	private Bus bus;
 
 	private Boolean block;

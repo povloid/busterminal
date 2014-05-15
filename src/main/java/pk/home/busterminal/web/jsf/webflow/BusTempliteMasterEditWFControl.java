@@ -8,7 +8,10 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.lang.NotImplementedException;
+
+
+
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 
 import pk.home.busterminal.domain.Bus;
 import pk.home.busterminal.domain.Schema;
@@ -55,7 +58,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 */
 	@Override
 	public Bus newEdited() throws Exception {
-		throw new NotImplementedException();
+		throw new NotImplementedException(null);
 	}
 
 	/* (non-Javadoc)
@@ -63,7 +66,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 */
 	@Override
 	protected void confirmAddImpl() throws Exception {
-		throw new NotImplementedException();
+		throw new NotImplementedException(null);
 	}
 
 	/* (non-Javadoc)
@@ -78,7 +81,7 @@ public class BusTempliteMasterEditWFControl extends AWFControl<Bus, Long>
 	 */
 	@Override
 	protected void confirmDelImpl() throws Exception {
-		throw new NotImplementedException();
+		throw new NotImplementedException(null);
 	}
 
 	/* (non-Javadoc)

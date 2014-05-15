@@ -6,7 +6,7 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Index;
+
 
 /**
  * Entity class: Items Items - запись ордера
@@ -17,7 +17,11 @@ import org.hibernate.annotations.Index;
 		@UniqueConstraint(columnNames = { "seat_id", "race_id", "brst1_id" }),
 		@UniqueConstraint(columnNames = { "seat_id", "race_id", "brst2_id" }),
 		@UniqueConstraint(columnNames = { "seat_id", "race_id", "brst1_id",
-				"brst2_id" }) })
+				"brst2_id" }) },
+		indexes = {
+		@Index(name="items_idx1", columnList="order_id"),
+		@Index(name="items_idx2", columnList="race_id"),
+		@Index(name="items_idx3", columnList="seat_id")})
 @NamedQueries({
 		@NamedQuery(name = "items.findAll", query = "select a from Items a order by a.id"),
 		@NamedQuery(name = "items.findByPrimaryKey", query = "select a from Items a where a.id = ?1") })
@@ -36,19 +40,19 @@ public class Items implements Serializable {
 	// -----------------------------------------------------------------------------------------------
 
 	@ManyToOne
-	@Index(name = "items_idx1")
+	//@Index(name = "items_idx1")
 	@JoinColumn(name = "order_id", nullable = false)
 	@NotNull
 	private Order order;
 
 	@ManyToOne
-	@Index(name = "items_idx2")
+	//@Index(name = "items_idx2")
 	@JoinColumn(name = "race_id", nullable = false)
 	@NotNull
 	private Race race;
 
 	@ManyToOne
-	@Index(name = "items_idx3")
+	//@Index(name = "items_idx3")
 	@JoinColumn(name = "seat_id", nullable = false)
 	@NotNull
 	private Seat seat;
