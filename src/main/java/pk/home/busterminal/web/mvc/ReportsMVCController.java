@@ -33,6 +33,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sourceforge.barbecue.env.Environment;
 import net.sourceforge.barbecue.env.EnvironmentFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -64,6 +65,8 @@ import pk.home.libs.combine.fileutils.FileUtils;
 @RequestMapping("/report/")
 public final class ReportsMVCController {
 
+	private static final Logger LOG = Logger.getLogger(ReportsMVCController.class);
+	
 	private final DateFormat dateFormatFullTime = new SimpleDateFormat(
 			"EEE, d MMM yyyy HH:mm:ss", new Locale("ru"));
 
@@ -86,6 +89,8 @@ public final class ReportsMVCController {
 	public ModelAndView generatePdfReport(ModelAndView modelAndView)
 			throws Exception {
 
+		LOG.debug("***** 1");
+		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("format", "pdf");
 		parameterMap.put("capton_params", "Privet - Привет");
@@ -96,6 +101,8 @@ public final class ReportsMVCController {
 		parameterMap.put("datasource", JRdataSource);
 
 		modelAndView = new ModelAndView("orderReport", parameterMap);
+		
+		LOG.debug("***** " + modelAndView);
 
 		return modelAndView;
 	}
@@ -484,6 +491,8 @@ public final class ReportsMVCController {
 			@PathVariable String file, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		LOG.debug("***** 1");
+		
 		// Запрос данных
 		Order o = orderService.find(id);
 

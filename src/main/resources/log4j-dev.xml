@@ -58,6 +58,16 @@
         <level value="info" />
     </logger>
 
+	<!-- Tradeunits -->
+	
+	<logger name="pk.home.busterminal">
+		<level value="debug" />
+	</logger>
+	
+
+	<!-- Tradeunits -->
+	
+
 	<!-- Root Logger -->
     <root>
         <priority value="info" />
