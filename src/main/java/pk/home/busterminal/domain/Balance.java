@@ -9,7 +9,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Index;
+
 
 import pk.home.busterminal.domain.security.UserAccount;
 
@@ -18,7 +18,12 @@ import pk.home.busterminal.domain.security.UserAccount;
  * 
  */
 @Entity
-@Table(schema = "public", name = "Balance")
+@Table(schema = "public", name = "Balance",
+indexes = {
+		@Index(name="balance_idx2", columnList="balanceType"),
+		@Index(name="balance_idx1", columnList="opTime"),
+		@Index(name="balance_idx3", columnList="userAccount_id"),
+		@Index(name="balance_idx4", columnList="division_id")})
 @NamedQueries({
 		@NamedQuery(name = "Balance.findAll", query = "select a from Balance a order by a.id"),
 		@NamedQuery(name = "Balance.findByPrimaryKey", query = "select a from Balance a where a.id = ?1"),
@@ -39,16 +44,16 @@ public class Balance implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	@Index(name = "balance_idx2")
+	//@Index(name = "balance_idx2")
 	private BalanceType balanceType;
 
 	@ManyToOne
-	@Index(name = "balance_idx4")
+	//@Index(name = "balance_idx4")
 	private Division division;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	@Index(name = "balance_idx1")
+	//@Index(name = "balance_idx1")
 	@NotNull
 	private Date opTime;
 
@@ -59,7 +64,7 @@ public class Balance implements Serializable {
 	private BigDecimal actualSumm;
 
 	@ManyToOne
-	@Index(name = "balance_idx3")
+	//@Index(name = "balance_idx3")
 	@JoinColumn(nullable = false)
 	@NotNull
 	private UserAccount userAccount;

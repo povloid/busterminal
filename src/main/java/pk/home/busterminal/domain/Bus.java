@@ -22,11 +22,15 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Index;
+import javax.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(schema = "public", name = "buses")
+@Table(schema = "public", name = "buses" ,
+indexes = {
+		@Index(name="buses_bsstype_idx", columnList="bssType"),
+		@Index(name="buses_keyname_idx", columnList="keyName"),
+		@Index(name="buses_gosnum_idx", columnList="gosNum")})
 // , uniqueConstraints = {
 // @UniqueConstraint(columnNames = { "bsstype", "keyName" }),
 // @UniqueConstraint(columnNames = { "bsstype", "keyName" }) })
@@ -45,7 +49,7 @@ public class Bus implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	@Index(name = "buses_bsstype_idx")
+	//@Index(name = "buses_bsstype_idx")
 	private BssType bssType;
 
 	@ManyToOne
@@ -58,13 +62,13 @@ public class Bus implements Serializable {
 
 	@NotNull
 	@Column(nullable = false)
-	@Index(name = "buses_keyname_idx")
+	//@Index(name = "buses_keyname_idx")
 	private String keyName;
 
 	@NotNull
 	@Column(nullable = false, length = 10)
 	@Size(max = 10)
-	@Index(name = "buses_gosnum_idx")
+	//@Index(name = "buses_gosnum_idx")
 	private String gosNum;
 
 	@Length(max = 1000)

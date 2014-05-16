@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Index;
 
 /**
  * Entity class: Customer Customer - клиент
@@ -17,7 +16,12 @@ import org.hibernate.annotations.Index;
  */
 @Entity
 @Table(schema = "public", name = "Customer", uniqueConstraints = { @UniqueConstraint(columnNames = {
-		"docupenttype_id", "keyName" }) })
+		"docupenttype_id", "keyName" }) },
+indexes = {		@Index(name="customer_idx1", columnList="keyName"),
+				@Index(name="customer_idx2", columnList="fName"),
+				@Index(name="customer_idx3", columnList="nName"),
+				@Index(name="customer_idx4", columnList="mName"),
+				@Index(name="customer_idx5", columnList="bDate")})
 @NamedQueries({
 		@NamedQuery(name = "Customer.findAll", query = "select a from Customer a order by a.id"),
 		@NamedQuery(name = "Customer.findByPrimaryKey", query = "select a from Customer a where a.id = ?1") })
@@ -38,24 +42,24 @@ public class Customer implements Serializable {
 
 	@NotNull
 	@Column(nullable = false)
-	@Index(name = "customer_idx1")
+	//@Index(name = "customer_idx1")
 	private String keyName;
 
 	@NotNull
 	@Size(max = 20)
 	@Column(length = 20, nullable = false)
-	@Index(name = "customer_idx2")
+	//@Index(name = "customer_idx2")
 	private String fName;
 
 	@NotNull
 	@Size(max = 20)
 	@Column(length = 20, nullable = false)
-	@Index(name = "customer_idx3")
+	//@Index(name = "customer_idx3")
 	private String nName;
 
 	@Size(max = 20)
 	@Column(length = 20)
-	@Index(name = "customer_idx4")
+	//@Index(name = "customer_idx4")
 	private String mName;
 
 	// Телефоны
@@ -77,7 +81,7 @@ public class Customer implements Serializable {
 	private String pfone4;
 
 	@Temporal(TemporalType.DATE)
-	@Index(name = "customer_idx5")
+	//@Index(name = "customer_idx5")
 	private Date bDate;
 
 	@Enumerated(EnumType.STRING)
