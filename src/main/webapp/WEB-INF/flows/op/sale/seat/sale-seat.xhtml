@@ -47,13 +47,18 @@
 							- #{oPSaleSeatWFControl.order.customer.fName} #{oPSaleSeatWFControl.order.customer.nName} #{oPSaleSeatWFControl.order.customer.mName}"></h:outputText>
 					</h:panelGrid>
 
-					<h:outputText value="Цена:"></h:outputText>
+					<h:outputText value="Цена:"/>
 					<h:panelGroup>
 						<h:outputText id="actualPrice"
-							value="#{oPSaleSeatWFControl.order.actualPrice}"></h:outputText>
+								value="#{oPSaleSeatWFControl.order.actualPrice}"/>						
 						<sec:authorize ifAnyGranted="ROLE_OP_CASSIR_SALE_DISCOUNT">
 							<h:panelGrid columns="1" style="margin-bottom:10px"
 								rendered="#{oPSaleSeatWFControl.seat.discount}">
+								<p:spinner id="spinner_price" value="#{oPSaleSeatWFControl.order.actualPrice}" 
+									min="#{oPSaleSeatWFControl.seat.price - (oPSaleSeatWFControl.seat.discountPotsent * (oPSaleSeatWFControl.seat.price / 100)) }" 
+									max="#{oPSaleSeatWFControl.seat.price}" >
+										<p:ajax update="actualPrice"/>
+									</p:spinner>
 								<p:inputText id="txt1" value="#{oPSaleSeatWFControl.percent}" />
 								<p:slider for="txt1"
 									maxValue="#{oPSaleSeatWFControl.seat.discountPotsent}"
@@ -61,7 +66,7 @@
 
 									<p:ajax event="slideEnd"
 										listener="#{oPSaleSeatWFControl.onSlideEnd}"
-										update="actualPrice" />
+										update="actualPrice spinner_price" />
 								</p:slider>
 							</h:panelGrid>
 						</sec:authorize>
