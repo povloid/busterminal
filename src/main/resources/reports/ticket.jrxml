@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="88df08fc-ff67-49d7-b638-ca91f3e0e3d1">
 	<property name="ireport.zoom" value="1.9487171000000083"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -31,35 +31,35 @@
 	<detail>
 		<band height="250">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="392" y="171" width="163" height="17"/>
+				<reportElement x="392" y="171" width="163" height="17" uuid="5caf5137-f5a4-4db5-93f9-15fa9c8a6812"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="339" y="171" width="53" height="17"/>
+				<reportElement x="339" y="171" width="53" height="17" uuid="cf6f72b8-2928-4d7a-9110-f09860ec4dec"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ПТ №]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="50" y="0" width="302" height="31"/>
+				<reportElement x="50" y="0" width="302" height="31" uuid="b7e259f8-aae7-4609-8bab-57cc101d9a3a"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA["ТОО 'Туристская компания New Voyage' адрес: РК, город Тараз, пр-т Абая 129 www.vta.kz   e-mail:517102@mail.ru тел: +7 (7262)517102, Настя +7 775 4767569, Юрий +7 7019938400"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="31" width="49" height="14"/>
+				<reportElement x="0" y="31" width="49" height="14" uuid="8c0574c0-96d1-4aa2-825c-6258ff5a0ee0"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
 				<text><![CDATA[маршрут:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="352" y="21" width="40" height="24"/>
+				<reportElement x="352" y="21" width="40" height="24" uuid="69cb618f-3458-4e29-81bc-ac33c683db77"/>
 				<box leftPadding="2">
 					<leftPen lineWidth="1.0"/>
 				</box>
@@ -69,14 +69,14 @@
 				<text><![CDATA[Время]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="49" y="31" width="303" height="14"/>
+				<reportElement x="49" y="31" width="303" height="14" uuid="da5b30da-9388-4eb2-96c4-66af0315b9f9"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{race.busRoute.keyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="352" y="0" width="60" height="21"/>
+				<reportElement x="352" y="0" width="60" height="21" uuid="c0c4aaa7-8b3f-4263-a815-af591e22f7cb"/>
 				<box leftPadding="2">
 					<leftPen lineWidth="1.0"/>
 				</box>
@@ -86,67 +86,21 @@
 				<text><![CDATA[Рейс №]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="412" y="0" width="143" height="21"/>
+				<reportElement x="412" y="0" width="143" height="21" uuid="e68c5f3d-7272-4e72-93c0-acb11256ea42"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{race.id}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy HH.mm.ss">
-				<reportElement x="392" y="21" width="163" height="24"/>
+				<reportElement x="392" y="21" width="163" height="24" uuid="6e817e58-c749-49e2-96cc-725a8a45039b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{seatTime}]]></textFieldExpression>
 			</textField>
-			
-			
-			<!-- Сведения по автобусу из билета попросили убрать !!! -->
-			<!-- staticText>
-				<reportElement x="0" y="75" width="49" height="14"/>
-				<box>
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement>
-					<font fontName="DejaVu Sans Mono" size="9"/>
-				</textElement>
-				<text><![CDATA[автобус:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="49" y="75" width="160" height="14"/>
-				<box>
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement>
-					<font fontName="DejaVu Sans Mono" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{race.bus.keyName}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="209" y="75" width="63" height="14"/>
-				<box>
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement>
-					<font fontName="DejaVu Sans Mono" size="9"/>
-				</textElement>
-				<text><![CDATA[гос. номер:]]></text>
-			</staticText>	
-			<textField>
-				<reportElement x="272" y="75" width="80" height="14"/>
-				<box>
-					<bottomPen lineWidth="1.0"/>
-				</box>
-				<textElement>
-					<font fontName="DejaVu Sans Mono" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{race.bus.gosNum}]]></textFieldExpression>
-			</textField -->
-			
-			
-			<!-- Замена сведений по автобусу пустыми элементами с бордером -->
-			<staticText>
-				<reportElement x="0" y="75" width="49" height="14"/>
+				<reportElement x="0" y="75" width="49" height="14" uuid="98c539dd-9114-4da1-84cc-d6c25cd720f1"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -155,36 +109,34 @@
 				</textElement>
 			</staticText>
 			<staticText>
-				<reportElement x="49" y="75" width="160" height="14"/>
+				<reportElement x="49" y="75" width="160" height="14" uuid="d3946085-4be2-408e-882f-54deee8d880f"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
-			</staticText>	
+			</staticText>
 			<staticText>
-				<reportElement x="209" y="75" width="63" height="14"/>
+				<reportElement x="209" y="75" width="63" height="14" uuid="bffffef5-20ae-495e-a363-d8afa057b8b2"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
-			</staticText>	
+			</staticText>
 			<staticText>
-				<reportElement x="272" y="75" width="80" height="14"/>
+				<reportElement x="272" y="75" width="80" height="14" uuid="eb70c148-9412-49e2-b275-7a5127e9e990"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="9"/>
 				</textElement>
-			</staticText>	
-			
-			
+			</staticText>
 			<textField>
-				<reportElement x="412" y="45" width="143" height="44"/>
+				<reportElement x="412" y="45" width="143" height="44" uuid="56f0c9bb-12c5-45d5-8941-dc614b00eaed"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -194,49 +146,49 @@
 				<textFieldExpression><![CDATA[$F{seat.num}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="105" width="101" height="13"/>
+				<reportElement x="0" y="105" width="61" height="13" uuid="6b5cbf4d-7b6b-4441-9dd2-b29e09c73331"/>
 				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
+					<font fontName="DejaVu Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ф.И.О. пассажира:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="91" width="101" height="14"/>
+				<reportElement x="0" y="91" width="61" height="14" uuid="d87318ba-d48e-48a8-9623-30b72fdbd2b9"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<text><![CDATA[документ:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="101" y="91" width="235" height="14"/>
+				<reportElement x="61" y="91" width="275" height="14" uuid="1de3a734-5fa3-406e-880f-9779cb6b61a4"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customer.docupentType.keyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="336" y="91" width="15" height="14"/>
+				<reportElement x="336" y="91" width="15" height="14" uuid="94fe0815-a49d-4735-83a7-170898553d01"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<text><![CDATA[№]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="351" y="91" width="204" height="14"/>
+				<reportElement x="351" y="91" width="204" height="14" uuid="c59e0871-547e-4c68-a80b-35a70ae3bd8d"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customer.keyName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="101" y="105" width="454" height="13"/>
+				<reportElement x="61" y="105" width="494" height="13" uuid="3e928e9a-c30c-4549-ba54-ca76e472b333"/>
 				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
+					<font fontName="DejaVu Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{customer.fName}+" "+$F{customer.nName}+" "+$F{customer.mName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="119" width="115" height="12"/>
+				<reportElement x="0" y="119" width="115" height="12" uuid="f7e853bd-b335-419a-a750-7fe9afe35bbb"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 				</box>
@@ -246,7 +198,7 @@
 				<text><![CDATA[стоимость билета:]]></text>
 			</staticText>
 			<textField pattern="#,##0.00 тенге">
-				<reportElement x="115" y="119" width="440" height="12"/>
+				<reportElement x="115" y="119" width="440" height="12" uuid="0a045e5f-8251-4c41-a368-1247a1dabb68"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 				</box>
@@ -256,42 +208,45 @@
 				<textFieldExpression><![CDATA[$F{actualPrice}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="131" width="74" height="13"/>
+				<reportElement x="0" y="131" width="74" height="26" uuid="7e51132b-3efd-426e-8f59-af623b26945d"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<text><![CDATA[примечание:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="74" y="131" width="481" height="13"/>
+				<reportElement x="74" y="131" width="262" height="26" uuid="fbc72000-78f6-443a-8dcf-b130a192ff24"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="144" width="74" height="13"/>
+				<reportElement x="339" y="131" width="35" height="13" uuid="1ecaeaca-042f-4d98-9ef5-7808d0e5fd90"/>
+				<box leftPadding="0">
+					<topPen lineWidth="0.0"/>
+				</box>
 				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
+					<font fontName="DejaVu Sans Mono" size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[кассир:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="74" y="144" width="265" height="13"/>
+				<reportElement x="374" y="131" width="181" height="13" uuid="ba831b95-910b-41d4-8672-0448aad45785"/>
 				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
+					<font fontName="DejaVu Sans Mono" size="7" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{userAccount.fName}+" "+$F{userAccount.nName}+" "+$F{userAccount.mName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="339" y="144" width="53" height="13"/>
+				<reportElement x="339" y="144" width="35" height="13" uuid="0b3d138a-3aec-4d1c-ae9e-ce9b3c173a8d"/>
 				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
+					<font fontName="DejaVu Sans Mono" size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[подпись:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="392" y="144" width="163" height="13"/>
+				<reportElement x="374" y="144" width="181" height="13" uuid="c4130695-121a-47b1-887c-252f04aeab07"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -301,40 +256,47 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField pattern="dd.MM.yyyy HH.mm.ss">
-				<reportElement x="392" y="158" width="163" height="13"/>
+				<reportElement x="392" y="158" width="163" height="13" uuid="2ded2c37-0798-4d80-a0ad-b223e50c05e9"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{opTime}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="339" y="158" width="53" height="13"/>
+				<reportElement x="339" y="158" width="53" height="13" uuid="750b1f78-6647-49ca-847b-756bd58c6d07"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<text><![CDATA[дата:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="157" width="339" height="88"/>
+				<reportElement x="0" y="157" width="336" height="88" uuid="7886dcf0-95c0-4339-8c9a-721f55aafd1e"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
 				<textElement verticalAlignment="Top">
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Пассажир обязан своевременно прибыть к месту отправления автобуса не позднее, чем за 30 минут до времени отъезда, указанного в билете. В случае опоздания на посадку билет аннулируется, стоимость не возмещается Все пассажиры должны иметь при себе соответствующие документы для прохождения границы. Посадка производится согласно билета по документам удостоверяющим личность!"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Пассажир обязан прибыть к месту отправления автобуса не позднее, чем за 30 минут до времени отъезда, указанного в билете. Посадка/высадка  производится строго по указанным данным в билете. Все пассажиры должны иметь при себе соответствующие документы для прохождения границы. В случае опоздания на посадку билет аннулируется, стоимость не возмещается. Отказ от поездки менее чем за 7 календарных дней до поездки 50 % от стоимости билета, менее чем за 3 календарных дня 100 % от стоимости билета."]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="339" y="188" width="216" height="57"/>
+				<reportElement x="339" y="188" width="216" height="43" uuid="b15f5351-35b7-4d9b-af10-460d7daf1fcf"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="true" checksumRequired="true">
 					<jr:codeExpression><![CDATA[$F{id}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="247" width="555" height="1"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="247" width="555" height="1" uuid="e1d15658-a07e-4bd6-b4a0-f404a71c4935"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="352" y="45" width="60" height="44"/>
+				<reportElement x="352" y="45" width="60" height="44" uuid="d69d63e2-4d68-40df-a7ea-b69d4a78f975"/>
 				<box leftPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -345,38 +307,45 @@
 				<text><![CDATA[Место №]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="45" width="19" height="15"/>
+				<reportElement x="0" y="45" width="19" height="15" uuid="6bfff718-f184-4b33-8257-0776c3988ebf"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<text><![CDATA[от:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="60" width="19" height="15"/>
+				<reportElement x="0" y="60" width="19" height="15" uuid="af15bbaf-8b3a-4987-a35a-46056e9dd7b5"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<text><![CDATA[до:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="19" y="45" width="333" height="15"/>
+				<reportElement x="19" y="45" width="333" height="15" uuid="fc42c3fa-b0d1-4750-8b81-aadc845a4391"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{busRouteStopA.busStop.keyName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="19" y="60" width="333" height="15"/>
+				<reportElement x="19" y="60" width="333" height="15" uuid="251b0f88-5029-4a79-8631-2b1e468a04f4"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{busRouteStopB.busStop.keyName}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="RealSize">
-				<reportElement x="0" y="0" width="49" height="30"/>
+				<reportElement x="0" y="0" width="49" height="30" uuid="7b587998-8fcc-4aeb-97a2-f9fab4825ac1"/>
 				<box bottomPadding="0" rightPadding="0"/>
 				<imageExpression><![CDATA["reports/LogoNV64.jpg"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="339" y="231" width="216" height="13" uuid="6176d286-a6a4-4972-93e3-0bdf1a264b61"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="6"/>
+				</textElement>
+				<text><![CDATA[Автоматизация бизнеса от politrend.kz +7 7262 517002]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>
