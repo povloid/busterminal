@@ -139,9 +139,14 @@ public class Cell implements Serializable {
 	public String getIcon() {
 
 		// Отработка иконки для блокировки
-		opType = seat != null && seat.getBlock() != null && seat.getBlock()
+		opType = seat != null
 				&& seat.getSeatType().getSold() != null
-				&& seat.getSeatType().getSold() ? OP_TYPE.BLOCK : opType;
+				&& seat.getSeatType().getSold()
+				&& (seat.getSchema().getBus().getRace() != null
+					&& seat.getSchema().getBus().getRace().getBlock() != null
+					&& seat.getSchema().getBus().getRace().getBlock()
+					|| seat.getBlock() != null && seat.getBlock())
+				 ? OP_TYPE.BLOCK : opType;
 
 		if (opType == null) {
 			icon = SeatTypeIcons.getIconFromSeat(seat, "_128.png");
