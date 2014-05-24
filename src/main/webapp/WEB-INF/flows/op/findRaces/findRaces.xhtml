@@ -75,14 +75,14 @@
 				<p:panel header="Туда" styleClass="searchPanel">
 					<h:panelGrid columns="2">
 
-						<h:outputText value="Маршрут"></h:outputText>
+						<h:outputText value="Маршрут"/>
 						<h:panelGrid columns="2">
-							<p:commandButton value="Выбрать" action="selectBusRoute1"></p:commandButton>
+							<p:commandButton value="Выбрать" action="selectBusRoute1"/>
 							<h:outputText
-								value="#{findRaceWFControl.findRaceModel1.busRoute.keyName}"></h:outputText>
+								value="#{findRaceWFControl.findRaceModel1.busRoute.keyName}"/>
 						</h:panelGrid>
 
-						<h:outputText value="Дата:"></h:outputText>
+						<h:outputText value="Дата:"/>
 						<h:panelGrid columns="6">
 							<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
 								showButtonPanel="true" navigator="true"
@@ -97,14 +97,14 @@
 
 				<p:panel header="Обратно" styleClass="searchPanel">
 					<h:panelGrid columns="2">
-						<h:outputText value="Маршрут"></h:outputText>
+						<h:outputText value="Маршрут"/>
 						<h:panelGrid columns="2">
-							<p:commandButton value="Выбрать" action="selectBusRoute2"></p:commandButton>
+							<p:commandButton value="Выбрать" action="selectBusRoute2"/>
 							<h:outputText
-								value="#{findRaceWFControl.findRaceModel2.busRoute.keyName}"></h:outputText>
+								value="#{findRaceWFControl.findRaceModel2.busRoute.keyName}"/>
 						</h:panelGrid>
 
-						<h:outputText value="Дата:"></h:outputText>
+						<h:outputText value="Дата:"/>
 						<h:panelGrid columns="4">
 							<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
 								showButtonPanel="true" navigator="true"
@@ -116,7 +116,7 @@
 							<h:outputText value="суток: " />
 							<h:panelGroup>
 								<p:commandButton value="-" action="#{findRaceWFControl.decDay}"
-									ajax="true" update="@form"></p:commandButton>
+									ajax="true" update="@form"/>
 								<p:spinner id="spinnerDay" min="0"
 									value="#{findRaceWFControl.days}">
 									<p:ajax update="@form" process="@this"

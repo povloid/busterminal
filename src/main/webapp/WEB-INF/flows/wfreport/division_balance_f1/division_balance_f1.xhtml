@@ -66,20 +66,20 @@
 
 				<h:panelGrid columns="2">
 
-					<h:outputText value="Отделение:"></h:outputText>
+					<h:outputText value="Отделение:"/>
 					<h:panelGrid columns="2">
 						<h:outputText
-							value="#{rPTDivisionBalanceF1WFControl.division.keyName}"></h:outputText>
-						<p:commandButton value="Выбрать" action="selectDivision"></p:commandButton>
+							value="#{rPTDivisionBalanceF1WFControl.division.keyName}"/>
+						<p:commandButton value="Выбрать" action="selectDivision"/>
 					</h:panelGrid>
 
-					<h:outputText value="Начальная дата:"></h:outputText>
+					<h:outputText value="Начальная дата:"/>
 					<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
 						showButtonPanel="true" navigator="true"
 						value="#{rPTDivisionBalanceF1WFControl.bDate}">
 					</p:calendar>
 
-					<h:outputText value="Конечная дата:"></h:outputText>
+					<h:outputText value="Конечная дата:"/>
 					<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
 						showButtonPanel="true" navigator="true"
 						value="#{rPTDivisionBalanceF1WFControl.eDate}">
@@ -89,7 +89,7 @@
 				</h:panelGrid>
 
 				<p:commandButton value="Сформировать"
-					action="#{rPTDivisionBalanceF1WFControl.makeReport}"></p:commandButton>
+					action="#{rPTDivisionBalanceF1WFControl.makeReport}"/>
 
 			</p:panel>
 

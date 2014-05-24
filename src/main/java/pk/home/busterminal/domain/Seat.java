@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 
 import pk.home.busterminal.domain.security.UserAccount;
@@ -133,6 +134,8 @@ public class Seat implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date blockDate;
+	
+	private Boolean canAutoUnblocked;
 
 	public Long getId() {
 		return id;
@@ -260,6 +263,14 @@ public class Seat implements Serializable {
 
 	public void setBlockDate(Date blockDate) {
 		this.blockDate = blockDate;
+	}
+	
+	public Boolean getCanAutoUnblocked() {
+		return canAutoUnblocked;
+	}
+
+	public void setCanAutoUnblocked(Boolean canAutoUnblocked) {
+		this.canAutoUnblocked = canAutoUnblocked;
 	}
 
 	@Override

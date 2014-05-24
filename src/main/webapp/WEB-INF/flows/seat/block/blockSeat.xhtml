@@ -44,6 +44,9 @@
 					<h:outputLabel value="Причина блокировки:" />
 					<p:inputTextarea value="#{seatOPBlockWFControl.seat.blockDescription}"
 						style="width:300px;height:100px;" title="Причина блокировки"/>
+						
+					<h:outputText value="Может быть авторазблокировано"/>
+					<p:selectBooleanCheckbox value="#{seatOPBlockWFControl.seat.canAutoUnblocked}" />
 					
 				</h:panelGrid>
 

@@ -67,34 +67,50 @@
 
 				<h:panelGrid id="detail" columns="2" styleClass="grid">
 				
-					<h:outputText value="Заблокирован"></h:outputText>
+					<!-- BLOCK -->
+				
+					<h:outputText value="Заблокирован" />
 					<p:selectBooleanCheckbox value="#{raceEditWFControl.edited.block}" />
-
+					
+					<h:outputText value="Может быть автоРазблокирован"/>
+					<p:selectBooleanCheckbox value="#{raceEditWFControl.edited.autoUnblocked}" />
+					
+					<h:outputLabel value="АвтоРазблокировать за время (час)" />
+					<p:spinner value="#{raceEditWFControl.edited.autoUnblockedBefore}" min="0" />
+					
+					<h:outputText value="Может быть автоЗаблокирован"/>
+					<p:selectBooleanCheckbox value="#{raceEditWFControl.edited.autoBlocked}" />
+					
+					<h:outputLabel value="АвтоЗаблокировать за время (час)" />
+					<p:spinner value="#{raceEditWFControl.edited.autoBlockedBefore}" min="0" />
+					
+					<!-- ATTRIBUTES -->
+					
 					<h:outputText value="№:"
 						rendered="#{raceEditWFControl.edited.id != null}" />
 					<h:outputText value="#{raceEditWFControl.edited.id}"
 						rendered="#{raceEditWFControl.edited.id != null}" />
 
 
-					<h:outputText value="Время отправления:"></h:outputText>
+					<h:outputText value="Время отправления:"/>
 					<p:calendar value="#{raceEditWFControl.edited.dTime}"
 						pattern="dd.MM.yyyy HH:mm" locale="ru" required="true" />
 
-					<h:outputText value="Автобус"></h:outputText>
+					<h:outputText value="Автобус"/>
 					<h:panelGroup>
 						<p:commandButton action="#{raceEditWFControl.selectBus}"
-							value="Выбрать..."></p:commandButton>
-						<h:outputText value="#{raceEditWFControl.edited.bus.keyName}"></h:outputText>
+							value="Выбрать..."/>
+						<h:outputText value="#{raceEditWFControl.edited.bus.keyName}"/>
 						<p:commandButton rendered="#{!empty raceEditWFControl.edited.bus}"
 							value="Ред."
-							action="#{raceEditWFControl.busTempliteMasterEdit()}"></p:commandButton>
+							action="#{raceEditWFControl.busTempliteMasterEdit()}"/>
 					</h:panelGroup>
 
-					<h:outputText value="Маршрут"></h:outputText>
+					<h:outputText value="Маршрут"/>
 					<h:panelGroup>
 						<p:commandButton action="#{raceEditWFControl.selectBusRoute}"
-							value="Выбрать..."></p:commandButton>
-						<h:outputText value="#{raceEditWFControl.edited.busRoute.keyName}"></h:outputText>
+							value="Выбрать..."/>
+						<h:outputText value="#{raceEditWFControl.edited.busRoute.keyName}"/>
 					</h:panelGroup>
 
 

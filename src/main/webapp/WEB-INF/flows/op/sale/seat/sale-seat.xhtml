@@ -38,13 +38,13 @@
 
 			<p:panel header="Детально:">
 				<h:panelGrid columns="2">
-					<h:outputText value="Клиент"></h:outputText>
+					<h:outputText value="Клиент"/>
 					<h:panelGrid columns="2">
-						<p:commandButton value="Выбрать" action="selectCustomer"></p:commandButton>
+						<p:commandButton value="Выбрать" action="selectCustomer"/>
 						<h:outputText
 							rendered="#{!empty oPSaleSeatWFControl.order.customer}"
 							value="#{oPSaleSeatWFControl.order.customer.keyName} 
-							- #{oPSaleSeatWFControl.order.customer.fName} #{oPSaleSeatWFControl.order.customer.nName} #{oPSaleSeatWFControl.order.customer.mName}"></h:outputText>
+							- #{oPSaleSeatWFControl.order.customer.fName} #{oPSaleSeatWFControl.order.customer.nName} #{oPSaleSeatWFControl.order.customer.mName}"/>
 					</h:panelGrid>
 
 					<h:outputText value="Цена:"/>
@@ -73,7 +73,7 @@
 					</h:panelGroup>
 
 
-					<h:outputText value="Остановка отправления:"></h:outputText>
+					<h:outputText value="Остановка отправления:"/>
 					<p:selectOneMenu value="#{oPSaleSeatWFControl.busRouteStopAId}"
 						rendered="true" required="true"
 						requiredMessage="Необходимо указать остановку отправления">
@@ -85,7 +85,7 @@
 							listener="#{oPSaleSeatWFControl.initStops}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Остановка прибытия:"></h:outputText>
+					<h:outputText value="Остановка прибытия:"/>
 					<p:selectOneMenu value="#{oPSaleSeatWFControl.busRouteStopBId}"
 						rendered="true" required="true"
 						requiredMessage="Необходимо указать остановку прибытия">
@@ -106,7 +106,7 @@
 
 					<pk:pk_close_button action="end" />
 					<p:commandButton action="#{oPSaleSeatWFControl.qSaleSeat}"
-						value="Продать"></p:commandButton>
+						value="Продать"/>
 				</h:panelGrid>
 			</p:panel>
 

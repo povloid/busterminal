@@ -31,16 +31,16 @@
 			<p:panel header="Параметры запроса">
 
 				<h:panelGrid columns="2">
-					<h:outputText value="Рейс:"></h:outputText>
+					<h:outputText value="Рейс:"/>
 					<h:panelGrid columns="2">
 						<h:outputText
-							value="#{rPTDriverForm1WFControl.race.id} #{rPTDriverForm1WFControl.race.dTime} #{rPTDriverForm1WFControl.race.busRoute.keyName}"></h:outputText>
-						<p:commandButton value="Выбрать" action="selectRace"></p:commandButton>
+							value="#{rPTDriverForm1WFControl.race.id} #{rPTDriverForm1WFControl.race.dTime} #{rPTDriverForm1WFControl.race.busRoute.keyName}"/>
+						<p:commandButton value="Выбрать" action="selectRace"/>
 					</h:panelGrid>
 				</h:panelGrid>
 
 				<p:commandButton value="Сформировать"
-					action="#{rPTDriverForm1WFControl.makeReport}"></p:commandButton>
+					action="#{rPTDriverForm1WFControl.makeReport}"/>
 
 			</p:panel>
 

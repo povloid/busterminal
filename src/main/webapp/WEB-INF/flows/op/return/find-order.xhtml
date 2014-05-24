@@ -30,10 +30,10 @@
 
 			<p:panel header="Поиск ордера:">
 				<h:panelGrid columns="3">
-					<h:outputText value="Ордер №"></h:outputText>
+					<h:outputText value="Ордер №"/>
 					<p:spinner min="0" value="#{oPReturnWFControl.orderId}"></p:spinner>
 					<p:commandButton action="#{oPReturnWFControl.findOrder}"
-						ajax="false" value="Поиск"></p:commandButton>
+						ajax="false" value="Поиск"/>
 				</h:panelGrid>
 
 
@@ -46,7 +46,7 @@
 
 					<h:panelGrid columns="2"
 						rendered="#{!empty oPReturnWFControl.order}">
-						<h:outputText value="Ордер №"></h:outputText>
+						<h:outputText value="Ордер №"/>
 						<p:inputTextarea readonly="#{del}"
 							value="#{oPReturnWFControl.retOrder.description}"
 							style="width:300px;height:100px;" title="Description" />

@@ -56,6 +56,12 @@ public class Race implements Serializable {
 	private Bus bus;
 
 	private Boolean block;
+	
+	private Boolean autoUnblocked;
+	private Integer autoUnblockedBefore;
+	
+	private Boolean autoBlocked;
+	private Integer autoBlockedBefore;
 
 	/**
 	 * Проверка
@@ -128,6 +134,38 @@ public class Race implements Serializable {
 
 	public void setBlock(Boolean block) {
 		this.block = block;
+	}
+	
+	public Boolean getAutoUnblocked() {
+		return autoUnblocked;
+	}
+
+	public void setAutoUnblocked(Boolean autoUnblocked) {
+		this.autoUnblocked = autoUnblocked;
+	}
+
+	public Integer getAutoUnblockedBefore() {
+		return autoUnblockedBefore;
+	}
+
+	public void setAutoUnblockedBefore(Integer autoUnblockedBefore) {
+		this.autoUnblockedBefore = autoUnblockedBefore;
+	}
+	
+	public Boolean getAutoBlocked() {
+		return autoBlocked;
+	}
+
+	public void setAutoBlocked(Boolean autoBlocked) {
+		this.autoBlocked = autoBlocked;
+	}
+
+	public Integer getAutoBlockedBefore() {
+		return autoBlockedBefore;
+	}
+
+	public void setAutoBlockedBefore(Integer autoBlockedBefore) {
+		this.autoBlockedBefore = autoBlockedBefore;
 	}
 
 	@Override

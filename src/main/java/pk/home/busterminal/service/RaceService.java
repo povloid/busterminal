@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -513,6 +514,26 @@ public class RaceService extends ABaseService<Race> {
 	}
 	
 	
+	
+	/**
+	 * Block work.
+	 * 
+	 * Выполнение блокирования и разблокирования
+	 *
+	 * @throws Exception the exception
+	 */
+	@Scheduled(cron="0 * * * * *")
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void blockWork () throws Exception {
+		System.out.println("RUN BLOCK WORK:");
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
