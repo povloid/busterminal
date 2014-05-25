@@ -554,21 +554,21 @@ public class RaceService extends ABaseService<Race> {
 		Collection<Race> races = raceDAO.getAllEntities(true, 0, 0,
 				Race_.id, SortOrderType.ASC, cb, cq, t);
 		
-		LOG.info(races.size());
+		LOG.info("Selected races: " + races.size());
 		
 		for(Race race: races){
 			
 			Date ubt = race.getAutoUnblockedBeforeTime();
 			Date bt = race.getAutoBlockedBeforeTime();
-						
-			LOG.info(race.getId() + "[" + race.getdTime() + "] " 
-			+  " -UBT-> " + ubt + " -BT-> " + bt); 
-			
+									
 			if (race.getAutoUnblocked() != null 
 					&& race.getAutoUnblocked() 
 					&& ubt != null 
 					&& currentTime.compareTo(ubt) >= 0) {
-				LOG.info(">>> Selected race for unblock: " + race);
+				
+				LOG.info(">>> Selected race for unblock: " + race);				
+				LOG.info(">>>" + race.getId() + "[" + race.getdTime() + "] " 
+						+  " -UBT-> " + ubt + " -BT-> " + bt); 
 				
 				if(race.getBlock() != null && race.getBlock()){
 					race.setBlock(false);
@@ -595,7 +595,10 @@ public class RaceService extends ABaseService<Race> {
 					&& !race.getBlock() 
 					&& bt != null 
 					&& currentTime.compareTo(bt) >= 0) {
+				
 				LOG.info(">>> Selected race block: " + race);
+				LOG.info(">>>" + race.getId() + "[" + race.getdTime() + "] " 
+						+  " -UBT-> " + ubt + " -BT-> " + bt); 
 				
 				race.setBlock(true);
 				persist(race);		
