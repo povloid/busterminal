@@ -565,15 +565,15 @@ public class RaceService extends ABaseService<Race> {
 			+  " -UBT-> " + ubt + " -BT-> " + bt); 
 			
 			if (race.getAutoUnblocked() != null 
-					&& race.getAutoUnblocked()
-					&& race.getBlock() != null
-					&& race.getBlock() 
+					&& race.getAutoUnblocked() 
 					&& ubt != null 
 					&& currentTime.compareTo(ubt) >= 0) {
 				LOG.info(">>> Selected race for unblock: " + race);
 				
-				race.setBlock(false);
-				persist(race);
+				if(race.getBlock() != null && race.getBlock()){
+					race.setBlock(false);
+					persist(race);
+				}
 				
 				for(Schema schema :race.getBus().getSchemas())
 					for(Seat seat: schema.getSeats())
