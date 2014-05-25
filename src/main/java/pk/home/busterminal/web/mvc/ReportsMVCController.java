@@ -96,7 +96,6 @@ public final class ReportsMVCController {
 		parameterMap.put("capton_params", "Privet - Привет");
 
 		List<String> list = new ArrayList<String>();
-		list.add("2222222");
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
 		parameterMap.put("datasource", JRdataSource);
 
@@ -115,7 +114,6 @@ public final class ReportsMVCController {
 		parameterMap.put("format", "xls");
 
 		List<String> list = new ArrayList<String>();
-		list.add("2222222");
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
 		parameterMap.put("datasource", JRdataSource);
 
@@ -132,7 +130,6 @@ public final class ReportsMVCController {
 		parameterMap.put("format", "html");
 
 		List<String> list = new ArrayList<String>();
-		list.add("2222222");
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
 		parameterMap.put("datasource", JRdataSource);
 
@@ -348,11 +345,15 @@ public final class ReportsMVCController {
 
 	private ClassPathResource resourceDrive_report_form1 = new ClassPathResource(
 			"reports/drive_report_form1.jrxml");
+	
+	private ClassPathResource resourceDrive_report_form1_1 = new ClassPathResource(
+			"reports/drive_report_form1_1.jrxml");
 
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
 	private JasperReport driver_form2Report;
 	private JasperReport driver_form1Report;
+	private JasperReport driver_form1_1Report;
 	private JasperReport division_balance1Report;
 
 	{
@@ -424,6 +425,11 @@ public final class ReportsMVCController {
 			driver_form1Report = JasperCompileManager
 					.compileReport(resourceDrive_report_form1.getFile()
 							.getAbsolutePath());
+			
+			driver_form1_1Report = JasperCompileManager
+					.compileReport(resourceDrive_report_form1_1.getFile()
+							.getAbsolutePath());
+			
 
 			division_balance1Report = JasperCompileManager
 					.compileReport(resourceDivision_balance1Report.getFile()
@@ -605,6 +611,48 @@ public final class ReportsMVCController {
 		// OUT
 		renderReport(format, "drive_report_form1_race_" + id,
 				driver_form1Report, parameterMap, JRdataSource, request,
+				response);
+
+	}
+	
+	/**
+	 * Отчет водителя - форма 1.1
+	 * 
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/driver_form1_1/{id:.*}/{file:.*}", method = RequestMethod.GET)
+	public void generateDrive_report_form1_1(@PathVariable Long id,
+			@PathVariable String file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		Race race = raceService.find(id);
+
+		// Параметры отчета
+		// Формат вывода
+		String format = file.substring(file.lastIndexOf(".") + 1);
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", format);
+
+		parameterMap.put("CAPTION_PARAMETR", "Рейс №" + race.getId()
+				+ " по маршруту " + race.getBusRoute().getKeyName()
+				+ " время: " + dateFormatFullTime.format(race.getdTime()));
+
+		// Формирование набора данных
+		List<FindOrdersOrderByBusRouteStopsResult> list = orderService
+				.findOrdersOrderByBusRouteStops(race);
+
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+
+		// Compile the report
+		// OUT
+		renderReport(format, "drive_report_form1_1_race_" + id,
+				driver_form1_1Report, parameterMap, JRdataSource, request,
 				response);
 
 	}

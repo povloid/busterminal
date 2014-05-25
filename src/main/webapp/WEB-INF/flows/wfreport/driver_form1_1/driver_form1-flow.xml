@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="driver_form1">
+
+	<secured attributes="ROLE_REPORTS_DRIVER_FORM1" />
+
+	<var name="rPTDriverForm1WFControl"
+		class="pk.home.busterminal.web.jsf.webflow.RPTDriverForm1WFControl" />
+
+	<view-state id="driver_form1">
+
+		<transition on="selectRace" to="selectRace"></transition>
+		
+		<transition on="makeReport" to="driver_form1"></transition>
+		
+		<transition on-exception="java.lang.Exception" to="driver_form1" />
+	</view-state>
+
+
+	<subflow-state id="selectRace" subflow="race/selectOne">
+		<transition to="driver_form1">
+			<evaluate
+				expression="rPTDriverForm1WFControl.setRaceId(currentEvent.attributes.selectedId)" />
+		</transition>
+		<transition on-exception="java.lang.Exception" to="driver_form1" />
+	</subflow-state>
+</flow>
