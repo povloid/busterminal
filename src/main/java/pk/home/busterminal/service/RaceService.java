@@ -1,6 +1,7 @@
 package pk.home.busterminal.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ import pk.home.busterminal.domain.BusRoute_;
 import pk.home.busterminal.domain.Items;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
+import pk.home.busterminal.domain.Schema;
+import pk.home.busterminal.domain.Seat;
 import pk.home.libs.combine.dao.ABaseDAO;
 import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.service.ABaseService;
@@ -41,8 +45,13 @@ import pk.home.libs.combine.service.ABaseService;
 @Transactional
 public class RaceService extends ABaseService<Race> {
 
+	private static final Logger LOG = Logger.getLogger(ABaseService.class);
+	
 	@Autowired
 	private RaceDAO raceDAO;
+	
+	@Autowired
+	private SeatService seatService;
 
 	@Autowired
 	private BusService busService;
@@ -522,17 +531,77 @@ public class RaceService extends ABaseService<Race> {
 	 *
 	 * @throws Exception the exception
 	 */
-	@Scheduled(cron="0 * * * * *")
+	@Scheduled(cron="* 0 * * * *")
 	@ExceptionHandler(Exception.class)
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void blockWork () throws Exception {
-		System.out.println("RUN BLOCK WORK:");
+	public void autoBlockUnblockWork () throws Exception {
+		LOG.info("RUN BLOCK WORK:");
+		
+		//int h = 1000 * 60 * 60;
+		Date currentTime = new Date();
+		//long currentTimeAsLong = currentTime.getTime();
 		
 		
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Race> cq = cb.createQuery(Race.class);
+		Root<Race> t = cq.from(Race.class);
+
+		// parent param ---------------------------------------
+		cq.where(cb.greaterThanOrEqualTo(t.get(Race_.dTime), currentTime));
+		//cq.where(cb.equal(t.get(Race_.busRoute), busRoute));
+	
+		Collection<Race> races = raceDAO.getAllEntities(true, 0, 0,
+				Race_.id, SortOrderType.ASC, cb, cq, t);
 		
+		LOG.info(races.size());
 		
-		
-		
+		for(Race race: races){
+			
+			Date ubt = race.getAutoUnblockedBeforeTime();
+			Date bt = race.getAutoBlockedBeforeTime();
+						
+			LOG.info(race.getId() + "[" + race.getdTime() + "] " 
+			+  " -UBT-> " + ubt + " -BT-> " + bt); 
+			
+			if (race.getAutoUnblocked() != null 
+					&& race.getAutoUnblocked()
+					&& race.getBlock() != null
+					&& race.getBlock() 
+					&& ubt != null 
+					&& currentTime.compareTo(ubt) >= 0) {
+				LOG.info(">>> Selected race for unblock: " + race);
+				
+				race.setBlock(false);
+				persist(race);
+				
+				for(Schema schema :race.getBus().getSchemas())
+					for(Seat seat: schema.getSeats())
+						if(seat.getCanAutoUnblocked() != null 
+								&& seat.getCanAutoUnblocked()
+								&& seat.getBlock() != null
+								&& seat.getBlock()){
+							
+							LOG.info(">>> Selected seat for unblock: " + seat.getNum());
+							
+							seat.setBlock(false);
+							seatService.persist(seat);
+						}
+			}
+			
+			if (race.getAutoBlocked() != null 
+					&& race.getAutoBlocked()
+					&& race.getBlock() != null
+					&& !race.getBlock() 
+					&& bt != null 
+					&& currentTime.compareTo(bt) >= 0) {
+				LOG.info(">>> Selected race block: " + race);
+				
+				race.setBlock(true);
+				persist(race);		
+			}
+			
+		}		
 	}
 	
 	

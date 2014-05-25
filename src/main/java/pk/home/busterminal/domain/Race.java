@@ -62,6 +62,35 @@ public class Race implements Serializable {
 	
 	private Boolean autoBlocked;
 	private Integer autoBlockedBefore;
+	
+	
+	/**
+	 * Gets the auto unblocked before time.
+	 *
+	 * @return the auto unblocked before time
+	 */
+	public Date getAutoUnblockedBeforeTime() {
+		if (autoUnblocked != null && autoUnblocked
+				&& autoUnblockedBefore != null)
+			return new Date(dTime.getTime()
+					- (1000L * 60L * 60L * autoUnblockedBefore));
+		else
+			return null;
+	}
+	
+	/**
+	 * Gets the auto blocked before time.
+	 *
+	 * @return the auto blocked before time
+	 */
+	public Date getAutoBlockedBeforeTime() {
+		if (autoBlocked != null && autoBlocked
+				&& autoBlockedBefore != null)
+			return new Date(dTime.getTime()
+					- (1000L * 60L * 60L * autoBlockedBefore));
+		else
+			return null;
+	}
 
 	/**
 	 * Проверка
@@ -75,6 +104,11 @@ public class Race implements Serializable {
 			throw new Exception("В рейсе должен быть рабочий вариант шаблона");
 		}
 	}
+	
+	
+	
+	
+	
 
 	public Race() {
 		super();
