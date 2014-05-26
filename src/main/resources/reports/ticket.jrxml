@@ -283,7 +283,7 @@
 				<text><![CDATA[дата:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="7886dcf0-95c0-4339-8c9a-721f55aafd1e" x="0" y="157" width="336" height="88"/>
+				<reportElement uuid="7886dcf0-95c0-4339-8c9a-721f55aafd1e" x="0" y="157" width="336" height="59"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineStyle="Dotted"/>
 					<topPen lineWidth="0.25" lineStyle="Dotted"/>
@@ -292,7 +292,7 @@
 					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
 				</box>
 				<textElement verticalAlignment="Top">
-					<font fontName="DejaVu Sans Mono" size="7"/>
+					<font fontName="DejaVu Sans Mono" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Пассажир обязан прибыть к месту отправления автобуса не позднее, чем за 30 минут до времени отъезда, указанного в билете. Посадка/высадка  производится строго по указанным данным в билете. Все пассажиры должны иметь при себе соответствующие документы для прохождения границы. В случае опоздания на посадку билет аннулируется, стоимость не возмещается. Отказ от поездки менее чем за 7 календарных дней до поездки 50 % от стоимости билета, менее чем за 3 календарных дня 100 % от стоимости билета."]]></textFieldExpression>
 			</textField>
@@ -359,6 +359,20 @@
 				</textElement>
 				<text><![CDATA[Автоматизация бизнеса от politrend.kz +7 7262 517002]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="cdef5f39-fcf8-43bb-acba-f6fd44093d20" x="0" y="216" width="336" height="31"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans Mono" size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ТОО 'Туристская компания New Voyage' адрес: РК, город Тараз, пр-т Абая 129 www.vta.kz       e-mail:517102@mail.ru тел: +7 (7262)517102, Настя +7 775 4767569, Юрий +7 7019938400"]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
