@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents">
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
+	xmlns:sec="http://www.springframework.org/security/tags">
 
 <ui:composition template="/WEB-INF/templites/templite.xhtml">
 	<ui:define name="title">
@@ -45,8 +46,10 @@
 					<p:inputTextarea value="#{seatOPBlockWFControl.seat.blockDescription}"
 						style="width:300px;height:100px;" title="Причина блокировки"/>
 						
-					<h:outputText value="Может быть авторазблокировано"/>
-					<p:selectBooleanCheckbox value="#{seatOPBlockWFControl.seat.canAutoUnblocked}" />
+				    <sec:authorize ifAnyGranted="ROLE_BLOCKER_SET_AUTOUNBLOCK">
+						<h:outputText value="Может быть авторазблокировано"/>
+						<p:selectBooleanCheckbox value="#{seatOPBlockWFControl.seat.canAutoUnblocked}" />
+					</sec:authorize>
 					
 				</h:panelGrid>
 

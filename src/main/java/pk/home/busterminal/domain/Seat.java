@@ -135,7 +135,7 @@ public class Seat implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date blockDate;
 	
-	private Boolean canAutoUnblocked;
+	private Boolean canAutoUnblocked = true;
 
 	public Long getId() {
 		return id;
