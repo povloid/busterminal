@@ -197,6 +197,15 @@
 							</sec:authorize>
 						</p:submenu>
 					</sec:authorize>
+					
+					<sec:authorize ifAnyGranted="ROLE_REPORTS_CONGESTION_RACES">
+						<p:submenu label="Рейсы">
+							<sec:authorize ifAnyGranted="ROLE_REPORTS_CONGESTION_RACES">
+								<p:menuitem value="Загруженность"
+									icon="ui-icon docs16" url="/mvc/wfreport/congestion_races" />
+							</sec:authorize>
+						</p:submenu>
+					</sec:authorize>
 
 
 				</p:column>

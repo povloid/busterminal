@@ -252,6 +252,34 @@ public class RaceService extends ABaseService<Race> {
 	public static final int DAY = 1000 * 60 * 60 * 24;
 
 	/**
+	 * Список рейсов по дате
+	 * 
+	 * @param bDate
+	 * @param eDate
+	 * @param orderByAttribute
+	 * @param sortOrder
+	 * @return
+	 * @throws Exception
+	 */
+	@ExceptionHandler(Exception.class)
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List<Race> selectRacesBetweenTwoDates(Date bDate, Date eDate, 			
+			SingularAttribute<Race, ?> orderByAttribute, SortOrderType sortOrder)
+			throws Exception {
+
+		CriteriaBuilder cb = raceDAO.getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Race> cq = cb.createQuery(Race.class);
+		Root<Race> t = cq.from(Race.class);
+		
+		cq.where(cb.between(t.get(Race_.dTime), bDate, eDate));
+		
+		return raceDAO.getAllEntities(true, -1, -1,	orderByAttribute, sortOrder, cb, cq, t);
+	}
+	
+	
+	
+	/**
 	 * поиск рейсов
 	 * 
 	 * @param busRoute

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="congestion_races_form">
+
+	<secured attributes="ROLE_REPORTS_CONGESTION_RACES" />
+
+	<var name="rPTCongestionRacesFormWFControl"
+		class="pk.home.busterminal.web.jsf.webflow.RPTCongestionRacesFormWFControl" />
+
+	<view-state id="congestion_races_form">
+		
+		<transition on="makeReport" to="congestion_races_form"></transition>
+		
+		<transition on-exception="java.lang.Exception" to="division_balance_f1" />
+	</view-state>
+
+</flow>

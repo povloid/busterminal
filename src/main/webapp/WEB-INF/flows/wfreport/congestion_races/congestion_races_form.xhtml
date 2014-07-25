@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pk="http://java.sun.com/jsf/composite/pkomponents"
+	xmlns:bt="http://java.sun.com/jsf/composite/busterminal">
+
+<ui:composition template="/WEB-INF/templites/templite.xhtml">
+	<ui:define name="title">
+        Отчет по операциям (форма 1)
+    </ui:define>
+
+	<ui:define name="header_icon">
+		<img src="#{request.contextPath}/images/icons/docs_24.png"></img>
+	</ui:define>
+
+	<ui:define name="header">
+        Отчет по операциям (форма 1) 
+    </ui:define>
+
+	<ui:define name="content">
+
+		<script language="javascript">
+			PrimeFaces.locales['ru'] = {
+				closeText : 'Закрыть',
+				prevText : 'Назад',
+				nextText : 'Вперёд',
+				monthNames : [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май',
+						'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь',
+						'Ноябрь', 'Декабрь' ],
+				monthNamesShort : [ 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+						'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+				dayNames : [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
+						'Четверг', 'Пятница', 'Субота' ],
+				dayNamesShort : [ 'Воск', 'Пон', 'Вт', 'Ср', 'Четв', 'Пят',
+						'Суб' ],
+				dayNamesMin : [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
+				weekHeader : 'Неделя',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Только время',
+				timeText : 'Время',
+				hourText : 'Час',
+				minuteText : 'Минута',
+				secondText : 'Секунда',
+				currentText : 'Сегодня',
+				ampm : false,
+				month : 'Месяц',
+				week : 'неделя',
+				day : 'День',
+				allDayText : 'Весь день'
+			};
+		</script>
+
+		<h:form>
+			<p:growl id="msgs" showDetail="true" />
+			<p:messages showDetail="true" autoUpdate="true" />
+
+			<p:panel header="Параметры запроса">
+
+				<h:panelGrid columns="2">
+
+					<h:outputText value="Начальная дата:"/>
+					<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
+						showButtonPanel="true" navigator="true"
+						value="#{rPTCongestionRacesFormWFControl.bDate}">
+					</p:calendar>
+
+					<h:outputText value="Конечная дата:"/>
+					<p:calendar pattern="dd.MM.yyyy" locale="ru" showOn="button"
+						showButtonPanel="true" navigator="true"
+						value="#{rPTCongestionRacesFormWFControl.eDate}">
+					</p:calendar>
+
+
+				</h:panelGrid>
+
+				<p:commandButton value="Сформировать"
+					action="#{rPTCongestionRacesFormWFControl.makeReport}"/>
+
+			</p:panel>
+
+			<h:panelGroup
+				rendered="#{rPTCongestionRacesFormWFControl.purl != null}">
+				<bt:report report="races_congestion"
+					purl="#{rPTCongestionRacesFormWFControl.purl}"
+					filename="#{rPTDivisionBalanceF1WFControl.filename}" />
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
+        
+    </ui:define>
+</ui:composition>
+</html>

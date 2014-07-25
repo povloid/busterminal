@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,15 +47,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pk.home.busterminal.application.Config;
+import pk.home.busterminal.domain.BusRoute_;
 import pk.home.busterminal.domain.Division;
 import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Race;
+import pk.home.busterminal.domain.Race_;
 import pk.home.busterminal.service.BalanceService;
 import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.OrderService;
 import pk.home.busterminal.service.RaceService;
 import pk.home.busterminal.service.OrderService.FindOrdersOrderByBusRouteStopsResult;
+import pk.home.libs.combine.dao.ABaseDAO.SortOrderType;
 import pk.home.libs.combine.fileutils.FileUtils;
 
 /**
@@ -348,13 +354,17 @@ public final class ReportsMVCController {
 	
 	private ClassPathResource resourceDrive_report_form1_1 = new ClassPathResource(
 			"reports/drive_report_form1_1.jrxml");
+	
+	private ClassPathResource resourceCongestionRaces = new ClassPathResource(
+			"reports/congestion_races.jrxml");
 
 	private JasperReport orderReport;
 	private JasperReport ticketReport;
 	private JasperReport driver_form2Report;
 	private JasperReport driver_form1Report;
 	private JasperReport driver_form1_1Report;
-	private JasperReport division_balance1Report;
+	private JasperReport division_balance1Report;	
+	private JasperReport congestionRacesReport;
 
 	{
 
@@ -433,6 +443,10 @@ public final class ReportsMVCController {
 
 			division_balance1Report = JasperCompileManager
 					.compileReport(resourceDivision_balance1Report.getFile()
+							.getAbsolutePath());
+			
+			congestionRacesReport = JasperCompileManager
+					.compileReport(resourceCongestionRaces.getFile()
 							.getAbsolutePath());
 
 		} catch (JRException e) {
@@ -719,5 +733,51 @@ public final class ReportsMVCController {
 				division_balance1Report, parameterMap, JRdataSource, request,
 				response);
 	}
+	
+	
+	
+	/**
+	 * Загруженность рейсов
+	 * 
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/races_congestion/{bdatel:.*}/{edatel:.*}/{file:.*}", method = RequestMethod.GET)
+	public void racesCongestion(@PathVariable Long bdatel, @PathVariable Long edatel,
+			@PathVariable String file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+				
+		//Date bDate = new Date(bdatel);
+		//Date eDate = new Date(edatel);
+		
+		Date bDate = new Date();
+		Date eDate = new Date(bDate.getTime() + (1000 * 60 * 60 * 24 * 20));
+								
+		List<Race> list = raceService.selectRacesBetweenTwoDates(bDate, eDate, Race_.dTime, SortOrderType.ASC);
+		
+		System.out.println(list.size());
+		
+		// Параметры отчета
+		// Формат вывода
+		String format = file.substring(file.lastIndexOf(".") + 1);
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("format", format);
+		
+		parameterMap.put("CAPTION_PARAMETR", "За период "				
+				+ dateFormatShortDate.format(bDate) + " до "
+				+ dateFormatShortDate.format(eDate));
+		
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(list);
+		parameterMap.put("datasource", JRdataSource);
+				
+		renderReport(format, "congestionRaces", congestionRacesReport , parameterMap,
+				JRdataSource, request, response);
+	}
+	
+	
 
 }
