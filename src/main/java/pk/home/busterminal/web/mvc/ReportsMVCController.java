@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -53,6 +54,8 @@ import pk.home.busterminal.domain.Order;
 import pk.home.busterminal.domain.OrderType;
 import pk.home.busterminal.domain.Race;
 import pk.home.busterminal.domain.Race_;
+import pk.home.busterminal.domain.Schema;
+import pk.home.busterminal.domain.Seat;
 import pk.home.busterminal.service.BalanceService;
 import pk.home.busterminal.service.DivisionService;
 import pk.home.busterminal.service.OrderService;
@@ -735,6 +738,45 @@ public final class ReportsMVCController {
 	}
 	
 	
+	abstract class RaceWithData implements Serializable{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		private Race race;
+		private Object[] calcData; 
+		
+		public RaceWithData() {
+			super();
+		}
+		
+		public RaceWithData(Race race) {
+			super();
+			
+			this.race = race;
+			this.calcData = calculate(race);			
+		}
+
+		protected abstract Object[] calculate(Race race);
+
+		public Race getRace() {
+			return race;
+		}
+
+		public void setRace(Race race) {
+			this.race = race;
+		}
+
+		public Object[] getCalcData() {
+			return calcData;
+		}
+
+		public void setCalcData(Object[] calcData) {
+			this.calcData = calcData;
+		}
+	}
 	
 	/**
 	 * Загруженность рейсов
@@ -756,9 +798,40 @@ public final class ReportsMVCController {
 		Date bDate = new Date();
 		Date eDate = new Date(bDate.getTime() + (1000 * 60 * 60 * 24 * 20));
 								
-		List<Race> list = raceService.selectRacesBetweenTwoDates(bDate, eDate, Race_.dTime, SortOrderType.ASC);
+		List<Race> list = raceService.selectRacesBetweenTwoDates(bDate, eDate, Race_.dTime, SortOrderType.ASC);		
 		
 		System.out.println(list.size());
+		
+		List<RaceWithData> list2 = new ArrayList<ReportsMVCController.RaceWithData>();
+		for(Race r: list)
+			list2.add(new RaceWithData(r) {
+				
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;				
+
+				@Override
+				protected Object[] calculate(Race race) {
+															
+					for(Schema s: race.getBus().getSchemas()){
+						
+						for(Seat st: s.getSeats())
+							if(st.getSeatType().getSold()){
+								
+							}												
+						
+					}
+					
+					Object[] d = new Object[4];
+					
+					return null;
+				}
+			});
+			
+			
+		
+		
 		
 		// Параметры отчета
 		// Формат вывода
