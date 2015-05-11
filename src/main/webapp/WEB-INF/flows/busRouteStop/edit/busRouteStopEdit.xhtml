@@ -36,6 +36,10 @@
 					<h:outputText value="#{busRouteStopEditWFControl.edited.id}"
 						rendered="#{busRouteStopEditWFControl.edited.id != null}" />
 
+					
+					<h:outputLabel value="Порядок:" />
+					<p:spinner min="0" value="#{busRouteStopEditWFControl.edited.orId}"></p:spinner>
+
 					<h:outputLabel value="Добавочное время:" />
 					<h:panelGroup>
 						<h:outputText value="суток "/>

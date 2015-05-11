@@ -41,7 +41,8 @@ public class BusRoute implements Serializable {
 	private String description;
 
 	@OneToMany(mappedBy = "busRoute", fetch = FetchType.LAZY)
-	@OrderColumn(name="orId")
+	//@OrderColumn(name="orId")
+	@OrderBy(value="orId")
 	private List<BusRouteStop> busRouteStops;
 
 	public BusRoute() {
