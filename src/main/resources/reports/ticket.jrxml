@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="88df08fc-ff67-49d7-b638-ca91f3e0e3d1">
 	<property name="ireport.zoom" value="2.14358881000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="45"/>
+	<property name="ireport.y" value="42"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="opTime" class="java.sql.Timestamp"/>
 	<field name="description" class="java.lang.String"/>
@@ -169,14 +169,14 @@
 				<textFieldExpression><![CDATA[$F{customer.fName}+" "+$F{customer.nName}+" "+$F{customer.mName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="111" width="55" height="39" uuid="7e51132b-3efd-426e-8f59-af623b26945d"/>
+				<reportElement x="0" y="121" width="55" height="29" uuid="7e51132b-3efd-426e-8f59-af623b26945d"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[примечание:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="55" y="111" width="297" height="39" uuid="fbc72000-78f6-443a-8dcf-b130a192ff24"/>
+				<reportElement x="55" y="121" width="297" height="29" uuid="fbc72000-78f6-443a-8dcf-b130a192ff24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="7"/>
 				</textElement>
@@ -260,7 +260,7 @@
 				<text><![CDATA[Место №]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="91" width="55" height="10" uuid="6bfff718-f184-4b33-8257-0776c3988ebf"/>
+				<reportElement x="0" y="81" width="55" height="10" uuid="6bfff718-f184-4b33-8257-0776c3988ebf"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
@@ -274,14 +274,14 @@
 				<text><![CDATA[до:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="55" y="91" width="297" height="10" uuid="fc42c3fa-b0d1-4750-8b81-aadc845a4391"/>
+				<reportElement x="55" y="81" width="297" height="20" uuid="fc42c3fa-b0d1-4750-8b81-aadc845a4391"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{busRouteStopA.busStop.keyName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="55" y="101" width="297" height="10" uuid="251b0f88-5029-4a79-8631-2b1e468a04f4"/>
+				<reportElement x="55" y="101" width="297" height="20" uuid="251b0f88-5029-4a79-8631-2b1e468a04f4"/>
 				<textElement>
 					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
 				</textElement>
