@@ -54,7 +54,7 @@
 Добавить в server.xml
 
 	<Connector SSLEnabled="true" URIEncoding="UTF-8" clientAuth="false" 
-	keystoreFile="${user.home}/.keystore" keystorePass="paradox#65535" 
+	keystoreFile="${user.home}/.keystore" keystorePass="password" 
 	maxThreads="200" port="8443" scheme="https" secure="true" sslProtocol="TLS"/>
 
 
