@@ -1,3 +1,12 @@
+# Система для автоматизации продажи пассажирских билетов на автобусы (автоматизация транспортных пассажирских перевозок).
+
+## Как пользоваться (видеоинструкция)
+[![Видеоинструкция](https://img.youtube.com/vi/E-VcN4te_Tc/0.jpg)](https://youtu.be/E-VcN4te_Tc?feature=shared)
+
+## Как устанавливать
+
+Устанавливается как обычное приложение для java веб контейнера (например Apache Tomcat).
+
 Опции web.xml:
 
 	<!-- 
@@ -22,29 +31,22 @@
 	</context-param> -->
 	
 	
-	
-	
-
 	<!-- Надо добавить в context.xml -->
 
 	<!--<Parameter name="javax.faces.PROJECT_STAGE" value="Development" override="false"/> 
-		<Parameter name="javax.faces.FACELETS_REFRESH_PERIOD" value="1" override="false"/> 
-		<Parameter name="spring.profiles.default" value="Prod" override="false"/> -->
+	<Parameter name="javax.faces.FACELETS_REFRESH_PERIOD" value="1" override="false"/> 
+	<Parameter name="spring.profiles.default" value="Prod" override="false"/> -->
 
 
 Готовый шаблон добавить в context.xml:
 
 	<!-- ************************************************************** -->
 	 
-	 <Parameter name="javax.faces.PROJECT_STAGE" value="Development"
-         override="false"/>
-     <Parameter name="javax.faces.FACELETS_REFRESH_PERIOD" value="1"
-         override="false"/>
-     <Parameter name="spring.profiles.default" value="Dev"
-         override="false"/>
+      	<Parameter name="javax.faces.PROJECT_STAGE" value="Development" override="false"/>
+     	<Parameter name="javax.faces.FACELETS_REFRESH_PERIOD" value="1" override="false"/>
+     	<Parameter name="spring.profiles.default" value="Dev" override="false"/>
 
 	<!-- ************************************************************** -->
-
 		
 Опции запуска сервера:
 
